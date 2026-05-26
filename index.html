@@ -148,6 +148,12 @@
       color: var(--clr-white);
       letter-spacing: -.02em;
     }
+    .nav__logo-img {
+      height: 48px;
+      width: 48px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
     .nav__logo-mark {
       width: 36px; height: 36px;
       background: linear-gradient(135deg, var(--clr-teal), var(--clr-gold));
@@ -223,12 +229,40 @@
     .nav__mobile a:last-child { border: none; }
     .nav__mobile a:hover { color: var(--clr-teal); }
 
+    /* ── HERO BANNER LOGO ── */
+    .hero__banner-logo {
+      display: flex;
+      justify-content: center;
+      padding: 100px 24px 0;
+      position: relative;
+      z-index: 1;
+    }
+    .hero__banner-logo img {
+      max-width: 520px;
+      width: 100%;
+      height: auto;
+    }
+    .hero__inspired-callout {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 760px;
+      margin: 32px auto 0;
+      padding: 0 24px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+      font-style: italic;
+      color: rgba(255,255,255,.85);
+      line-height: 1.65;
+    }
+
     /* ── HERO ── */
     .hero {
       position: relative;
       min-height: 100svh;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: stretch;
       overflow: hidden;
       background: var(--clr-navy);
     }
@@ -253,7 +287,7 @@
       z-index: 1;
       max-width: var(--max-w);
       margin-inline: auto;
-      padding: 120px 24px 80px;
+      padding: 48px 24px 80px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 60px;
@@ -973,9 +1007,13 @@
       .nav__links { display: none; }
       .nav__hamburger { display: flex; }
 
+      .hero__banner-logo { padding-top: 80px; }
+      .hero__banner-logo img { max-width: 320px; }
+      .hero__inspired-callout { font-size: 1rem; }
+
       .hero__content {
         grid-template-columns: 1fr;
-        padding-top: 100px;
+        padding-top: 32px;
         gap: 40px;
       }
       .hero__subtitle { max-width: 100%; }
@@ -1012,7 +1050,7 @@
   <nav class="nav" id="nav">
     <div class="nav__inner">
       <a href="#" class="nav__logo">
-        <div class="nav__logo-mark">IBI</div>
+        <img src="images/logo-mark.png" alt="InspiredBI Logo" class="nav__logo-img" />
         InspiredBI
       </a>
       <ul class="nav__links">
@@ -1037,6 +1075,12 @@
   <section class="hero" id="home">
     <div class="hero__bg"></div>
     <div class="hero__grid"></div>
+    <div class="hero__banner-logo">
+      <img src="images/logo-banner.png" alt="InspiredBi" />
+    </div>
+    <p class="hero__inspired-callout">
+      Who were you inspired by? Tell us your story of a great teacher or a technology that enabled you to reach your goals and dream larger goals than you first imagined.
+    </p>
     <div class="hero__content">
       <div class="hero__text">
         <div class="hero__badge">Education Meets Innovation</div>
@@ -1393,7 +1437,7 @@
       <div class="footer__top">
         <div class="footer__brand">
           <a href="#" class="nav__logo">
-            <div class="nav__logo-mark">IBI</div>
+            <img src="images/logo-mark.png" alt="InspiredBI Logo" class="nav__logo-img" />
             InspiredBI
           </a>
           <p class="footer__tagline">
