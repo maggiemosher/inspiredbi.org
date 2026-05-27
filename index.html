@@ -229,47 +229,56 @@
     .nav__mobile a:last-child { border: none; }
     .nav__mobile a:hover { color: var(--clr-teal); }
 
-    /* ── HERO BANNER LOGO ── */
-    .hero__banner-logo {
-      display: flex;
-      justify-content: center;
-      padding: 100px 24px 0;
+    /* ── INSPIRED QUOTE SECTION ── */
+    .inspired-quote {
+      padding: var(--section-pad);
+      background: linear-gradient(135deg, var(--clr-navy) 0%, #1a3a6b 100%);
       position: relative;
-      z-index: 1;
+      overflow: hidden;
+      text-align: center;
     }
-    .hero__banner-logo img {
-      max-width: 520px;
-      width: 100%;
-      height: auto;
+    .inspired-quote::before {
+      content: '\201C';
+      position: absolute;
+      top: -20px; left: 40px;
+      font-size: 20rem;
+      font-family: 'Playfair Display', serif;
+      color: rgba(8,145,178,.08);
+      line-height: 1;
+      pointer-events: none;
     }
-    /* ── HERO ICON (centered mark before callout) ── */
-    .hero__icon-mark {
-      display: flex;
-      justify-content: center;
-      padding: 24px 24px 0;
+    .inspired-quote__inner {
+      max-width: 760px;
+      margin-inline: auto;
       position: relative;
-      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
     }
-    .hero__icon-mark img {
-      height: 90px;
-      width: auto;
+    .inspired-quote__logo-wrap {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .inspired-quote__logo {
+      width: 48px;
+      height: 48px;
       object-fit: contain;
     }
-    .hero__inspired-callout {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      max-width: 660px;
-      margin: 16px auto 0;
-      padding: 0 24px;
+    .inspired-quote__text {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(.85rem, 1.5vw, 1.05rem);
-      font-style: italic;
-      color: rgba(255,255,255,.65);
-      line-height: 1.9;
+      font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+      font-weight: 700;
+      color: var(--clr-white);
+      line-height: 1.7;
     }
-    @media (max-width: 768px) {
-      .hero__icon-mark img { height: 70px; }
+    .inspired-quote__text em {
+      font-style: normal;
+      color: var(--clr-gold);
     }
 
     /* ── HERO ── */
@@ -303,7 +312,7 @@
       z-index: 1;
       max-width: var(--max-w);
       margin-inline: auto;
-      padding: 48px 24px 80px;
+      padding: 140px 24px 80px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 60px;
@@ -1023,13 +1032,9 @@
       .nav__links { display: none; }
       .nav__hamburger { display: flex; }
 
-      .hero__banner-logo { padding-top: 80px; }
-      .hero__banner-logo img { max-width: 320px; }
-      .hero__inspired-callout { font-size: 1rem; }
-
       .hero__content {
         grid-template-columns: 1fr;
-        padding-top: 32px;
+        padding-top: 110px;
         gap: 40px;
       }
       .hero__subtitle { max-width: 100%; }
@@ -1071,8 +1076,8 @@
       <ul class="nav__links">
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
-        <li><a href="#curriculum">Curriculum and Teaching Department</a></li>
         <li><a href="#impact">Impact</a></li>
+        <li><a href="https://education.ku.edu/curriculum-teaching" target="_blank" rel="noopener">KU Curriculum &amp; Teaching</a></li>
         <li><a href="#contact" class="nav__cta">Get In Touch</a></li>
       </ul>
       <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
@@ -1082,8 +1087,8 @@
     <div class="nav__mobile" id="mobileMenu">
       <a href="#about" class="mobile-link">About</a>
       <a href="#services" class="mobile-link">Services</a>
-      <a href="#curriculum" class="mobile-link">Curriculum and Teaching Department</a>
       <a href="#impact" class="mobile-link">Impact</a>
+      <a href="https://education.ku.edu/curriculum-teaching" target="_blank" rel="noopener" class="mobile-link">KU Curriculum &amp; Teaching</a>
       <a href="#contact" class="mobile-link">Get In Touch</a>
     </div>
   </nav>
@@ -1092,18 +1097,6 @@
   <section class="hero" id="home">
     <div class="hero__bg"></div>
     <div class="hero__grid"></div>
-    <div class="hero__banner-logo">
-      <img src="images/logo-banner.png" alt="InspiredBi" />
-    </div>
-    <div class="hero__icon-mark">
-      <img src="images/logo-mark.png" alt="InspiredBI icon" />
-    </div>
-    <p class="hero__inspired-callout">
-      &ldquo;Who were you inspired by?<br />
-      Tell us your story of a great teacher<br />
-      or a technology that enabled you to reach your goals<br />
-      and dream larger goals than you first imagined.&rdquo;
-    </p>
     <div class="hero__content">
       <div class="hero__text">
         <div class="hero__badge">Education Meets Innovation</div>
@@ -1181,6 +1174,21 @@
       </div>
     </div>
   </div>
+
+  <!-- INSPIRED QUOTE -->
+  <section class="inspired-quote">
+    <div class="inspired-quote__inner">
+      <div class="inspired-quote__logo-wrap">
+        <img src="images/inspiredlogoclear.png" alt="InspiredBI" class="inspired-quote__logo" />
+      </div>
+      <p class="inspired-quote__text">
+        &ldquo;Who were you inspired by?<br />
+        Tell us your story of a <em>great teacher</em><br />
+        or a technology that enabled you to reach your goals<br />
+        and dream <em>larger goals</em> than you first imagined.&rdquo;
+      </p>
+    </div>
+  </section>
 
   <!-- ABOUT -->
   <section class="about" id="about">
