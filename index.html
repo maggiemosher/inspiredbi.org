@@ -242,18 +242,34 @@
       width: 100%;
       height: auto;
     }
+    /* ── HERO ICON (centered mark before callout) ── */
+    .hero__icon-mark {
+      display: flex;
+      justify-content: center;
+      padding: 24px 24px 0;
+      position: relative;
+      z-index: 1;
+    }
+    .hero__icon-mark img {
+      height: 90px;
+      width: auto;
+      object-fit: contain;
+    }
     .hero__inspired-callout {
       position: relative;
       z-index: 1;
       text-align: center;
-      max-width: 640px;
-      margin: 20px auto 0;
+      max-width: 660px;
+      margin: 16px auto 0;
       padding: 0 24px;
       font-family: 'Playfair Display', serif;
-      font-size: clamp(.8rem, 1.4vw, 1rem);
+      font-size: clamp(.85rem, 1.5vw, 1.05rem);
       font-style: italic;
-      color: rgba(255,255,255,.6);
-      line-height: 1.6;
+      color: rgba(255,255,255,.65);
+      line-height: 1.9;
+    }
+    @media (max-width: 768px) {
+      .hero__icon-mark img { height: 70px; }
     }
 
     /* ── HERO ── */
@@ -1050,7 +1066,7 @@
   <nav class="nav" id="nav">
     <div class="nav__inner">
       <a href="#" class="nav__logo">
-        <img src="images/logo-mark.png" alt="InspiredBI Logo" class="nav__logo-img" />
+        <img src="images/logo-banner.png" alt="InspiredBI Logo" class="nav__logo-img" />
       </a>
       <ul class="nav__links">
         <li><a href="#about">About</a></li>
@@ -1079,8 +1095,14 @@
     <div class="hero__banner-logo">
       <img src="images/logo-banner.png" alt="InspiredBi" />
     </div>
+    <div class="hero__icon-mark">
+      <img src="images/logo-mark.png" alt="InspiredBI icon" />
+    </div>
     <p class="hero__inspired-callout">
-      &ldquo;Who were you inspired by? Tell us your story of a great teacher or a technology that enabled you to reach your goals and dream larger goals than you first imagined.&rdquo;
+      &ldquo;Who were you inspired by?<br />
+      Tell us your story of a great teacher<br />
+      or a technology that enabled you to reach your goals<br />
+      and dream larger goals than you first imagined.&rdquo;
     </p>
     <div class="hero__content">
       <div class="hero__text">
@@ -1487,7 +1509,7 @@
       <div class="footer__top">
         <div class="footer__brand">
           <a href="#" class="nav__logo">
-            <img src="images/logo-mark.png" alt="InspiredBI Logo" class="nav__logo-img" />
+            <img src="images/logo-banner.png" alt="InspiredBI Logo" class="nav__logo-img" />
           </a>
           <p class="footer__tagline">
             Empowering students to eagerly learn, authentically communicate,
