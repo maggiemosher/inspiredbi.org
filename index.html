@@ -149,8 +149,8 @@
       letter-spacing: -.02em;
     }
     .nav__logo-img {
-      height: 48px;
-      width: 48px;
+      height: 52px;
+      width: auto;
       object-fit: contain;
       flex-shrink: 0;
     }
@@ -246,14 +246,14 @@
       position: relative;
       z-index: 1;
       text-align: center;
-      max-width: 760px;
-      margin: 32px auto 0;
+      max-width: 640px;
+      margin: 20px auto 0;
       padding: 0 24px;
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+      font-size: clamp(.8rem, 1.4vw, 1rem);
       font-style: italic;
-      color: rgba(255,255,255,.85);
-      line-height: 1.65;
+      color: rgba(255,255,255,.6);
+      line-height: 1.6;
     }
 
     /* ── HERO ── */
@@ -1051,11 +1051,11 @@
     <div class="nav__inner">
       <a href="#" class="nav__logo">
         <img src="images/logo-mark.png" alt="InspiredBI Logo" class="nav__logo-img" />
-        InspiredBI
       </a>
       <ul class="nav__links">
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
+        <li><a href="#curriculum">Curriculum and Teaching Department</a></li>
         <li><a href="#impact">Impact</a></li>
         <li><a href="#contact" class="nav__cta">Get In Touch</a></li>
       </ul>
@@ -1066,6 +1066,7 @@
     <div class="nav__mobile" id="mobileMenu">
       <a href="#about" class="mobile-link">About</a>
       <a href="#services" class="mobile-link">Services</a>
+      <a href="#curriculum" class="mobile-link">Curriculum and Teaching Department</a>
       <a href="#impact" class="mobile-link">Impact</a>
       <a href="#contact" class="mobile-link">Get In Touch</a>
     </div>
@@ -1079,7 +1080,7 @@
       <img src="images/logo-banner.png" alt="InspiredBi" />
     </div>
     <p class="hero__inspired-callout">
-      Who were you inspired by? Tell us your story of a great teacher or a technology that enabled you to reach your goals and dream larger goals than you first imagined.
+      &ldquo;Who were you inspired by? Tell us your story of a great teacher or a technology that enabled you to reach your goals and dream larger goals than you first imagined.&rdquo;
     </p>
     <div class="hero__content">
       <div class="hero__text">
@@ -1302,6 +1303,55 @@
     </div>
   </section>
 
+  <!-- CURRICULUM AND TEACHING DEPARTMENT -->
+  <section class="services" id="curriculum" style="background: var(--clr-white);">
+    <div class="services__head">
+      <div>
+        <div class="section-label">Curriculum &amp; Teaching</div>
+        <h2 class="section-title">Curriculum and Teaching<br />Department</h2>
+      </div>
+      <p class="section-body" style="text-align: right;">
+        Designing and supporting world-class curriculum that equips educators
+        with the frameworks, resources, and pedagogy to inspire every learner.
+      </p>
+    </div>
+    <div class="services__grid">
+      <div class="service-card">
+        <div class="service-card__icon-wrap service-card__icon-wrap--teal">📚</div>
+        <h3 class="service-card__title">Curriculum Development</h3>
+        <p class="service-card__text">Building rigorous, standards-aligned curriculum that integrates 21st-century skills and technology-enriched learning experiences.</p>
+        <ul class="service-card__list">
+          <li>Unit and lesson design</li>
+          <li>Standards alignment mapping</li>
+          <li>Cross-disciplinary frameworks</li>
+          <li>Differentiated learning pathways</li>
+        </ul>
+      </div>
+      <div class="service-card service-card--featured">
+        <div class="service-card__icon-wrap service-card__icon-wrap--navy">🏫</div>
+        <h3 class="service-card__title">Teaching Excellence</h3>
+        <p class="service-card__text">Empowering educators through coaching, mentorship, and professional learning communities that elevate classroom practice.</p>
+        <ul class="service-card__list">
+          <li>Instructional coaching cycles</li>
+          <li>Peer learning communities</li>
+          <li>Classroom observation &amp; feedback</li>
+          <li>Teacher leadership development</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-card__icon-wrap service-card__icon-wrap--gold">📝</div>
+        <h3 class="service-card__title">Assessment &amp; Evaluation</h3>
+        <p class="service-card__text">Developing meaningful assessment strategies that measure authentic learning and inform instruction at every stage.</p>
+        <ul class="service-card__list">
+          <li>Formative assessment design</li>
+          <li>Performance-based tasks</li>
+          <li>Data analysis &amp; reporting</li>
+          <li>Portfolio and mastery models</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <!-- IMPACT -->
   <section class="impact" id="impact">
     <div class="impact__inner">
@@ -1438,7 +1488,6 @@
         <div class="footer__brand">
           <a href="#" class="nav__logo">
             <img src="images/logo-mark.png" alt="InspiredBI Logo" class="nav__logo-img" />
-            InspiredBI
           </a>
           <p class="footer__tagline">
             Empowering students to eagerly learn, authentically communicate,
