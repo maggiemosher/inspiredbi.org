@@ -229,58 +229,6 @@
     .nav__mobile a:last-child { border: none; }
     .nav__mobile a:hover { color: var(--clr-teal); }
 
-    /* ── INSPIRED QUOTE SECTION ── */
-    .inspired-quote {
-      padding: var(--section-pad);
-      background: linear-gradient(135deg, var(--clr-navy) 0%, #1a3a6b 100%);
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-    }
-    .inspired-quote::before {
-      content: '\201C';
-      position: absolute;
-      top: -20px; left: 40px;
-      font-size: 20rem;
-      font-family: 'Playfair Display', serif;
-      color: rgba(8,145,178,.08);
-      line-height: 1;
-      pointer-events: none;
-    }
-    .inspired-quote__inner {
-      max-width: 760px;
-      margin-inline: auto;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 28px;
-    }
-    .inspired-quote__logo-wrap {
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .inspired-quote__logo {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-    }
-    .inspired-quote__text {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.25rem, 2.5vw, 1.625rem);
-      font-weight: 700;
-      color: var(--clr-white);
-      line-height: 1.7;
-    }
-    .inspired-quote__text em {
-      font-style: normal;
-      color: var(--clr-gold);
-    }
-
     /* ── HERO ── */
     .hero {
       position: relative;
@@ -527,11 +475,14 @@
       border-radius: 50%;
       box-shadow: 0 0 12px var(--clr-gold);
     }
-    .about__center-icon {
+    .about__center-logo {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 3.5rem;
+      width: 130px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 18px rgba(8,145,178,.35));
     }
     @keyframes orbit {
       from { transform: rotate(0deg); }
@@ -1175,21 +1126,6 @@
     </div>
   </div>
 
-  <!-- INSPIRED QUOTE -->
-  <section class="inspired-quote">
-    <div class="inspired-quote__inner">
-      <div class="inspired-quote__logo-wrap">
-        <img src="images/inspiredlogoclear.png" alt="InspiredBI" class="inspired-quote__logo" />
-      </div>
-      <p class="inspired-quote__text">
-        &ldquo;Who were you inspired by?<br />
-        Tell us your story of a <em>great teacher</em><br />
-        or a technology that enabled you to reach your goals<br />
-        and dream <em>larger goals</em> than you first imagined.&rdquo;
-      </p>
-    </div>
-  </section>
-
   <!-- ABOUT -->
   <section class="about" id="about">
     <div class="about__inner">
@@ -1200,7 +1136,7 @@
               <div class="about__circle"><div class="about__circle-dot"></div></div>
               <div class="about__circle"><div class="about__circle-dot"></div></div>
               <div class="about__circle"><div class="about__circle-dot"></div></div>
-              <div class="about__center-icon">🏫</div>
+              <img src="images/inspiresmalllogoword.png" alt="InspiredBI" class="about__center-logo" />
             </div>
           </div>
         </div>
