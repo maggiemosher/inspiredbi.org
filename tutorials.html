@@ -929,6 +929,90 @@ Socratic questioning.
         </div>
       </div>
 
+      <!-- WORKFLOW 3 -->
+      <div style="margin-top:48px;">
+        <div class="what-is-box">
+          <h3>⚙️ Workflow 3: The Weekly Lesson Plan Builder</h3>
+          <p>Transforming a single academic standard into a cohesive, week-long instructional arc requires an agentic workflow that treats the standard not just as a text string, but as a multi-dimensional target. By structuring the agent across distinct operational phases, it can generate a comprehensive, classroom-ready curriculum package — from standard to slide deck to UDL accommodations.</p>
+        </div>
+        <div class="steps" style="margin-top:24px;">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Phase 1: Unpacking the Standard — The Cognitive Analysis</h4>
+              <p>Instruct the agent to break the standard into its core components, referencing state frameworks or clarifying documents via web search if needed.</p>
+              <blockquote style="background:#F8F5EF;border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--navy);margin-top:12px;font-style:italic;line-height:1.7;">"Analyze the following standard: [Insert Standard]. Deconstruct it into a KUD matrix: What must students Know (factual knowledge), Understand (big ideas/conceptual shifts), and be able to Do (procedural skills/verbs)? Do not write the lessons yet; output only the deconstructed matrix and wait for my confirmation."</blockquote>
+              <span class="step-note">💡 Forcing a conceptual baseline first prevents the AI from introducing off-topic activities later in the loop.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Phase 2: Macro-Sequencing the Weekly Arc</h4>
+              <p>Once the KUD matrix is approved, direct the agent to pace the learning using the 5E Model (Engage, Explore, Explain, Elaborate, Evaluate) or a gradual release framework.</p>
+              <blockquote style="background:#F8F5EF;border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--navy);margin-top:12px;font-style:italic;line-height:1.7;">"Using the approved KUD matrix, map out a 5-day instructional sequence using the 5E Model. For each day, provide a 1-sentence daily objective and a brief rationale explaining how it builds toward mastery of the overarching standard. Format this as a high-level weekly matrix."</blockquote>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Phase 3: Micro-Planning &amp; Activity Engineering</h4>
+              <p>With the macro-structure locked in, drill down into the specific student experiences for each day — evidence-based strategies, checks for understanding, and time allocations.</p>
+              <blockquote style="background:#F8F5EF;border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--navy);margin-top:12px;font-style:italic;line-height:1.7;">"For Day 1 (Engage) and Day 2 (Explore), generate a detailed 50-minute lesson plan template. For each day, include: a 5-minute Bell Ringer/Hook; a 20-minute active learning student activity (specify groupings and materials); a 5-minute formative assessment check. Ensure all activities prioritize student cognitive heavy lifting over passive listening."</blockquote>
+              <span class="step-note">💡 Run this step iteratively (Days 1–2, then 3–4, then Day 5) to maintain deep detail and avoid token limitations.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Phase 4: Slide Deck Architecture &amp; Visual Outlines</h4>
+              <p>Task the agent with creating a structured script and layout outline that feeds directly into presentation software — not a finished file, but a production-ready blueprint.</p>
+              <blockquote style="background:#F8F5EF;border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--navy);margin-top:12px;font-style:italic;line-height:1.7;">"For the presentation portions, create a slide deck outline. For each slide provide: Slide Title; Visual Concept Description (what image or diagram should appear); On-Screen Bullet Points (maximum 3, minimal text); Speaker Notes (exactly what the instructor should say or ask to prompt student response)."</blockquote>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Phase 5: Differentiation Layering — UDL Alignment</h4>
+              <p>The final loop evaluates the completed package against inclusive design principles, ensuring lessons are accessible to all learners without lowering the cognitive bar.</p>
+              <blockquote style="background:#F8F5EF;border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--navy);margin-top:12px;font-style:italic;line-height:1.7;">"Review the entire 5-day lesson plan and slide outline. Generate a UDL supplement that details: scaffolding options for English Language Learners or students with reading decoding barriers; extension tasks for students who demonstrate immediate mastery. Integrate these as clearly marked sidebars within the main lesson plan document."</blockquote>
+            </div>
+          </div>
+        </div>
+
+        <!-- MULTI-AGENT PIPELINE -->
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin:48px 0 12px;">Executing as an Automated Multi-Agent Pipeline</h3>
+        <p style="font-size:0.95rem;color:var(--muted);margin-bottom:20px;">On advanced platforms that support multi-agent teams or chained workspaces, assign each phase to a specialist persona within a single workflow:</p>
+        <pre style="background:var(--navy);color:rgba(255,255,255,0.88);border-radius:12px;padding:28px 32px;font-family:monospace;font-size:0.83rem;line-height:1.85;overflow-x:auto;white-space:pre-wrap;"><code>[Standard Input]
+       │
+       ▼
+┌─────────────────────────┐
+│   The Curriculum        │ ──► Unpacks the standard &amp; builds the
+│   Strategist            │     pedagogical framework (Phases 1 &amp; 2)
+└─────────────────────────┘
+       │
+       ▼
+┌─────────────────────────┐
+│   The Learning          │ ──► Designs active learning protocols,
+│   Experience Designer   │     hooks, and formative checks (Phase 3)
+└─────────────────────────┘
+       │
+       ▼
+┌─────────────────────────┐
+│   The Instructional     │ ──► Scripts speaker notes, layouts,
+│   Media Producer        │     and visual metaphors (Phase 4)
+└─────────────────────────┘
+       │
+       ▼
+┌─────────────────────────┐
+│   The UDL Specialist    │ ──► Audits the package for equity,
+│   &amp; Auditor             │     differentiation, and alignment (Phase 5)
+└─────────────────────────┘
+       │
+       ▼
+[Final Lesson Package Exported to Workspace]</code></pre>
+      </div>
+
       <div style="text-align:center;margin-top:28px;">
         <a href="https://edu.google.com/intl/ALL_us/ai/gemini-for-education/" target="_blank" class="cta-btn" style="display:inline-block;margin-right:12px;">Access Gemini for Education →</a>
         <a href="https://grow.google/ai-for-educators/" target="_blank" class="cta-btn" style="display:inline-block;background:var(--navy);border:2px solid var(--gold);color:var(--gold);">Free Google AI Courses →</a>
