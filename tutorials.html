@@ -204,6 +204,7 @@
     <a href="#cowork" class="jump-link">Claude Cowork</a>
     <a href="#google-agent" class="jump-link">Google AI Courses</a>
     <a href="#chatbots" class="jump-link">Build a Chatbot</a>
+    <a href="#tutor-agent" class="jump-link">Custom Tutor Agent</a>
     <a href="#ethics" class="jump-link">ETHICS Framework</a>
     <a href="#resources" class="jump-link">Free Resources</a>
     <a href="#videos" class="jump-link">Videos</a>
@@ -454,6 +455,102 @@
           <span class="step-note">💡 Regularly check logs. Students asking unusual questions can signal confusion that needs classroom attention.</span>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CUSTOM TUTOR AGENT ====== -->
+<section class="tutorial-section" id="tutor-agent">
+  <div class="container">
+    <div class="section-eyebrow">Agentic AI — Advanced Guide</div>
+    <h2 class="section-title">Step-by-Step Architecture for a Custom Tutor Agent</h2>
+    <p class="section-intro">A well-designed AI tutor doesn't hand over answers — it guides students to discover them. These four steps show you how to architect an agent that practices the Socratic method, stays grounded in your curriculum, and knows when to hand off to a human.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Establish the Socratic Guardrail</h4>
+          <p>The foundational layer of an instructional agent is its core system directive. You must explicitly strip the agent of its default tendency to be a "pleasing helper" that hands over direct answers.</p>
+          <ul style="margin-top:12px;list-style:none;">
+            <li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Define the Persona:</strong> Instruct the agent to act as an expert instructional coach practicing the Socratic method.</li>
+            <li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Set Hard Constraints:</strong> Write a strict negative constraint into the system instructions. For example: <em>"Under no circumstances are you to provide the final answer, the completed code block, the balanced equation, or the fully drafted thesis statement. If the student explicitly asks for the answer, politely decline and redirect them to the immediate next step."</em></li>
+            <li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Enforce Brevity:</strong> Limit the agent's response length to one or two short paragraphs. Long blocks of text shift the student into a passive reading state rather than an active problem-solving state.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Isolate the Knowledge Base</h4>
+          <p>To minimize hallucinations and keep the support tightly aligned with your curriculum, restrict the agent's data access.</p>
+          <ul style="margin-top:12px;list-style:none;">
+            <li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Upload Unit Materials:</strong> Provide the agent access to specific course documents, such as primary source articles, rubrics, lab manuals, or textbook chapters.</li>
+            <li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Contextual Grounding:</strong> Instruct the agent to draw its hints, analogies, and conceptual definitions exclusively from these uploaded materials.</li>
+            <li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Boundary Enforcement:</strong> Include a directive stating: <em>"If a student asks a question or brings up a topic completely outside of the provided text, inform them that it is outside the scope of the current module and guide them back to the active assignment."</em></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Program the Iterative Diagnostic Loop</h4>
+          <p>An agentic tutor must execute a continuous cycle of assessment and calibration during a chat session. Instruct the agent to follow this mental model before generating any response:</p>
+          <ul style="margin-top:12px;list-style:none;">
+            <li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Analyze:</strong> Read the student's input and identify their current level of understanding.</li>
+            <li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Diagnose:</strong> Pinpoint the exact nature of the roadblock. Is it a mechanical error (e.g., a math calculation mistake), a conceptual misunderstanding, or a procedural error?</li>
+            <li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Calibrate:</strong> Determine the appropriate size of the next hint. If the student is showing high frustration, provide a micro-step or a simplified analogy. If they are close to the breakthrough, challenge them to synthesize the final pieces.</li>
+            <li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Respond:</strong> Draft the response following the Socratic guidelines set in Step 1.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Implement a "Human-in-the-Loop" Trigger</h4>
+          <p>Because autonomous systems lack human intuition, you must program specific safety valves that flag when a student needs actual human intervention.</p>
+          <ul style="margin-top:12px;list-style:none;">
+            <li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Frustration Threshold:</strong> Instruct the agent to monitor student sentiment and repetition. If a student remains stuck on the exact same step for more than three consecutive turns, or if their language indicates severe distress, the agent should change its behavior.</li>
+            <li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>The Hand-Off Flag:</strong> Command the agent: <em>"If the frustration threshold is reached, stop asking questions. Provide a conceptual bridge that explains the underlying mechanism clearly, and instruct the student to send a note to the instructor for additional 1-on-1 support."</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SYSTEM PROMPT BLUEPRINT -->
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin:48px 0 12px;">System Prompt Blueprint</h3>
+    <p style="font-size:0.95rem;color:var(--muted);margin-bottom:16px;">When configuring the agent's system prompt area, use a highly structured layout like the one below to ensure compliance. Copy and customize the bracketed sections.</p>
+    <pre style="background:var(--navy);color:rgba(255,255,255,0.88);border-radius:12px;padding:28px 32px;font-family:monospace;font-size:0.85rem;line-height:1.75;overflow-x:auto;white-space:pre-wrap;"><code>[ROLE &amp; GOAL]
+You are an expert AI Learning Coach. Your goal is to guide the student
+toward independent mastery of the provided material using scaffolded,
+Socratic questioning.
+
+[CRITICAL RULE]
+- NEVER give away the final solution, answer, or conclusion.
+- NEVER rewrite a student's work for them.
+- ALWAYS guide them to find the next logical micro-step on their own.
+
+[INTERACTION STRATEGY]
+1. Read the student's response.
+2. Identify the single misconception or missing piece of logic.
+3. Validate their effort in 1 sentence
+   (e.g., "You have the first part of the formula set up perfectly...").
+4. Ask exactly ONE targeted question that prompts them to discover
+   the error or next step.
+5. Keep your entire response under 75 words.</code></pre>
+
+    <div class="tips-box" style="margin-top:28px;">
+      <h4>✨ Key Principles to Remember</h4>
+      <ul>
+        <li>The agent's power comes from its constraints — the tighter the guardrails, the more effective the tutoring</li>
+        <li>Uploading your actual curriculum materials dramatically reduces hallucinations</li>
+        <li>The frustration threshold is a critical safety feature — never omit the human hand-off trigger</li>
+        <li>Test your agent yourself before releasing it to students; try to "break" it with off-topic questions</li>
+        <li>Revisit and refine the system prompt after the first week of student use</li>
+      </ul>
     </div>
   </div>
 </section>
