@@ -320,6 +320,40 @@
       gap: 14px;
       align-items: center;
     }
+    .hero__search {
+      margin-top: 28px;
+      display: flex;
+      gap: 10px;
+      max-width: 460px;
+    }
+    .hero__search input {
+      flex: 1;
+      padding: 13px 20px;
+      border: 2px solid rgba(255,255,255,0.25);
+      border-radius: 9999px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 0.9375rem;
+      outline: none;
+      backdrop-filter: blur(6px);
+      font-family: 'Inter', sans-serif;
+    }
+    .hero__search input::placeholder { color: rgba(255,255,255,0.55); }
+    .hero__search input:focus { border-color: rgba(245,158,11,0.6); background: rgba(255,255,255,0.15); }
+    .hero__search button {
+      padding: 13px 22px;
+      background: var(--clr-gold);
+      color: var(--clr-navy);
+      border: none;
+      border-radius: 9999px;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: 'Inter', sans-serif;
+      transition: var(--transition);
+    }
+    .hero__search button:hover { background: #e8900a; }
     .hero__stats {
       display: flex;
       flex-direction: column;
@@ -1068,6 +1102,10 @@
           </a>
           <a href="#dr-mosher" class="btn btn-outline">Learn the Founder's Story</a>
         </div>
+        <div class="hero__search">
+          <input type="text" id="site-search-input" placeholder="Search InspiredBI.org..." aria-label="Search the site" onkeydown="if(event.key==='Enter')inspiredSearch()">
+          <button onclick="inspiredSearch()">Search</button>
+        </div>
       </div>
       <div class="hero__stats">
         <a href="tutorials.html" style="text-decoration:none;color:inherit;"><div class="hero__card">
@@ -1283,7 +1321,7 @@
           <tbody>
             <tr style="border-bottom:1px solid var(--clr-gray-300);">
               <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">1</td>
-              <td style="padding:12px 16px;font-weight:600;">MagicSchool AI</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://www.magicschool.ai" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">MagicSchool AI</a></td>
               <td style="padding:12px 16px;"><a href="https://magicschool.ai" target="_blank" rel="noopener" style="color:var(--clr-teal);">magicschool.ai</a></td>
               <td style="padding:12px 16px;">Teacher Productivity &amp; Student Bots</td>
               <td style="padding:12px 16px;">The ultimate teacher toolkit with 60+ free tools for lesson plans, rubrics, assessments, communication, and more.</td>
@@ -1291,7 +1329,7 @@
             </tr>
             <tr style="background:var(--clr-gray-100);border-bottom:1px solid var(--clr-gray-300);">
               <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">2</td>
-              <td style="padding:12px 16px;font-weight:600;">Gemini for Education</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://gemini.google.com/" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Gemini for Education</a></td>
               <td style="padding:12px 16px;"><a href="https://gemini.google.com/" target="_blank" rel="noopener" style="color:var(--clr-teal);">gemini.google.com</a></td>
               <td style="padding:12px 16px;">Brainstorming &amp; General Assistant</td>
               <td style="padding:12px 16px;">An excellent all-purpose AI from Google for brainstorming ideas, explaining concepts, and acting as a creative partner.</td>
@@ -1299,7 +1337,7 @@
             </tr>
             <tr style="border-bottom:1px solid var(--clr-gray-300);">
               <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">3</td>
-              <td style="padding:12px 16px;font-weight:600;">NotebookLM</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://notebooklm.google.com" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">NotebookLM</a></td>
               <td style="padding:12px 16px;"><a href="https://notebooklm.google.com" target="_blank" rel="noopener" style="color:var(--clr-teal);">notebooklm.google.com</a></td>
               <td style="padding:12px 16px;">Research &amp; Document Analysis</td>
               <td style="padding:12px 16px;">Lets you "chat" with your own documents, create extension questions, summaries, podcasts, mind maps and more.</td>
@@ -1307,7 +1345,7 @@
             </tr>
             <tr style="background:var(--clr-gray-100);border-bottom:1px solid var(--clr-gray-300);">
               <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">4</td>
-              <td style="padding:12px 16px;font-weight:600;">Suno</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://suno.ai" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Suno</a></td>
               <td style="padding:12px 16px;"><a href="https://suno.ai" target="_blank" rel="noopener" style="color:var(--clr-teal);">suno.ai</a></td>
               <td style="padding:12px 16px;">Music &amp; Audio Creation</td>
               <td style="padding:12px 16px;">The leading tool for turning ideas or text into full songs with vocals and instruments, making content creation highly engaging.</td>
@@ -1315,7 +1353,7 @@
             </tr>
             <tr style="border-bottom:1px solid var(--clr-gray-300);">
               <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">5</td>
-              <td style="padding:12px 16px;font-weight:600;">Goblin Tools</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://goblin.tools" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Goblin Tools</a></td>
               <td style="padding:12px 16px;"><a href="https://goblin.tools" target="_blank" rel="noopener" style="color:var(--clr-teal);">goblin.tools</a></td>
               <td style="padding:12px 16px;">Student Support &amp; Organization</td>
               <td style="padding:12px 16px;">A simple, brilliant set of tools designed to support executive functioning for all students, especially neurodiverse learners.</td>
@@ -1323,7 +1361,7 @@
             </tr>
             <tr style="background:var(--clr-gray-100);border-bottom:1px solid var(--clr-gray-300);">
               <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">6</td>
-              <td style="padding:12px 16px;font-weight:600;">Napkin AI</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://napkin.ai" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Napkin AI</a></td>
               <td style="padding:12px 16px;"><a href="https://napkin.ai" target="_blank" rel="noopener" style="color:var(--clr-teal);">napkin.ai</a></td>
               <td style="padding:12px 16px;">Idea Visualization &amp; Connection</td>
               <td style="padding:12px 16px;">Offers a unique, non-linear way to connect ideas and visualize thoughts, moving beyond traditional note-taking.</td>
@@ -1331,7 +1369,7 @@
             </tr>
             <tr style="border-bottom:1px solid var(--clr-gray-300);">
               <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">7</td>
-              <td style="padding:12px 16px;font-weight:600;">Brisk Teaching</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://www.briskteaching.com" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Brisk Teaching</a></td>
               <td style="padding:12px 16px;"><a href="https://briskteaching.com" target="_blank" rel="noopener" style="color:var(--clr-teal);">briskteaching.com</a></td>
               <td style="padding:12px 16px;">Differentiation &amp; Feedback</td>
               <td style="padding:12px 16px;">Integrates seamlessly into a teacher's workflow (Google Docs, Chrome) to provide immediate, practical support.</td>
@@ -1357,7 +1395,7 @@
           <tbody>
             <tr style="border-bottom:1px solid var(--clr-gray-300);">
               <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">8</td>
-              <td style="padding:12px 16px;font-weight:600;">LTX Studio</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://ltx.studio" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">LTX Studio</a></td>
               <td style="padding:12px 16px;"><a href="https://ltx.studio" target="_blank" rel="noopener" style="color:var(--clr-teal);">ltx.studio</a></td>
               <td style="padding:12px 16px;">Cinematic Video Generation</td>
               <td style="padding:12px 16px;">The cutting edge of AI filmmaking — control scenes, characters, and camera angles.</td>
@@ -1365,7 +1403,7 @@
             </tr>
             <tr style="background:var(--clr-gray-100);border-bottom:1px solid var(--clr-gray-300);">
               <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">9</td>
-              <td style="padding:12px 16px;font-weight:600;">Adobe Express</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://adobe.com/education/express" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Adobe Express</a></td>
               <td style="padding:12px 16px;"><a href="https://adobe.com/education/express" target="_blank" rel="noopener" style="color:var(--clr-teal);">adobe.com/education/express</a></td>
               <td style="padding:12px 16px;">Video, Visuals &amp; Design</td>
               <td style="padding:12px 16px;">A powerful all-in-one design tool with an exceptional free offering for schools.</td>
@@ -1373,7 +1411,7 @@
             </tr>
             <tr style="border-bottom:1px solid var(--clr-gray-300);">
               <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">10</td>
-              <td style="padding:12px 16px;font-weight:600;">Invideo AI</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://invideo.io/ai" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Invideo AI</a></td>
               <td style="padding:12px 16px;"><a href="https://invideo.io/ai" target="_blank" rel="noopener" style="color:var(--clr-teal);">invideo.io/ai</a></td>
               <td style="padding:12px 16px;">Text-to-Video Creation</td>
               <td style="padding:12px 16px;">Effective at quickly turning articles or scripts into videos using AI-suggested visuals and voiceovers.</td>
@@ -1381,7 +1419,7 @@
             </tr>
             <tr style="background:var(--clr-gray-100);border-bottom:1px solid var(--clr-gray-300);">
               <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">11</td>
-              <td style="padding:12px 16px;font-weight:600;">Animoto</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://animoto.com" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Animoto</a></td>
               <td style="padding:12px 16px;"><a href="https://animoto.com" target="_blank" rel="noopener" style="color:var(--clr-teal);">animoto.com</a></td>
               <td style="padding:12px 16px;">Video Creation &amp; Slideshows</td>
               <td style="padding:12px 16px;">Extremely easy to use for professional-looking video slideshows from photos and clips using drag-and-drop templates.</td>
@@ -1389,7 +1427,7 @@
             </tr>
             <tr style="border-bottom:1px solid var(--clr-gray-300);">
               <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">12</td>
-              <td style="padding:12px 16px;font-weight:600;">Kapwing</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://kapwing.com" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Kapwing</a></td>
               <td style="padding:12px 16px;"><a href="https://kapwing.com" target="_blank" rel="noopener" style="color:var(--clr-teal);">kapwing.com</a></td>
               <td style="padding:12px 16px;">Collaborative Video Editing &amp; AI Tools</td>
               <td style="padding:12px 16px;">A powerful browser-based editor with AI tools (Smart Cut, Script Generator, Image Generator) great for student projects.</td>
@@ -1787,6 +1825,7 @@
             <li><a href="#services">Services</a></li>
             <li><a href="#impact">Our Impact</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li><a href="references.html">References</a></li>
           </ul>
         </div>
         <div>
@@ -1884,6 +1923,12 @@
       el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
       observer.observe(el);
     });
+  </script>
+  <script>
+    function inspiredSearch() {
+      var q = document.getElementById('site-search-input').value.trim();
+      if (q) window.open('https://www.google.com/search?q=site%3Ainspiredbi.org+' + encodeURIComponent(q), '_blank');
+    }
   </script>
 </body>
 </html>
