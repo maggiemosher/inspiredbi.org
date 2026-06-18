@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI prompt frameworks for educators — ETHICS, CRAFT, GOAL, and G.O.A.L.S. Responsible and effective AI use in K-12 and higher education." />
+  <title>Frameworks &amp; Prompts — InspiredBI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9963A; --gold-light: #F0C060; --navy: #1A2744;
+      --cream: #FBF8F2; --white: #FFFFFF; --text: #1A1A2E;
+      --muted: #5A6070; --border: #E8E2D8; --accent: #3B7DD8;
+      --green: #2D8F5A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26,39,68,0.97); backdrop-filter: blur(8px);
+      padding: 14px 40px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-back { color: var(--gold-light); text-decoration: none; font-size: 14px; font-weight: 600; }
+    .nav-back:hover { color: var(--white); }
+
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0F1A33 100%);
+      padding: 140px 24px 80px; text-align: center;
+    }
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(201,150,58,0.15); border: 1px solid rgba(201,150,58,0.4);
+      color: var(--gold-light); padding: 6px 18px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); color: var(--white); margin-bottom: 16px; line-height: 1.2; }
+    .page-hero h1 em { color: var(--gold-light); font-style: normal; }
+    .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 600px; margin: 0 auto 32px; line-height: 1.7; }
+
+    .jump-nav {
+      background: var(--cream); border-bottom: 1px solid var(--border);
+      padding: 16px 24px; position: sticky; top: 65px; z-index: 50;
+    }
+    .jump-nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: center;
+    }
+    .jump-nav span { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 8px; white-space: nowrap; }
+    .jump-link {
+      background: var(--white); border: 1px solid var(--border);
+      color: var(--navy); padding: 6px 14px; border-radius: 20px;
+      font-size: 13px; font-weight: 500; text-decoration: none;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .jump-link:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
+
+    .tutorial-section { padding: 80px 24px; }
+    .tutorial-section:nth-child(even) { background: var(--cream); }
+    .container { max-width: 960px; margin: 0 auto; }
+    .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+    .section-intro { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 720px; margin-bottom: 40px; }
+
+    /* ETHICS TABLE */
+    .ethics-table { width: 100%; border-collapse: collapse; margin: 32px 0; }
+    .ethics-table tr { border-bottom: 1px solid var(--border); }
+    .ethics-table tr:last-child { border-bottom: none; }
+    .ethics-letter-cell { width: 80px; padding: 24px 20px; vertical-align: top; text-align: center; background: var(--navy); }
+    .ethics-big-letter { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900; color: var(--gold-light); line-height: 1; display: block; }
+    .ethics-abbr { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.6); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; display: block; }
+    .ethics-content-cell { padding: 24px 28px; vertical-align: top; background: var(--white); }
+    .ethics-content-cell h4 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--navy); margin-bottom: 8px; }
+    .ethics-content-cell p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+    .ethics-wrapper { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin: 32px 0; }
+
+    /* CRAFT */
+    .craft-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin: 24px 0; }
+    .craft-card { border: 1px solid var(--border); border-radius: 12px; padding: 20px 16px; text-align: center; }
+    .craft-letter { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+    .craft-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .craft-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    /* GOAL CARDS */
+    .goal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+    .goal-card { border: 1px solid var(--border); border-radius: 12px; padding: 20px 16px; }
+    .goal-letter { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 6px; }
+    .goal-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .goal-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    /* GOALS AGENTIC */
+    .goals-card { border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; display: grid; grid-template-columns: 64px 1fr; gap: 16px; align-items: start; }
+    .goals-letter { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900; color: var(--gold); line-height: 1; }
+    .goals-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .goals-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    .tips-box { background: #EDF7F1; border: 1px solid #B8DEC9; border-radius: 12px; padding: 24px 28px; margin-top: 32px; }
+    .tips-box h4 { color: var(--green); font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
+    .tips-box ul { list-style: none; }
+    .tips-box ul li { font-size: 0.92rem; color: #1A3D2B; padding: 4px 0 4px 20px; position: relative; }
+    .tips-box ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+    .xref-box { background: #F0F4FF; border: 1px solid #C8D4F0; border-radius: 12px; padding: 24px 28px; margin: 32px 0; }
+    .xref-box h4 { color: var(--accent); font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
+    .xref-link { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: var(--white); padding: 10px 18px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; text-decoration: none; transition: all 0.2s; margin-top: 8px; }
+    .xref-link:hover { background: var(--navy); }
+
+    footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; }
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .ethics-letter-cell { width: 56px; padding: 16px 10px; }
+      .ethics-big-letter { font-size: 2rem; }
+      .jump-nav-inner { flex-wrap: wrap; justify-content: flex-start; }
+      .goals-card { grid-template-columns: 48px 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo-banner.png" alt="InspiredBI" style="height:44px; width:auto; object-fit:contain; display:block;" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Resources</a></li>
+    <li><a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a></li>
+    <li><a href="free-resources.html#videos">Videos</a></li>
+    <li><a href="free-resources.html#courses">Free Courses</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="tutorials.html" class="nav-back">← Back to Tutorials</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-badge">Responsible AI Use</div>
+  <h1>Frameworks &amp; <em>Prompts</em></h1>
+  <p>ETHICS, CRAFT, GOAL, and G.O.A.L.S. — structured approaches to ethical and effective AI use in every educational context.</p>
+</div>
+
+<div class="jump-nav">
+  <div class="jump-nav-inner">
+    <span>Jump to:</span>
+    <a href="#ethics" class="jump-link">ETHICS</a>
+    <a href="#craft" class="jump-link">CRAFT</a>
+    <a href="#goal" class="jump-link">GOAL</a>
+    <a href="#goals-agentic" class="jump-link">G.O.A.L.S. (Agentic)</a>
+    <a href="#guardrails" class="jump-link">Ethics &amp; Guardrails</a>
+  </div>
+</div>
+
+<!-- ETHICS FRAMEWORK -->
+<section class="tutorial-section" id="ethics">
+  <div class="container">
+    <div class="section-eyebrow">Framework for Responsible AI Use</div>
+    <h2 class="section-title">The ETHICS Framework for AI in Education</h2>
+    <p class="section-intro">The ETHICS Framework provides a structured approach to evaluating and integrating artificial intelligence tools responsibly in educational settings. Each letter represents a critical lens for educators, researchers, and students to examine AI use.</p>
+
+    <div class="ethics-wrapper">
+      <table class="ethics-table">
+        <tr>
+          <td class="ethics-letter-cell">
+            <span class="ethics-big-letter">E</span>
+            <span class="ethics-abbr">Evaluate</span>
+          </td>
+          <td class="ethics-content-cell">
+            <h4>Evaluate &amp; Validate</h4>
+            <p>Critically assess AI outputs, data sources, and the tools you choose to use. Key concerns include data privacy — educators should never input students' identifying information into any AI tool not stored on a locally protected district server. Watch for bias: if your student population is underrepresented in an AI's training data, outputs may not reflect their needs accurately. Special education populations are particularly vulnerable here.</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="ethics-letter-cell">
+            <span class="ethics-big-letter">T</span>
+            <span class="ethics-abbr">Tool</span>
+          </td>
+          <td class="ethics-content-cell">
+            <h4>Tool Application</h4>
+            <p>When effectively implemented, always ask: is AI the best tool for this job, or is direct human interaction better? Guard against over-reliance — AI can generate IEP goal suggestions and lesson plans, but educators must have deep enough content knowledge to evaluate and modify that output for each individual student. Consider the Content Shift: if AI manages first drafts, presentations, and basic email responses, what new, complex interactive activities (debates, Socratic seminars, simulations) will you add instead? The goal is to ensure that "saving time" with AI results in richer, human-centric experiences rather than just more screen time. AI should also expand access for students with disabilities, not create new barriers.</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="ethics-letter-cell">
+            <span class="ethics-big-letter">H</span>
+            <span class="ethics-abbr">Human</span>
+          </td>
+          <td class="ethics-content-cell">
+            <h4>Human &amp; Societal Impact</h4>
+            <p>Consider the ethical and social effects of AI on people and communities. Human relationships are irreplaceable — technology should only be used when it is the best means to the learning goal. AI may draft content, but instructors and students must own the final output. Reflect after every use: What did AI help with? What did you do that AI could not?</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="ethics-letter-cell">
+            <span class="ethics-big-letter">I</span>
+            <span class="ethics-abbr">Inner</span>
+          </td>
+          <td class="ethics-content-cell">
+            <h4>Inner Workings &amp; Fundamentals</h4>
+            <p>Understand foundational AI concepts, including how large language models (LLMs) function. Knowing that AI generates probabilistically likely text — not verified facts — is essential for responsible use. This understanding helps educators and students critically evaluate outputs, recognize hallucinations, and avoid treating AI-generated content as authoritative without independent verification.</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="ethics-letter-cell">
+            <span class="ethics-big-letter">C</span>
+            <span class="ethics-abbr">Context</span>
+          </td>
+          <td class="ethics-content-cell">
+            <h4>Context &amp; Governance</h4>
+            <p>Maintain awareness of AI policy, accountability structures, and the specific context in which AI is used. This includes knowing your institution's approved tools, understanding relevant laws (FERPA, IDEA, ADA), and keeping current with evolving district and state AI policies. Governance also means being transparent about when and how AI was used in any work product.</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="ethics-letter-cell">
+            <span class="ethics-big-letter">S</span>
+            <span class="ethics-abbr">Safety</span>
+          </td>
+          <td class="ethics-content-cell">
+            <h4>Safety &amp; Fairness</h4>
+            <p>Ensure AI is responsible, respectful, and accessible for all. Privacy comes first: never paste personally identifiable information (PII), student work, or sensitive data into public AI tools. When handling student information or sensitive research, use only secure, institutionally approved tools. Bias is real — verify facts, check for stereotyping, and cite sources accurately. Unsupported or biased AI outputs can cause real harm, particularly for marginalized and disability communities.</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <p style="font-size:0.82rem;color:var(--muted);margin-top:16px;font-style:italic;">ETHICS Framework • Maggie A. Mosher • University of Kansas</p>
+  </div>
+</section>
+
+<!-- CRAFT FRAMEWORK -->
+<section class="tutorial-section" id="craft">
+  <div class="container">
+    <div class="section-eyebrow">Prompt Engineering</div>
+    <h2 class="section-title">The CRAFT Framework</h2>
+    <p class="section-intro">CRAFT is a five-part structure for writing effective AI prompts. Each element shapes a different dimension of the AI's response — use all five for maximum precision and usefulness.</p>
+
+    <div class="craft-grid">
+      <div class="craft-card">
+        <div class="craft-letter">C</div>
+        <h4>Context</h4>
+        <p>Course, learners, constraints — set the scene so the AI understands your specific situation.</p>
+      </div>
+      <div class="craft-card">
+        <div class="craft-letter">R</div>
+        <h4>Role</h4>
+        <p>"Act as a 4th-grade science coach…" — assigning a role shapes tone, depth, and perspective.</p>
+      </div>
+      <div class="craft-card">
+        <div class="craft-letter">A</div>
+        <h4>Action</h4>
+        <p>The specific task to perform — be precise: "write," "summarize," "compare," "generate."</p>
+      </div>
+      <div class="craft-card">
+        <div class="craft-letter">F</div>
+        <h4>Format</h4>
+        <p>Outline, rubric, 150 words, 3 options — tell the AI exactly how to package the output.</p>
+      </div>
+      <div class="craft-card">
+        <div class="craft-letter">T</div>
+        <h4>Tone</h4>
+        <p>Scholarly, friendly, plain language, formal — match the audience receiving the output.</p>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin:32px 0 12px;">CRAFT in Action — Example Prompt</h3>
+    <blockquote style="background:#F8F5EF;border-left:3px solid var(--gold);padding:16px 20px;border-radius:0 8px 8px 0;font-size:0.9rem;color:var(--navy);line-height:1.75;margin-bottom:24px;">
+      <strong>C</strong> — "I teach 8th grade science with a mix of English Language Learners and on-grade-level students."<br/>
+      <strong>R</strong> — "Act as a veteran science instructional designer."<br/>
+      <strong>A</strong> — "Create a 5-day lesson sequence on photosynthesis."<br/>
+      <strong>F</strong> — "Format it as a table with columns for Day, Objective, Main Activity, and Check for Understanding."<br/>
+      <strong>T</strong> — "Use clear, jargon-free language appropriate for teachers, not students."
+    </blockquote>
+
+    <div class="xref-box">
+      <h4>Need Copy-Paste Prompts Using CRAFT?</h4>
+      <p style="font-size:0.92rem;color:var(--muted);">Visit the Chatbots page for a full library of ready-to-use prompts for teachers, higher ed faculty, parents, and administrators — all structured using CRAFT principles.</p>
+      <a href="chatbots.html#prompts" class="xref-link">Go to Copy-Paste Prompts →</a>
+    </div>
+  </div>
+</section>
+
+<!-- GOAL FRAMEWORK -->
+<section class="tutorial-section" id="goal">
+  <div class="container">
+    <div class="section-eyebrow">Generative AI Prompting</div>
+    <h2 class="section-title">The GOAL Framework</h2>
+    <p class="section-intro">GOAL is a simpler four-part framework for educators who want to quickly structure a generative AI request without over-engineering the prompt. It's especially useful for day-to-day tasks.</p>
+
+    <div class="goal-grid">
+      <div class="goal-card">
+        <div class="goal-letter">G</div>
+        <h4>Goal</h4>
+        <p>What do you want to accomplish? Be specific about the end result.</p>
+      </div>
+      <div class="goal-card">
+        <div class="goal-letter">O</div>
+        <h4>Output</h4>
+        <p>What format do you want? (bullet list, table, email, lesson plan)</p>
+      </div>
+      <div class="goal-card">
+        <div class="goal-letter">A</div>
+        <h4>Audience</h4>
+        <p>Who is this for? What do they know? What do they need?</p>
+      </div>
+      <div class="goal-card">
+        <div class="goal-letter">L</div>
+        <h4>Length</h4>
+        <p>How long should the response be? (one paragraph, 300 words, a full rubric)</p>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin:32px 0 12px;">GOAL in Action — Example Prompt</h3>
+    <blockquote style="background:#F8F5EF;border-left:3px solid var(--green);padding:16px 20px;border-radius:0 8px 8px 0;font-size:0.9rem;color:var(--navy);line-height:1.75;">
+      <strong>G</strong> — "Write a parent email explaining our new homework policy."<br/>
+      <strong>O</strong> — "Use a friendly email format with a subject line, opening, 3 bullet points, and a closing."<br/>
+      <strong>A</strong> — "Parents of 3rd graders who may be anxious about changes."<br/>
+      <strong>L</strong> — "Under 150 words. No educational jargon."
+    </blockquote>
+
+    <div class="xref-box" style="margin-top:32px;">
+      <h4>GOAL vs. G.O.A.L.S. — What's the Difference?</h4>
+      <p style="font-size:0.92rem;color:var(--muted);">GOAL is for generative tasks where you're writing a prompt and reviewing the output. G.O.A.L.S. (below) is for agentic tasks where the AI must work autonomously through multiple steps without your input.</p>
+    </div>
+  </div>
+</section>
+
+<!-- G.O.A.L.S. AGENTIC FRAMEWORK -->
+<section class="tutorial-section" id="goals-agentic">
+  <div class="container">
+    <div class="section-eyebrow">Agentic AI Prompting</div>
+    <h2 class="section-title">G.O.A.L.S. Framework for Agentic AI</h2>
+    <p class="section-intro">To shift from prompting standard generative AI to directing autonomous Agentic AI, the framework must move away from step-by-step instructions and focus entirely on outcomes, boundaries, and execution authority. Agentic prompting treats the AI like a highly capable chief of staff — giving it a final destination, the necessary resources, and the authority to move autonomously without hand-holding.</p>
+
+    <div class="goals-card">
+      <div class="goals-letter">G</div>
+      <div><h4>Goal of Final Desired Outcome</h4><p>State the macro-level final asset or outcome you want. Describe what success looks like, not the sequential steps to get there.</p></div>
+    </div>
+    <div class="goals-card">
+      <div class="goals-letter">O</div>
+      <div><h4>Output Path</h4><p>Define exactly where the files should live or how they should be organized in your file system.</p></div>
+    </div>
+    <div class="goals-card">
+      <div class="goals-letter">A</div>
+      <div><h4>Autonomy Directive</h4><p>Explicitly command the agent to make logical assumptions, bypass intermediate permission checks, and run to completion.</p></div>
+    </div>
+    <div class="goals-card">
+      <div class="goals-letter">L</div>
+      <div><h4>Limits &amp; Guardrails</h4><p>Clearly define what not to include, boundaries to respect, or forbidden formatting.</p></div>
+    </div>
+    <div class="goals-card">
+      <div class="goals-letter">S</div>
+      <div><h4>Sources &amp; Exemplars</h4><p>Direct the agent to the specific folder, files, or past examples it should use as a quality benchmark.</p></div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin:36px 0 12px;">G.O.A.L.S. Template</h3>
+    <pre style="background:var(--navy);color:rgba(255,255,255,0.88);border-radius:12px;padding:28px 32px;font-family:monospace;font-size:0.85rem;line-height:1.75;overflow-x:auto;white-space:pre-wrap;"><code>Task: [Insert your high-level macro goal here]
+Exemplars of this task can be found: [Insert path to reference files or past work folder]
+What not to add: [Insert constraints, placeholders, or forbidden elements]
+Execution Directive: Put the completed task directly into my Outputs folder. Run completely to completion. Do not ask questions.</code></pre>
+
+    <div class="xref-box" style="margin-top:32px;">
+      <h4>Build Your Full Agentic Setup</h4>
+      <p style="font-size:0.92rem;color:var(--muted);">The agentic page includes platform guides for Claude Cowork, PlayLab, Mizou, Google Workspace Agents, and GitHub Copilot — plus the interactive G.O.A.L.S. prompt builder.</p>
+      <a href="agentic.html#goals-framework" class="xref-link">Go to Agentic AI Page →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ETHICS & GUARDRAILS -->
+<section class="tutorial-section" id="guardrails">
+  <div class="container">
+    <div class="section-eyebrow">Responsible AI Practice</div>
+    <h2 class="section-title">Ethics &amp; Guardrails</h2>
+    <p class="section-intro">These principles apply across all AI use in education — regardless of which framework or platform you're using. Print this out and put it next to every AI station in your school.</p>
+
+    <div class="tips-box">
+      <ul>
+        <li>Human relationships matter — use tech only when it is the best means to the learning goal. Do not use AI to replace your own critical analysis or to generate final work that you submit.</li>
+        <li><strong>Human Required:</strong> AI may draft; instructors and students decide final output.</li>
+        <li><strong>Privacy first:</strong> never paste PII OR student work OR sensitive data into public tools. When dealing with any student information or sensitive research, you must use a secure, institutionally approved tool.</li>
+        <li><strong>Bias is real:</strong> verify facts, check for stereotyping, and cite sources accurately, as unsupported claims reduce your score.</li>
+        <li><strong>Start small:</strong> pilot one task with one tool; reflect and iterate. You may use approved AI tools for brainstorming, outlining, and revising language, but must paste your prompt(s) at the end of your submission and briefly describe what you kept or changed.</li>
+        <li><strong>Reflect after AI Use:</strong> What did AI help with? What did you do that AI could not?</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:40px;">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin-bottom:16px;">Framework Comparison at a Glance</h3>
+      <div style="overflow-x:auto;border:1px solid var(--border);border-radius:12px;">
+        <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
+          <thead>
+            <tr style="background:var(--navy);">
+              <th style="padding:12px 16px;color:var(--white);text-align:left;font-weight:600;">Framework</th>
+              <th style="padding:12px 16px;color:var(--white);text-align:left;font-weight:600;">Best For</th>
+              <th style="padding:12px 16px;color:var(--white);text-align:left;font-weight:600;">AI Type</th>
+              <th style="padding:12px 16px;color:var(--white);text-align:left;font-weight:600;">Complexity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:12px 16px;border-bottom:1px solid var(--border);font-weight:700;color:var(--navy);">ETHICS</td><td style="padding:12px 16px;border-bottom:1px solid var(--border);color:var(--muted);">Evaluating any AI tool or output</td><td style="padding:12px 16px;border-bottom:1px solid var(--border);color:var(--muted);">Any</td><td style="padding:12px 16px;border-bottom:1px solid var(--border);color:var(--muted);">Conceptual</td></tr>
+            <tr style="background:var(--cream);"><td style="padding:12px 16px;border-bottom:1px solid var(--border);font-weight:700;color:var(--navy);">CRAFT</td><td style="padding:12px 16px;border-bottom:1px solid var(--border);color:var(--muted);">Writing precise generative prompts</td><td style="padding:12px 16px;border-bottom:1px solid var(--border);color:var(--muted);">Generative</td><td style="padding:12px 16px;border-bottom:1px solid var(--border);color:var(--muted);">Intermediate</td></tr>
+            <tr><td style="padding:12px 16px;border-bottom:1px solid var(--border);font-weight:700;color:var(--navy);">GOAL</td><td style="padding:12px 16px;border-bottom:1px solid var(--border);color:var(--muted);">Quick daily prompting tasks</td><td style="padding:12px 16px;border-bottom:1px solid var(--border);color:var(--muted);">Generative</td><td style="padding:12px 16px;border-bottom:1px solid var(--border);color:var(--muted);">Beginner</td></tr>
+            <tr style="background:var(--cream);"><td style="padding:12px 16px;font-weight:700;color:var(--navy);">G.O.A.L.S.</td><td style="padding:12px 16px;color:var(--muted);">Directing autonomous agents</td><td style="padding:12px 16px;color:var(--muted);">Agentic</td><td style="padding:12px 16px;color:var(--muted);">Advanced</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p style="font-size:0.82rem;color:var(--muted);margin-top:24px;font-style:italic;">ETHICS Framework • Maggie A. Mosher • University of Kansas</p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <a href="index.html">InspiredBI.org</a> — All resources free for educators &nbsp;|&nbsp;
+  <a href="tutorials.html">Tutorials Hub</a> &nbsp;|&nbsp;
+  <a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a> &nbsp;|&nbsp;
+  <a href="https://www.linkedin.com/in/maggiemosher/" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+  <a href="https://www.youtube.com/@KUAIAdvocates" target="_blank">YouTube</a></p>
+</footer>
+
+</body>
+</html>

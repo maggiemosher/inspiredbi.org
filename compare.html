@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Compare AI platforms — Generative vs. Agentic AI from Google, Anthropic, Microsoft, and Apple. Full ecosystem matrix for educators." />
+  <title>Compare Platforms — InspiredBI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9963A; --gold-light: #F0C060; --navy: #1A2744;
+      --cream: #FBF8F2; --white: #FFFFFF; --text: #1A1A2E;
+      --muted: #5A6070; --border: #E8E2D8; --accent: #3B7DD8;
+      --green: #2D8F5A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26,39,68,0.97); backdrop-filter: blur(8px); padding: 14px 40px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-back { color: var(--gold-light); text-decoration: none; font-size: 14px; font-weight: 600; }
+    .nav-back:hover { color: var(--white); }
+    .page-hero { background: linear-gradient(135deg, var(--navy) 0%, #0F1A33 100%); padding: 140px 24px 80px; text-align: center; }
+    .page-hero-badge { display: inline-block; background: rgba(201,150,58,0.15); border: 1px solid rgba(201,150,58,0.4); color: var(--gold-light); padding: 6px 18px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); color: var(--white); margin-bottom: 16px; line-height: 1.2; }
+    .page-hero h1 em { color: var(--gold-light); font-style: normal; }
+    .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 700px; margin: 0 auto 32px; line-height: 1.7; }
+    .jump-nav { background: var(--cream); border-bottom: 1px solid var(--border); padding: 16px 24px; position: sticky; top: 65px; z-index: 50; }
+    .jump-nav-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: center; }
+    .jump-nav span { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 8px; white-space: nowrap; }
+    .jump-link { background: var(--white); border: 1px solid var(--border); color: var(--navy); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
+    .jump-link:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
+    .tutorial-section { padding: 80px 24px; }
+    .tutorial-section:nth-child(even) { background: var(--cream); }
+    .container { max-width: 960px; margin: 0 auto; }
+    .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+    .section-intro { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 720px; margin-bottom: 40px; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; margin: 24px 0; }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 640px; }
+    .compare-table th { background: var(--navy); color: var(--white); padding: 11px 14px; text-align: left; font-weight: 600; font-size: 0.82rem; }
+    .compare-table td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text); }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:nth-child(even) td { background: var(--cream); }
+    .badge-gen { display: inline-block; background: rgba(59,125,216,0.12); color: var(--accent); padding: 2px 9px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-left: 4px; }
+    .badge-agent { display: inline-block; background: rgba(201,150,58,0.12); color: #8A6220; padding: 2px 9px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-left: 4px; }
+    .ecosystem-card { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 32px; }
+    .ecosystem-header { background: var(--navy); padding: 20px 28px; }
+    .ecosystem-header h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--gold-light); margin-bottom: 4px; }
+    .ecosystem-header p { color: rgba(255,255,255,0.7); font-size: 0.88rem; }
+    .ecosystem-body { padding: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .eco-item { border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+    .eco-item-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .eco-item h4 { font-size: 0.9rem; font-weight: 700; color: var(--navy); }
+    .eco-item p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+    footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; }
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    @media (max-width: 768px) { nav { padding: 14px 20px; } .nav-links { display: none; } .jump-nav-inner { flex-wrap: wrap; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo-banner.png" alt="InspiredBI" style="height:44px;width:auto;object-fit:contain;display:block;" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Resources</a></li>
+    <li><a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a></li>
+    <li><a href="free-resources.html#videos">Videos</a></li>
+    <li><a href="free-resources.html#courses">Free Courses</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="tutorials.html" class="nav-back">← Back to Tutorials</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-badge">Platform Ecosystem Comparison</div>
+  <h1>Compare Platforms: <em>Generative vs. Agentic AI</em></h1>
+  <p>What does Google, Anthropic, Microsoft, and Apple offer in Generative and Agentic AI — and how do they compare for educators?</p>
+</div>
+
+<div class="jump-nav">
+  <div class="jump-nav-inner">
+    <span>Jump to:</span>
+    <a href="#matrix" class="jump-link">AI Ecosystem Matrix</a>
+    <a href="#google" class="jump-link">Google</a>
+    <a href="#microsoft" class="jump-link">Microsoft</a>
+    <a href="#apple" class="jump-link">Apple</a>
+    <a href="#anthropic" class="jump-link">Anthropic (Claude)</a>
+  </div>
+</div>
+
+<!-- MATRIX -->
+<section class="tutorial-section" id="matrix">
+  <div class="container">
+    <div class="section-eyebrow">The Full Picture</div>
+    <h2 class="section-title">AI Ecosystem Matrix — Generative vs. Agentic</h2>
+    <p class="section-intro">Every major tech company now offers both generative AI (responds to prompts) and agentic AI (takes autonomous action). Understanding where each product falls on this spectrum helps educators choose the right tool for each job.</p>
+
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>AI Paradigm</th>
+            <th>Type</th>
+            <th>Anthropic (Claude)</th>
+            <th>Google</th>
+            <th>Microsoft</th>
+            <th>Apple</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Conversational AI</strong></td>
+            <td><span class="badge-gen">Generative</span></td>
+            <td>Claude Chat</td>
+            <td>Gemini</td>
+            <td>Microsoft Copilot</td>
+            <td>Apple Writing Tools / ChatGPT integration</td>
+          </tr>
+          <tr>
+            <td><strong>Coding &amp; Engineering</strong></td>
+            <td><span class="badge-agent">Agentic</span></td>
+            <td>Claude Code</td>
+            <td>Vertex AI Agents / IDX</td>
+            <td>GitHub Copilot Workspace</td>
+            <td>Xcode Swift Assist</td>
+          </tr>
+          <tr>
+            <td><strong>Persistent Workspaces</strong></td>
+            <td><span class="badge-gen">Generative</span></td>
+            <td>Claude Projects</td>
+            <td>NotebookLM</td>
+            <td>Copilot Pages / Loop</td>
+            <td>Apple Notes Integration</td>
+          </tr>
+          <tr>
+            <td><strong>Customized Agents</strong></td>
+            <td><span class="badge-agent">Agentic</span></td>
+            <td>Claude Skills / API Agents</td>
+            <td>Gemini Gems</td>
+            <td>Copilot Studio</td>
+            <td>Siri Shortcuts / App Intents</td>
+          </tr>
+          <tr>
+            <td><strong>OS / Desktop Automation</strong></td>
+            <td><span class="badge-agent">Agentic</span></td>
+            <td>Claude Cowork</td>
+            <td>Project Astra / Android</td>
+            <td>Windows Copilot Vision</td>
+            <td>Siri On-Screen Awareness</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="background:#F0F4FF;border:1px solid #C8D4F0;border-radius:12px;padding:20px 24px;margin-top:16px;">
+      <p style="font-size:0.9rem;color:var(--muted);"><strong style="color:var(--accent);">Key insight:</strong> The line between generative and agentic is blurring rapidly. What matters for educators is whether the AI requires you to initiate every action (generative) or can complete multi-step goals autonomously (agentic). Both have important educational uses — the right choice depends on the task and your comfort with AI autonomy.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GOOGLE ECOSYSTEM -->
+<section class="tutorial-section" id="google">
+  <div class="container">
+    <div class="section-eyebrow">Google AI</div>
+    <h2 class="section-title">The Google AI Ecosystem</h2>
+    <p class="section-intro">Google offers the most comprehensive AI ecosystem for education — from free tools accessible with any Gmail account to enterprise-grade agentic AI for large institutions. Their FERPA compliance and educational pricing make them the safest starting point for K–12 deployment.</p>
+
+    <div class="ecosystem-card">
+      <div class="ecosystem-header">
+        <h3>Google AI Ecosystem</h3>
+        <p>From free Gemini to Workspace Studio Agents — five products that span the full generative-to-agentic spectrum.</p>
+      </div>
+      <div class="ecosystem-body">
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Gemini</h4><span class="badge-gen">Generative</span></div>
+          <p>Google's flagship conversational AI. Free at gemini.google.com. Integrated into Workspace Education tiers. The most FERPA-safe option when accessed through an educational Google account.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Vertex AI Agents / IDX</h4><span class="badge-agent">Agentic</span></div>
+          <p>Enterprise-grade agent development platform. Project IDX is Google's cloud-based development environment with AI agents for coding. Best for technically advanced educators building custom solutions.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>NotebookLM</h4><span class="badge-gen">Generative</span></div>
+          <p>AI research assistant grounded in your uploaded documents. Free with any Google account. Generates quizzes, study guides, and Audio Overview podcasts from curriculum materials. The safest AI for student-facing use.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Gemini Gems</h4><span class="badge-agent">Agentic</span></div>
+          <p>Custom AI agents built in Gemini Advanced. Educators can create "Gems" with specific system prompts and knowledge bases — like a permanent AI teaching assistant with your curriculum baked in. Requires Google AI Pro for Education.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Project Astra / Workspace Studio</h4><span class="badge-agent">Agentic</span></div>
+          <p>Google's most advanced agentic AI — Workspace Studio lets you build no-code agents that monitor Google Drive folders, process documents, and trigger automations. Requires Google AI Pro for Education + IT configuration.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MICROSOFT ECOSYSTEM -->
+<section class="tutorial-section" id="microsoft">
+  <div class="container">
+    <div class="section-eyebrow">Microsoft AI</div>
+    <h2 class="section-title">The Microsoft AI Ecosystem</h2>
+    <p class="section-intro">Microsoft integrates AI across its entire product suite through Copilot — from free web access to enterprise-grade agentic workflows in Microsoft 365 Education. FedRAMP High certified, making it the preferred choice for federal education grants and sensitive research.</p>
+
+    <div class="ecosystem-card">
+      <div class="ecosystem-header">
+        <h3>Microsoft AI Ecosystem</h3>
+        <p>Copilot embedded across Word, Teams, and OneNote — plus Copilot Studio for custom agent building.</p>
+      </div>
+      <div class="ecosystem-body">
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Microsoft Copilot</h4><span class="badge-gen">Generative</span></div>
+          <p>Microsoft's flagship AI assistant — embedded in Word, Outlook, PowerPoint, Teams, and OneNote. Available in M365 Education A1 (free) through A5 tiers. Strong FERPA compliance when accessed through educational accounts.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>GitHub Copilot Workspace</h4><span class="badge-agent">Agentic</span></div>
+          <p>100% free for verified educators through GitHub Global Campus. Reads entire codebases, proposes multi-file plans, and writes code autonomously. Ideal for educators building XR simulations or data analysis scripts without traditional coding skills.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Copilot Pages / Loop</h4><span class="badge-gen">Generative</span></div>
+          <p>Collaborative AI workspaces in Microsoft Teams and Loop. Like NotebookLM but built into Teams — teams can collaboratively query AI against shared documents. Good for faculty working groups and department-level curriculum design.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Copilot Studio</h4><span class="badge-agent">Agentic</span></div>
+          <p>Low-code platform for building custom AI agents on Microsoft infrastructure. Educators can build agents that integrate with SharePoint, Teams, and Outlook without coding. Enterprise-grade, FedRAMP compliant. Requires M365 premium licensing.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Windows Copilot Vision</h4><span class="badge-agent">Agentic</span></div>
+          <p>Copilot's evolving OS-level awareness — can see what's on your screen and assist across applications. Currently in preview. Will allow educators to dictate tasks across applications while Copilot executes them visually. Privacy controls are a key consideration.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLE ECOSYSTEM -->
+<section class="tutorial-section" id="apple">
+  <div class="container">
+    <div class="section-eyebrow">Apple AI</div>
+    <h2 class="section-title">The Apple AI Ecosystem</h2>
+    <p class="section-intro">Apple's approach to AI prioritizes on-device processing and privacy above all else — most Apple Intelligence features never send data to a server. This makes Apple the strongest privacy option for K–12 environments, though capabilities are more limited than Google or Microsoft.</p>
+
+    <div class="ecosystem-card">
+      <div class="ecosystem-header">
+        <h3>Apple AI Ecosystem</h3>
+        <p>On-device AI first — Apple Intelligence processes most requests locally, keeping student data off the cloud by default.</p>
+      </div>
+      <div class="ecosystem-body">
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Apple Writing Tools</h4><span class="badge-gen">Generative</span></div>
+          <p>Built into iOS 18 and macOS Sequoia — available in any text field across the operating system. Proofread, rewrite, summarize, and generate text without leaving your app. Fully on-device for most tasks — no data leaves the device. No account required, no cost beyond the device.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Xcode Swift Assist</h4><span class="badge-agent">Agentic</span></div>
+          <p>AI coding assistant integrated into Xcode for Swift and Swift UI development. Helps educators building iOS apps or Apple platform tools for educational XR and accessibility applications. Designed for on-device Apple development specifically.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Apple Notes Integration</h4><span class="badge-gen">Generative</span></div>
+          <p>Apple Intelligence can summarize and organize notes, generate action lists from meeting notes, and create Smart Reply suggestions in Mail. Useful for teacher productivity — meeting notes, parent communication drafts, and lesson ideation — all processed on-device.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Siri Shortcuts / App Intents</h4><span class="badge-agent">Agentic</span></div>
+          <p>Siri Shortcuts and App Intents allow educators to build automated workflows across Apple apps — trigger sequences like "When I say 'morning routine,' open attendance sheet, start timer, and send good morning email to class." Agentic at the operating system level.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Siri On-Screen Awareness</h4><span class="badge-agent">Agentic</span></div>
+          <p>Siri can now see and understand what's on your screen (with permission) and take actions based on visual context. Ask Siri to "add this event to my calendar" while looking at an event flyer, or "share this assignment rubric with my class group." Privacy-first — Apple cannot access this data.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANTHROPIC / CLAUDE ECOSYSTEM -->
+<section class="tutorial-section" id="anthropic">
+  <div class="container">
+    <div class="section-eyebrow">Anthropic (Claude)</div>
+    <h2 class="section-title">The Anthropic / Claude Ecosystem</h2>
+    <p class="section-intro">Anthropic's Claude is widely regarded as the most thoughtful and nuanced conversational AI — with a particularly strong approach to safety and ethics. Claude Cowork (formerly Claude Computer Use) brings agentic capabilities directly to your desktop, working with your local files autonomously.</p>
+
+    <div class="ecosystem-card">
+      <div class="ecosystem-header">
+        <h3>Claude AI Ecosystem</h3>
+        <p>From conversational Claude to autonomous Claude Cowork — Anthropic's safety-first approach to AI for educators.</p>
+      </div>
+      <div class="ecosystem-body">
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Claude Chat</h4><span class="badge-gen">Generative</span></div>
+          <p>Anthropic's flagship conversational AI — widely praised for nuanced, thoughtful responses and strong ethics. Available at claude.ai. Free tier available; paid plans from $20/month. Strong for academic writing, grant narratives, lesson planning, and complex analysis.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Claude Code</h4><span class="badge-agent">Agentic</span></div>
+          <p>Anthropic's agentic coding assistant — operates as a terminal-based agent that can read, write, and execute code across your entire project. Ideal for educators building research tools, data pipelines, or educational applications who want a highly capable autonomous developer.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Claude Projects</h4><span class="badge-gen">Generative</span></div>
+          <p>Persistent AI workspaces where you upload documents and maintain conversation context across sessions. Like NotebookLM but more conversational and flexible. Upload your curriculum, syllabi, and rubrics — Claude maintains context across all future conversations in that project.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Claude Skills / API Agents</h4><span class="badge-agent">Agentic</span></div>
+          <p>Custom AI agents built on the Claude API — for educators and institutions with technical capacity. Integrates with any system via API. PlayLab.ai and other educator platforms are built on the Claude API, making Claude's intelligence accessible without coding.</p>
+        </div>
+        <div class="eco-item">
+          <div class="eco-item-header"><h4>Claude Cowork</h4><span class="badge-agent">Agentic</span></div>
+          <p>Anthropic's desktop agentic AI — works directly in your file system, writing files, organizing folders, and executing multi-step tasks autonomously. Requires Claude Pro/Max/Team/Enterprise ($20+/month) and the Claude Desktop app. The most capable local agentic AI for individual educators.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#F0F4FF;border:1px solid #C8D4F0;border-radius:12px;padding:24px 28px;margin-top:24px;">
+      <h4 style="color:var(--accent);font-size:1rem;font-weight:700;margin-bottom:12px;">Want the Full Claude Cowork Setup Guide?</h4>
+      <p style="font-size:0.92rem;color:var(--muted);">The Agentic AI page includes the complete Claude Cowork folder setup, global instructions template, the Wispr Flow dictation guide, and token-saving strategies.</p>
+      <a href="agentic.html#cowork" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--white);padding:10px 18px;border-radius:8px;font-size:0.88rem;font-weight:600;text-decoration:none;margin-top:10px;">Go to Claude Cowork Guide →</a>
+    </div>
+
+    <div style="margin-top:40px;">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin-bottom:16px;">Choosing Between the Four Ecosystems</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead><tr><th>If your priority is...</th><th>Best Choice</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Maximum FERPA compliance for K–12 students</td><td><strong>Google Workspace Education</strong></td><td>Strongest educational compliance documentation, free for most schools, admin controls, no ads</td></tr>
+            <tr><td>Free agentic coding for XR/data projects</td><td><strong>GitHub Copilot (Microsoft)</strong></td><td>100% free for verified educators via GitHub Global Campus</td></tr>
+            <tr><td>Strongest on-device privacy (no cloud data)</td><td><strong>Apple Intelligence</strong></td><td>Most features process locally — student data never leaves the device</td></tr>
+            <tr><td>Most nuanced conversational AI for research/writing</td><td><strong>Claude (Anthropic)</strong></td><td>Widely regarded as best for complex academic writing, ethical reasoning, and nuanced analysis</td></tr>
+            <tr><td>Full agentic desktop automation</td><td><strong>Claude Cowork</strong></td><td>Works directly with local files; most capable individual productivity agent currently available</td></tr>
+            <tr><td>Enterprise-grade AI agents with FedRAMP</td><td><strong>Microsoft 365 Education + Copilot Studio</strong></td><td>FedRAMP High certified; required for federal grant environments and sensitive research</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <a href="index.html">InspiredBI.org</a> — All resources free for educators &nbsp;|&nbsp;
+  <a href="tutorials.html">Tutorials Hub</a> &nbsp;|&nbsp;
+  <a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a> &nbsp;|&nbsp;
+  <a href="https://www.linkedin.com/in/maggiemosher/" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+  <a href="https://www.youtube.com/@KUAIAdvocates" target="_blank">YouTube</a></p>
+</footer>
+
+</body>
+</html>

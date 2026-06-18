@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Build AI chatbots for your classroom — no coding required. Copy-paste prompts for teachers, higher ed faculty, parents, and administrators." />
+  <title>Build a Chatbot — InspiredBI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9963A; --gold-light: #F0C060; --navy: #1A2744;
+      --cream: #FBF8F2; --white: #FFFFFF; --text: #1A1A2E;
+      --muted: #5A6070; --border: #E8E2D8; --accent: #3B7DD8;
+      --green: #2D8F5A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26,39,68,0.97); backdrop-filter: blur(8px);
+      padding: 14px 40px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-back { color: var(--gold-light); text-decoration: none; font-size: 14px; font-weight: 600; }
+    .nav-back:hover { color: var(--white); }
+
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0F1A33 100%);
+      padding: 140px 24px 80px; text-align: center;
+    }
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(201,150,58,0.15); border: 1px solid rgba(201,150,58,0.4);
+      color: var(--gold-light); padding: 6px 18px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); color: var(--white); margin-bottom: 16px; line-height: 1.2; }
+    .page-hero h1 em { color: var(--gold-light); font-style: normal; }
+    .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 600px; margin: 0 auto 32px; line-height: 1.7; }
+
+    .jump-nav {
+      background: var(--cream); border-bottom: 1px solid var(--border);
+      padding: 16px 24px; position: sticky; top: 65px; z-index: 50;
+    }
+    .jump-nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: center;
+    }
+    .jump-nav span { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 8px; white-space: nowrap; }
+    .jump-link {
+      background: var(--white); border: 1px solid var(--border);
+      color: var(--navy); padding: 6px 14px; border-radius: 20px;
+      font-size: 13px; font-weight: 500; text-decoration: none;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .jump-link:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
+
+    .tutorial-section { padding: 80px 24px; }
+    .tutorial-section:nth-child(even) { background: var(--cream); }
+    .container { max-width: 960px; margin: 0 auto; }
+    .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+    .section-intro { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 720px; margin-bottom: 40px; }
+
+    .steps { margin-bottom: 40px; }
+    .step { display: grid; grid-template-columns: 48px 1fr; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+    .step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--navy); color: var(--white); font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-content h4 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .step-content p { font-size: 0.92rem; color: var(--muted); line-height: 1.65; }
+    .step-note { display: inline-block; margin-top: 8px; background: rgba(201,150,58,0.1); border: 1px solid rgba(201,150,58,0.3); color: #8A6220; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+    .step-content a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .step-content a:hover { text-decoration: underline; }
+
+    .tips-box { background: #EDF7F1; border: 1px solid #B8DEC9; border-radius: 12px; padding: 24px 28px; margin-top: 32px; }
+    .tips-box h4 { color: var(--green); font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
+    .tips-box ul { list-style: none; }
+    .tips-box ul li { font-size: 0.92rem; color: #1A3D2B; padding: 4px 0 4px 20px; position: relative; }
+    .tips-box ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+    .resource-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin: 32px 0; }
+    .resource-card { border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-decoration: none; color: inherit; display: block; transition: all 0.25s; }
+    .resource-card:hover { border-color: var(--gold); box-shadow: 0 6px 20px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .resource-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .resource-card h4 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; line-height: 1.3; }
+    .resource-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+
+    .tool-links { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
+    .tool-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--white); border: 2px solid var(--border); color: var(--navy); padding: 10px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+    .tool-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    .framework-link { display: inline-flex; align-items: center; gap: 8px; background: rgba(59,125,216,0.08); border: 1px solid rgba(59,125,216,0.3); color: var(--accent); padding: 10px 18px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; margin: 16px 0; transition: all 0.2s; }
+    .framework-link:hover { background: var(--accent); color: var(--white); }
+
+    footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; }
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .step { grid-template-columns: 40px 1fr; gap: 14px; }
+      .jump-nav-inner { flex-wrap: wrap; justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo-banner.png" alt="InspiredBI" style="height:44px; width:auto; object-fit:contain; display:block;" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Resources</a></li>
+    <li><a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a></li>
+    <li><a href="free-resources.html#videos">Videos</a></li>
+    <li><a href="free-resources.html#courses">Free Courses</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="tutorials.html" class="nav-back">← Back to Tutorials</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-badge">No Coding Required</div>
+  <h1>Build a <em>Chatbot</em> for Your Classroom</h1>
+  <p>From system prompt to shared link in 20 minutes. Plus a full library of copy-paste prompts for every role in education.</p>
+</div>
+
+<div class="jump-nav">
+  <div class="jump-nav-inner">
+    <span>Jump to:</span>
+    <a href="#chatbot" class="jump-link">Build a Chatbot</a>
+    <a href="#prompts" class="jump-link">All Prompts</a>
+    <a href="#teacher-prompts" class="jump-link">K-12 Prompts</a>
+    <a href="#higher-ed-prompts" class="jump-link">Higher Ed Prompts</a>
+    <a href="#parent-prompts" class="jump-link">Parent Prompts</a>
+    <a href="#admin-prompts" class="jump-link">Admin Prompts</a>
+  </div>
+</div>
+
+<!-- BUILD A CHATBOT -->
+<section class="tutorial-section" id="chatbot">
+  <div class="container">
+    <div class="section-eyebrow">How-To Guide</div>
+    <h2 class="section-title">Building Personalized Chatbots for Your Classroom</h2>
+    <p class="section-intro">Imagine a chatbot that knows your syllabus, speaks your students' reading level, and never gets tired of answering the same question for the 30th time. You can build one — no coding required.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Choose Your Platform</h4>
+          <p>The easiest way to build a classroom chatbot is with one of these free or low-cost tools designed for educators:</p>
+          <div class="tool-links" style="margin-top:10px;">
+            <a href="https://www.magicschool.ai/" target="_blank" class="tool-btn">MagicSchool AI</a>
+            <a href="https://schoolai.com/" target="_blank" class="tool-btn">SchoolAI</a>
+            <a href="https://box.boodle.ai/signup?_gl=1*1myw8r1*_ga*MTI2MzU4MzE3OC4xNzgxNjU1MTk4*_ga_BMB263ZQ2T*czE3ODE2NTUxOTgkbzEkZzEkdDE3ODE2NTUyMDYkajUyJGwwJGg1NDU3MjY1Mzk" target="_blank" class="tool-btn">Boodlebox</a>
+            <a href="https://edu.google.com/intl/ALL_us/ai/gemini-for-education/" target="_blank" class="tool-btn">Gemini for Education</a>
+            <a href="https://gemini.google/students/" target="_blank" class="tool-btn">Gemini for Students</a>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Write Your "System Prompt" — The Chatbot's Personality</h4>
+          <p>A system prompt tells the AI who it is, what it knows, and how to behave. Use this template:</p>
+          <blockquote style="background:#F8F5EF;border-left:3px solid var(--gold);padding:14px 16px;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--navy);margin-top:12px;line-height:1.7;">
+            "You are a friendly and encouraging reading assistant for [Grade Level] students. You help students understand [Subject]. Answer in simple, encouraging language. Never give direct answers to assignment questions — instead ask guiding questions that help students think through the problem themselves. Always end by asking a follow-up question to check understanding."
+          </blockquote>
+          <span class="step-note">💡 The more specific your prompt, the more useful and safe your chatbot will be.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Test It as a Student Would</h4>
+          <p>Before sharing with your class, pretend you're a student and ask tricky questions — including off-topic ones. Make sure it stays on task, uses appropriate language, and doesn't give away assignment answers.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Share and Monitor</h4>
+          <p>Most educator chatbot platforms give you a simple link to share with students. Many also show conversation logs — a great window into student thinking and misconceptions.</p>
+          <span class="step-note">💡 Regularly check logs. Students asking unusual questions can signal confusion that needs classroom attention.</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#F0F4FF;border:1px solid #C8D4F0;border-radius:12px;padding:24px 28px;margin-top:32px;">
+      <h4 style="color:var(--accent);font-size:1rem;font-weight:700;margin-bottom:12px;">Looking for Advanced Chatbots and Frameworks?</h4>
+      <p style="font-size:0.92rem;color:var(--muted);margin-bottom:16px;">For the ETHICS, CRAFT, GOAL, and G.O.A.L.S. frameworks to make your chatbots smarter and more ethical, visit the Frameworks page.</p>
+      <a href="frameworks.html" class="framework-link">Visit Frameworks &amp; Prompts →</a>
+    </div>
+
+    <div style="background:#F0F4FF;border:1px solid #C8D4F0;border-radius:12px;padding:24px 28px;margin-top:16px;">
+      <h4 style="color:var(--accent);font-size:1rem;font-weight:700;margin-bottom:12px;">Want a Full Agentic Agent Instead?</h4>
+      <p style="font-size:0.92rem;color:var(--muted);margin-bottom:16px;">Chatbots respond to questions. Agentic agents take on goals and work autonomously. Learn the difference and choose your platform.</p>
+      <a href="agentic.html" class="framework-link">Visit Build an Agentic Agent →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROMPTS HUB ANCHOR -->
+<div id="prompts"></div>
+
+<!-- 3A: K-12 Teacher Prompts -->
+<section class="tutorial-section" id="teacher-prompts">
+  <div class="container">
+    <div class="section-eyebrow">From Google's 100+ Ways to Use Gemini</div>
+    <h2 class="section-title">Copy-Paste Prompts for Teachers — Start Here</h2>
+    <p class="section-intro">These prompts from Google's educator guide work in Gemini right now. Just copy, paste, and customize the parts in brackets.</p>
+
+    <div class="resource-grid" style="margin-top:0;">
+      <div class="resource-card">
+        <div class="resource-tag">📅 Lesson Planning</div>
+        <h4>5-Day Lesson Sequence</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"You are a [grade] teacher. Design a 5-day lesson sequence introducing [topic] to students with mixed prior knowledge. Align each day to [standards], and include interactive, inquiry-based, and collaborative learning."</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">📝 Assessment</div>
+        <h4>Differentiate an Existing Assessment</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"You are a [grade] teacher. Rewrite this exam using the same learning objectives and number of questions. Adjust wording for students who need an alternative version. [Upload exam]"</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">📚 Differentiation</div>
+        <h4>Re-Level a Reading Passage</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"You are a literacy expert. Generate an article on [topic] at 3 reading levels: emerging, on-grade-level, and advanced. Include 2 comprehension questions per version. [Upload passage]"</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">💌 Admin</div>
+        <h4>Draft Parent or Staff Email</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"You are a school communications coordinator. Draft an email for [parents/staff] that [topic]. Keep the tone professional and supportive, and keep it under 150 words."</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">🧑‍🎓 Student Use</div>
+        <h4>Personalized Practice Quiz</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"Act as a [subject] teacher. I'm a [grade] student preparing for [exam]. Create a practice quiz focusing on [specific concepts I find hard]. Give me 10 multiple-choice and 5 short answer questions with answers separately."</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">🔬 Deep Research</div>
+        <h4>Literature Review Starter</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"Act as a research assistant. Summarize 3–5 recent findings from peer-reviewed sources on [topic]. Include APA citations and group findings into key themes." <em style="color:var(--muted);">(Use Deep Research mode in Gemini)</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3B: Higher Ed Faculty Prompts -->
+<section class="tutorial-section" id="higher-ed-prompts">
+  <div class="container">
+    <div class="section-eyebrow">For Higher Education</div>
+    <h2 class="section-title">Copy-Paste Prompts for Higher Ed Faculty</h2>
+    <p class="section-intro">A set of prompts specifically engineered for higher education faculty — shifting the focus toward advanced research synthesis, graduate-level course design, grant alignment, and LMS integration. Just copy, paste, and customize the parts in brackets.</p>
+
+    <div class="resource-grid">
+      <div class="resource-card">
+        <div class="resource-tag">🔬 Deep Research &amp; Literature Synthesis</div>
+        <h4>Synthesize AI-Powered Database Exports</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"Act as a postdoctoral research assistant. I have exported a batch of abstracts from [Scite / Consensus] regarding [the intersection of Extended Reality and personalized learning]. Synthesize these findings into a 500-word literature review highlighting the current consensus, emerging debates, and gaps in the literature. Organize the output with clear Markdown headings. Include APA formatting for the synthesized texts, and append a methodology note to the references section that explicitly identifies Google Gemini as the generative tool utilized in this research synthesis."</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">🎓 LMS Integration</div>
+        <h4>Canvas/Blackboard Interactive Module Builder</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"You are an expert instructional designer for higher education. Design an interactive, asynchronous weekly module for [Canvas / Blackboard] on the topic of [Strategic Design and Development in Extended Reality]. Include a brief hook that utilizes an interactive [Genially timeline / FigJam board], a complex peer-to-peer discussion prompt that requires students to apply [Universal Design for Learning frameworks], and a 5-question formative assessment structure. Format the output using basic HTML heading and paragraph tags so I can paste it directly into the LMS rich text editor without losing the formatting."</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">📝 Assessment &amp; Rubrics</div>
+        <h4>Graduate-Level Analytic Rubric</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"Act as a graduate program director. Generate a comprehensive analytic rubric for a master's level assignment where students must [design a spatial computing prototype for a classroom]. Evaluate the work across 4 domains: [technical execution, ethical AI considerations, pedagogical alignment, and accessibility]. Format this as a table that can be easily imported into the [Canvas / Blackboard] rubric builder, with highly specific, qualitative descriptors for 'Exceptional', 'Proficient', and 'Developing' work."</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">💼 Grant Writing &amp; Administration</div>
+        <h4>RFP Alignment and Gap Analysis</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"Act as an experienced academic grant reviewer. I am pasting my drafted project narrative for the [PRISM / VOISS] grant below. Review this narrative against the following key objectives from the funder's Request for Proposals (RFP): [insert 3–4 RFP goals]. Identify any areas where my narrative's alignment to the funder's goals is weak or implicit. Suggest three specific, evidence-based phrasing adjustments to strengthen the proposal's focus on [AI integration and evidence-based practices]. [Upload/Paste Narrative]"</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">🎤 Professional Formatting</div>
+        <h4>Academic Biography Optimizer</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"Act as an academic communications specialist. Draft a 150-word professional biography for an upcoming [faculty directory / conference proposal]. Focus strictly on my current research in [AI, extended reality, and evidence-based practices] and my academic roles at [University of Kansas and Johns Hopkins University]. Ensure the tone is authoritative but accessible. Explicitly exclude any of my past community organization roles, keeping the focus entirely on higher education and research. At the end, include a brief, one-sentence standard disclosure stating that my professional citations and references utilize Google Gemini."</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">🧑‍🎓 Student Use &amp; Scaffolding</div>
+        <h4>AI-Assisted Peer Review Guidelines</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"Act as a [subject matter] professor. Create a highly structured, step-by-step guide for my students on how to use generative AI as a peer-review partner for their upcoming [research methodology drafts]. Give them three specific, copy-paste prompts they can feed into their own AI tools to evaluate their work for [logical flow, bias in source selection, and clarity of the research question] without the AI simply rewriting the paper for them."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3C: Parent Prompts -->
+<section class="tutorial-section" id="parent-prompts">
+  <div class="container">
+    <div class="section-eyebrow">For Families</div>
+    <h2 class="section-title">Copy-Paste Prompts for Parents</h2>
+    <p class="section-intro">Designed to help parents support their children's learning, navigate school communications, and foster independence — without the AI simply doing the work for them.</p>
+
+    <div class="resource-grid">
+      <div class="resource-card">
+        <div class="resource-tag">🧠 Homework Support</div>
+        <h4>The Socratic Homework Helper</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"Act as an encouraging, expert tutor for a [grade level] student. My child is currently stuck on a homework problem about [insert topic, e.g., adding fractions with unlike denominators]. Under no circumstances should you provide the final answer. Instead, ask one guiding question to help them find the next step, and provide a simple, real-world analogy to explain the concept."</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">📋 Special Education</div>
+        <h4>The IEP/504 Jargon Translator</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"Act as a special education advocate. I am pasting a goal from my child's [IEP / 504 plan] below. Translate this formal educational jargon into plain, accessible language. Then, give me three simple, stress-free activities I can do at home with my child in under 15 minutes a day to support this specific goal. [Paste Goal]"</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">✉️ School Communication</div>
+        <h4>The Constructive Teacher Communication Draft</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"Act as a collaborative and supportive parent. I need to write an email to my child's teacher regarding [insert issue, e.g., a sudden drop in math scores / anxiety about an upcoming project]. Draft a brief, respectful email that assumes positive intent, asks for the teacher's partnership, and requests a brief phone call to discuss strategies."</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">📅 Study Planning</div>
+        <h4>The Study Schedule Generator</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"My [grade level] child has a major test on [topic] in [number] days, and they struggle with time management. Create a daily study schedule that breaks the preparation down into 15-to-20-minute micro-sessions. Include active recall strategies rather than just re-reading notes, and suggest a simple reward system for completing each daily session."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3D: Admin Prompts -->
+<section class="tutorial-section" id="admin-prompts">
+  <div class="container">
+    <div class="section-eyebrow">For School Leaders</div>
+    <h2 class="section-title">Copy-Paste Prompts for School Administrators</h2>
+    <p class="section-intro">High-level prompts for communications, operational efficiency, and instructional coaching — so leaders spend less time at their keyboards and more time in classrooms.</p>
+
+    <div class="resource-grid">
+      <div class="resource-card">
+        <div class="resource-tag">🏫 Instructional Coaching</div>
+        <h4>The Walkthrough Feedback Synthesizer</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"Act as an expert instructional coach. I just completed a 15-minute classroom walkthrough in a [subject/grade] class. Below are my rough, shorthand notes. Transform these notes into a supportive, professional email to the teacher. Highlight two specific strengths based on my notes, and frame one area of growth as a collaborative, actionable question for us to discuss later. Keep it under 200 words. [Paste rough notes]"</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">📢 Family Communications</div>
+        <h4>The Policy Rollout &amp; Rationale Drafter</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"Act as a school principal. We are rolling out a new campus policy regarding [insert policy, e.g., student cell phone usage / updated drop-off procedures]. Draft a communication to families explaining this change. The tone must be firm but empathetic. Clearly articulate the 'why' behind the policy by grounding it in [student safety / academic focus], and outline the exact expectations in three bullet points."</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">📰 Newsletter</div>
+        <h4>The Weekly Community Newsletter Compiler</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"Act as a school communications director. I have pasted raw updates from my PTA, the athletics department, the counseling office, and my own principal's message below. Synthesize these into a cohesive, warm, and highly readable weekly community newsletter. Use clear Markdown headings, bold key dates, and ensure the reading level is accessible to a diverse parent community. [Paste raw updates]"</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">📚 Professional Development</div>
+        <h4>PD Session Architect</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"Act as a Director of Professional Development. I need to lead a 45-minute faculty meeting on [insert topic, e.g., implementing Universal Design for Learning / utilizing new formative assessment tools]. Design a highly interactive session agenda that completely avoids a 'sit-and-get' lecture format. Include a 5-minute hook, a 15-minute collaborative activity using a tool like [FigJam / Mentimeter], and a clear exit ticket that produces actionable data for the admin team."</p>
+      </div>
+      <div class="resource-card">
+        <div class="resource-tag">🤝 Difficult Conversations</div>
+        <h4>De-escalation Scripting</h4>
+        <p style="font-family:monospace;font-size:0.82rem;background:#F8F5EF;padding:12px;border-radius:6px;line-height:1.6;margin-top:8px;color:var(--navy);">"Act as an experienced mediator and school leader. I have a meeting tomorrow with a highly frustrated [parent / staff member] regarding [insert sensitive topic]. Provide me with a brief meeting outline, including three specific, empathetic sentence stems I can use to de-escalate the situation, validate their concerns without immediately conceding policy, and guide the conversation toward a collaborative solution."</p>
+      </div>
+    </div>
+
+    <div style="background:#F0F4FF;border:1px solid #C8D4F0;border-radius:12px;padding:24px 28px;margin-top:40px;">
+      <h4 style="color:var(--accent);font-size:1rem;font-weight:700;margin-bottom:12px;">Want Frameworks to Write Better Prompts?</h4>
+      <p style="font-size:0.92rem;color:var(--muted);margin-bottom:16px;">The CRAFT framework helps you structure any prompt for maximum effectiveness. The ETHICS framework ensures responsible use. Both are on the Frameworks page.</p>
+      <a href="frameworks.html" class="framework-link">Visit Frameworks &amp; Prompts →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <a href="index.html">InspiredBI.org</a> — All resources free for educators &nbsp;|&nbsp;
+  <a href="tutorials.html">Tutorials Hub</a> &nbsp;|&nbsp;
+  <a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a> &nbsp;|&nbsp;
+  <a href="https://www.linkedin.com/in/maggiemosher/" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+  <a href="https://www.youtube.com/@KUAIAdvocates" target="_blank">YouTube</a></p>
+</footer>
+
+</body>
+</html>

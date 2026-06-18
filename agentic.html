@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Build an Agentic AI Agent — step-by-step platform guides for Claude Cowork, PlayLab, Mizou, Google Workspace Agents, and GitHub Copilot for educators." />
+  <title>Build an Agentic Agent — InspiredBI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9963A; --gold-light: #F0C060; --navy: #1A2744;
+      --cream: #FBF8F2; --white: #FFFFFF; --text: #1A1A2E;
+      --muted: #5A6070; --border: #E8E2D8; --accent: #3B7DD8;
+      --green: #2D8F5A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26,39,68,0.97); backdrop-filter: blur(8px);
+      padding: 14px 40px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-back { color: var(--gold-light); text-decoration: none; font-size: 14px; font-weight: 600; }
+    .nav-back:hover { color: var(--white); }
+
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0F1A33 100%);
+      padding: 140px 24px 80px; text-align: center;
+    }
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(201,150,58,0.15); border: 1px solid rgba(201,150,58,0.4);
+      color: var(--gold-light); padding: 6px 18px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); color: var(--white); margin-bottom: 16px; line-height: 1.2; }
+    .page-hero h1 em { color: var(--gold-light); font-style: normal; }
+    .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 600px; margin: 0 auto 32px; line-height: 1.7; }
+
+    .jump-nav {
+      background: var(--cream); border-bottom: 1px solid var(--border);
+      padding: 16px 24px; position: sticky; top: 65px; z-index: 50;
+    }
+    .jump-nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: center;
+    }
+    .jump-nav span { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 8px; white-space: nowrap; }
+    .jump-link {
+      background: var(--white); border: 1px solid var(--border);
+      color: var(--navy); padding: 6px 14px; border-radius: 20px;
+      font-size: 13px; font-weight: 500; text-decoration: none;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .jump-link:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
+
+    .tutorial-section { padding: 80px 24px; }
+    .tutorial-section:nth-child(even) { background: var(--cream); }
+    .container { max-width: 960px; margin: 0 auto; }
+    .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+    .section-intro { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 720px; margin-bottom: 40px; }
+
+    .what-is-box { background: var(--navy); color: var(--white); border-radius: 14px; padding: 32px 36px; margin-bottom: 40px; }
+    .what-is-box h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold-light); margin-bottom: 12px; }
+    .what-is-box p { color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.7; }
+
+    .steps { margin-bottom: 40px; }
+    .step { display: grid; grid-template-columns: 48px 1fr; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+    .step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--navy); color: var(--white); font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-content h4 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .step-content p { font-size: 0.92rem; color: var(--muted); line-height: 1.65; }
+    .step-note { display: inline-block; margin-top: 8px; background: rgba(201,150,58,0.1); border: 1px solid rgba(201,150,58,0.3); color: #8A6220; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+    .step-content a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .step-content a:hover { text-decoration: underline; }
+
+    .tips-box { background: #EDF7F1; border: 1px solid #B8DEC9; border-radius: 12px; padding: 24px 28px; margin-top: 32px; }
+    .tips-box h4 { color: var(--green); font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
+    .tips-box ul { list-style: none; }
+    .tips-box ul li { font-size: 0.92rem; color: #1A3D2B; padding: 4px 0 4px 20px; position: relative; }
+    .tips-box ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+    .cta-card { background: linear-gradient(135deg, var(--navy), #243054); border-radius: 16px; padding: 40px; text-align: center; color: var(--white); margin-top: 40px; }
+    .cta-card h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 12px; }
+    .cta-card p { color: rgba(255,255,255,0.75); font-size: 0.95rem; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .cta-btn { display: inline-block; background: var(--gold); color: var(--navy); padding: 12px 28px; border-radius: 8px; font-weight: 700; font-size: 14px; text-decoration: none; transition: background 0.2s; }
+    .cta-btn:hover { background: var(--gold-light); }
+
+    .tool-links { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
+    .tool-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--white); border: 2px solid var(--border); color: var(--navy); padding: 10px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+    .tool-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    .goals-card { border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; display: grid; grid-template-columns: 64px 1fr; gap: 16px; align-items: start; }
+    .goals-letter { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900; color: var(--gold); line-height: 1; }
+    .goals-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .goals-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* COMPARISON TABLE */
+    .compare-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 0.88rem; }
+    .compare-table th { background: var(--navy); color: var(--white); padding: 12px 16px; text-align: left; font-weight: 600; font-size: 0.82rem; }
+    .compare-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text); }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:nth-child(even) td { background: var(--cream); }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; margin: 24px 0; }
+
+    .stage-list { list-style: none; margin: 24px 0; }
+    .stage-list li { padding: 12px 16px 12px 48px; position: relative; border-bottom: 1px solid var(--border); font-size: 0.92rem; color: var(--text); }
+    .stage-list li:last-child { border-bottom: none; }
+    .stage-check { position: absolute; left: 12px; top: 12px; width: 24px; height: 24px; background: var(--green); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+    .stage-list li strong { color: var(--navy); }
+
+    .platform-section { background: #F0F4FF; border: 1px solid #C8D4F0; border-radius: 14px; padding: 28px 32px; margin-bottom: 32px; }
+    .platform-section h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--navy); margin-bottom: 12px; }
+    .platform-section p { font-size: 0.92rem; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
+
+    .tip-highlight { background: rgba(201,150,58,0.08); border-left: 3px solid var(--gold); border-radius: 0 8px 8px 0; padding: 10px 16px; margin: 12px 0; font-size: 0.88rem; color: var(--navy); }
+
+    .refs { font-size: 0.85rem; color: var(--muted); line-height: 1.9; }
+    .refs p { margin-bottom: 6px; padding-left: 24px; text-indent: -24px; }
+
+    footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; }
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .step { grid-template-columns: 40px 1fr; gap: 14px; }
+      .jump-nav-inner { flex-wrap: wrap; justify-content: flex-start; }
+      .goals-card { grid-template-columns: 48px 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo-banner.png" alt="InspiredBI" style="height:44px; width:auto; object-fit:contain; display:block;" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Resources</a></li>
+    <li><a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a></li>
+    <li><a href="free-resources.html#videos">Videos</a></li>
+    <li><a href="free-resources.html#courses">Free Courses</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="tutorials.html" class="nav-back">← Back to Tutorials</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-badge">Agentic AI for Educators</div>
+  <h1>Build an <em>Agentic Agent</em></h1>
+  <p>Move from single prompts to full autonomous pipelines. Platform guides, the G.O.A.L.S. framework, and role-by-role workflows — no coding required.</p>
+</div>
+
+<div class="jump-nav">
+  <div class="jump-nav-inner">
+    <span>Jump to:</span>
+    <a href="#workflows" class="jump-link">Agentic Workflows</a>
+    <a href="#goals-framework" class="jump-link">G.O.A.L.S. Framework</a>
+    <a href="#platforms" class="jump-link">Choose a Platform</a>
+    <a href="#cowork" class="jump-link">Claude Cowork</a>
+    <a href="#platform-tables" class="jump-link">Platform Tables</a>
+    <a href="#by-role" class="jump-link">By Role</a>
+    <a href="#learning-path" class="jump-link">Full Learning Path</a>
+    <a href="#references" class="jump-link">References</a>
+  </div>
+</div>
+
+<!-- 1C: Agentic Workflows -->
+<section class="tutorial-section" id="workflows">
+  <div class="container">
+    <div class="section-eyebrow">Agentic AI — Workflows</div>
+    <h2 class="section-title">Agentic Workflows for Educators</h2>
+    <p class="section-intro">Move from single prompts to full autonomous pipelines. These workflows chain multiple AI steps together — so you describe the outcome once and the agent handles the rest.</p>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:8px;">What is Agentic AI?</h3>
+    <p style="font-size:0.95rem;color:var(--muted);margin-bottom:16px;">Watch this short overview before diving into the workflows below.</p>
+    <div style="border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:var(--navy);box-shadow:0 8px 24px rgba(0,0,0,0.12);margin-bottom:32px;">
+      <video controls style="width:100%;height:100%;display:block;" preload="metadata">
+        <source src="Gemini_Generated_Video.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- TIPS ON MAKING AGENT WORK WITHOUT YOU -->
+    <div style="background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:32px 36px;margin-bottom:40px;">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:8px;">Tips on Making Your Agent Work Without You</h3>
+      <p style="font-size:0.88rem;color:#8A6220;background:rgba(201,150,58,0.1);border:1px solid rgba(201,150,58,0.3);border-radius:6px;padding:8px 14px;margin-bottom:20px;display:inline-block;"><strong>Only Use These If Giving Access To Only One Secure Content Area You Can Undo If Needed (Backups are Available, Never for Full Laptop)</strong></p>
+      <p style="font-size:0.95rem;color:var(--muted);margin-bottom:16px;">Place these in the Agent's Global Instructions:</p>
+      <pre style="background:var(--navy);color:rgba(255,255,255,0.88);border-radius:12px;padding:28px 32px;font-family:monospace;font-size:0.85rem;line-height:1.75;overflow-x:auto;white-space:pre-wrap;"><code>ROLE &amp; CONTEXT
+I am a university professor and researcher. I balance multiple high-level tasks including grant tracking, instructional design, and academic writing. My time is extremely limited.
+
+AUTONOMY &amp; DECISION-MAKING DIRECTIVES
+1. Autonomous Execution: When given a goal, break it down into logical steps and execute them completely without stopping to ask for permission or intermediate feedback.
+2. Bias for Action &amp; Assumptions: If a task has minor ambiguities or missing details, do not pause to ask me questions. Make the most logical, professional, and practical assumption based on our context and proceed.
+3. File Management Authority: You have full permission to create, read, and overwrite files within my designated workspace folders to accomplish your goal. Only pause for explicit confirmation if a task requires permanently deleting an original, non-reproducible core asset.
+4. Completeness: Never give me placeholders, structural outlines, or notes like "insert text here." Generate full, finalized, production-ready outputs.
+
+OUTPUT FORMATTING PREFERENCES
+* Prioritize highly succinct, scannable text.
+* Use markdown bolding strategically to highlight key numbers or actionable steps.
+* Avoid conversational fluff (e.g., "Sure, I can help with that!"). Jump straight to the execution and output indicators.
+
+Then always prompt Agents with: Goal: [Enter Goal] | Exemplars: [Enter Exemplars] | Constraints: [Enter Constraints] | Context: [Enter Context]. where to put task: directly into my Outputs folder. Run completely to completion. Do not ask questions.</code></pre>
+    </div>
+
+    <!-- WORKFLOW 1 -->
+    <div style="margin-bottom:48px;">
+      <div class="what-is-box">
+        <h3>⚙️ Workflow 1: The Differentiated Resource Compiler</h3>
+        <p>Creating multi-tiered reading materials manually is incredibly taxing on an educator's cognitive load. An agentic workflow can autonomously research a topic, adapt the complexity for diverse learners, and format the final deliverables into a single, cohesive document.</p>
+      </div>
+      <div class="steps" style="margin-top:24px;">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Define the Research Parameters</h4><p>Anchor the agent to facts. Instruct the agent to use its search tools to establish a factual baseline. For example: <em>"Use web search to find three recent, scientifically accurate overviews of neural networks from university or government domains. Summarize the core concepts."</em></p></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Establish the Differentiation Targets</h4><p>Once the agent has the core text, direct it to synthesize the information into specific reading levels. <em>"Take your synthesis and create three distinct versions: one written at an 8th-grade reading level, one at a 10th-grade reading level, and one advanced summary for early college level."</em></p></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Determine the Output Structure</h4><p>Specify exactly how the final product should look so you don't have to reformat it later. <em>"Format the output with clear Markdown headings. For each reading level, include a bolded vocabulary list of three key terms and two formative comprehension questions."</em></p></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Automate the Export</h4><p>Command the agent to push the finalized content directly into your workflow. <em>"Export this compiled, multi-leveled document into a new Google Doc and save it in my 'Instructional Materials' folder."</em></p><span class="step-note">⚙️ Workspace integration required.</span></div></div>
+      </div>
+    </div>
+
+    <!-- WORKFLOW 2 -->
+    <div style="margin-bottom:48px;">
+      <div class="what-is-box">
+        <h3>⚙️ Workflow 2: The Formative Feedback Pipeline</h3>
+        <p>Providing a rubric score is straightforward, but generating individualized, actionable feedback for a full roster takes hours. An agentic system can bridge this gap by analyzing performance data against your criteria and drafting personalized communications.</p>
+      </div>
+      <div class="steps" style="margin-top:24px;">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Upload the Evaluation Criteria</h4><p>Provide the agent with your exact expectations. <em>"Here is the 4-point rubric for the upcoming persuasive essay assignment. Review the criteria for each performance tier, paying specific attention to the 'Evidence and Citation' category."</em></p></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Ingest the Student Data</h4><p>Feed the agent the raw performance data. <em>"Analyze the attached batch of student essays against the rubric provided in the previous step."</em></p></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Frame the Feedback Parameters</h4><p>Prompt the agent with a strict pedagogical framework. <em>"For each student, generate a two-paragraph feedback summary. Paragraph one must highlight a specific strength. Paragraph two must provide one concrete, actionable strategy to improve their weakest area."</em></p><span class="step-note">💡 Ensure pedagogical alignment.</span></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Draft the Communications</h4><p>Utilize the agent's email integration tools to close the loop. <em>"Draft an individual email to each student containing their personalized feedback. Save these in my Gmail drafts folder for my final review; do not send them automatically."</em></p></div></div>
+      </div>
+    </div>
+
+    <!-- WORKFLOW 3 -->
+    <div style="margin-bottom:48px;">
+      <div class="what-is-box">
+        <h3>⚙️ Workflow 3: The Weekly Lesson Plan Builder</h3>
+        <p>Transforming a single academic standard into a cohesive, week-long instructional arc requires an agentic workflow that treats the standard not just as a text string, but as a multi-dimensional target.</p>
+      </div>
+      <div class="steps" style="margin-top:24px;">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Phase 1: Unpacking the Standard — The Cognitive Analysis</h4><p>Instruct the agent to break the standard into its core components, referencing state frameworks or clarifying documents via web search if needed.</p><blockquote style="background:#F8F5EF;border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--navy);margin-top:12px;font-style:italic;line-height:1.7;">"Analyze the following standard: [Insert Standard]. Deconstruct it into a KUD matrix: What must students Know, Understand, and be able to Do? Output only the deconstructed matrix and wait for my confirmation."</blockquote><span class="step-note">💡 Forcing a conceptual baseline first prevents the AI from introducing off-topic activities later in the loop.</span></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Phase 2: Macro-Sequencing the Weekly Arc</h4><p>Once the KUD matrix is approved, direct the agent to pace the learning using the 5E Model (Engage, Explore, Explain, Elaborate, Evaluate).</p><blockquote style="background:#F8F5EF;border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--navy);margin-top:12px;font-style:italic;line-height:1.7;">"Using the approved KUD matrix, map out a 5-day instructional sequence using the 5E Model. For each day, provide a 1-sentence daily objective and a brief rationale."</blockquote></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Phase 3: Micro-Planning &amp; Activity Engineering</h4><blockquote style="background:#F8F5EF;border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--navy);margin-top:12px;font-style:italic;line-height:1.7;">"For Day 1 (Engage) and Day 2 (Explore), generate a detailed 50-minute lesson plan template. Include a 5-minute Bell Ringer/Hook; a 20-minute active learning student activity; a 5-minute formative assessment check."</blockquote><span class="step-note">💡 Run this step iteratively (Days 1–2, then 3–4, then Day 5) to maintain deep detail.</span></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Phase 4: Slide Deck Architecture &amp; Visual Outlines</h4><blockquote style="background:#F8F5EF;border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--navy);margin-top:12px;font-style:italic;line-height:1.7;">"For the presentation portions, create a slide deck outline. For each slide provide: Slide Title; Visual Concept Description; On-Screen Bullet Points (maximum 3); Speaker Notes."</blockquote></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Phase 5: Differentiation Layering — UDL Alignment</h4><blockquote style="background:#F8F5EF;border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--navy);margin-top:12px;font-style:italic;line-height:1.7;">"Review the entire 5-day lesson plan and slide outline. Generate a UDL supplement that details: scaffolding options for English Language Learners; extension tasks for students who demonstrate immediate mastery."</blockquote></div></div>
+      </div>
+
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin:48px 0 12px;">Executing as an Automated Multi-Agent Pipeline</h3>
+      <pre style="background:var(--navy);color:rgba(255,255,255,0.88);border-radius:12px;padding:28px 32px;font-family:monospace;font-size:0.83rem;line-height:1.85;overflow-x:auto;white-space:pre-wrap;"><code>[Standard Input]
+       │
+       ▼
+┌─────────────────────────┐
+│   The Curriculum        │ ──► Unpacks the standard &amp; builds the
+│   Strategist            │     pedagogical framework (Phases 1 &amp; 2)
+└─────────────────────────┘
+       │
+       ▼
+┌─────────────────────────┐
+│   The Learning          │ ──► Designs active learning protocols,
+│   Experience Designer   │     hooks, and formative checks (Phase 3)
+└─────────────────────────┘
+       │
+       ▼
+┌─────────────────────────┐
+│   The Instructional     │ ──► Scripts speaker notes, layouts,
+│   Media Producer        │     and visual metaphors (Phase 4)
+└─────────────────────────┘
+       │
+       ▼
+┌─────────────────────────┐
+│   The UDL Specialist    │ ──► Audits the package for equity,
+│   &amp; Auditor             │     differentiation, and alignment (Phase 5)
+└─────────────────────────┘
+       │
+       ▼
+[Final Lesson Package Exported to Workspace]</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- G.O.A.L.S. Framework -->
+<section class="tutorial-section" id="goals-framework">
+  <div class="container">
+    <div class="section-eyebrow">Framework for Agentic AI</div>
+    <h2 class="section-title">The G.O.A.L.S. Framework</h2>
+    <p class="section-intro">To shift from prompting standard generative AI to directing autonomous Agentic AI, the framework must move away from step-by-step instructions and focus entirely on outcomes, boundaries, and execution authority. While generative prompting (like C.R.A.F.T.) tells the AI how to write a specific response, agentic prompting treats the AI like a highly capable chief of staff — giving it a final destination, the necessary resources, and the authority to move autonomously without hand-holding.</p>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:24px;">The G.O.A.L.S. Framework for Agentic AI</h3>
+
+    <div class="goals-card">
+      <div class="goals-letter">G</div>
+      <div><h4>Goal of Final Desired Outcome</h4><p>State the macro-level final asset or outcome you want. Describe what success looks like, not the sequential steps to get there.</p></div>
+    </div>
+    <div class="goals-card">
+      <div class="goals-letter">O</div>
+      <div><h4>Output Path</h4><p>Define exactly where the files should live or how they should be organized in your file system.</p></div>
+    </div>
+    <div class="goals-card">
+      <div class="goals-letter">A</div>
+      <div><h4>Autonomy Directive</h4><p>Explicitly command the agent to make logical assumptions, bypass intermediate permission checks, and run to completion.</p></div>
+    </div>
+    <div class="goals-card">
+      <div class="goals-letter">L</div>
+      <div><h4>Limits &amp; Guardrails</h4><p>Clearly define what not to include, boundaries to respect, or forbidden formatting.</p></div>
+    </div>
+    <div class="goals-card">
+      <div class="goals-letter">S</div>
+      <div><h4>Sources &amp; Exemplars</h4><p>Direct the agent to the specific folder, files, or past examples it should use as a quality benchmark.</p></div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin:36px 0 12px;">G.O.A.L.S. Template</h3>
+    <pre style="background:var(--navy);color:rgba(255,255,255,0.88);border-radius:12px;padding:28px 32px;font-family:monospace;font-size:0.85rem;line-height:1.75;overflow-x:auto;white-space:pre-wrap;"><code>Task: [Insert your high-level macro goal here]
+Exemplars of this task can be found: [Insert path to reference files or past work folder]
+What not to add: [Insert constraints, placeholders, or forbidden elements]
+Execution Directive: Put the completed task directly into my Outputs folder. Run completely to completion. Do not ask questions.</code></pre>
+
+    <div style="margin-top:32px;background:#F0F4FF;border:1px solid #C8D4F0;border-radius:12px;padding:24px 28px;">
+      <h4 style="color:var(--accent);font-size:1rem;font-weight:700;margin-bottom:12px;">Interactive Agentic Prompt Builder</h4>
+      <p style="font-size:0.92rem;color:var(--muted);margin-bottom:16px;">To quickly construct these master prompts for your daily workflows, use the interactive tool below to fill out your parameters and generate a perfectly formatted block ready to drop into an agent workspace.</p>
+      <div style="display:grid;gap:12px;">
+        <div><label style="font-size:0.82rem;font-weight:700;color:var(--navy);display:block;margin-bottom:4px;">Goal (macro outcome):</label><textarea rows="2" placeholder="e.g., Create a 4-week unit plan on climate change for 8th graders aligned to NGSS standards..." style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-family:'Inter',sans-serif;font-size:0.88rem;resize:vertical;"></textarea></div>
+        <div><label style="font-size:0.82rem;font-weight:700;color:var(--navy);display:block;margin-bottom:4px;">Output Path:</label><textarea rows="1" placeholder="e.g., OUTPUTS/Unit-Plans/Climate-Science-8th/" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-family:'Inter',sans-serif;font-size:0.88rem;resize:vertical;"></textarea></div>
+        <div><label style="font-size:0.82rem;font-weight:700;color:var(--navy);display:block;margin-bottom:4px;">Limits &amp; Guardrails:</label><textarea rows="2" placeholder="e.g., No placeholder text, no outlines only — full content required. Do not include activities requiring lab equipment." style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-family:'Inter',sans-serif;font-size:0.88rem;resize:vertical;"></textarea></div>
+        <div><label style="font-size:0.82rem;font-weight:700;color:var(--navy);display:block;margin-bottom:4px;">Sources &amp; Exemplars:</label><textarea rows="2" placeholder="e.g., Reference the unit plan in TEMPLATES/Unit-Plan-Exemplar.docx for formatting standards." style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-family:'Inter',sans-serif;font-size:0.88rem;resize:vertical;"></textarea></div>
+        <button onclick="buildPrompt()" style="background:var(--gold);color:var(--navy);border:none;padding:12px 24px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;">Generate G.O.A.L.S. Prompt →</button>
+        <div id="prompt-output" style="display:none;background:var(--navy);color:rgba(255,255,255,0.88);border-radius:10px;padding:20px 24px;font-family:monospace;font-size:0.85rem;line-height:1.75;white-space:pre-wrap;"></div>
+      </div>
+    </div>
+    <script>
+    function buildPrompt() {
+      const areas = document.querySelectorAll('textarea');
+      const goal = areas[0].value || '[Your goal here]';
+      const output = areas[1].value || '[Your output path]';
+      const limits = areas[2].value || '[Your limits]';
+      const sources = areas[3].value || '[Your sources]';
+      const prompt = `Task: ${goal}\nExemplars of this task can be found: ${sources}\nWhat not to add: ${limits}\nOutput Path: ${output}\nExecution Directive: Put the completed task directly into my Outputs folder. Run completely to completion. Do not ask questions.`;
+      const el = document.getElementById('prompt-output');
+      el.textContent = prompt;
+      el.style.display = 'block';
+    }
+    </script>
+  </div>
+</section>
+
+<!-- STEP 1: CHOOSE PLATFORM -->
+<section class="tutorial-section" id="platforms">
+  <div class="container">
+    <div class="section-eyebrow">Step 1 for Agentic AI</div>
+    <h2 class="section-title">Step 1 for Agentic AI — Choose Your Platform</h2>
+    <p class="section-intro">Before you build, choose the right environment. Each platform below has unique strengths. Click through the guides to get started in 20 minutes or less.</p>
+
+    <!-- PlayLab -->
+    <div class="platform-section" id="playlab">
+      <h3>Getting Started with PlayLab</h3>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Create Your Account and Start a New App</h4><p>Start by creating and logging into your account at <a href="https://playlab.ai" target="_blank">playlab.ai</a>. Once you are in, setting up an AI agent — which PlayLab calls an "app" — is a straightforward process that doesn't require any coding. From your organization dashboard or any workspace, click <strong>New App</strong>. Give your app a clear name and a brief description.</p></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Write the Instructions</h4><p>This is the core prompt that shapes how the agent behaves. Be highly specific here.</p></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Add References</h4><p>Optional but highly recommended. You can give the AI specific context by uploading documents like rubrics, curriculum guidelines, or worked examples.</p></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Test and Iterate</h4><p>Use the chat panel right inside the builder. Make small tweaks to instructions and test again.</p></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Publish or Share</h4><p>Click <strong>Publish</strong> to make it available to your intended audience, or <strong>Share</strong> to grant access to specific individuals.</p><span class="step-note">💡 PlayLab includes an AI Assisted Builder in the top toolbar for context-aware suggestions.</span></div></div>
+      </div>
+    </div>
+
+    <!-- Mizou -->
+    <div class="platform-section" id="mizou">
+      <h3>Getting Started with Mizou</h3>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Create a New Chatbot</h4><p>Log into <a href="https://mizou.com" target="_blank">mizou.com</a>. From your teacher dashboard, click to create a new chatbot. You can either build from scratch or use Mizou's AI builder.</p></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Define the Persona and Instructions</h4><p>Give your agent a specific role — like a debate opponent, a writing coach, or a historical figure. Write detailed instructions about how it should interact.</p></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Upload Resources and Rubrics</h4><p>Add your class materials, reading passages, or worksheets. You can also input your specific grading rubrics.</p></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Customize and Test</h4><p>Use the preview mode to talk to the agent yourself and refine the instructions.</p></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Share Securely with Students</h4><p>Generate a secure link. Students do not need to create an account or log in.</p></div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Review the Analytics</h4><p>Mizou uses your rubric to automatically assess their interactions, providing you with a dashboard of insights.</p><span class="step-note">Note: If you were thinking of MagicSchool AI, you can build a similar agent by navigating to their MagicStudent platform and selecting the Custom Chatbot tool.</span></div></div>
+      </div>
+    </div>
+
+    <!-- Google Workspace Agents -->
+    <div class="platform-section" id="google-agents">
+      <h3>Getting Started with Google AI Agents (Workspace Studio)</h3>
+      <p>Google's Agentic AI allows you to build custom, no-code agents that automate administrative bottlenecks — like grant tracking, curriculum mapping, or rubric generation — directly within your Google Drive and Gmail.</p>
+      <div class="what-is-box" style="margin-bottom:24px;">
+        <h3>🤖 What is Google Workspace Agentic AI?</h3>
+        <p>Instead of just asking Gemini a question, you can use Workspace Studio to design an "Agent" that lives in your cloud. It can monitor folders, process documents, and draft communications on your behalf.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Check You Have the Right Google Tier</h4><p>Agentic AI requires the <strong>Google AI Pro for Education</strong> tier.</p><span class="step-note">💡 Ask your IT administrator if your department has secured these specific licenses.</span></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Access the Cloud Environment</h4><p>Unlike desktop apps, Google's agents live entirely in the cloud. Log into your university or school Workspace account in Chrome.</p></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Ensure IT Permissions are Unlocked</h4><p>Your IT department must configure your organizational unit to allow "Workspace Studio" and "Agent Designer".</p><span class="step-note">💡 Ensure IT places you in an unfiltered testing group.</span></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Open Workspace Studio</h4><p>Navigate to Google Drive, click <strong>New</strong>, and look for <strong>Workspace Studio</strong> (or Gemini Gems). Click "Create New Agent."</p></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Set Your Agent's System Instructions</h4><p>Give your agent a specific job title and permanent instructions. Example: <em>"You are the Universal Design for Learning (UDL) Scaffolding Agent. Your job is to monitor my 'Raw Lesson Plans' folder..."</em></p></div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Give Your Agent its First Trigger Task</h4><p>▸ "Analyze the PRISM grant RFP PDF in this folder and cross-reference it with my drafted narrative."<br/>▸ "Review the weekly attendance and gradebook sheets. Draft individual check-in emails for any student falling behind."</p></div></div>
+        <div class="step"><div class="step-num">7</div><div class="step-content"><h4>Human-in-the-Loop Review</h4><p>Google's agents are designed with strict data sovereignty. Always review the drafted emails or generated rubrics before finalizing.</p><span class="step-note">✨ Educator Tips: Keep Data Siloed. Use agents to continuously scan database exports for new literature.</span></div></div>
+      </div>
+    </div>
+
+    <!-- GitHub Copilot -->
+    <div class="platform-section" id="copilot">
+      <h3>Getting Started with Codex / GitHub Copilot Workspace</h3>
+      <p>Originally powered by OpenAI's Codex, GitHub Copilot Workspace is an autonomous AI developer. It doesn't just autocomplete code; it can plan, write, debug, and test entire software projects.</p>
+      <div class="what-is-box" style="margin-bottom:24px;">
+        <h3>🤖 What is Autonomous Coding AI?</h3>
+        <p>If you are building an XR simulation or running complex psychometric data, Copilot Workspace reads your entire codebase, proposes a step-by-step plan, and writes the code across multiple files simultaneously.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Verify Your Educator Status</h4><p>GitHub Copilot is 100% free for verified teachers through GitHub Global Campus.</p><span class="step-note">💡 Go to GitHub Education and upload your university ID.</span></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Download the Developer Environment</h4><p>Download <strong>Visual Studio Code (VS Code)</strong> for Mac or Windows.</p></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Install the Extension and Authenticate</h4><p>Search for <strong>GitHub Copilot</strong> in VS Code Extensions. Install it and sign in with your GitHub Education account.</p></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Open the Chat / Workspace Interface</h4><p>Look for the Copilot icon in the left-hand sidebar. Use slash commands like <code>@workspace</code>.</p></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Set Your Custom Developer Instructions</h4><p>In VS Code settings, search for <code>github.copilot.chat.customInstructions</code>. Example: <em>"I am building educational XR environments in Unity using C#. I am not a traditional software engineer. Always explain your code using clear, accessible analogies."</em></p></div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Give Copilot its First Task</h4><p>▸ "@workspace I need a C# script for a Unity VR scene that tracks how long a user looks at a specific object."<br/>▸ "@workspace Read my Python data analysis folder. Write a script that cleans the null values, runs a t-test, and generates a visualization."</p></div></div>
+        <div class="step"><div class="step-num">7</div><div class="step-content"><h4>Review the Plan and Execute</h4><p>The agent outputs a "Plan." Review its logic. Click <strong>Generate</strong>, then <strong>Apply to Workspace</strong>.</p><span class="step-note">✨ Tips: No Coding Experience Required. Debug Instantly with /fix. Comment Your Intentions.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLAUDE COWORK -->
+<section class="tutorial-section" id="cowork">
+  <div class="container">
+    <div class="section-eyebrow">Agentic AI — Getting Started</div>
+    <h2 class="section-title">Getting Started with Claude Cowork</h2>
+    <p class="section-intro">Claude Cowork is like having a brilliant teaching assistant who can handle complex, multi-step tasks on your behalf — drafting lesson plans, organizing files, synthesizing research — while you focus on your students.</p>
+
+    <div class="what-is-box">
+      <h3>🤖 What is Agentic AI?</h3>
+      <p>Regular AI answers one question at a time. <strong>Agentic AI</strong> can take on a goal — like "build me a unit plan for the next 3 weeks" — and work through all the steps independently. Claude Cowork brings this power directly to your desktop, working with your actual files, without you needing to stay at the keyboard.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Check You Have a Paid Claude Plan</h4><p>Claude Cowork is available on <strong>Pro, Max, Team, or Enterprise</strong> plans. If you're on a free plan, upgrade at <a href="https://claude.ai" target="_blank">claude.ai</a>. Pro starts at $20/month — many schools and universities cover this cost for faculty.</p><span class="step-note">💡 Ask your district IT or department chair if an institutional plan is available.</span></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Download Claude Desktop</h4><p>Cowork only works in the <strong>Claude Desktop app</strong> — not the web browser. Download it for your computer:</p><div class="tool-links" style="margin-top:12px;"><a href="https://claude.ai/download" target="_blank" class="tool-btn">⬇ Download for Windows</a><a href="https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect" target="_blank" class="tool-btn">⬇ Download for Mac</a></div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Check If Your Computer Supports Cowork</h4><p>Run this quick 30-second readiness check before installing:</p><div class="tool-links" style="margin-top:12px;"><a href="https://claude.ai/api/desktop/darwin/universal/cowork-readiness-check/latest/redirect" target="_blank" class="tool-btn">Mac Readiness Check</a><a href="https://claude.ai/api/desktop/win32/x64/cowork-readiness-check/latest/redirect" target="_blank" class="tool-btn">Windows Readiness Check</a></div><p style="margin-top:10px;font-size:0.9rem;color:var(--muted);">Download, open, and look for "This computer is ready for Cowork." ✅</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Open Claude Desktop and Click the Cowork Tab</h4><p>Open Claude Desktop, log in, and look for the <strong>Chat / Cowork</strong> tabs at the top. Click <strong>Cowork</strong> to switch into task mode.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Set Your Global Instructions (Do This Once!)</h4><p>Go to <strong>Settings → Cowork → Global Instructions</strong> and tell Claude who you are.</p><blockquote style="background:#F8F5EF;border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--navy);margin-top:12px;font-style:italic;line-height:1.7;">"I am a [7th grade science teacher / university professor] at [School Name]. I teach [subjects]. My students are [age/grade]. Always keep outputs classroom-appropriate and standards-aligned. I prefer concise, practical results."</blockquote><span class="step-note">💡 This saves you from re-explaining yourself every session.</span></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Give Claude Your First Task</h4><p>Describe the <em>outcome</em> you want, not the steps. Try one of these:</p><ul style="margin-top:10px;list-style:none;"><li style="padding:6px 0 6px 16px;position:relative;font-size:0.9rem;color:var(--muted);">▸ "Create a 3-week unit plan on climate science for 8th graders, including daily objectives, activities, and formative assessments."</li><li style="padding:6px 0 6px 16px;position:relative;font-size:0.9rem;color:var(--muted);">▸ "Read all PDFs in my Downloads folder and give me a summary of each."</li><li style="padding:6px 0 6px 16px;position:relative;font-size:0.9rem;color:var(--muted);">▸ "Draft parent newsletter emails for the next 4 weeks based on my curriculum calendar."</li></ul></div></div>
+      <div class="step"><div class="step-num">7</div><div class="step-content"><h4>Review, Steer, and Iterate</h4><p>Watch progress indicators as Claude works. Jump in to redirect at any time, or step away and come back when it's done. Outputs land directly in your file system. Claude will always ask permission before deleting any files.</p></div></div>
+    </div>
+
+    <div class="tips-box">
+      <h4>✨ Educator Tips for Claude Cowork</h4>
+      <ul>
+        <li>Use Cowork for tasks that take you more than 30 minutes — unit planning, report writing, research synthesis</li>
+        <li>Create a "Projects" folder in Cowork for each class — it remembers context between sessions</li>
+        <li>Schedule recurring tasks like "every Friday, draft my weekly reflection based on this week's notes"</li>
+        <li>You can assign tasks from your phone and check progress without being at your desk</li>
+        <li>Always review AI-generated content before sharing with students or parents</li>
+      </ul>
+    </div>
+
+    <!-- COWORK FOLDER GUIDE -->
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--navy);margin:56px 0 16px;border-top:2px solid var(--border);padding-top:40px;">I — My Cowork Folder</h3>
+    <p style="font-size:0.95rem;color:var(--muted);margin-bottom:16px;">Claude Cowork is all about how you set up your folder inside your computer. Because each session on Cowork starts fresh.</p>
+    <p style="font-size:0.95rem;color:var(--muted);margin-bottom:24px;">Claude Cowork works inside your computer, in your folder. Here's how to set it up:</p>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Create the Folder</h4><p>Create a new folder on your computer named <strong>Claude Cowork</strong>.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Copy This Folder Structure</h4><p>3 subfolders inside the Claude Cowork:</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>The Three Subfolders</h4><p><strong>(1) ABOUT ME</strong> &nbsp;&nbsp; <strong>(2) OUTPUTS</strong> &nbsp;&nbsp; <strong>(3) TEMPLATES</strong></p><p style="margin-top:8px;">The most important folder is <strong>ABOUT ME</strong>.</p></div></div>
+    </div>
+
+    <h4 style="font-size:1rem;font-weight:700;color:var(--navy);margin:32px 0 8px;">Step 1: Three Core Files in the ABOUT ME Folder</h4>
+    <p style="font-size:0.92rem;color:var(--muted);margin-bottom:20px;">These are the only files Cowork reads automatically.</p>
+
+    <div style="border:1px solid var(--border);border-radius:12px;padding:24px 28px;margin-bottom:20px;">
+      <h4 style="color:var(--navy);margin-bottom:8px;">File #1 — about-me</h4>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:12px;">Who you are. How you think. How you want Claude to write for you. Keep it under 2,000 words by extracting patterns. Use this prompt to create it:</p>
+      <blockquote style="background:#F8F5EF;border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--navy);margin-bottom:16px;font-style:italic;">'This is my about-me file and I need to save tokens. Ask me questions on how to trim effectively until we have the perfect document.'</blockquote>
+      <p style="font-size:0.88rem;font-weight:700;color:var(--navy);margin-bottom:8px;">Full interview prompt for creating your about-me file:</p>
+      <pre style="background:var(--navy);color:rgba(255,255,255,0.88);border-radius:10px;padding:20px 24px;font-family:monospace;font-size:0.82rem;line-height:1.75;overflow-x:auto;white-space:pre-wrap;"><code>You are building my about-me.md file for use with Claude Cowork. This file is read before every task, so every token matters. Your goal is to extract maximum signal about me in minimum words.
+
+Interview me with focused questions in batches of 3. After each batch, summarize what you've learned into tight, scannable bullet points. Keep asking until you have covered:
+
+- My professional role and context
+- How I think and make decisions
+- My communication preferences (tone, format, length)
+- My biggest time drains and what I want to offload
+- My non-negotiables (what I never want Claude to do)
+- My writing voice (3 example sentences I have written)
+- My current projects and priorities
+
+After the interview, draft the final about-me.md file. Target: under 1,500 words. No filler. Every line should make Claude smarter about how to serve me.</code></pre>
+    </div>
+
+    <div style="border:1px solid var(--border);border-radius:12px;padding:24px 28px;margin-bottom:20px;">
+      <h4 style="color:var(--navy);margin-bottom:8px;">File #2 — anti-ai-writing-style</h4>
+      <p style="font-size:0.9rem;color:var(--muted);">You hate AI writing. This file bans AI words and patterns. Mine bans 80+ AI words (delve, harness, tapestry), kills reframe patterns, and limits paragraphs to 3 sentences.</p>
+    </div>
+
+    <div style="border:1px solid var(--border);border-radius:12px;padding:24px 28px;margin-bottom:32px;">
+      <h4 style="color:var(--navy);margin-bottom:8px;">File #3 — my-company</h4>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:12px;">Your targets. Your strategy. What you're focused on. What you're saying no to.</p>
+      <blockquote style="background:#F8F5EF;border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 6px 6px 0;font-size:0.88rem;color:var(--navy);font-style:italic;">'You are building my my-company.md file for use with Claude Cowork. Interview me in batches of 3 questions about my organization, current priorities, target audience, revenue goals, and what I'm saying no to this quarter. After the interview, produce a tight, scannable summary file under 1,000 words.'</blockquote>
+    </div>
+
+    <p style="font-size:0.95rem;color:var(--muted);margin-bottom:16px;"><strong style="color:var(--navy);">Step 2: The OUTPUTS folder</strong> for Claude's work. One subfolder per project. Cowork organizes everything itself.</p>
+    <p style="font-size:0.95rem;color:var(--muted);margin-bottom:32px;"><strong style="color:var(--navy);">Step 3: The TEMPLATES folder</strong> for Claude's best work. When Cowork builds something you like, say: <em>'Save this as a template in TEMPLATES/'</em></p>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin:48px 0 16px;border-top:2px solid var(--border);padding-top:40px;">II — How to Set Up Global Instructions</h3>
+    <p style="font-size:0.95rem;color:var(--muted);margin-bottom:16px;">Global Instructions is a prompt Claude Cowork always reads before any task. Go to: <strong>Settings → Cowork → Edit Global Instructions</strong>.</p>
+    <p style="font-size:0.95rem;color:var(--muted);margin-bottom:16px;">Paste this as the template:</p>
+    <pre style="background:var(--navy);color:rgba(255,255,255,0.88);border-radius:12px;padding:28px 32px;font-family:monospace;font-size:0.85rem;line-height:1.75;overflow-x:auto;white-space:pre-wrap;"><code>I usually start my Cowork session by pointing you to my Cowork folder.
+
+Before any and every single task, you must read every file in ABOUT ME/:
+
+- about-me: it's me, who I am, what I love and hate
+- anti-ai-writing-style: I hate how Claude writes, unless you write and then audit it against my anti-ai-writing-style file.
+- my-company: where I work, my role.
+
+Never read the folders OUTPUTS/ or TEMPLATES/ unless I specifically point you to a file.
+
+Save all deliverables in OUTPUTS/ under a subfolder named after the project.
+
+If the brief is unclear, use AskUserQuestion. Don't fill gaps with filler. Don't over-explain. Deliver the work.</code></pre>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin:48px 0 16px;border-top:2px solid var(--border);padding-top:40px;">III — Your Cowork Has a Bottleneck. It's You.</h3>
+    <p style="font-size:0.95rem;color:var(--muted);margin-bottom:16px;">You speak at 150 words per minute but type at 60. Use <strong>Wispr Flow</strong> for faster dictation. Steps to set up:</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Download Wispr Flow</h4><p>Go to <a href="https://wispr.ai" target="_blank">wispr.ai</a>. Download Wispr Flow. Install it.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Know the Free Limit</h4><p>The free tier is capped at 2,000 words/week.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Choose Your Keystroke</h4><p>Choose your favorite keystroke to activate dictation.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Dictate Anywhere</h4><p>Go to any app, hold your keystroke, and talk. Your words appear instantly.</p></div></div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin:48px 0 16px;border-top:2px solid var(--border);padding-top:40px;">IV — How to Save Credits in Cowork</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Restart Your Conversation</h4><p>Don't send a follow-up. Every follow-up stacks on the full conversation history. Click "Restart the conversation from here" on a previous message.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Start a Fresh Session Every 20 Messages</h4><p>Long conversations are token furnaces. Ask Claude to summarize everything, copy it, start a new session.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Batch Your Tasks</h4><p>Batch your tasks into one message. Three separate prompts = three full context reloads.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Use Sonnet Not Opus</h4><p>Use Sonnet (not Opus) for quick tasks.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Keep ABOUT ME Files Small</h4><p>Cowork reads your folder before every single task. My about-me.md went from 22,000 tokens to under 2,000.</p></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Spread Your Work</h4><p>Spread your work across the day. Claude uses a rolling 5-hour window.</p></div></div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin:48px 0 16px;border-top:2px solid var(--border);padding-top:40px;">V — Your First 20 Minutes with Claude Cowork</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num" style="font-size:0.75rem;">0–5</div><div class="step-content"><h4>Minutes 0–5: Set Up the Folder</h4><p>Download the Claude desktop app (get paid plan). Create the folder structure.</p></div></div>
+      <div class="step"><div class="step-num" style="font-size:0.75rem;">5–6</div><div class="step-content"><h4>Minutes 5–6: Paste the Global Instructions</h4><p>Go to Settings → Cowork → Edit Global Instructions. Paste the template from Section II above.</p></div></div>
+      <div class="step"><div class="step-num" style="font-size:0.75rem;">6–8</div><div class="step-content"><h4>Minutes 6–8: Install Wispr Flow</h4><p>Download from wispr.ai and configure your activation keystroke.</p></div></div>
+      <div class="step"><div class="step-num" style="font-size:0.75rem;">8–15</div><div class="step-content"><h4>Minutes 8–15: Run Your First Voice Session</h4><p>Point Cowork at your folder, activate Wispr Flow, and dictate your first task.</p></div></div>
+      <div class="step"><div class="step-num" style="font-size:0.75rem;">15–20</div><div class="step-content"><h4>Minutes 15–20: Feel Comfortable with Your Folder</h4><p>Ask Cowork to create a template. Explore the OUTPUTS folder. You're ready.</p></div></div>
+    </div>
+
+    <!-- SETUP STEPS -->
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin:48px 0 16px;border-top:2px solid var(--border);padding-top:40px;">Once You Have Selected Your Agentic Preference</h3>
+    <p style="font-size:0.95rem;color:var(--muted);margin-bottom:20px;">Once you have selected your agentic preference and a safe secure folder in Google Drive to allow it to access, now you can set it up to act without input from you:</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Step 1 for Agentic AI</h4><p>Choose your platform (covered in the sections above).</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Go to Mode</h4><p>Go to "Mode" at the bottom left and select bypass permissions.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Accept It</h4><p>Accept the bypass permissions setting.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Connect GitHub and Vercel</h4><p>Make sure your Claude Code is connected to your GitHub account and Vercel.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Upload Your Newsletters</h4><p>Upload all of your newsletters (as text files).</p></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Give a Reference Image</h4><p>Give Claude a reference image of the style of website you want.</p></div></div>
+      <div class="step"><div class="step-num">7</div><div class="step-content"><h4>Set Up a Secure Database</h4><p>Have a secure database it works off of so the rest of your system is safe — upload those files. For design, share exemplars. Global Instructions: Do everything you need without my consent until your goal is accomplished.</p></div></div>
+      <div class="step"><div class="step-num">8</div><div class="step-content"><h4>Test It</h4><p>Your new website is ready.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM TABLES -->
+<section class="tutorial-section" id="platform-tables">
+  <div class="container">
+    <div class="section-eyebrow">Platform Comparison</div>
+    <h2 class="section-title">AI Agent Platform Guide</h2>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin-bottom:16px;">Platforms to Build Your Own Free AI Agents</h3>
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead><tr><th>Platform</th><th>What It Is</th><th>How It Is Agentic</th><th>Pricing for Educators</th></tr></thead>
+        <tbody>
+          <tr><td><strong>PlayLab.ai</strong></td><td>A sandbox for educators to build and share custom AI tools and agents.</td><td>You create "Projects" by defining a persona, connecting specific documents, and designing multi-step workflows.</td><td>100% Free</td></tr>
+          <tr><td><strong>Mizou</strong></td><td>A platform to build custom AI chatbots and grading agents for students.</td><td>You build an agent with strict guardrails, assign it a rubric, and give it a goal. The agent autonomously guides students and grades their performance.</td><td>Free for teachers</td></tr>
+          <tr><td><strong>Poe.com</strong></td><td>A platform by Quora to create custom bots using top models (Claude, GPT-4, Llama).</td><td>You can build a "Bot" with specific system prompts and uploaded knowledge bases.</td><td>Free Basic Tier</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin:36px 0 16px;">Platforms with Pre-Built Agentic Workflows for Teachers</h3>
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead><tr><th>Platform</th><th>What It Is</th><th>How It Is Agentic</th><th>Pricing</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Khanmigo (by Khan Academy)</strong></td><td>An AI guide for teachers and students.</td><td>Acts as a workflow agent — ask it to co-create a rubric and it autonomously suggests standards, writes criteria, and offers to generate a matching lesson plan.</td><td>100% Free for US Teachers</td></tr>
+          <tr><td><strong>Eduaide.AI</strong></td><td>An AI-assisted workspace for instructional design.</td><td>Input a topic and Eduaide's agents autonomously generate prior knowledge activation, direct instruction script, independent practice, and exit ticket all at once.</td><td>Free Basic Tier</td></tr>
+          <tr><td><strong>Diffit</strong></td><td>A differentiation engine that adapts resources to any reading level.</td><td>Feed it a URL, PDF, or topic. The agent autonomously reads the source, levels the text, extracts vocabulary, and generates DOK-aligned questions.</td><td>Free Tier</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="background:#EDF7F1;border:1px solid #B8DEC9;border-radius:12px;padding:24px 28px;margin:32px 0;">
+      <h4 style="color:var(--green);font-size:1rem;font-weight:700;margin-bottom:12px;">💡 Where Should You Start?</h4>
+      <ul style="list-style:none;">
+        <li style="padding:6px 0 6px 20px;position:relative;font-size:0.92rem;color:#1A3D2B;"><span style="position:absolute;left:0;color:var(--green);">→</span> If you want to build custom AI Tutors for your students: <strong>Start with Mizou.</strong></li>
+        <li style="padding:6px 0 6px 20px;position:relative;font-size:0.92rem;color:#1A3D2B;"><span style="position:absolute;left:0;color:var(--green);">→</span> If you want to build specialized tools for your faculty/colleagues: <strong>Start with PlayLab.ai.</strong></li>
+        <li style="padding:6px 0 6px 20px;position:relative;font-size:0.92rem;color:#1A3D2B;"><span style="position:absolute;left:0;color:var(--green);">→</span> If you want to automate your own lesson planning right now: <strong>Claim your free teacher account on Khanmigo.</strong></li>
+      </ul>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin:36px 0 16px;">Why these and not those I mention under generative AI</h3>
+    <p style="font-size:0.95rem;color:var(--muted);margin-bottom:24px;">The EdTech AI Classification Matrix explains why Brisk, MagicSchool, and SchoolAI are in the Generative category:</p>
+
+    <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px;">
+      <div style="background:var(--navy);padding:16px 24px;"><h4 style="color:var(--gold-light);font-size:0.95rem;font-weight:700;">MagicSchool AI — Structured Generative AI</h4></div>
+      <div style="padding:20px 24px;"><p style="font-size:0.9rem;color:var(--muted);">A massive suite of specialized "prompt wrappers." It only performs the single task you asked in that specific moment. <strong>Best for:</strong> Teachers who want fast, reliable outputs without learning complex prompt engineering.</p></div>
+    </div>
+    <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px;">
+      <div style="background:var(--navy);padding:16px 24px;"><h4 style="color:var(--gold-light);font-size:0.95rem;font-weight:700;">SchoolAI — Guardrailed Generative Chatbots</h4></div>
+      <div style="padding:20px 24px;"><p style="font-size:0.9rem;color:var(--muted);">Allows teachers to deploy custom, safe AI chatbots for students. <strong>Why it is Generative, not Agentic:</strong> The AI is simply generating conversational responses. <strong>Best for:</strong> Creating safe, monitored, focused conversational AI for students.</p></div>
+    </div>
+    <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px;">
+      <div style="background:var(--navy);padding:16px 24px;"><h4 style="color:var(--gold-light);font-size:0.95rem;font-weight:700;">Brisk Teaching — Context-Aware Generative AI</h4></div>
+      <div style="padding:20px 24px;"><p style="font-size:0.9rem;color:var(--muted);">A Chrome extension that "reads" whatever is on your screen. <strong>Why it feels Agentic (but isn't):</strong> Brisk is the closest to feeling agentic but still requires you to initiate the action. <strong>Best for:</strong> Immediate, in-workflow generation without copy/pasting between tabs.</p></div>
+    </div>
+
+    <div class="tips-box">
+      <h4>The Shift Toward Agents in EdTech</h4>
+      <ul>
+        <li>These platforms are evolving rapidly. For true autonomous power, look toward Google Workspace Studio Agents, Microsoft Copilot Studio, or developer platforms like PlayLab.ai.</li>
+        <li>See <a href="compare.html" style="color:var(--green);font-weight:700;">compare.html</a> for the full Generative vs. Agentic ecosystem matrix.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOM TUTOR AGENT ARCHITECTURE -->
+<section class="tutorial-section">
+  <div class="container">
+    <div class="section-eyebrow">Agentic AI — Advanced Guide</div>
+    <h2 class="section-title">Step-by-Step Architecture for a Custom Tutor Agent</h2>
+    <p class="section-intro">A well-designed AI tutor doesn't hand over answers — it guides students to discover them. These four steps show you how to architect an agent that practices the Socratic method, stays grounded in your curriculum, and knows when to hand off to a human.</p>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Establish the Socratic Guardrail</h4><p>The foundational layer of an instructional agent is its core system directive. You must explicitly strip the agent of its default tendency to be a "pleasing helper" that hands over direct answers.</p><ul style="margin-top:12px;list-style:none;"><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Define the Persona:</strong> Instruct the agent to act as an expert instructional coach practicing the Socratic method.</li><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Set Hard Constraints:</strong> <em>"Under no circumstances are you to provide the final answer, the completed code block, the balanced equation, or the fully drafted thesis statement."</em></li><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Enforce Brevity:</strong> Limit the agent's response length to one or two short paragraphs.</li></ul></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Isolate the Knowledge Base</h4><p>To minimize hallucinations and keep the support tightly aligned with your curriculum, restrict the agent's data access.</p><ul style="margin-top:12px;list-style:none;"><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Upload Unit Materials:</strong> Provide the agent access to specific course documents.</li><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Contextual Grounding:</strong> Instruct the agent to draw hints and analogies exclusively from these uploaded materials.</li><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Boundary Enforcement:</strong> <em>"If a student asks a question outside of the provided text, inform them and guide them back to the active assignment."</em></li></ul></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Program the Iterative Diagnostic Loop</h4><p>Instruct the agent to follow this mental model before generating any response: <strong>Analyze</strong> → <strong>Diagnose</strong> → <strong>Calibrate</strong> → <strong>Respond.</strong></p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Implement a "Human-in-the-Loop" Trigger</h4><p>Program specific safety valves that flag when a student needs actual human intervention. If a student remains stuck on the same step for more than three consecutive turns, the agent should: provide a conceptual bridge and instruct the student to contact the instructor for additional support.</p></div></div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin:48px 0 12px;">System Prompt Blueprint</h3>
+    <pre style="background:var(--navy);color:rgba(255,255,255,0.88);border-radius:12px;padding:28px 32px;font-family:monospace;font-size:0.85rem;line-height:1.75;overflow-x:auto;white-space:pre-wrap;"><code>[ROLE &amp; GOAL]
+You are an expert AI Learning Coach. Your goal is to guide the student
+toward independent mastery of the provided material using scaffolded,
+Socratic questioning.
+
+[CRITICAL RULE]
+- NEVER give away the final solution, answer, or conclusion.
+- NEVER rewrite a student's work for them.
+- ALWAYS guide them to find the next logical micro-step on their own.
+
+[INTERACTION STRATEGY]
+1. Read the student's response.
+2. Identify the single misconception or missing piece of logic.
+3. Validate their effort in 1 sentence.
+4. Ask exactly ONE targeted question that prompts them to discover
+   the error or next step.
+5. Keep your entire response under 75 words.</code></pre>
+  </div>
+</section>
+
+<!-- BY ROLE -->
+<section class="tutorial-section" id="by-role">
+  <div class="container">
+    <div class="section-eyebrow">Next-Level Automation</div>
+    <h2 class="section-title">What Tasks to Shift to an AI Agent — By Role</h2>
+    <p class="section-intro">Shifting from traditional prompting to agentic workflows means moving from asking an AI to <em>draft</em> something to asking an AI to <em>do</em> something autonomously. Here is a breakdown of high-impact tasks that each role can easily offload to reclaim time and reduce cognitive fatigue.</p>
+
+    <div class="what-is-box" style="margin-bottom:32px;"><h3>🍎 The Classroom Teacher</h3><p>Teachers are overwhelmed by the sheer volume of micro-decisions and data processing required every day. Agents can handle the repetitive data synthesis, allowing the teacher to focus on actual human connection.</p></div>
+    <div class="steps" style="margin-bottom:56px;">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>The "Always-On" Formative Assessment Grader</h4><p><strong>The Workflow:</strong> An agent is connected to a Google Form or LMS quiz. Every time a student submits an exit ticket, the agent grades it against a rubric and identifies the specific conceptual misunderstanding.</p><p style="margin-top:8px;"><strong>The Output:</strong> The teacher arrives the next morning to a spreadsheet that already groups students into three tiered intervention stations based on yesterday's exact errors.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>The Multi-Tiered Sub-Plan Generator</h4><p><strong>The Workflow:</strong> Triggered by an email to the school secretary indicating a sick day, the agent accesses the teacher's digital planner to see the current standard and generates a leveled sub-plan.</p><p style="margin-top:8px;"><strong>The Output:</strong> A formatted document sent directly to the substitute and administration containing an on-level activity, an accommodated version, and an extension task.</p></div></div>
+    </div>
+
+    <div class="what-is-box" style="margin-bottom:32px;"><h3>🎓 Higher Education Faculty</h3><p>For faculty managing heavy research loads alongside teaching, agents act as dedicated postdoctoral assistants and instructional technologists.</p></div>
+    <div class="steps" style="margin-bottom:56px;">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>The Literature &amp; Grant Compliance Tracker</h4><p><strong>The Workflow:</strong> When managing complex technology initiatives like the PRISM or VOISS grants, an agent autonomously scrapes academic databases weekly for new peer-reviewed literature on specific keywords.</p><p style="margin-top:8px;"><strong>The Output:</strong> A weekly synthesized digest delivered via email that summarizes new findings and explicitly flags how they align with the grant's stated objectives or the funder's ongoing RFP.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>The Syllabus-to-LMS Synchronizer</h4><p><strong>The Workflow:</strong> When deploying a highly specialized graduate course, the agent is fed the finalized syllabus document.</p><p style="margin-top:8px;"><strong>The Output:</strong> The agent connects to the Canvas/Blackboard API to autonomously build out weekly module shells, draft peer-to-peer discussion prompts, and pre-load formative quiz questions — waiting only for final human publishing approval.</p></div></div>
+    </div>
+
+    <div class="what-is-box" style="margin-bottom:32px;"><h3>👨‍👩‍👧‍👦 The Parent</h3><p>Parents often want to support their students but lack the pedagogical framework to do so without causing frustration or simply giving away the answers.</p></div>
+    <div class="steps" style="margin-bottom:56px;">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>The IEP/504 Goal Nudge System</h4><p><strong>The Workflow:</strong> A parent inputs the core objectives from their child's IEP. The agent is set on a recurring weekly schedule.</p><p style="margin-top:8px;"><strong>The Output:</strong> Every Sunday evening, the agent sends the parent a short text or email with two specific, low-stress questions to ask their child that week, and one simple home activity tailored to those exact goals.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>The Socratic Study Buddy Integration</h4><p><strong>The Workflow:</strong> The parent uploads the unit study guide to a custom GPT or agent platform and sets a strict system prompt forbidding direct answers.</p><p style="margin-top:8px;"><strong>The Output:</strong> An always-available, safe chatbot the student can access on a tablet. The agent only responds with guiding questions and real-world analogies.</p></div></div>
+    </div>
+
+    <div class="what-is-box" style="margin-bottom:32px;"><h3>🏫 School Administration</h3><p>Administrators are often bogged down by operational logistics and communication bottlenecks. Agentic workflows can clear the operational runway, giving leaders the capacity to focus on reclaiming their time and empowering ethical, creative choices across the campus.</p></div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>The Qualitative Walkthrough Synthesizer</h4><p><strong>The Workflow:</strong> An administrator takes quick, shorthand notes on a tablet during daily 5-minute classroom walkthroughs, dumping them into a single running document.</p><p style="margin-top:8px;"><strong>The Output:</strong> Every Friday afternoon, an agent parses the document, categorizes the observations by instructional standard, and drafts personalized, supportive coaching emails to each observed teacher for the principal to review and send.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>The Community Operations Orchestrator</h4><p><strong>The Workflow:</strong> An agent is connected to the school's digital calendar, the athletics database, and a teacher "shout-out" form.</p><p style="margin-top:8px;"><strong>The Output:</strong> On Thursday mornings, the agent autonomously pulls the upcoming week's data, formats it into a highly readable community newsletter, translates it into the top three languages spoken by the parent community, and stages it in the email platform for final approval.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FULL LEARNING PATH -->
+<section class="tutorial-section" id="learning-path">
+  <div class="container">
+    <div class="section-eyebrow">The Full Curriculum</div>
+    <h2 class="section-title">Full Path to Understanding Agentic AI</h2>
+    <p class="section-intro">Here's the full path to understanding agentic AI, stage by stage:</p>
+
+    <ul class="stage-list">
+      <li><span class="stage-check">1</span><strong>AI &amp; Agent Foundations</strong> — What agents are, chatbots vs agents, decision making, responsible AI.</li>
+      <li><span class="stage-check">2</span><strong>Programming &amp; Backend Basics</strong> — Python, APIs &amp; HTTP, JSON handling, functions and modules.</li>
+      <li><span class="stage-check">3</span><strong>Understanding LLMs</strong> — Tokens, context windows, hallucinations, open-source vs hosted.</li>
+      <li><span class="stage-check">4</span><strong>Prompt Engineering for Agents</strong> — System prompts, role-based prompting, task decomposition.</li>
+      <li><span class="stage-check">5</span><strong>Agent Architecture</strong> — Input → Reason → Action → Output. Tool orchestration. Memory.</li>
+      <li><span class="stage-check">6</span><strong>Tool Calling &amp; Integrations</strong> — Function calling, API access, databases, web search.</li>
+      <li><span class="stage-check">7</span><strong>Memory &amp; Context Systems</strong> — Short vs long-term memory, vector DBs, RAG, context strategies.</li>
+      <li><span class="stage-check">8</span><strong>Multi-Agent Systems</strong> — Agent-to-agent communication, task delegation, collaborative workflows.</li>
+      <li><span class="stage-check">9</span><strong>Backend &amp; Deployment</strong> — FastAPI/Node, Docker, cloud deployment, logs and safeguards.</li>
+      <li><span class="stage-check">10</span><strong>Real-World Projects</strong> — Coding assistant, research agent, support agent, scheduling agent.</li>
+      <li><span class="stage-check">11</span><strong>Evaluation &amp; Safety</strong> — Output evaluation, hallucination detection, human-in-the-loop.</li>
+      <li><span class="stage-check">12</span><strong>Co-Workers, Careers, &amp; Advanced Growth</strong> — Agents as co-workers, open-source contributions, building AI SaaS. <em>"Evaluation is the skill that separates a demo from a product. An agent that works once is a toy. An agent you can measure, audit, and trust is a coworker."</em></li>
+    </ul>
+
+    <div class="cta-card">
+      <h3>Want to Learn More? Take the Course &amp; Get Credit.</h3>
+      <p>Build your own AI-integrated learning experience while earning credit from <strong>Johns Hopkins University</strong> — and explore the latest AI in education research.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+        <a href="https://education.jhu.edu/" target="_blank" class="cta-btn">Take the JHU Course →</a>
+        <a href="https://www.researchgate.net/profile/Maggie-Mosher-Phd" target="_blank" class="cta-btn" style="background:var(--navy-mid,#243054);border:2px solid var(--gold);color:var(--gold-light);">Get the Latest Research →</a>
+        <a href="https://tinyurl.com/EmpoweredByAISchools" target="_blank" class="cta-btn" style="background:transparent;border:2px solid rgba(255,255,255,0.4);color:var(--white);">Get the Book →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFERENCES -->
+<section class="tutorial-section" id="references">
+  <div class="container">
+    <div class="section-eyebrow">APA 7 Citations</div>
+    <h2 class="section-title">References</h2>
+    <div class="refs">
+      <p>Anthropic. (2024). <em>Claude Cowork</em> [Software]. Anthropic. https://claude.ai</p>
+      <p>PlayLab. (2024). <em>PlayLab.ai</em> [Software]. PlayLab. https://playlab.ai</p>
+      <p>Mizou. (2024). <em>Mizou</em> [Software]. https://mizou.com</p>
+      <p>GitHub. (2024). <em>GitHub Copilot Workspace</em> [Software]. Microsoft. https://github.com</p>
+      <p>Google. (2024). <em>Workspace Studio Agents</em> [Software]. Google. https://workspace.google.com</p>
+      <p>Mosher, M. A. (2024). Teaching with AI Working Group resources. Digital Education Council.</p>
+      <p>Mosher, M. A., Dieker, L., &amp; Turpin, M. (2024). <em>Empowered by AI: 10 practical approaches for today's educators</em>. AAI Publishing.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <a href="index.html">InspiredBI.org</a> — All resources free for educators &nbsp;|&nbsp;
+  <a href="tutorials.html">Tutorials Hub</a> &nbsp;|&nbsp;
+  <a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a> &nbsp;|&nbsp;
+  <a href="https://www.linkedin.com/in/maggiemosher/" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+  <a href="https://www.youtube.com/@KUAIAdvocates" target="_blank">YouTube</a></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free ways to monitor student AI use in K-12 and higher education — SchoolAI, MagicSchool, BoodleBox setup guides and pedagogical frameworks." />
+  <title>Monitor Student AI Use — InspiredBI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9963A; --gold-light: #F0C060; --navy: #1A2744;
+      --cream: #FBF8F2; --white: #FFFFFF; --text: #1A1A2E;
+      --muted: #5A6070; --border: #E8E2D8; --accent: #3B7DD8;
+      --green: #2D8F5A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26,39,68,0.97); backdrop-filter: blur(8px); padding: 14px 40px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-back { color: var(--gold-light); text-decoration: none; font-size: 14px; font-weight: 600; }
+    .nav-back:hover { color: var(--white); }
+    .page-hero { background: linear-gradient(135deg, var(--navy) 0%, #0F1A33 100%); padding: 140px 24px 80px; text-align: center; }
+    .page-hero-badge { display: inline-block; background: rgba(201,150,58,0.15); border: 1px solid rgba(201,150,58,0.4); color: var(--gold-light); padding: 6px 18px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); color: var(--white); margin-bottom: 16px; line-height: 1.2; }
+    .page-hero h1 em { color: var(--gold-light); font-style: normal; }
+    .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 600px; margin: 0 auto 32px; line-height: 1.7; }
+    .jump-nav { background: var(--cream); border-bottom: 1px solid var(--border); padding: 16px 24px; position: sticky; top: 65px; z-index: 50; }
+    .jump-nav-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: center; }
+    .jump-nav span { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 8px; white-space: nowrap; }
+    .jump-link { background: var(--white); border: 1px solid var(--border); color: var(--navy); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
+    .jump-link:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
+    .tutorial-section { padding: 80px 24px; }
+    .tutorial-section:nth-child(even) { background: var(--cream); }
+    .container { max-width: 960px; margin: 0 auto; }
+    .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+    .section-intro { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 720px; margin-bottom: 40px; }
+    .steps { margin-bottom: 40px; }
+    .step { display: grid; grid-template-columns: 48px 1fr; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+    .step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--navy); color: var(--white); font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-content h4 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .step-content p { font-size: 0.92rem; color: var(--muted); line-height: 1.65; }
+    .step-content a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .what-is-box { background: var(--navy); color: var(--white); border-radius: 14px; padding: 32px 36px; margin-bottom: 32px; }
+    .what-is-box h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold-light); margin-bottom: 12px; }
+    .what-is-box p { color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.7; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; margin: 24px 0; }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 540px; }
+    .compare-table th { background: var(--navy); color: var(--white); padding: 10px 14px; text-align: left; font-weight: 600; }
+    .compare-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text); }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:nth-child(even) td { background: var(--cream); }
+    footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; }
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    @media (max-width: 768px) { nav { padding: 14px 20px; } .nav-links { display: none; } .step { grid-template-columns: 40px 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo-banner.png" alt="InspiredBI" style="height:44px;width:auto;object-fit:contain;display:block;" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Resources</a></li>
+    <li><a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a></li>
+    <li><a href="free-resources.html#videos">Videos</a></li>
+    <li><a href="free-resources.html#courses">Free Courses</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="tutorials.html" class="nav-back">← Back to Tutorials</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-badge">Classroom Management</div>
+  <h1>Free Ways to <em>Monitor Student AI Use</em></h1>
+  <p>Visibility into how students interact with AI builds metacognition — not just compliance. Three free platforms with full setup guides.</p>
+</div>
+
+<div class="jump-nav">
+  <div class="jump-nav-inner">
+    <span>Jump to:</span>
+    <a href="#platforms" class="jump-link">Platform Overview</a>
+    <a href="#schoolai" class="jump-link">SchoolAI Setup</a>
+    <a href="#magicschool" class="jump-link">MagicSchool Setup</a>
+    <a href="#boodlebox" class="jump-link">BoodleBox Setup</a>
+    <a href="#pedagogy" class="jump-link">What to Monitor</a>
+  </div>
+</div>
+
+<section class="tutorial-section" id="platforms">
+  <div class="container">
+    <div class="section-eyebrow">Platform Comparison</div>
+    <h2 class="section-title">Three Free Platforms for Monitoring Student AI Use</h2>
+    <p class="section-intro">Rather than banning AI, these platforms give you visibility into exactly how students are using it — and let you guide them toward responsible, cognitively rigorous AI habits.</p>
+
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>What It Monitors</th>
+            <th>Free Tier Features</th>
+            <th>Best For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>SchoolAI</strong><br/><a href="https://schoolai.com" target="_blank" style="font-size:0.8rem;color:var(--accent);">schoolai.com</a></td>
+            <td>Full conversation logs, student engagement patterns, keyword flagging</td>
+            <td>Unlimited students, full logs, conversation review dashboard, SafeChat filter</td>
+            <td>K–12 teachers deploying class-wide AI chatbots</td>
+          </tr>
+          <tr>
+            <td><strong>MagicSchool (MagicStudent)</strong><br/><a href="https://magicschool.ai" target="_blank" style="font-size:0.8rem;color:var(--accent);">magicschool.ai</a></td>
+            <td>Student prompt logs, frequency of use, tool usage breakdown</td>
+            <td>Free teacher account; MagicStudent supervised AI access</td>
+            <td>Blended classroom prompting practice with teacher oversight</td>
+          </tr>
+          <tr>
+            <td><strong>BoodleBox</strong><br/><a href="https://box.boodle.ai" target="_blank" style="font-size:0.8rem;color:var(--accent);">box.boodle.ai</a></td>
+            <td>Full conversation logs, student vs. AI message breakdown, session analytics</td>
+            <td>Free for educators; conversation archive; COPPA compliant</td>
+            <td>Higher ed and secondary; open-ended AI literacy projects</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="tutorial-section" id="schoolai">
+  <div class="container">
+    <div class="section-eyebrow">Setup Guide</div>
+    <h2 class="section-title">SchoolAI — Step-by-Step Setup</h2>
+    <p class="section-intro">SchoolAI is the most teacher-friendly option for K–12 classrooms. Students access via a link — no login required. You see every conversation in a clean dashboard.</p>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Create Your Teacher Account</h4><p>Go to <a href="https://schoolai.com" target="_blank">schoolai.com</a> and sign up with your school email. The free tier is fully functional for monitoring.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Create a Space</h4><p>A "Space" is a monitored AI environment you design for students. Click <strong>New Space</strong>, give it a name, and write a system prompt defining the AI's role — e.g., "You are a reading coach for 6th grade students. Never give away direct answers. Ask one guiding question at a time."</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Set Guardrails</h4><p>Add topics the AI should avoid, keywords to flag (these trigger a teacher alert), and configure the <strong>SafeChat</strong> filter. SchoolAI blocks inappropriate content by default and flags student distress signals.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Share the Student Link</h4><p>Copy the student link from your Space. Students click it and start chatting — no account creation, no personal data entry required. You can also set a student name entry prompt so conversations are labeled.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Review the Dashboard</h4><p>Access your teacher dashboard to view all student conversations in real-time or after class. View session lengths, total messages, and any flagged keywords. Use the logs as formative assessment data — they reveal student misconceptions better than many quizzes.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="tutorial-section" id="magicschool">
+  <div class="container">
+    <div class="section-eyebrow">Setup Guide</div>
+    <h2 class="section-title">MagicSchool (MagicStudent) — Step-by-Step Setup</h2>
+    <p class="section-intro">MagicSchool's MagicStudent feature gives students a supervised AI workspace while giving teachers a clear log of every interaction. Excellent for building AI literacy in a structured environment.</p>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Create Your Free Teacher Account</h4><p>Go to <a href="https://www.magicschool.ai" target="_blank">magicschool.ai</a> and sign up. MagicStudent is the student-facing version with teacher monitoring built in.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Create a Class Roster</h4><p>Add students by uploading a roster CSV or generate a class code. Students join via the code — no email required for younger students. Fully FERPA and COPPA compliant.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Select Allowed Tools</h4><p>Choose which AI tools students can access from MagicSchool's library. Restrict to only the tools aligned with your lesson goals — prevent open-ended browsing of all features.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Assign an Activity</h4><p>Create a <strong>Custom Chatbot</strong> activity or select from MagicSchool's library of pre-built tools. Students interact with the AI around your specific prompt or curriculum materials.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Review Usage Logs</h4><p>Access the student activity dashboard to see prompts submitted, frequency of use, responses received, and time on task. Look for students who send only one prompt — a signal they're passively accepting output rather than engaging critically.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="tutorial-section" id="boodlebox">
+  <div class="container">
+    <div class="section-eyebrow">Setup Guide</div>
+    <h2 class="section-title">BoodleBox — Step-by-Step Setup</h2>
+    <p class="section-intro">BoodleBox is the most flexible option — allowing you to choose your underlying AI model and build knowledge-base-grounded agents. Ideal for secondary and higher education AI literacy projects.</p>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Create Your Educator Account</h4><p>Go to <a href="https://box.boodle.ai" target="_blank">box.boodle.ai</a> and create a free educator account. The platform is COPPA compliant for K–12 use.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Create a Boodle</h4><p>A "Boodle" is a custom AI environment. Set a detailed system prompt defining the agent's role, choose a base model (Claude, GPT-4, etc.), and optionally upload documents for a curriculum-specific knowledge base.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Add Students or Generate a Link</h4><p>Invite students by email or generate a shareable link. All conversations are automatically logged and attributed to the student's session under your teacher account.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Monitor the Archive</h4><p>Review the full conversation archive from your dashboard. Each session is timestamped, shows the student's prompts and the AI's responses, and can be exported for grading or portfolio assessment.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="tutorial-section" id="pedagogy">
+  <div class="container">
+    <div class="section-eyebrow">What to Actually Look For</div>
+    <h2 class="section-title">Pedagogical Guide: What Teachers Should Monitor</h2>
+    <p class="section-intro">Monitoring AI use isn't about catching cheating — it's about understanding how students think and building the metacognitive skills they need to use AI responsibly and effectively throughout their careers.</p>
+
+    <div class="what-is-box" style="margin-bottom:24px;">
+      <h3>Prompt Iteration</h3>
+      <p>Does the student refine their prompt after receiving an unsatisfactory response? This is the most reliable indicator of AI literacy. A student who sends one prompt and accepts the response passively is at cognitive risk. A student who argues with the AI, challenges its output, or refines their question is developing critical thinking skills.</p>
+      <p style="margin-top:12px;"><strong style="color:var(--gold-light);">Look for:</strong> Multiple conversational turns, directional language ("that's not right, try again with..."), and self-correction after reviewing AI output.</p>
+    </div>
+
+    <div class="what-is-box" style="margin-bottom:24px;">
+      <h3>Fact-Checking &amp; Verification</h3>
+      <p>Do students treat AI output as authoritative, or do they attempt to verify claims? Monitor whether students ask the AI for sources, cross-reference with uploaded curriculum materials, or flag responses as uncertain or potentially wrong.</p>
+      <p style="margin-top:12px;"><strong style="color:var(--gold-light);">Instructional move:</strong> Build a "Verify Before You Trust" step into all AI-assisted assignments. Require students to cite one verification source for every factual AI claim they include in their final work.</p>
+    </div>
+
+    <div class="what-is-box">
+      <h3>Cognitive Offloading vs. Cognitive Scaffolding</h3>
+      <p><strong style="color:var(--gold-light);">Cognitive offloading</strong> = using AI to bypass thinking entirely (asking it to write the essay, solve the problem, or complete the project).</p>
+      <p style="margin-top:8px;"><strong style="color:var(--gold-light);">Cognitive scaffolding</strong> = using AI to support thinking (asking it to explain a concept, check your logic, or suggest next steps — then doing the intellectual work yourself).</p>
+      <p style="margin-top:12px;">Conversation logs quickly reveal which is happening. Design your assignments and AI environments to make scaffolding the only possible use case — configure the AI to refuse direct answer delivery and redirect to guiding questions.</p>
+    </div>
+
+    <div style="background:#F0F4FF;border:1px solid #C8D4F0;border-radius:12px;padding:24px 28px;margin-top:32px;">
+      <h4 style="color:var(--accent);font-size:1rem;font-weight:700;margin-bottom:12px;">Want More Safety and Compliance Information?</h4>
+      <p style="font-size:0.92rem;color:var(--muted);">The Safe and Secure page includes FERPA/HIPAA/COPPA overviews, Google Workspace tier comparisons, platform security tables, and IT recommendations.</p>
+      <a href="safe-secure.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--white);padding:10px 18px;border-radius:8px;font-size:0.88rem;font-weight:600;text-decoration:none;margin-top:10px;">Go to Safe &amp; Secure →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <a href="index.html">InspiredBI.org</a> — All resources free for educators &nbsp;|&nbsp;
+  <a href="tutorials.html">Tutorials Hub</a> &nbsp;|&nbsp;
+  <a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a> &nbsp;|&nbsp;
+  <a href="https://www.linkedin.com/in/maggiemosher/" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+  <a href="https://www.youtube.com/@KUAIAdvocates" target="_blank">YouTube</a></p>
+</footer>
+
+</body>
+</html>

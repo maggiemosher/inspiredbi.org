@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Safe and Secure AI in Education — FERPA, HIPAA, COPPA guidelines, Google Workspace tier comparison, platform security tables, and free student monitoring tools." />
+  <title>Safe and Secure AI — InspiredBI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9963A; --gold-light: #F0C060; --navy: #1A2744;
+      --cream: #FBF8F2; --white: #FFFFFF; --text: #1A1A2E;
+      --muted: #5A6070; --border: #E8E2D8; --accent: #3B7DD8;
+      --green: #2D8F5A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26,39,68,0.97); backdrop-filter: blur(8px);
+      padding: 14px 40px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-back { color: var(--gold-light); text-decoration: none; font-size: 14px; font-weight: 600; }
+    .nav-back:hover { color: var(--white); }
+
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0F1A33 100%);
+      padding: 140px 24px 80px; text-align: center;
+    }
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(201,150,58,0.15); border: 1px solid rgba(201,150,58,0.4);
+      color: var(--gold-light); padding: 6px 18px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); color: var(--white); margin-bottom: 16px; line-height: 1.2; }
+    .page-hero h1 em { color: var(--gold-light); font-style: normal; }
+    .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 600px; margin: 0 auto 32px; line-height: 1.7; }
+
+    .jump-nav {
+      background: var(--cream); border-bottom: 1px solid var(--border);
+      padding: 16px 24px; position: sticky; top: 65px; z-index: 50;
+    }
+    .jump-nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: center;
+    }
+    .jump-nav span { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 8px; white-space: nowrap; }
+    .jump-link {
+      background: var(--white); border: 1px solid var(--border);
+      color: var(--navy); padding: 6px 14px; border-radius: 20px;
+      font-size: 13px; font-weight: 500; text-decoration: none;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .jump-link:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
+
+    .tutorial-section { padding: 80px 24px; }
+    .tutorial-section:nth-child(even) { background: var(--cream); }
+    .container { max-width: 960px; margin: 0 auto; }
+    .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+    .section-intro { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 720px; margin-bottom: 40px; }
+
+    .law-card { border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; margin-bottom: 20px; }
+    .law-card-header { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
+    .law-badge { background: var(--navy); color: var(--gold-light); padding: 6px 14px; border-radius: 6px; font-size: 0.88rem; font-weight: 700; white-space: nowrap; }
+    .law-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--navy); }
+    .law-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
+    .law-card ul { list-style: none; }
+    .law-card ul li { font-size: 0.88rem; color: var(--muted); padding: 4px 0 4px 18px; position: relative; }
+    .law-card ul li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; margin: 24px 0; }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; min-width: 640px; }
+    .compare-table th { background: var(--navy); color: var(--white); padding: 10px 14px; text-align: left; font-weight: 600; font-size: 0.8rem; white-space: nowrap; }
+    .compare-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text); }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:nth-child(even) td { background: var(--cream); }
+    .compare-table .section-row td { background: rgba(201,150,58,0.08); font-weight: 700; color: var(--navy); font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .check { color: var(--green); font-weight: 700; }
+    .cross { color: #D04040; font-weight: 700; }
+    .partial { color: var(--gold); font-weight: 700; }
+
+    .steps { margin-bottom: 40px; }
+    .step { display: grid; grid-template-columns: 48px 1fr; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+    .step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--navy); color: var(--white); font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-content h4 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .step-content p { font-size: 0.92rem; color: var(--muted); line-height: 1.65; }
+    .step-note { display: inline-block; margin-top: 8px; background: rgba(201,150,58,0.1); border: 1px solid rgba(201,150,58,0.3); color: #8A6220; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+    .step-content a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .step-content a:hover { text-decoration: underline; }
+
+    .tips-box { background: #EDF7F1; border: 1px solid #B8DEC9; border-radius: 12px; padding: 24px 28px; margin-top: 32px; }
+    .tips-box h4 { color: var(--green); font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
+    .tips-box ul { list-style: none; }
+    .tips-box ul li { font-size: 0.92rem; color: #1A3D2B; padding: 4px 0 4px 20px; position: relative; }
+    .tips-box ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+    .what-is-box { background: var(--navy); color: var(--white); border-radius: 14px; padding: 32px 36px; margin-bottom: 32px; }
+    .what-is-box h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold-light); margin-bottom: 12px; }
+    .what-is-box p { color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.7; }
+
+    .platform-rec { border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; }
+    .platform-rec h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .platform-rec p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+    .risk-low { display: inline-block; background: #EDF7F1; color: var(--green); padding: 2px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-bottom: 6px; }
+    .risk-med { display: inline-block; background: rgba(201,150,58,0.12); color: #8A6220; padding: 2px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-bottom: 6px; }
+    .risk-high { display: inline-block; background: rgba(208,64,64,0.1); color: #D04040; padding: 2px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-bottom: 6px; }
+
+    footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; }
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .step { grid-template-columns: 40px 1fr; gap: 14px; }
+      .jump-nav-inner { flex-wrap: wrap; justify-content: flex-start; }
+      .law-card-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo-banner.png" alt="InspiredBI" style="height:44px; width:auto; object-fit:contain; display:block;" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Resources</a></li>
+    <li><a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a></li>
+    <li><a href="free-resources.html#videos">Videos</a></li>
+    <li><a href="free-resources.html#courses">Free Courses</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="tutorials.html" class="nav-back">← Back to Tutorials</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-badge">Privacy · Security · Compliance</div>
+  <h1>Safe and <em>Secure</em> AI in Education</h1>
+  <p>FERPA, HIPAA, and COPPA compliance guidelines. Google Workspace tier breakdowns. Platform security comparisons. Free student monitoring tools.</p>
+</div>
+
+<div class="jump-nav">
+  <div class="jump-nav-inner">
+    <span>Jump to:</span>
+    <a href="#privacy-laws" class="jump-link">Privacy Laws</a>
+    <a href="#google-workspace" class="jump-link">Google Workspace Tiers</a>
+    <a href="#platform-security" class="jump-link">Platform Security</a>
+    <a href="#it-recs" class="jump-link">IT Recommendations</a>
+    <a href="#monitoring" class="jump-link">Monitor Student AI</a>
+    <a href="#comparison-tables" class="jump-link">AI Tool Comparisons</a>
+  </div>
+</div>
+
+<!-- PRIVACY LAWS -->
+<section class="tutorial-section" id="privacy-laws">
+  <div class="container">
+    <div class="section-eyebrow">Legal Compliance</div>
+    <h2 class="section-title">Privacy Laws Every Educator Must Know</h2>
+    <p class="section-intro">Before adopting any AI tool in an educational setting, educators must understand the three federal privacy laws that govern student and patient data. Violations can result in loss of federal funding, lawsuits, and serious harm to students.</p>
+
+    <div class="law-card">
+      <div class="law-card-header">
+        <span class="law-badge">FERPA</span>
+        <h3>Family Educational Rights and Privacy Act</h3>
+      </div>
+      <p>FERPA protects the privacy of student education records for any institution receiving federal funding. Under FERPA, schools may not disclose personally identifiable information (PII) from education records without written consent of the parent or eligible student (18+).</p>
+      <p><strong>Key rules for AI use:</strong></p>
+      <ul>
+        <li>Never paste student names, ID numbers, grades, or behavioral records into a public AI tool (ChatGPT, Claude, Gemini free tier)</li>
+        <li>AI tools used with student data must have a FERPA-compliant Business Associate Agreement or School Official designation</li>
+        <li>Aggregated, de-identified data is generally permissible — but verify with your legal counsel</li>
+        <li>Google Workspace for Education (Fundamentals and above) is FERPA compliant when used within the designated core services</li>
+        <li>Parents have the right to review and challenge records — including AI-generated documents if they become part of the official record</li>
+      </ul>
+    </div>
+
+    <div class="law-card">
+      <div class="law-card-header">
+        <span class="law-badge">HIPAA</span>
+        <h3>Health Insurance Portability and Accountability Act</h3>
+      </div>
+      <p>HIPAA protects individually identifiable health information (PHI). While HIPAA primarily applies to healthcare providers, it intersects with education when schools provide health services, maintain health records, or when counselors and school psychologists store student health information.</p>
+      <p><strong>Key rules for AI use:</strong></p>
+      <ul>
+        <li>Never input student mental health information, IEP health data, or medical accommodations into non-HIPAA-compliant AI tools</li>
+        <li>School nurses, counselors, and psychologists using AI for case notes need HIPAA-compliant platforms</li>
+        <li>Most general AI tools (ChatGPT, Claude, standard Gemini) are NOT HIPAA compliant</li>
+        <li>HIPAA and FERPA interact in complex ways for school health records — consult your district's legal counsel for school-specific guidance</li>
+      </ul>
+    </div>
+
+    <div class="law-card">
+      <div class="law-card-header">
+        <span class="law-badge">COPPA</span>
+        <h3>Children's Online Privacy Protection Act</h3>
+      </div>
+      <p>COPPA restricts the collection of personal information from children under 13 by online services. It requires verifiable parental consent before collecting, using, or disclosing personal information from children under 13.</p>
+      <p><strong>Key rules for AI use:</strong></p>
+      <ul>
+        <li>Schools deploying AI tools for students under 13 must verify the tool is COPPA compliant or has an educational exception</li>
+        <li>Under COPPA's school exception, schools can consent on behalf of parents for educational purposes — but must be able to demonstrate the tool's data use is for educational purposes only</li>
+        <li>The tool must not use student data for advertising, share it with third parties, or retain it longer than necessary</li>
+        <li>Verified COPPA-compliant tools for K–8: Google Workspace for Education, Mizou, SchoolAI, Khanmigo, Diffit</li>
+        <li>Always check the platform's current privacy policy — compliance status can change with product updates</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- GOOGLE WORKSPACE TIERS -->
+<section class="tutorial-section" id="google-workspace">
+  <div class="container">
+    <div class="section-eyebrow">Google for Education</div>
+    <h2 class="section-title">Google Workspace for Education — Tier Comparison</h2>
+    <p class="section-intro">Not all Google Workspace tiers include the same AI features. Use this table to identify which tier your institution has and what capabilities are available to you.</p>
+
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="width:20%;">Feature</th>
+            <th>Education Fundamentals<br/><span style="font-weight:400;font-size:0.75rem;">FREE</span></th>
+            <th>Education Plus<br/><span style="font-weight:400;font-size:0.75rem;">~$6/user/yr</span></th>
+            <th>Teaching &amp; Learning Add-on<br/><span style="font-weight:400;font-size:0.75rem;">~$4.80/user/mo</span></th>
+            <th>Google AI Pro for Education<br/><span style="font-weight:400;font-size:0.75rem;">$15–$20/user/mo</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-row"><td colspan="5">PRICING</td></tr>
+          <tr><td>Cost</td><td>Free</td><td>~$6/user/year</td><td>~$4.80/user/month</td><td>$15–$20/user/month</td></tr>
+
+          <tr class="section-row"><td colspan="5">CORE APPS</td></tr>
+          <tr><td>Gmail, Docs, Slides, Sheets</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Google Classroom</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Google Meet (basic)</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">STORAGE</td></tr>
+          <tr><td>Pooled storage</td><td>100 GB pooled</td><td>100 GB/user</td><td>100 GB/user</td><td>Unlimited</td></tr>
+
+          <tr class="section-row"><td colspan="5">AI &amp; GEMINI</td></tr>
+          <tr><td>Gemini in Docs/Gmail/Slides</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Gemini Advanced (Gemini 1.5 Pro)</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="partial">Limited</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Deep Research in Gemini</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Imagen (AI image generation)</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>NotebookLM</td><td><span class="partial">Free (separate login)</span></td><td><span class="partial">Free (separate login)</span></td><td><span class="partial">Free (separate login)</span></td><td><span class="check">✓ integrated</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">AGENTIC AI</td></tr>
+          <tr><td>Workspace Studio / Agent Designer</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓ (requires IT setup)</span></td></tr>
+          <tr><td>Gemini Gems (custom agents)</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Google Agentspace integration</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="partial">Add-on required</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">NOTEBOOKLM LIMITS</td></tr>
+          <tr><td>Sources per notebook</td><td>50 (free account)</td><td>50 (free account)</td><td>50 (free account)</td><td>500 (integrated)</td></tr>
+          <tr><td>Notebooks per account</td><td>100 (free account)</td><td>100 (free account)</td><td>100 (free account)</td><td>Expanded</td></tr>
+
+          <tr class="section-row"><td colspan="5">CLASSROOM &amp; TEACHING TOOLS</td></tr>
+          <tr><td>Google Classroom (full features)</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Practice Sets (AI-powered)</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>AI Rubric Assistant</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">GOOGLE MEET CAPACITY</td></tr>
+          <tr><td>Maximum participants</td><td>100</td><td>500</td><td>500</td><td>1,000</td></tr>
+          <tr><td>Meeting recordings</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>AI-generated meeting notes</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">SECURITY &amp; ADMIN CONTROLS</td></tr>
+          <tr><td>Admin Console</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Data Loss Prevention (DLP)</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Advanced audit logs</td><td>Basic</td><td><span class="check">✓ Advanced</span></td><td><span class="check">✓ Advanced</span></td><td><span class="check">✓ Advanced</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">DATA PRIVACY &amp; AI TRAINING POLICIES</td></tr>
+          <tr><td>Student data used to train AI</td><td><span class="cross">✗ Never</span></td><td><span class="cross">✗ Never</span></td><td><span class="cross">✗ Never</span></td><td><span class="cross">✗ Never</span></td></tr>
+          <tr><td>Admin can disable Gemini</td><td>N/A</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>No ads in Workspace</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">COMPLIANCE &amp; CERTIFICATIONS</td></tr>
+          <tr><td>FERPA compliant</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>COPPA compliant</td><td><span class="check">✓ (K–12)</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>SOC 2 Type II</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>ISO 27001</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">SUPPORT LEVEL</td></tr>
+          <tr><td>Support</td><td>Community forums</td><td>Enhanced support</td><td>Enhanced support</td><td>Premium support</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="background:#F0F4FF;border:1px solid #C8D4F0;border-radius:12px;padding:20px 24px;margin-top:16px;">
+      <h4 style="color:var(--accent);font-size:0.95rem;font-weight:700;margin-bottom:10px;">Key Notes</h4>
+      <ul style="list-style:none;">
+        <li style="padding:4px 0 4px 18px;position:relative;font-size:0.88rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--accent);">→</span>Agentic AI (Workspace Studio, Agent Designer) requires the <strong>Google AI Pro for Education</strong> tier AND IT department configuration.</li>
+        <li style="padding:4px 0 4px 18px;position:relative;font-size:0.88rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--accent);">→</span>NotebookLM is free at notebooklm.google.com with any Google account — you do not need a paid tier to use it.</li>
+        <li style="padding:4px 0 4px 18px;position:relative;font-size:0.88rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--accent);">→</span>Google's Education tier AI never uses student data to train models — a critical FERPA protection.</li>
+        <li style="padding:4px 0 4px 18px;position:relative;font-size:0.88rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--accent);">→</span>Pricing is approximate and subject to change. Verify with your Google for Education representative.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM SECURITY -->
+<section class="tutorial-section" id="platform-security">
+  <div class="container">
+    <div class="section-eyebrow">Security Comparison</div>
+    <h2 class="section-title">AI Platform Security &amp; Compliance Comparison</h2>
+    <p class="section-intro">How do the major AI platforms compare on data privacy, security certifications, and suitability for educational use? Use this table when presenting AI adoption proposals to your IT department or administration.</p>
+
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="width:22%;">Category</th>
+            <th>Google (Workspace Education)</th>
+            <th>Microsoft (Copilot / M365 Education)</th>
+            <th>Apple (Education)</th>
+            <th>Anthropic Claude (Education API)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-row"><td colspan="5">PRODUCT OVERVIEW &amp; PRICING</td></tr>
+          <tr><td>Main AI Product</td><td>Gemini + Workspace</td><td>Microsoft Copilot + M365</td><td>Apple Intelligence / Siri</td><td>Claude (claude.ai / API)</td></tr>
+          <tr><td>Education pricing</td><td>Free–$20/user/mo</td><td>Free–$6/user/mo (A1–A5)</td><td>Free (device-based)</td><td>Pro: $20/mo; API pricing</td></tr>
+
+          <tr class="section-row"><td colspan="5">DATA STORAGE &amp; HOSTING</td></tr>
+          <tr><td>Data region</td><td>US / EU configurable</td><td>US / EU configurable</td><td>On-device (Private Cloud)</td><td>US data centers</td></tr>
+          <tr><td>Data residency controls</td><td><span class="check">✓ Admin configurable</span></td><td><span class="check">✓ Admin configurable</span></td><td><span class="check">✓ On-device default</span></td><td><span class="partial">Limited</span></td></tr>
+          <tr><td>Encryption at rest &amp; transit</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">AI MODEL TRAINING</td></tr>
+          <tr><td>Uses your data to train AI</td><td><span class="cross">✗ Never (Edu)</span></td><td><span class="cross">✗ Never (Edu)</span></td><td><span class="cross">✗ Never</span></td><td><span class="cross">✗ Never (paid plans)</span></td></tr>
+          <tr><td>Opt-out available (free tier)</td><td>N/A (Edu never trains)</td><td>N/A (Edu never trains)</td><td>N/A</td><td><span class="partial">Must be on paid plan</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">COMPLIANCE</td></tr>
+          <tr><td>FERPA</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="partial">Requires enterprise agreement</span></td></tr>
+          <tr><td>COPPA</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="partial">Verify current policy</span></td></tr>
+          <tr><td>HIPAA (if applicable)</td><td><span class="check">✓ (BAA available)</span></td><td><span class="check">✓ (BAA available)</span></td><td><span class="partial">Limited</span></td><td><span class="partial">Not standard; enterprise only</span></td></tr>
+          <tr><td>GDPR</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">SECURITY CERTIFICATIONS</td></tr>
+          <tr><td>SOC 2 Type II</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>ISO 27001</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>FedRAMP</td><td><span class="check">✓ (High)</span></td><td><span class="check">✓ (High)</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">AI CAPABILITIES FOR EDUCATION</td></tr>
+          <tr><td>AI writing assistance</td><td>Gemini in Docs/Gmail</td><td>Copilot in Word/Outlook</td><td>Apple Writing Tools</td><td>Claude Chat / Projects</td></tr>
+          <tr><td>Custom agents / bots</td><td>Gems / Workspace Studio</td><td>Copilot Studio</td><td>Siri Shortcuts</td><td>Claude Projects / API</td></tr>
+          <tr><td>Knowledge base / RAG</td><td>NotebookLM</td><td>Copilot Pages</td><td>Apple Notes integration</td><td>Projects (document upload)</td></tr>
+
+          <tr class="section-row"><td colspan="5">ADVERTISING</td></tr>
+          <tr><td>Ads shown to students</td><td><span class="cross">✗ None (Edu)</span></td><td><span class="cross">✗ None (Edu)</span></td><td><span class="cross">✗ None</span></td><td><span class="cross">✗ None</span></td></tr>
+          <tr><td>Behavioral tracking for ads</td><td><span class="cross">✗ None (Edu)</span></td><td><span class="cross">✗ None (Edu)</span></td><td><span class="cross">✗ None</span></td><td><span class="cross">✗ None</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">SECURITY CONTROLS FOR IT</td></tr>
+          <tr><td>Centralized admin console</td><td><span class="check">✓ Google Admin</span></td><td><span class="check">✓ Entra ID / Intune</span></td><td><span class="check">✓ Apple Business Manager</span></td><td><span class="partial">API key management only</span></td></tr>
+          <tr><td>SSO / MFA support</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Ability to block specific AI features</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="partial">Limited</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">OVERALL RISK RATING FOR KU IT (K–12)</td></tr>
+          <tr><td>Risk rating</td><td><span class="risk-low">LOW</span></td><td><span class="risk-low">LOW</span></td><td><span class="risk-low">LOW</span></td><td><span class="risk-med">MEDIUM</span> (paid plan required)</td></tr>
+
+          <tr class="section-row"><td colspan="5">OVERALL RISK RATING FOR KU IT (University)</td></tr>
+          <tr><td>Risk rating</td><td><span class="risk-low">LOW</span></td><td><span class="risk-low">LOW</span></td><td><span class="risk-low">LOW</span></td><td><span class="risk-low">LOW</span> (with enterprise agreement)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- IT RECOMMENDATIONS -->
+<section class="tutorial-section" id="it-recs">
+  <div class="container">
+    <div class="section-eyebrow">For IT Departments</div>
+    <h2 class="section-title">IT Department Recommendations</h2>
+    <p class="section-intro">Recommendations for IT administrators evaluating AI platform deployment across K–12 and university environments.</p>
+
+    <div class="platform-rec">
+      <span class="risk-low">RECOMMENDED · LOW RISK</span>
+      <h4>Google Workspace for Education</h4>
+      <p>Best-in-class for K–12 and higher ed due to strong FERPA/COPPA compliance, centralized admin controls, no student advertising, and the ability to disable AI features at the organizational unit level. Education Fundamentals is free. Gemini features require Education Plus or higher. Agentic AI requires Google AI Pro for Education and IT configuration of Workspace Studio.</p>
+    </div>
+
+    <div class="platform-rec">
+      <span class="risk-low">RECOMMENDED · LOW RISK</span>
+      <h4>Microsoft 365 Education</h4>
+      <p>Strong FERPA/COPPA compliance through A1–A5 licensing. Microsoft Copilot for Education integrates with Word, Teams, and OneNote. Excellent for institutions already standardized on Microsoft. Copilot Studio enables custom agent building. FedRAMP High certified — suitable for sensitive research environments. A1 tier is free for schools.</p>
+    </div>
+
+    <div class="platform-rec">
+      <span class="risk-low">RECOMMENDED · LOW RISK</span>
+      <h4>Apple Education (Apple Intelligence)</h4>
+      <p>On-device AI processing through Apple Intelligence provides the strongest privacy posture — student data never leaves the device for most AI features. Apple Business Manager provides centralized management. Best suited for 1:1 iPad or Mac programs. No advertising, no behavioral tracking. Limited agentic capabilities compared to Google or Microsoft.</p>
+    </div>
+
+    <div class="platform-rec">
+      <span class="risk-med">CONDITIONAL · MEDIUM RISK (K–12) · LOW RISK (University with agreement)</span>
+      <h4>Anthropic Claude</h4>
+      <p>Claude Pro ($20/mo) is appropriate for individual educator use with no student PII. For institutional deployment with students, require an Enterprise or API agreement with a Data Processing Addendum that addresses FERPA. Claude's free tier should be treated as a consumer product — do not use with student data. Claude Cowork (desktop, paid plan) is appropriate for teacher productivity with non-student data.</p>
+    </div>
+
+    <div class="tips-box" style="margin-top:32px;">
+      <h4>IT Deployment Checklist</h4>
+      <ul>
+        <li>Before deploying any AI tool, obtain and review the vendor's Data Processing Agreement (DPA)</li>
+        <li>Verify the tool's FERPA compliance documentation — ask for it in writing</li>
+        <li>Confirm the tool does NOT use student data to train its AI models</li>
+        <li>Test admin controls: can you disable specific AI features for student accounts?</li>
+        <li>Determine if parental consent is required for students under 13 (COPPA)</li>
+        <li>Create a documented AI tool approval process — staff should not self-adopt without IT review</li>
+        <li>Establish an AI incident response plan for data exposure events</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MONITORING STUDENT AI USE -->
+<section class="tutorial-section" id="monitoring">
+  <div class="container">
+    <div class="section-eyebrow">Classroom Management</div>
+    <h2 class="section-title">Free Ways to Monitor Student AI Use</h2>
+    <p class="section-intro">Rather than banning AI and fighting a losing battle, these platforms give you visibility into exactly how students are using AI — and help you build the metacognitive skills students need to use it well.</p>
+
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>What It Monitors</th>
+            <th>Free Tier Features</th>
+            <th>Best For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>SchoolAI</strong><br/><a href="https://schoolai.com" target="_blank" style="font-size:0.8rem;color:var(--accent);">schoolai.com</a></td>
+            <td>Full conversation logs, student engagement patterns, flag keywords and topics</td>
+            <td>Unlimited students, full logs, conversation review dashboard</td>
+            <td>K–12 teachers deploying class-wide AI chatbots</td>
+          </tr>
+          <tr>
+            <td><strong>MagicSchool (MagicStudent)</strong><br/><a href="https://magicschool.ai" target="_blank" style="font-size:0.8rem;color:var(--accent);">magicschool.ai</a></td>
+            <td>Student prompt logs, frequency of use, tool usage breakdown</td>
+            <td>Free teacher account; MagicStudent for supervised student AI use</td>
+            <td>Blended classroom prompting practice with oversight</td>
+          </tr>
+          <tr>
+            <td><strong>BoodleBox</strong><br/><a href="https://box.boodle.ai" target="_blank" style="font-size:0.8rem;color:var(--accent);">box.boodle.ai</a></td>
+            <td>Full conversation logs, student vs. AI message breakdown, session analytics</td>
+            <td>Free for educators; conversation archive; COPPA compliant</td>
+            <td>Higher ed and secondary; open-ended AI literacy projects</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin:36px 0 16px;">Setup Guide: SchoolAI</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Create Your Teacher Account</h4><p>Go to <a href="https://schoolai.com" target="_blank">schoolai.com</a> and sign up with your school email. The free tier is fully functional for monitoring.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Create a Space</h4><p>A "Space" is a monitored AI environment you design for students. Click New Space, give it a name, and write a system prompt defining the AI's role (e.g., "You are a reading coach for 6th grade students...").</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Set Guardrails</h4><p>Add topics the AI should avoid, keywords to flag, and configure the SafeChat filter. SchoolAI blocks inappropriate content by default.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Share the Link</h4><p>Copy the student link from your Space. Students access it directly — no account creation required.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Review the Dashboard</h4><p>Access your teacher dashboard to view all student conversations, session lengths, and flagged messages. Use the logs as formative assessment data.</p></div></div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin:36px 0 16px;">Setup Guide: MagicSchool (MagicStudent)</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Create Your Free Teacher Account</h4><p>Go to <a href="https://www.magicschool.ai" target="_blank">magicschool.ai</a> and sign up. MagicStudent is the student-facing version with teacher monitoring.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Create a Class Roster</h4><p>Add students or generate a class code. Students join via the code — no email required for younger students.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Select Allowed Tools</h4><p>Choose which AI tools students can access. Restrict to specific tools aligned with your lesson goals.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Assign an Activity</h4><p>Create a Custom Chatbot activity or select from MagicSchool's library. Students interact with the AI around your specific prompt or curriculum.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Review Usage Logs</h4><p>Access the student activity dashboard to see prompts submitted, frequency of use, and responses received.</p></div></div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin:36px 0 16px;">Setup Guide: BoodleBox</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Create Your Educator Account</h4><p>Go to <a href="https://box.boodle.ai" target="_blank">box.boodle.ai</a> and create a free educator account. COPPA compliant for K–12.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Create a Boodle</h4><p>A "Boodle" is a custom AI environment. Set a system prompt, choose a base model, and configure any document uploads for the knowledge base.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Add Students or Generate a Link</h4><p>Invite students by email or generate a shareable link. Conversations are automatically logged under your teacher account.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Monitor the Archive</h4><p>Review the full conversation archive from your dashboard. Each session is timestamped and attributed to the student (or anonymous link user).</p></div></div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin:48px 0 16px;border-top:2px solid var(--border);padding-top:40px;">Pedagogical Guide: What Teachers Should Actually Monitor</h3>
+    <p style="font-size:0.95rem;color:var(--muted);margin-bottom:24px;">Monitoring AI use isn't about catching cheating — it's about understanding how students think. Here are the three highest-value behaviors to observe in student AI logs:</p>
+
+    <div class="what-is-box" style="margin-bottom:20px;">
+      <h3>Prompt Iteration</h3>
+      <p>Does the student refine their prompt after receiving an unsatisfactory response? This is the most reliable indicator of AI literacy. A student who sends one prompt and accepts the response passively is at cognitive risk. A student who argues with the AI, challenges its output, or refines their question is developing critical thinking skills. <strong>Look for:</strong> multiple turns, directional language ("that's not right, try again with..."), and self-correction.</p>
+    </div>
+
+    <div class="what-is-box" style="margin-bottom:20px;">
+      <h3>Fact-Checking &amp; Verification</h3>
+      <p>Do students treat AI output as authoritative, or do they attempt to verify claims? Monitor whether students ask the AI for sources, cross-reference with uploaded materials, or flag responses as uncertain. <strong>Instructional move:</strong> Build a "Verify Before You Trust" step into all AI-assisted assignments.</p>
+    </div>
+
+    <div class="what-is-box">
+      <h3>Cognitive Offloading vs. Cognitive Scaffolding</h3>
+      <p>Cognitive offloading = using AI to bypass thinking entirely (asking it to write the essay). Cognitive scaffolding = using AI to support thinking (asking it to explain a concept, then writing your own response). Conversation logs quickly reveal which is happening. <strong>Design your assignments and AI environments to make scaffolding the only possible use case</strong> — configure the AI to refuse direct answer delivery and redirect to guiding questions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AI COMPARISON TABLES -->
+<section class="tutorial-section" id="comparison-tables">
+  <div class="container">
+    <div class="section-eyebrow">Feature Comparisons</div>
+    <h2 class="section-title">AI Tool Comparison Tables</h2>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);margin-bottom:16px;">ChatGPT 4.0 vs MagicSchool vs Khanmigo vs Gemini for Education</h3>
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>ChatGPT 4.0</th>
+            <th>MagicSchool AI</th>
+            <th>Khanmigo</th>
+            <th>Gemini for Education</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Primary purpose</td><td>General AI assistant</td><td>Teacher productivity tools</td><td>AI tutor for students</td><td>AI across Google Workspace</td></tr>
+          <tr><td>FERPA compliant</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Student data used for training</td><td><span class="partial">Opt-out required</span></td><td><span class="cross">✗ Never</span></td><td><span class="cross">✗ Never</span></td><td><span class="cross">✗ Never</span></td></tr>
+          <tr><td>Teacher monitoring dashboard</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="partial">Via Google Admin</span></td></tr>
+          <tr><td>Safe for K–12 students</td><td><span class="cross">✗ Not without guardrails</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓ (Edu tier)</span></td></tr>
+          <tr><td>Custom chatbot builder</td><td><span class="check">✓ (GPT Builder)</span></td><td><span class="check">✓ (MagicStudent)</span></td><td><span class="cross">✗</span></td><td><span class="check">✓ (Gems)</span></td></tr>
+          <tr><td>Pricing (educator)</td><td>$20/mo (Plus)</td><td>Free / Pro tier</td><td>Free for US teachers</td><td>Free–$20/mo (Edu tier)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);margin:40px 0 16px;">Goblin Tools vs NotebookLM vs Suno vs Veo</h3>
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Goblin Tools</th>
+            <th>NotebookLM</th>
+            <th>Suno</th>
+            <th>Veo (Google)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Primary use</td><td>Task breakdown &amp; executive function support</td><td>AI research assistant from your own documents</td><td>AI music generation</td><td>AI video generation</td></tr>
+          <tr><td>Best for education</td><td>Students with ADHD, anxiety, or executive function challenges</td><td>Research synthesis, study guides, audio summaries</td><td>Creative projects, music classes, social skills learning</td><td>Media production, visual learning, creative arts</td></tr>
+          <tr><td>FERPA risk</td><td>Low (no student data required)</td><td>Low (Google Edu tier)</td><td>Medium (verify policy)</td><td>Low (Google Edu tier)</td></tr>
+          <tr><td>Free tier</td><td><span class="check">✓ Fully free</span></td><td><span class="check">✓ Free with Google account</span></td><td><span class="partial">Limited free tier</span></td><td><span class="partial">Education access varies</span></td></tr>
+          <tr><td>Accessibility value</td><td>Very high — designed for neurodivergent support</td><td>High — Audio Overview is ideal for auditory learners</td><td>High for music &amp; creative expression</td><td>High for visual and kinesthetic learners</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);margin:40px 0 16px;">Mizou vs PlayLab vs MagicSchool — FERPA Compliance</h3>
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Mizou</th>
+            <th>PlayLab.ai</th>
+            <th>MagicSchool AI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>FERPA compliant</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>COPPA compliant (K–8)</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Student data for AI training</td><td><span class="cross">✗ Never</span></td><td><span class="cross">✗ Never</span></td><td><span class="cross">✗ Never</span></td></tr>
+          <tr><td>Student accounts required</td><td><span class="cross">✗ Link-only access</span></td><td><span class="partial">Org-based access</span></td><td><span class="partial">Class code join</span></td></tr>
+          <tr><td>Teacher conversation logs</td><td><span class="check">✓</span></td><td><span class="partial">App-level analytics</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Advertising to students</td><td><span class="cross">✗ None</span></td><td><span class="cross">✗ None</span></td><td><span class="cross">✗ None</span></td></tr>
+          <tr><td>Custom rubric integration</td><td><span class="check">✓ (auto-grading)</span></td><td><span class="partial">Via instructions</span></td><td><span class="partial">Via MagicStudent setup</span></td></tr>
+          <tr><td>Free for teachers</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size:0.82rem;color:var(--muted);margin-top:16px;font-style:italic;">Table data reflects publicly available compliance documentation as of 2025–2026. Always verify current compliance status directly with each vendor before institutional deployment. Compliance status can change with product updates.</p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <a href="index.html">InspiredBI.org</a> — All resources free for educators &nbsp;|&nbsp;
+  <a href="tutorials.html">Tutorials Hub</a> &nbsp;|&nbsp;
+  <a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a> &nbsp;|&nbsp;
+  <a href="https://www.linkedin.com/in/maggiemosher/" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+  <a href="https://www.youtube.com/@KUAIAdvocates" target="_blank">YouTube</a></p>
+</footer>
+
+</body>
+</html>
