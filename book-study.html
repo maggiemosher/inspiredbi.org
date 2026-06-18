@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Book study discussion guide for Empowered by AI: 10 Practical Approaches for Today's Educators by Mosher, Dieker, and Turpin." />
+  <title>Book Study — InspiredBI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9963A; --gold-light: #F0C060; --navy: #1A2744;
+      --cream: #FBF8F2; --white: #FFFFFF; --text: #1A1A2E;
+      --muted: #5A6070; --border: #E8E2D8; --accent: #3B7DD8;
+      --green: #2D8F5A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26,39,68,0.97); backdrop-filter: blur(8px);
+      padding: 14px 40px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-back { color: var(--gold-light); text-decoration: none; font-size: 14px; font-weight: 600; }
+    .nav-back:hover { color: var(--white); }
+
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0F1A33 100%);
+      padding: 140px 24px 80px; text-align: center;
+    }
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(201,150,58,0.15); border: 1px solid rgba(201,150,58,0.4);
+      color: var(--gold-light); padding: 6px 18px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--white); margin-bottom: 16px; line-height: 1.2;
+    }
+    .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 640px; margin: 0 auto 32px; line-height: 1.7; }
+    .hero-btn {
+      display: inline-block; background: var(--gold); color: var(--navy);
+      padding: 14px 32px; border-radius: 8px; font-size: 15px; font-weight: 700;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .hero-btn:hover { background: var(--gold-light); }
+
+    .content-section { padding: 72px 24px; }
+    .content-section:nth-child(even) { background: var(--cream); }
+    .container { max-width: 900px; margin: 0 auto; }
+
+    .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+    .section-intro { font-size: 1rem; color: var(--muted); line-height: 1.75; margin-bottom: 40px; }
+
+    /* Book card */
+    .book-card {
+      display: flex; gap: 40px; align-items: flex-start;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 40px; margin-bottom: 40px;
+    }
+    .book-card-icon { font-size: 4rem; flex-shrink: 0; }
+    .book-card-body h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 8px; }
+    .book-card-body .book-byline { font-size: 0.9rem; color: var(--gold); font-weight: 600; margin-bottom: 14px; }
+    .book-card-body p { font-size: 0.95rem; color: var(--muted); line-height: 1.75; margin-bottom: 20px; }
+    .buy-btn {
+      display: inline-block; background: var(--navy); color: var(--white);
+      padding: 12px 28px; border-radius: 8px; font-size: 14px; font-weight: 700;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .buy-btn:hover { background: var(--gold); color: var(--navy); }
+
+    /* Discussion groups */
+    .guide-intro {
+      background: var(--navy); color: var(--white); border-radius: 16px;
+      padding: 36px 40px; margin-bottom: 48px;
+    }
+    .guide-intro h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold-light); margin-bottom: 12px; }
+    .guide-intro p { color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.75; }
+
+    .stakeholder-grid { display: flex; flex-direction: column; gap: 32px; }
+    .stakeholder-card {
+      border: 1px solid var(--border); border-radius: 16px;
+      background: var(--white); overflow: hidden;
+    }
+    .stakeholder-header {
+      display: flex; align-items: center; gap: 16px;
+      padding: 24px 32px; background: linear-gradient(90deg, var(--navy) 0%, #243560 100%);
+    }
+    .stakeholder-icon { font-size: 1.8rem; }
+    .stakeholder-header h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--white); margin: 0; }
+    .stakeholder-header p { color: rgba(255,255,255,0.65); font-size: 0.82rem; margin: 2px 0 0; }
+    .stakeholder-body { padding: 28px 32px; }
+    .question-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+    .question-list li {
+      padding-left: 20px;
+      border-left: 3px solid var(--gold);
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .question-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); }
+    .question-text { font-size: 0.93rem; color: var(--text); line-height: 1.7; }
+
+    .bottom-cta {
+      text-align: center; padding: 56px 24px;
+      background: var(--cream); border-top: 1px solid var(--border);
+    }
+    .bottom-cta p { color: var(--muted); font-size: 1rem; margin-bottom: 20px; }
+    .cta-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .cta-link-primary {
+      display: inline-block; background: var(--navy); color: var(--white);
+      padding: 13px 30px; border-radius: 8px; font-size: 14px; font-weight: 700;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .cta-link-primary:hover { background: var(--gold); color: var(--navy); }
+    .cta-link-secondary {
+      display: inline-block; background: transparent; color: var(--navy);
+      padding: 13px 30px; border-radius: 8px; font-size: 14px; font-weight: 700;
+      text-decoration: none; border: 2px solid var(--border); transition: all 0.2s;
+    }
+    .cta-link-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; }
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .book-card { flex-direction: column; gap: 20px; }
+      .stakeholder-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo-banner.png" alt="InspiredBI" style="height:44px; width:auto; object-fit:contain; display:block;" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Resources</a></li>
+    <li><a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a></li>
+    <li><a href="free-resources.html#videos">Videos</a></li>
+    <li><a href="free-resources.html#courses">Free Courses</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-badge">Book Study</div>
+  <h1>Empowered by AI: Discussion Guide</h1>
+  <p>Stakeholder-specific discussion questions for the book by Mosher, Dieker &amp; Turpin — designed to move every audience beyond surface reactions and into real change.</p>
+  <a href="https://tinyurl.com/EmpoweredByAISchools" target="_blank" class="hero-btn">Buy the Book</a>
+</div>
+
+<!-- ABOUT THE BOOK -->
+<section class="content-section" id="about">
+  <div class="container">
+    <div class="section-eyebrow">About the Book</div>
+    <h2 class="section-title">Empowered by AI</h2>
+    <p class="section-intro">A practical, action-oriented guide to integrating AI into everyday teaching — without losing the human heart of education.</p>
+
+    <div class="book-card">
+      <div class="book-card-icon">📘</div>
+      <div class="book-card-body">
+        <h3>Empowered by AI: 10 Practical Approaches for Today's Educators</h3>
+        <div class="book-byline">By Maggie Mosher, Lisa Dieker, &amp; Megan Turpin &nbsp;|&nbsp; AAI Publishing</div>
+        <p>This book delivers ten concrete, classroom-tested approaches for using AI to amplify what educators already do best — building relationships, sparking curiosity, and differentiating for every learner. It addresses equity, ethics, and privacy alongside practical workflows, making it the definitive professional learning text for K–12 and higher education.</p>
+        <a href="https://tinyurl.com/EmpoweredByAISchools" target="_blank" class="buy-btn">Buy the Book →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCUSSION GUIDE -->
+<section class="content-section" id="guide">
+  <div class="container">
+    <div class="section-eyebrow">Discussion Guide</div>
+    <h2 class="section-title">Questions by Stakeholder Group</h2>
+
+    <div class="guide-intro">
+      <h3>How to Use This Guide</h3>
+      <p>These questions are designed to push each stakeholder group beyond surface-level reactions to AI, focusing instead on the book's central premise: using AI to amplify the human elements of education, ensure equity, and reclaim time. Use them in PLCs, leadership retreats, board meetings, parent nights, or community sessions.</p>
+    </div>
+
+    <div class="stakeholder-grid">
+
+      <!-- Teachers -->
+      <div class="stakeholder-card" id="teachers">
+        <div class="stakeholder-header">
+          <div class="stakeholder-icon">🍎</div>
+          <div>
+            <h3>For Teachers</h3>
+            <p>The primary audience for the 10 approaches — practical application, pedagogy, and workflow</p>
+          </div>
+        </div>
+        <div class="stakeholder-body">
+          <ul class="question-list">
+            <li>
+              <span class="question-label">Reclaiming the Human Touch</span>
+              <span class="question-text">The authors argue that AI should amplify what teachers do best — build relationships and spark curiosity. Which of the 10 approaches in the book do you believe will save you the most time, and exactly how will you reinvest that time into your students?</span>
+            </li>
+            <li>
+              <span class="question-label">The Line of Pedagogy</span>
+              <span class="question-text">When using AI as a "collaborative partner" for lesson planning and feedback, where is the boundary between leveraging AI for efficiency and accidentally outsourcing your own pedagogical judgment?</span>
+            </li>
+            <li>
+              <span class="question-label">Accessibility in Action</span>
+              <span class="question-text">The book highlights AI's role in accessibility. How can we immediately apply these tools to differentiate instruction for our most struggling learners without increasing our daily prep time?</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Administrators -->
+      <div class="stakeholder-card" id="administrators">
+        <div class="stakeholder-header">
+          <div class="stakeholder-icon">🏫</div>
+          <div>
+            <h3>For Administrators</h3>
+            <p>Leaders focused on culture, policy, and scaling success safely</p>
+          </div>
+        </div>
+        <div class="stakeholder-body">
+          <ul class="question-list">
+            <li>
+              <span class="question-label">Fostering Innovation</span>
+              <span class="question-text">How can our leadership team create a school culture where teachers feel safe experimenting with the book's practical approaches without fear of penalty if an AI tool generates a hallucination or fails?</span>
+            </li>
+            <li>
+              <span class="question-label">Operationalizing Ethics</span>
+              <span class="question-text">The authors state that "ethical, equity, and privacy considerations must guide any use of AI." What specific, immediate updates do we need to make to our data privacy policies to ensure these 10 approaches are safe to implement?</span>
+            </li>
+            <li>
+              <span class="question-label">Measuring Impact</span>
+              <span class="question-text">If the promise of this book is giving teachers back "time, creativity, and confidence," what metrics will we use to evaluate whether our AI adoption is actually reducing teacher burnout?</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Parents -->
+      <div class="stakeholder-card" id="parents">
+        <div class="stakeholder-header">
+          <div class="stakeholder-icon">👨‍👩‍👧</div>
+          <div>
+            <h3>For Parents</h3>
+            <p>Questions centering screen time, data privacy, and human connection</p>
+          </div>
+        </div>
+        <div class="stakeholder-body">
+          <ul class="question-list">
+            <li>
+              <span class="question-label">Transparency and Trust</span>
+              <span class="question-text">Knowing that educators are using AI to help plan lessons and provide feedback, what level of transparency do you expect from the school regarding how and when AI is used in your child's classroom?</span>
+            </li>
+            <li>
+              <span class="question-label">Personalized Support</span>
+              <span class="question-text">The book emphasizes using AI to increase accessibility and gamification. How could you envision partnering with teachers to use similar AI approaches at home to help your child overcome specific learning hurdles?</span>
+            </li>
+            <li>
+              <span class="question-label">Protecting the Core</span>
+              <span class="question-text">If AI is handling more of the administrative and grading tasks, how can parents and teachers collaborate to ensure the core of your child's educational experience remains deeply human and relationship-driven?</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Support Services -->
+      <div class="stakeholder-card" id="support">
+        <div class="stakeholder-header">
+          <div class="stakeholder-icon">🤝</div>
+          <div>
+            <h3>For Support Services</h3>
+            <p>SpEd teachers, counselors, and ELL support staff managing heavy documentation</p>
+          </div>
+        </div>
+        <div class="stakeholder-body">
+          <ul class="question-list">
+            <li>
+              <span class="question-label">Scaling Differentiation</span>
+              <span class="question-text">How can we leverage the AI strategies discussed in the book to rapidly adapt grade-level texts for students with IEPs or language barriers, ensuring rigor isn't lost in the simplification?</span>
+            </li>
+            <li>
+              <span class="question-label">Combating Bias</span>
+              <span class="question-text">When using AI to generate customized materials or behavioral interventions, what internal guardrails must our department set to ensure the AI doesn't introduce biases that negatively impact marginalized students?</span>
+            </li>
+            <li>
+              <span class="question-label">Taming the Paperwork</span>
+              <span class="question-text">How can support staff specifically utilize AI as a collaborative partner to streamline compliance paperwork, freeing up more hours for direct, face-to-face student interventions?</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Community Members -->
+      <div class="stakeholder-card" id="community">
+        <div class="stakeholder-header">
+          <div class="stakeholder-icon">🏘️</div>
+          <div>
+            <h3>For Community Members</h3>
+            <p>School board members, local businesses, and taxpayers focused on ROI and workforce readiness</p>
+          </div>
+        </div>
+        <div class="stakeholder-body">
+          <ul class="question-list">
+            <li>
+              <span class="question-label">Shifting Competencies</span>
+              <span class="question-text">If our educators are successfully modeling how to use AI as a collaborative partner, how does this shift the skills and mindsets you expect our high school graduates to bring into the local workforce?</span>
+            </li>
+            <li>
+              <span class="question-label">Resource Allocation</span>
+              <span class="question-text">The book aims to give teachers back their time and creativity to lead in an "AI-enhanced world." How can the community advocate for and fund the specific professional development required to make this vision a reality?</span>
+            </li>
+            <li>
+              <span class="question-label">Ethical Oversight</span>
+              <span class="question-text">What role should community stakeholders and local technology professionals play in helping the district navigate the rapid evolution of AI privacy and equity challenges outlined in the text?</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- /stakeholder-grid -->
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <p>Ready to extend the conversation into classroom practice?</p>
+  <div class="cta-links">
+    <a href="https://tinyurl.com/EmpoweredByAISchools" target="_blank" class="cta-link-primary">Buy the Book →</a>
+    <a href="curriculum.html" class="cta-link-secondary">View Curriculum Resources →</a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 <a href="index.html">InspiredBI.org</a> — All resources free for educators &nbsp;|&nbsp;
+  <a href="tutorials.html">Tutorials Hub</a> &nbsp;|&nbsp;
+  <a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a> &nbsp;|&nbsp;
+  <a href="https://www.linkedin.com/in/maggiemosher/" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+  <a href="https://www.youtube.com/@KUAIAdvocates" target="_blank">YouTube</a></p>
+</footer>
+
+</body>
+</html>

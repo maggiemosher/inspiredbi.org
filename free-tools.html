@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free AI tools and resources for educators — including the AI Advocates Podcast, top free tools tables, videos, and free courses." />
+  <title>Free AI Tools — InspiredBI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9963A; --gold-light: #F0C060; --navy: #1A2744;
+      --cream: #FBF8F2; --white: #FFFFFF; --text: #1A1A2E;
+      --muted: #5A6070; --border: #E8E2D8; --accent: #3B7DD8;
+      --green: #2D8F5A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26,39,68,0.97); backdrop-filter: blur(8px);
+      padding: 14px 40px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-back { color: var(--gold-light); text-decoration: none; font-size: 14px; font-weight: 600; }
+    .nav-back:hover { color: var(--white); }
+
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0F1A33 100%);
+      padding: 140px 24px 80px; text-align: center;
+    }
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(201,150,58,0.15); border: 1px solid rgba(201,150,58,0.4);
+      color: var(--gold-light); padding: 6px 18px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--white); margin-bottom: 16px; line-height: 1.2;
+    }
+    .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 620px; margin: 0 auto 32px; line-height: 1.7; }
+
+    .jump-nav {
+      background: var(--cream); border-bottom: 1px solid var(--border);
+      padding: 16px 24px; position: sticky; top: 65px; z-index: 50;
+    }
+    .jump-nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: center;
+    }
+    .jump-nav span { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 8px; white-space: nowrap; }
+    .jump-link {
+      background: var(--white); border: 1px solid var(--border);
+      color: var(--navy); padding: 6px 14px; border-radius: 20px;
+      font-size: 13px; font-weight: 500; text-decoration: none;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .jump-link:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
+
+    .content-section { padding: 80px 24px; }
+    .content-section:nth-child(even) { background: var(--cream); }
+    .container { max-width: 1000px; margin: 0 auto; }
+
+    .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+    .section-intro { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 760px; margin-bottom: 40px; }
+
+    /* PODCAST FEATURE CARD */
+    .podcast-card {
+      background: linear-gradient(135deg, #1A2744 0%, #0F1A33 60%, #1a3550 100%);
+      border: 1px solid rgba(201,150,58,0.3);
+      border-radius: 20px; padding: 48px; margin-bottom: 0;
+      display: flex; gap: 40px; align-items: center;
+    }
+    .podcast-icon { font-size: 5rem; flex-shrink: 0; }
+    .podcast-body {}
+    .podcast-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 10px; }
+    .podcast-body h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--white); margin-bottom: 14px; line-height: 1.2; }
+    .podcast-body p { color: rgba(255,255,255,0.78); font-size: 0.97rem; line-height: 1.75; margin-bottom: 24px; }
+    .podcast-links { display: flex; gap: 14px; flex-wrap: wrap; }
+    .podcast-btn-primary {
+      display: inline-block; background: var(--gold); color: var(--navy);
+      padding: 13px 28px; border-radius: 8px; font-size: 14px; font-weight: 700;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .podcast-btn-primary:hover { background: var(--gold-light); }
+    .podcast-btn-secondary {
+      display: inline-block; background: transparent; color: var(--gold-light);
+      padding: 13px 28px; border-radius: 8px; font-size: 14px; font-weight: 700;
+      text-decoration: none; border: 2px solid rgba(240,192,96,0.4); transition: all 0.2s;
+    }
+    .podcast-btn-secondary:hover { border-color: var(--gold-light); color: var(--white); }
+
+    /* HUB CARDS */
+    .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin: 40px 0; }
+    .hub-card {
+      border: 1px solid var(--border); border-radius: 16px; padding: 32px 28px;
+      background: var(--white); transition: all 0.25s; display: flex; flex-direction: column;
+    }
+    .hub-card:hover { border-color: var(--gold); box-shadow: 0 8px 32px rgba(0,0,0,0.09); transform: translateY(-3px); }
+    .hub-card-icon { font-size: 2rem; margin-bottom: 12px; }
+    .hub-card-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .hub-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 10px; line-height: 1.25; }
+    .hub-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 20px; }
+    .hub-btn {
+      display: inline-block; background: var(--navy); color: var(--white);
+      padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 700;
+      text-decoration: none; transition: background 0.2s; text-align: center;
+    }
+    .hub-btn:hover { background: var(--gold); color: var(--navy); }
+
+    /* TOOLS TABLE */
+    .table-wrap { overflow-x: auto; margin-bottom: 40px; border-radius: 12px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; background: var(--white); font-size: 0.88rem; }
+    thead { background: var(--navy); color: var(--white); }
+    thead th { padding: 14px 18px; text-align: left; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--cream); }
+    tbody td { padding: 13px 18px; color: var(--text); line-height: 1.5; vertical-align: top; }
+    tbody td:first-child { font-weight: 600; color: var(--navy); }
+    .badge-free { display: inline-block; background: rgba(45,143,90,0.1); color: var(--green); border: 1px solid rgba(45,143,90,0.3); border-radius: 20px; padding: 2px 10px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+    .badge-video { display: inline-block; background: rgba(59,125,216,0.1); color: var(--accent); border: 1px solid rgba(59,125,216,0.3); border-radius: 20px; padding: 2px 10px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+
+    .subsection-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--navy); margin: 48px 0 16px; border-left: 4px solid var(--gold); padding-left: 16px; }
+
+    footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; }
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .jump-nav-inner { flex-wrap: wrap; justify-content: flex-start; }
+      .podcast-card { flex-direction: column; gap: 24px; padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo-banner.png" alt="InspiredBI" style="height:44px; width:auto; object-fit:contain; display:block;" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Resources</a></li>
+    <li><a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a></li>
+    <li><a href="free-resources.html#videos">Videos</a></li>
+    <li><a href="free-resources.html#courses">Free Courses</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-badge">Free for All Educators</div>
+  <h1>Free AI Tools &amp; Resources for Educators</h1>
+  <p>Everything in one place — podcast episodes, curated tool tables, videos, and free courses. No paywalls, no sales pitches.</p>
+</div>
+
+<div class="jump-nav">
+  <div class="jump-nav-inner">
+    <span>Jump to:</span>
+    <a href="#podcast" class="jump-link">Podcast</a>
+    <a href="#free-resources" class="jump-link">Free Resources</a>
+    <a href="#tools" class="jump-link">AI Tools Tables</a>
+    <a href="#videos" class="jump-link">Videos</a>
+    <a href="#courses" class="jump-link">Free Courses</a>
+  </div>
+</div>
+
+<!-- PODCAST — FEATURED FIRST -->
+<section class="content-section" id="podcast">
+  <div class="container">
+    <div class="section-eyebrow">Featured</div>
+    <h2 class="section-title">Start Here: The Podcast</h2>
+    <div class="podcast-card">
+      <div class="podcast-icon">🎙️</div>
+      <div class="podcast-body">
+        <div class="podcast-tag">Audio Series</div>
+        <h2>AI Advocates Podcast</h2>
+        <p>Quick 5–8 minute episodes making practical AI simple for educators. Co-hosted by Drs. Maggie Mosher and Lisa Dieker from the University of Kansas. Each episode tackles one real question educators have about AI — no jargon, no hype, just what you can do on Monday morning.</p>
+        <div class="podcast-links">
+          <a href="https://www.buzzsprout.com/2456058" target="_blank" class="podcast-btn-primary">Listen Now →</a>
+          <a href="https://aiadvocates.buzzsprout.com/" target="_blank" class="podcast-btn-secondary">Visit Podcast Site</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE RESOURCES HUB -->
+<section class="content-section" id="free-resources">
+  <div class="container">
+    <div class="section-eyebrow">Hub Navigation</div>
+    <h2 class="section-title">Everything You Need, Free</h2>
+    <p class="section-intro">Cards below link to each major resource area. Click into any category to find curated, vetted content.</p>
+
+    <div class="hub-grid">
+
+      <div class="hub-card">
+        <div class="hub-card-icon">📚</div>
+        <div class="hub-card-tag">Resources</div>
+        <h3>Free Resources</h3>
+        <p>Curated free tools, guides, Google's free AI training for educators, and more — all in one organized collection, no purchase required.</p>
+        <a href="free-resources.html" class="hub-btn">Go to Free Resources →</a>
+      </div>
+
+      <div class="hub-card">
+        <div class="hub-card-icon">🎓</div>
+        <div class="hub-card-tag">Learning</div>
+        <h3>Free Courses</h3>
+        <p>Self-paced online courses for educators on AI fundamentals, responsible use, and practical classroom integration — completely free to access.</p>
+        <a href="free-resources.html#courses" class="hub-btn">Browse Courses →</a>
+      </div>
+
+      <div class="hub-card">
+        <div class="hub-card-icon">▶️</div>
+        <div class="hub-card-tag">Video Library</div>
+        <h3>YouTube Videos</h3>
+        <p>The KU AI Advocates YouTube channel — tutorial walkthroughs, tool demos, and recorded professional development sessions for educators.</p>
+        <a href="https://www.youtube.com/@KUAIAdvocates" target="_blank" class="hub-btn">Watch on YouTube →</a>
+      </div>
+
+      <div class="hub-card">
+        <div class="hub-card-icon">📖</div>
+        <div class="hub-card-tag">Book Study</div>
+        <h3>Book Study Guide</h3>
+        <p>Discussion questions for <em>Empowered by AI</em>, organized by stakeholder group — for teachers, administrators, parents, support staff, and community members.</p>
+        <a href="book-study.html" class="hub-btn">Go to Book Study →</a>
+      </div>
+
+      <div class="hub-card">
+        <div class="hub-card-icon">🎓</div>
+        <div class="hub-card-tag">Curriculum</div>
+        <h3>Curriculum &amp; Teaching</h3>
+        <p>Deep dives into AI for curriculum development, instructional coaching, and assessment design — with vetted tool tables for every area.</p>
+        <a href="curriculum.html" class="hub-btn">Go to Curriculum →</a>
+      </div>
+
+      <div class="hub-card">
+        <div class="hub-card-icon">🔒</div>
+        <div class="hub-card-tag">Safety</div>
+        <h3>Safe &amp; Secure AI</h3>
+        <p>FERPA, COPPA, and HIPAA guidelines, platform security comparisons, and IT-friendly recommendations for responsible AI use in schools.</p>
+        <a href="safe-secure.html" class="hub-btn">Go to Safe &amp; Secure →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- AI TOOLS TABLES -->
+<section class="content-section" id="tools">
+  <div class="container">
+    <div class="section-eyebrow">Curated Tools</div>
+    <h2 class="section-title">Top Free AI Tools for Educators</h2>
+    <p class="section-intro">These tools are free to start, educator-friendly, and have been vetted for use in K–12 and higher education settings. All links go directly to the tool.</p>
+
+    <h3 class="subsection-title">Top 7 Free AI Tools to Start With</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Best For</th>
+            <th>What It Does</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MagicSchool AI</td>
+            <td>Lesson planning, IEPs, differentiation</td>
+            <td>60+ educator-specific tools including lesson generators, rubric makers, and IEP goal writers</td>
+            <td><span class="badge-free">Free Tier</span></td>
+          </tr>
+          <tr>
+            <td>Diffit</td>
+            <td>Reading differentiation</td>
+            <td>Adapts any text or topic to multiple reading levels with comprehension questions</td>
+            <td><span class="badge-free">Free Tier</span></td>
+          </tr>
+          <tr>
+            <td>Mizou</td>
+            <td>Student chatbots &amp; formative assessment</td>
+            <td>Build private AI chatbots students can converse with — no student PII required</td>
+            <td><span class="badge-free">Free Tier</span></td>
+          </tr>
+          <tr>
+            <td>PlayLab.ai</td>
+            <td>Custom AI tools for educators</td>
+            <td>Nonprofit platform for building custom AI applications aligned to pedagogical goals</td>
+            <td><span class="badge-free">Free</span></td>
+          </tr>
+          <tr>
+            <td>Brisk Teaching</td>
+            <td>Student feedback &amp; grading support</td>
+            <td>Chrome extension that adds AI-powered feedback directly in Google Docs and Slides</td>
+            <td><span class="badge-free">Free Tier</span></td>
+          </tr>
+          <tr>
+            <td>NotebookLM</td>
+            <td>Research synthesis &amp; curriculum</td>
+            <td>Google's AI that reads your uploaded documents and answers questions grounded in them</td>
+            <td><span class="badge-free">Free</span></td>
+          </tr>
+          <tr>
+            <td>Claude</td>
+            <td>Lesson design, writing, brainstorming</td>
+            <td>Anthropic's conversational AI — exceptional for nuanced lesson planning and long-form drafts</td>
+            <td><span class="badge-free">Free Tier</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="subsection-title">Free Video &amp; Creative AI Tools</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Type</th>
+            <th>Educational Use Case</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Canva Magic</td>
+            <td>Design &amp; Video</td>
+            <td>Create slide decks, infographics, and short videos with AI-powered design suggestions</td>
+            <td><span class="badge-free">Free Tier</span></td>
+          </tr>
+          <tr>
+            <td>FlexClip</td>
+            <td>Video Creation</td>
+            <td>Quickly produce flipped-classroom instructional videos with AI voiceover and templates</td>
+            <td><span class="badge-free">Free Tier</span></td>
+          </tr>
+          <tr>
+            <td>Suno</td>
+            <td>Music Generation</td>
+            <td>Turn academic concepts into custom songs — powerful for auditory learners and memory aids</td>
+            <td><span class="badge-free">Free Tier</span></td>
+          </tr>
+          <tr>
+            <td>Adobe Firefly</td>
+            <td>Image Generation</td>
+            <td>Generate copyright-safe images for classroom materials, presentations, and student projects</td>
+            <td><span class="badge-free">Free Credits</span></td>
+          </tr>
+          <tr>
+            <td>Google Slides AI</td>
+            <td>Presentation</td>
+            <td>AI-assisted slide generation within the familiar Google Workspace ecosystem</td>
+            <td><span class="badge-free">Free</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS SECTION -->
+<section class="content-section" id="videos">
+  <div class="container">
+    <div class="section-eyebrow">Watch</div>
+    <h2 class="section-title">Video Library</h2>
+    <p class="section-intro">Tutorial walkthroughs, tool demonstrations, and recorded professional development from the KU AI Advocates team — all free on YouTube.</p>
+
+    <div class="hub-grid">
+
+      <div class="hub-card">
+        <div class="hub-card-icon">▶️</div>
+        <div class="hub-card-tag">YouTube</div>
+        <h3>KU AI Advocates Channel</h3>
+        <p>The main channel for all video content — subscribe to get notified when new tutorials and PD recordings go live.</p>
+        <a href="https://www.youtube.com/@KUAIAdvocates" target="_blank" class="hub-btn">Watch on YouTube →</a>
+      </div>
+
+      <div class="hub-card">
+        <div class="hub-card-icon">🎬</div>
+        <div class="hub-card-tag">Tutorials</div>
+        <h3>Step-by-Step Tutorials</h3>
+        <p>Short how-to videos for specific tools and tasks — building chatbots, writing prompts, and integrating AI into your lesson planning workflow.</p>
+        <a href="free-resources.html#videos" class="hub-btn">Browse Video Tutorials →</a>
+      </div>
+
+      <div class="hub-card">
+        <div class="hub-card-icon">🎙️</div>
+        <div class="hub-card-tag">Podcast</div>
+        <h3>AI Advocates Podcast</h3>
+        <p>Prefer audio? Catch every episode of the AI Advocates Podcast on Buzzsprout — 5 to 8 minutes, practical, and made for busy educators.</p>
+        <a href="https://www.buzzsprout.com/2456058" target="_blank" class="hub-btn">Listen to Podcast →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COURSES SECTION -->
+<section class="content-section" id="courses">
+  <div class="container">
+    <div class="section-eyebrow">Self-Paced Learning</div>
+    <h2 class="section-title">Free Courses</h2>
+    <p class="section-intro">Self-paced professional learning for educators at every stage of their AI journey — from curious beginner to confident implementer. No cost, no sign-up wall.</p>
+
+    <div class="hub-grid">
+
+      <div class="hub-card">
+        <div class="hub-card-icon">🎓</div>
+        <div class="hub-card-tag">All Levels</div>
+        <h3>Free Educator Courses</h3>
+        <p>A curated collection of free AI courses for educators — including Google's AI Essentials for Education, AI literacy foundations, and more.</p>
+        <a href="free-resources.html#courses" class="hub-btn">Browse Free Courses →</a>
+      </div>
+
+      <div class="hub-card">
+        <div class="hub-card-icon">🗺️</div>
+        <div class="hub-card-tag">Deep Dive</div>
+        <h3>Tutorials &amp; Learning Paths</h3>
+        <p>Structured learning paths through InspiredBI's tutorial library — pick a topic like agentic AI, chatbots, or frameworks and follow a guided sequence.</p>
+        <a href="tutorials.html" class="hub-btn">Go to Tutorials Hub →</a>
+      </div>
+
+      <div class="hub-card">
+        <div class="hub-card-icon">📘</div>
+        <div class="hub-card-tag">Book Study</div>
+        <h3>Empowered by AI</h3>
+        <p>Use the <em>Empowered by AI</em> book as a structured professional learning text — with the free discussion guide for every stakeholder group.</p>
+        <a href="book-study.html" class="hub-btn">Book Study Guide →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <a href="index.html">InspiredBI.org</a> — All resources free for educators &nbsp;|&nbsp;
+  <a href="tutorials.html">Tutorials Hub</a> &nbsp;|&nbsp;
+  <a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a> &nbsp;|&nbsp;
+  <a href="https://www.linkedin.com/in/maggiemosher/" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+  <a href="https://www.youtube.com/@KUAIAdvocates" target="_blank">YouTube</a></p>
+</footer>
+
+</body>
+</html>

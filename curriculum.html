@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Curriculum development, teaching excellence, and assessment strategies for educators using AI — including tools tables, ethical integration tips, and free resources." />
+  <title>Curriculum &amp; Teaching — InspiredBI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9963A; --gold-light: #F0C060; --navy: #1A2744;
+      --cream: #FBF8F2; --white: #FFFFFF; --text: #1A1A2E;
+      --muted: #5A6070; --border: #E8E2D8; --accent: #3B7DD8;
+      --green: #2D8F5A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26,39,68,0.97); backdrop-filter: blur(8px);
+      padding: 14px 40px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-back { color: var(--gold-light); text-decoration: none; font-size: 14px; font-weight: 600; }
+    .nav-back:hover { color: var(--white); }
+
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0F1A33 100%);
+      padding: 140px 24px 80px; text-align: center;
+    }
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(201,150,58,0.15); border: 1px solid rgba(201,150,58,0.4);
+      color: var(--gold-light); padding: 6px 18px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--white); margin-bottom: 16px; line-height: 1.2;
+    }
+    .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 640px; margin: 0 auto 32px; line-height: 1.7; }
+
+    .jump-nav {
+      background: var(--cream); border-bottom: 1px solid var(--border);
+      padding: 16px 24px; position: sticky; top: 65px; z-index: 50;
+    }
+    .jump-nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: center;
+    }
+    .jump-nav span { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 8px; white-space: nowrap; }
+    .jump-link {
+      background: var(--white); border: 1px solid var(--border);
+      color: var(--navy); padding: 6px 14px; border-radius: 20px;
+      font-size: 13px; font-weight: 500; text-decoration: none;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .jump-link:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
+
+    .content-section { padding: 80px 24px; }
+    .content-section:nth-child(even) { background: var(--cream); }
+    .container { max-width: 1000px; margin: 0 auto; }
+
+    .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+    .section-intro { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 760px; margin-bottom: 40px; }
+
+    /* Feature list */
+    .feature-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 48px; }
+    .feature-item {
+      background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 24px;
+      transition: all 0.2s;
+    }
+    .feature-item:hover { border-color: var(--gold); box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+    .feature-item-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .feature-item h4 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .feature-item p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+    /* Tips boxes */
+    .tips-grid { display: flex; flex-direction: column; gap: 20px; margin-bottom: 40px; }
+    .tip-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+      border-left: 4px solid var(--gold); padding: 24px 28px;
+    }
+    .tip-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .tip-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; margin-bottom: 48px; border-radius: 12px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; background: var(--white); font-size: 0.88rem; }
+    thead { background: var(--navy); color: var(--white); }
+    thead th { padding: 14px 18px; text-align: left; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--cream); }
+    tbody td { padding: 13px 18px; color: var(--text); line-height: 1.5; vertical-align: top; }
+    tbody td:first-child { font-weight: 600; color: var(--navy); white-space: nowrap; }
+    .badge-safe { display: inline-block; background: rgba(45,143,90,0.1); color: var(--green); border: 1px solid rgba(45,143,90,0.3); border-radius: 20px; padding: 2px 10px; font-size: 0.75rem; font-weight: 700; }
+
+    .subsection-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--navy); margin: 48px 0 16px; border-left: 4px solid var(--gold); padding-left: 16px; }
+
+    footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; }
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .jump-nav-inner { flex-wrap: wrap; justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo-banner.png" alt="InspiredBI" style="height:44px; width:auto; object-fit:contain; display:block;" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Resources</a></li>
+    <li><a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a></li>
+    <li><a href="free-resources.html#videos">Videos</a></li>
+    <li><a href="free-resources.html#courses">Free Courses</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-badge">For Educators</div>
+  <h1>Curriculum Development, Teaching Excellence &amp; Assessment</h1>
+  <p>Practical, AI-enriched strategies for building rigorous curriculum, empowering educators, and designing assessment that reveals authentic learning.</p>
+</div>
+
+<div class="jump-nav">
+  <div class="jump-nav-inner">
+    <span>Jump to:</span>
+    <a href="#curriculum" class="jump-link">Curriculum Development</a>
+    <a href="#teaching" class="jump-link">Teaching Excellence</a>
+    <a href="#assessment" class="jump-link">Assessment &amp; Evaluation</a>
+    <a href="#ethics" class="jump-link">Safe &amp; Ethical Integration</a>
+    <a href="#tools-table" class="jump-link">Free &amp; Safe Tools</a>
+  </div>
+</div>
+
+<!-- SECTION 1: CURRICULUM DEVELOPMENT -->
+<section class="content-section" id="curriculum">
+  <div class="container">
+    <div class="section-eyebrow">Section 1</div>
+    <h2 class="section-title">Curriculum Development</h2>
+    <p class="section-intro">Building rigorous, standards-aligned curriculum that integrates 21st-century skills and AI-enriched learning experiences.</p>
+
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-item-icon">🗂️</div>
+        <h4>Unit and Lesson Design</h4>
+        <p>Utilizing AI as a collaborative thought partner to brainstorm phenomena-based learning sequences, generate creative hooks, and build robust unit outlines in a fraction of the time.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item-icon">🗺️</div>
+        <h4>Standards Alignment Mapping</h4>
+        <p>Leveraging AI tools to cross-reference lesson materials against state and national standards, instantly identifying instructional gaps and ensuring comprehensive coverage.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item-icon">🔗</div>
+        <h4>Cross-Disciplinary Frameworks</h4>
+        <p>Using large language models to uncover natural intersections between subjects to create cohesive, project-based learning experiences that deepen transfer.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item-icon">♿</div>
+        <h4>Differentiated Learning Pathways</h4>
+        <p>Rapidly generating multiple reading levels of the same core text, translating materials, and creating customized scaffolds so every learner can access grade-level content.</p>
+      </div>
+    </div>
+
+    <h3 class="subsection-title">Curriculum Development Tools</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Focus Area</th>
+            <th>Core Educational Function</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Claude</td><td>Unit &amp; Lesson Design</td><td>Generates nuanced, standards-aligned lesson plans and rubrics</td></tr>
+          <tr><td>NotebookLM</td><td>Cross-Disciplinary Frameworks</td><td>Synthesizes user-uploaded texts for grounded curriculum connections</td></tr>
+          <tr><td>Suno</td><td>Differentiated Pathways</td><td>Turns academic concepts into custom songs for auditory learners</td></tr>
+          <tr><td>FlexClip</td><td>Technology-Enriched</td><td>Intuitive video editor to create engaging flipped-classroom content</td></tr>
+          <tr><td>Diffit</td><td>Differentiated Pathways</td><td>Adapts any source text to multiple reading levels with DOK questions</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: TEACHING EXCELLENCE -->
+<section class="content-section" id="teaching">
+  <div class="container">
+    <div class="section-eyebrow">Section 2</div>
+    <h2 class="section-title">Teaching Excellence</h2>
+    <p class="section-intro">Empowering educators through coaching, mentorship, and professional learning communities that elevate classroom practice in an AI-driven era.</p>
+
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-item-icon">🎯</div>
+        <h4>Instructional Coaching Cycles</h4>
+        <p>Using AI-assisted analysis of lesson plans and teacher reflections to help coaches pinpoint specific, high-leverage goals for individual educators.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item-icon">🌐</div>
+        <h4>Peer Learning Communities</h4>
+        <p>Empowering PLCs to use AI to quickly synthesize educational research, analyze grade-level trends, and co-create shared instructional resources.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item-icon">📊</div>
+        <h4>Classroom Observation &amp; Feedback</h4>
+        <p>Incorporating AI-powered audio analysis tools to objectively measure teacher talk-time versus student talk-time, making coaching conversations data-informed.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item-icon">🏆</div>
+        <h4>Teacher Leadership Development</h4>
+        <p>Cultivating "AI Champions" within buildings to lead pilot programs, build internal capacity, and create communities of practice around responsible AI use.</p>
+      </div>
+    </div>
+
+    <h3 class="subsection-title">Teaching Excellence Tools</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Focus Area</th>
+            <th>Core Educational Function</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>ReadAI</td><td>Observation &amp; Feedback</td><td>Analyzes meeting/classroom audio to measure teacher talk-time</td></tr>
+          <tr><td>Gumloop</td><td>Coaching Cycles</td><td>Automates repetitive administrative workflows for instructional coaches</td></tr>
+          <tr><td>Zapier</td><td>Coaching Cycles</td><td>Connects disparate school apps to automate observation feedback loops</td></tr>
+          <tr><td>StackAI</td><td>Peer Learning Communities</td><td>No-code builder for internal staff chatbots trained on school's playbook</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: ASSESSMENT & EVALUATION -->
+<section class="content-section" id="assessment">
+  <div class="container">
+    <div class="section-eyebrow">Section 3</div>
+    <h2 class="section-title">Assessment &amp; Evaluation</h2>
+    <p class="section-intro">Developing meaningful assessment strategies that measure authentic learning and utilize AI to inform instruction at every stage of the learning cycle.</p>
+
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-item-icon">✏️</div>
+        <h4>Formative Assessment Design</h4>
+        <p>Instantly generating diverse, low-stakes retrieval practice — exit tickets, targeted multiple-choice questions, and short-answer prompts aligned to specific learning objectives.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item-icon">🏗️</div>
+        <h4>Performance-Based Tasks</h4>
+        <p>Prompting AI to design complex, real-world scenarios and detailed, multi-tiered rubrics that measure higher-order thinking and authentic application.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item-icon">📈</div>
+        <h4>Data Analysis &amp; Reporting</h4>
+        <p>Securely using data-interpreter tools to spot learning gaps across classrooms and grade levels, enabling proactive, targeted intervention at scale.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item-icon">🗃️</div>
+        <h4>Portfolio and Mastery Models</h4>
+        <p>Utilizing AI platforms to help teachers map student artifacts to mastery standards, surface evidence of growth, and communicate progress to families.</p>
+      </div>
+    </div>
+
+    <h3 class="subsection-title">Assessment &amp; Evaluation Tools</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Focus Area</th>
+            <th>Core Educational Function</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Flexi</td><td>Formative Assessment</td><td>CK-12's free 24/7 AI tutor providing step-by-step help</td></tr>
+          <tr><td>Brisk Teaching</td><td>Formative Assessment</td><td>Chrome extension for rapid, targeted feedback on student writing</td></tr>
+          <tr><td>Mizou</td><td>Performance-Based Tasks</td><td>Secure AI chatbots that auto-grade against teacher rubrics</td></tr>
+          <tr><td>Lido</td><td>Data Analysis &amp; Reporting</td><td>Automates spreadsheets to send personalized mastery reports to parents</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ETHICS SECTION -->
+<section class="content-section" id="ethics">
+  <div class="container">
+    <div class="section-eyebrow">Best Practices</div>
+    <h2 class="section-title">In-Depth Tips for Safe &amp; Ethical AI Integration</h2>
+    <p class="section-intro">Practical guardrails for every area of practice — ensuring AI augments educator expertise rather than replacing it.</p>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <h4>Curriculum Development: Human-in-the-Loop Mandate</h4>
+        <p>AI generates the first draft, never the final product. Every unit plan, lesson, and scaffold produced by an AI tool must pass through educator review before it reaches students. Additionally, ground all AI-assisted curriculum in evidence-based frameworks — Universal Design for Learning (UDL) and CASEL SEL competencies — to ensure both rigor and inclusivity.</p>
+      </div>
+      <div class="tip-card">
+        <h4>Teaching Excellence: Transparent Research and Citations</h4>
+        <p>When using AI to synthesize educational research for PLCs or coaching sessions, always verify primary sources independently and cite originals — not the AI summary. Additionally, de-identify all classroom data before inputting it into any AI platform. Remove student names, IDs, and any personally identifiable information before asking an AI to analyze assessment trends or student work samples.</p>
+      </div>
+      <div class="tip-card">
+        <h4>Assessment &amp; Evaluation: Formative Over Summative</h4>
+        <p>Prioritize AI in low-stakes, formative contexts where its role is to support learning rather than render final judgments on student achievement. AI-generated grades or evaluations should always be reviewed and finalized by a human educator. Additionally, when using AI to generate rubrics, share those rubrics with students before the task begins — rubric transparency is fundamental to fair assessment practice.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE & SAFE TOOLS TABLE -->
+<section class="content-section" id="tools-table">
+  <div class="container">
+    <div class="section-eyebrow">Recommended Tools</div>
+    <h2 class="section-title">Free &amp; Safe AI Tools for Educators</h2>
+    <p class="section-intro">Vetted tools with built-in privacy protections — organized by the area of practice they serve best.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Area</th>
+            <th>Tool</th>
+            <th>Core Function</th>
+            <th>Safety Safeguards</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Curriculum Development</td>
+            <td><strong>Diffit</strong></td>
+            <td>Adapts text to differentiated reading levels with DOK questions</td>
+            <td><span class="badge-safe">No student accounts required; source-grounded to prevent hallucinations</span></td>
+          </tr>
+          <tr>
+            <td>Curriculum Development</td>
+            <td><strong>MagicSchool AI</strong></td>
+            <td>60+ tools for lesson plans, IEP goals, standards mapping</td>
+            <td><span class="badge-safe">FERPA/COPPA compliant; inputs not used to train models</span></td>
+          </tr>
+          <tr>
+            <td>Teaching Excellence</td>
+            <td><strong>Google Gemini</strong></td>
+            <td>Synthesizes educational research, drafts professional citations</td>
+            <td><span class="badge-safe">Enterprise-level privacy in Google Workspace for Education</span></td>
+          </tr>
+          <tr>
+            <td>Teaching Excellence</td>
+            <td><strong>PlayLab.ai</strong></td>
+            <td>Build custom AI agents for peer mentorship and pedagogical goals</td>
+            <td><span class="badge-safe">Nonprofit-built; signs district privacy agreements; built-in safety moderation</span></td>
+          </tr>
+          <tr>
+            <td>Assessment &amp; Evaluation</td>
+            <td><strong>Mizou</strong></td>
+            <td>Secure AI chatbots for formative assessment, auto-graded by rubric</td>
+            <td><span class="badge-safe">No student PII required; students remain anonymous</span></td>
+          </tr>
+          <tr>
+            <td>Assessment &amp; Evaluation</td>
+            <td><strong>Brisk Teaching</strong></td>
+            <td>Chrome extension for rapid feedback on student writing</td>
+            <td><span class="badge-safe">Within Google ecosystem; FERPA compliant; no external storage</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <a href="index.html">InspiredBI.org</a> — All resources free for educators &nbsp;|&nbsp;
+  <a href="tutorials.html">Tutorials Hub</a> &nbsp;|&nbsp;
+  <a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a> &nbsp;|&nbsp;
+  <a href="https://www.linkedin.com/in/maggiemosher/" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+  <a href="https://www.youtube.com/@KUAIAdvocates" target="_blank">YouTube</a></p>
+</footer>
+
+</body>
+</html>

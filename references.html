@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Academic references in APA7 format for InspiredBI — books, journal articles, and conference papers cited across the site." />
+  <title>References — InspiredBI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9963A; --gold-light: #F0C060; --navy: #1A2744;
+      --cream: #FBF8F2; --white: #FFFFFF; --text: #1A1A2E;
+      --muted: #5A6070; --border: #E8E2D8; --accent: #3B7DD8;
+      --green: #2D8F5A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26,39,68,0.97); backdrop-filter: blur(8px);
+      padding: 14px 40px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-back { color: var(--gold-light); text-decoration: none; font-size: 14px; font-weight: 600; }
+    .nav-back:hover { color: var(--white); }
+
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0F1A33 100%);
+      padding: 140px 24px 80px; text-align: center;
+    }
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(201,150,58,0.15); border: 1px solid rgba(201,150,58,0.4);
+      color: var(--gold-light); padding: 6px 18px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--white); margin-bottom: 16px; line-height: 1.2;
+    }
+    .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 600px; margin: 0 auto 32px; line-height: 1.7; }
+
+    .ref-section { padding: 72px 24px; }
+    .ref-section:nth-child(even) { background: var(--cream); }
+    .container { max-width: 900px; margin: 0 auto; }
+
+    .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--navy); margin-bottom: 32px; line-height: 1.2; border-bottom: 2px solid var(--border); padding-bottom: 16px; }
+
+    .ref-list { display: flex; flex-direction: column; gap: 20px; }
+    .ref-list p {
+      font-size: 0.93rem;
+      line-height: 1.75;
+      color: var(--text);
+      padding-left: 2em;
+      text-indent: -2em;
+    }
+    .ref-list p a {
+      color: var(--accent);
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .ref-list p a:hover { text-decoration: underline; }
+
+    footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; }
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo-banner.png" alt="InspiredBI" style="height:44px; width:auto; object-fit:contain; display:block;" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Resources</a></li>
+    <li><a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a></li>
+    <li><a href="free-resources.html#videos">Videos</a></li>
+    <li><a href="free-resources.html#courses">Free Courses</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-badge">APA 7 Format</div>
+  <h1>Academic References</h1>
+  <p>All sources cited across InspiredBI resources, formatted in APA 7th edition and sorted alphabetically.</p>
+</div>
+
+<!-- BOOKS & BOOK CHAPTERS -->
+<section class="ref-section" id="books">
+  <div class="container">
+    <div class="section-eyebrow">Section 1</div>
+    <h2 class="section-title">Books &amp; Book Chapters</h2>
+    <div class="ref-list">
+
+      <p>Bender, E. M., Gebru, T., McMillan-Major, A., &amp; Shmitchell, S. (2021). On the Dangers of Stochastic Parrots: Can Language Models Be Too Big? In <em>Proceedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency</em> (pp. 610–623).</p>
+
+      <p>Dieker, L.A., Farmer, M., Mosher, M., Vasquez, E., &amp; Kohnke, S. (under review). Emerging technologies and the future of inclusive education systems. In E. Morfidi &amp; C. Hughes (Eds.), <em>The Global Handbook of AI for Inclusive Special Education: Ethics, Equity, and Empathy</em>. Taylor and Francis.</p>
+
+      <p>Miao, F., &amp; Shiohira, K. (2022). <em>K-12 AI curricula: A mapping of government-endorsed AI curricula</em>. UNESCO.</p>
+
+      <p>Mosher, M. (in press). <em>AI in Special Education: A Quick-Start Guide to Personalized Support for Teachers</em> [Foldable]. National Professional Resources.</p>
+
+      <p>Mosher, M. &amp; Dieker, L. (approved for publication). <em>AI Advantage for All: Reduce Workload, Build Collaboration, Elevate Success, and Inspire any Learner</em>. Teachers College Press, Columbia University.</p>
+
+      <p>Mosher, M. A., Dieker, L., &amp; Turpin, M. (2024). <em>Empowered by AI: 10 practical approaches for today's educators</em>. AAI Publishing.</p>
+
+      <p>Mosher, M., Dieker, L., &amp; Turpin, M. (2025). <em>Empowered by AI</em>. <a href="https://tinyurl.com/EmpoweredByAISchools" target="_blank">https://tinyurl.com/EmpoweredByAISchools</a></p>
+
+      <p>Papert, S., Solomon, C., Soloway, E., &amp; Spohrer, J. C. (1971). Twenty things to do with a computer. In <em>Studying the novice programmer</em> (pp. 3–28). Lawrence Erlbaum Associates.</p>
+
+      <p>Smith, S. J., Mosher, M. A., &amp; Lowrey, K. A. (2022). Advances in the use of technology and online learning to improve outcomes for students with disabilities. In C. J. Lemons, S. R. Powell, K. L. Lane, &amp; T. C. Aceves (Eds.), <em>Handbook of Special Education Research, Volume II: Research-Based Practices and Intervention Innovations</em> (pp. 178–189). Routledge. <a href="https://doi.org/10.4324/9781003156888" target="_blank">https://doi.org/10.4324/9781003156888</a></p>
+
+    </div>
+  </div>
+</section>
+
+<!-- JOURNAL ARTICLES & CONFERENCE PAPERS -->
+<section class="ref-section" id="articles">
+  <div class="container">
+    <div class="section-eyebrow">Section 2</div>
+    <h2 class="section-title">Journal Articles &amp; Conference Papers</h2>
+    <div class="ref-list">
+
+      <p>Adamopoulou, E., &amp; Moussiades, L. (2020). Chatbots: History, technology, and applications. <em>Machine Learning with Applications</em>, 2, 100006. <a href="https://doi.org/10.1016/j.mlwa.2020.100006" target="_blank">https://doi.org/10.1016/j.mlwa.2020.100006</a></p>
+
+      <p>Adobe. (n.d.). <em>Adobe Firefly</em>. Retrieved August 3, 2025, from <a href="https://www.adobe.com/products/firefly.html" target="_blank">https://www.adobe.com/products/firefly.html</a></p>
+
+      <p>Agyapong, B., Obuobi-Donkor, G., Burback, L., &amp; Wei, Y. (2022). Stress, burnout, anxiety and depression among teachers: A scoping review. <em>International Journal of Environmental Research and Public Health</em>, 19(17), 10706. <a href="https://doi.org/10.3390/ijerph191710706" target="_blank">https://doi.org/10.3390/ijerph191710706</a></p>
+
+      <p>Al-Mughairi, H., &amp; Bhaskar, P. (2024). Exploring the factors affecting the adoption AI techniques in higher education: Insights from teachers' perspectives on ChatGPT. <em>Journal of Research in Innovative Teaching &amp; Learning</em>, 17(1), 1–16. <a href="https://doi.org/10.1108/JRIT-09-2023-0129" target="_blank">https://doi.org/10.1108/JRIT-09-2023-0129</a></p>
+
+      <p>Almanack.ai. (n.d.). <em>Almanack.ai</em>. Retrieved August 3, 2025, from <a href="https://www.almanack.ai" target="_blank">https://www.almanack.ai</a></p>
+
+      <p>Anthropic. (2024). <em>Claude Cowork</em> [Software]. Prompt: "Create a website using all of the documents in this folder and my logos and design choices here." Anthropic. <a href="https://claude.ai" target="_blank">https://claude.ai</a></p>
+
+      <p>Arif, T.B., Munaf, U., &amp; Ul-Haque, I. (2023). The future of medical education and research: Is ChatGPT a blessing or blight in disguise? <em>Medical Education Online</em>, 28(1), 1–2. <a href="https://doi.org/10.1080/10872981.2023.2181052" target="_blank">https://doi.org/10.1080/10872981.2023.2181052</a></p>
+
+      <p>Ausat, A. M. A., Massang, B., Efendi, M., Nofirman, N., &amp; Riady, Y. (2023). Can chat GPT replace the role of the teacher in the classroom: A fundamental analysis. <em>Journal on Education</em>, 5(4), 16100–16106. <a href="https://doi.org/10.31004/joe.v5i4.2745" target="_blank">https://doi.org/10.31004/joe.v5i4.2745</a></p>
+
+      <p>Baidoo-Anu, D., &amp; Ansah, L. O. (2023). Education in the era of generative artificial intelligence (AI): Understanding the potential benefits of ChatGPT in promoting teaching and learning. <em>Journal of AI</em>, 7(1), 52–62. <a href="http://dx.doi.org/10.2139/ssrn.4337484" target="_blank">http://dx.doi.org/10.2139/ssrn.4337484</a></p>
+
+      <p>Basilotta-Gomez-Pablos, V., Matarranz, M., Casado-Aranda, L.A., &amp; Otto, A. (2022). Teachers' digital competencies in higher education: A systematic literature review. <em>International Journal of Educational Technology in Higher Education</em>, 19(1), 1–16. <a href="https://doi.org/10.1186/s41239-021-00312-8" target="_blank">https://doi.org/10.1186/s41239-021-00312-8</a></p>
+
+      <p>Benfatto, M. N., Seimyr, G. Ö., Ygge, J., Pansell, T., Rydberg, A., &amp; Jacobson, C. (2016). Screening for dyslexia using eye tracking during reading. <em>PLoS One</em>, 11(12), e0165508. <a href="https://doi.org/10.1371/journal.pone.0165508" target="_blank">https://doi.org/10.1371/journal.pone.0165508</a></p>
+
+      <p>Berg, C., Dieker, L., &amp; Scolavino, R. (2023). Using a virtual avatar teaching simulation and an evidence-based teacher observation tool: A synergistic combination for teacher preparation. <em>Education Sciences</em>, 13(7), 744. <a href="https://doi.org/10.3390/educsci13070744" target="_blank">https://doi.org/10.3390/educsci13070744</a></p>
+
+      <p>Brady, L. L., McDaniel, S. C., &amp; Choi, Y. J. (2023). Teacher stress and burnout: The role of psychological work resources and implications for practitioners. <em>Psychology in the Schools</em>, 60(6), 1706–1726. <a href="https://doi.org/10.1002/pits.22805" target="_blank">https://doi.org/10.1002/pits.22805</a></p>
+
+      <p>BriskAI. (2024). <em>Activity Generator</em> (June 2024 version) [Large language model]. Prompt: "Provide extension activities for the attached presentation that are acceptable for University staff and educators and explicitly state what needs to be changed to ensure it is acceptable for all learners. Add a hook to get everyone interested at the start of the activity." <a href="https://www.briskteaching.com/" target="_blank">https://www.briskteaching.com/</a></p>
+
+      <p>BriskAI. (2024). <em>Feedback Tool</em> (June 2024 version) [Large language model and Software]. Prompt: "Review this presentation giving feedback on whether it is acceptable for University staff and educators and what may need to change to ensure it is acceptable for all learners." <a href="https://www.briskteaching.com/" target="_blank">https://www.briskteaching.com/</a></p>
+
+      <p>BriskAI. (2024). <em>PowerPoint Generator</em> (May 2024 version) [Large language model and Software]. Prompt: "Create a 5 slide PowerPoint based on my attached outline using quality images of AI with real students." <a href="https://www.briskteaching.com/" target="_blank">https://www.briskteaching.com/</a></p>
+
+      <p>Carreon, A., Criss, C., &amp; Mosher, M. (2023). Classroom virtual reality: A preliminary guide to available virtual content. <em>Journal of Special Education Technology</em>. <a href="https://doi.org/10.1177/01626434231170593" target="_blank">https://doi.org/10.1177/01626434231170593</a></p>
+
+      <p>Carreon, A., Mosher, M., Goldman, S., Smith, S., &amp; Smith, B. (2025). A ten-year review of the Journal of Special Education Technology: Innovations and trends for individuals with disabilities. <em>Journal of Special Education Technology</em>, 0(0). <a href="https://doi.org/10.1177/01626434251349414" target="_blank">https://doi.org/10.1177/01626434251349414</a></p>
+
+      <p>Carreon, A., Rowland, A., Smith, S., Lowrey, A., &amp; Mosher, M. (2024). Designing for successful educational experiences in virtual reality environments. <em>Journal of Special Education Technology</em>. <a href="https://doi.org/01626434241277191" target="_blank">https://doi.org/01626434241277191</a></p>
+
+      <p>Carreon, A., Smith, S., Frey, B., Rowland, A., &amp; Mosher, M. (2023). Comparing immersive VR and non-immersive VR on social skill acquisition for students in middle school with ASD. <em>Journal of Research on Technology in Education</em>. <a href="https://doi.org/10.1080/15391523.2023.2182851" target="_blank">https://doi.org/10.1080/15391523.2023.2182851</a></p>
+
+      <p>Carreon, A., Smith, S., Mosher, M., &amp; Rowland, A. (2022). A review of virtual reality intervention research for students with disabilities in K-12 settings. <em>Journal of Special Education Technology</em>. <a href="https://doi.org/10.1177/0162643420962011" target="_blank">https://doi.org/10.1177/0162643420962011</a></p>
+
+      <p>Chen, L., Chen, P., &amp; Lin, Z. (2020). Artificial intelligence in education: A review. <em>IEEE Access</em>, 8, 75264–75278. <a href="https://doi.org/10.1109/ACCESS.2020.2988510" target="_blank">https://doi.org/10.1109/ACCESS.2020.2988510</a></p>
+
+      <p>Chiu, T. K. (2024). Future research recommendations for transforming higher education with generative AI. <em>Computers and Education: Artificial Intelligence</em>, 6, 100197. <a href="https://doi.org/10.1016/j.caeai.2023.100197" target="_blank">https://doi.org/10.1016/j.caeai.2023.100197</a></p>
+
+      <p>Chiu, T. K. F., Moorhouse, B. L., Chai, C. S., &amp; Ismailov, M. (2023a). Teacher support and student motivation to learn with Artificial Intelligence (AI) based chatbot. <em>Interactive Learning Environments</em>. <a href="https://doi.org/10.1080/10494820.2023.2172044" target="_blank">https://doi.org/10.1080/10494820.2023.2172044</a></p>
+
+      <p>Chiu, T. K. F., Xia, Q., Zhou, X., Chai, C. S., &amp; Cheng, M. (2023b). Systematic literature review on opportunities, challenges, and future research recommendations of artificial intelligence in education. <em>Computers and Education: Artificial Intelligence</em>, 4, 100118. <a href="https://doi.org/10.1016/j.caeai.2022.100118" target="_blank">https://doi.org/10.1016/j.caeai.2022.100118</a></p>
+
+      <p>Dieker, L., Hughes, C., &amp; Hynes, M. (2023). The past, the present, and the future of the evolution of mixed reality in teacher education. <em>Education Sciences</em>, 13(11), 1070. <a href="https://doi.org/10.3390/educsci13111070" target="_blank">https://doi.org/10.3390/educsci13111070</a></p>
+
+      <p>Erbeli, F., He, K., Cheek, C., Rice, M., &amp; Qian, X. (2023). Exploring the machine learning paradigm in determining risk for reading disability. <em>Scientific Studies of Reading</em>, 27(1), 5–20. <a href="https://doi.org/10.1080/10888438.2022.2115914" target="_blank">https://doi.org/10.1080/10888438.2022.2115914</a></p>
+
+      <p>GitHub. (2024). <em>GitHub Copilot Workspace</em> [Software]. Prompt: "Create a website using all of the documents in this folder and my logos and design choices here." Microsoft. <a href="https://github.com" target="_blank">https://github.com</a></p>
+
+      <p>Goldman, S. R., Smith, S. J., Peyton, V., Carreon, A., Rowland, A., &amp; Mosher, M. (2026). Evaluating the use of ChatGPT in preservice special education courses for creating instructional handouts on disabilities. <em>Learning Disabilities Quarterly</em>. <a href="https://doi.org/10.1177/07319487261450954" target="_blank">https://doi.org/10.1177/07319487261450954</a></p>
+
+      <p>Google. (2024). <em>Workspace Studio Agents</em> [Software]. Prompt: "Create a website using all of the documents in this folder and my logos and design choices here." Google. <a href="https://workspace.google.com" target="_blank">https://workspace.google.com</a></p>
+
+      <p>Google. (2025). <em>Gemini</em> (August 3 version) [Large language model]. <a href="https://gemini.google.com" target="_blank">https://gemini.google.com</a></p>
+
+      <p>Grace, K., Stewart, H., Sandkühler, J. F., Thomas, S., Weinstein-Raun, B., &amp; Brauner, J. (2024). Thousands of AI authors on the future of AI. <em>arXiv</em>. <a href="https://doi.org/10.48550/arXiv.2401.02843" target="_blank">https://doi.org/10.48550/arXiv.2401.02843</a></p>
+
+      <p>Gran Ekstrand, A. C., Benfatto, M. N., &amp; Seimyr, G. Ö. (2021). Screening for reading difficulties: Comparing eye tracking outcomes to neuropsychological assessments. <em>Frontiers in Education</em>, 6, 643232. <a href="https://doi.org/10.3389/feduc.2021.643232" target="_blank">https://doi.org/10.3389/feduc.2021.643232</a></p>
+
+      <p>Hashem, R., Ali, N., El Zein, F., Fidalgo, P., &amp; Khurma, O. A. (2024). AI to the rescue: Exploring the potential of ChatGPT as a teacher ally for workload relief and burnout prevention. <em>Research &amp; Practice in Technology Enhanced Learning</em>, 19, 1–26. <a href="https://doi.org/10.58459/rptel.2024.19023" target="_blank">https://doi.org/10.58459/rptel.2024.19023</a></p>
+
+      <p>Hosseini, M., Gao, C. A., Liebovitz, D. M., Carvalho, A. M., Ahmad, F. S., Luo, Y., McDonald, N., Holmes, K. L., &amp; Kho, A. (2023). An exploratory survey about using ChatGPT in education, healthcare, and research. <em>PLoS ONE</em>, 18(9), e0292216. <a href="https://doi.org/10.1371/journal.pone.0292216" target="_blank">https://doi.org/10.1371/journal.pone.0292216</a></p>
+
+      <p>Hughes, C., Dieker, L., Glavey, E., Hines, R., Wilkins, I., Ingraham, K., Bukaty, C., Ali, K., Sachin, S., Murphy, J., &amp; Taylor, M. S. (2022). RAISE: Robotics &amp; AI to improve STEM and social skills for elementary school students. <em>Frontiers in Virtual Reality</em>, 3, 968312. <a href="https://doi.org/10.3389/frvir.2022.968312" target="_blank">https://doi.org/10.3389/frvir.2022.968312</a></p>
+
+      <p>Jia, J., Zhang, D., &amp; Gao, F. (2021). Learning analytics and artificial intelligence in mathematics education: A systematic review. <em>International Journal of Educational Research</em>, 107, 101831. <a href="https://doi.org/10.1016/j.ijer.2021.101831" target="_blank">https://doi.org/10.1016/j.ijer.2021.101831</a></p>
+
+      <p>Karsenti, T. (2019). Artificial intelligence in education: The urgent need to prepare teachers for tomorrow's schools. <em>Formation et Profession</em>, 27(1), 112–116. <a href="https://doi.org/10.18162/fp.2019.a166" target="_blank">https://doi.org/10.18162/fp.2019.a166</a></p>
+
+      <p>Kim, S., &amp; Wiseheart, R. (2017). Exploring text and icon graph interpretation in students with dyslexia: An eye-tracking study. <em>Dyslexia</em>, 23(1), 24–41. <a href="https://doi.org/10.1002/dys.1551" target="_blank">https://doi.org/10.1002/dys.1551</a></p>
+
+      <p>Kumar, C. S., &amp; Sree, R. J. (2014). Assessment of performances of various machine learning algorithms during automated evaluation of descriptive answers. <em>ICTACT Journal on Soft Computing</em>, 4(4), 819–824. <a href="https://doi.org/10.21917/ijsc.2014.0111" target="_blank">https://doi.org/10.21917/ijsc.2014.0111</a></p>
+
+      <p>Laupichler, M. C., Aster, A., Schirch, J., &amp; Raupach, T. (2022). Artificial intelligence literacy in higher and adult education: A scoping literature review. <em>Computers and Education: Artificial Intelligence</em>, 3, 100101. <a href="https://doi.org/10.1016/j.caeai.2022.100101" target="_blank">https://doi.org/10.1016/j.caeai.2022.100101</a></p>
+
+      <p>Luckin, R., Cukurova, M., Kent, C., &amp; du Boulay, B. (2022). Empowering educators to be AI-ready. <em>Computers and Education: Artificial Intelligence</em>, 3, 100076. <a href="https://doi.org/10.1016/j.caeai.2022.100076" target="_blank">https://doi.org/10.1016/j.caeai.2022.100076</a></p>
+
+      <p>MagicSchool AI. (2023). <em>Presentation Generator</em> (December 2023 version) [Large language model]. Prompt: "Provide content ideas for the attached presentation that are acceptable for University staff and educators and explicitly state what needs to be changed to ensure it is acceptable for all learners. Add a hook to get everyone interested at the start of the activity." <a href="https://www.magicschool.ai" target="_blank">https://www.magicschool.ai</a></p>
+
+      <p>MagicSchool AI. (2023). <em>Raina Chatbot</em> (October 2023 version) [Large language model]. Prompt: "Provide image ideas for the attached presentation outline and determine number of slides that are acceptable for University staff and educators to sit through in a 4 hour interactive presentation." <a href="https://www.magicschool.ai" target="_blank">https://www.magicschool.ai</a></p>
+
+      <p>Makridakis, S., Petropoulos, F., &amp; Kang, Y. (2023). Large language models: Their success and impact. <em>Forecasting</em>, 5(3), 536–549. <a href="https://doi.org/10.3390/forecast5030030" target="_blank">https://doi.org/10.3390/forecast5030030</a></p>
+
+      <p>McCarthy, J., Minsky, M. L., Rochester, N., &amp; Shannon, C. E. (1955). A proposal for the Dartmouth summer research project on artificial intelligence. <em>AI Magazine</em>, 27(4), 12–14. <a href="https://doi.org/10.1609/aimag.v27i4.1904" target="_blank">https://doi.org/10.1609/aimag.v27i4.1904</a></p>
+
+      <p>Microsoft Corporation. (2024). <em>Microsoft Copilot</em> (365 Version) [Computer software]. <a href="https://www.microsoft.com/en-us/microsoft-copilot" target="_blank">https://www.microsoft.com/en-us/microsoft-copilot</a></p>
+
+      <p>Misra, S., Maskeliūnas, R., Damasevicius, R., Ikedinachi, A. P., Assibong, P. A., &amp; Olu-Owolabi, E. F. (2019). Artificial intelligence, smart classrooms and online education in the 21st century: Implications for human development. <em>Journal of Cases on Information Technology</em>, 21(3), 66–79. <a href="https://doi.org/10.4018/JCIT.2019070105" target="_blank">https://doi.org/10.4018/JCIT.2019070105</a></p>
+
+      <p>Mizou. (2024). <em>Mizou</em> [Software]. Prompt: "Create a website using all of the documents in this folder and my logos and design choices here." <a href="https://mizou.com" target="_blank">https://mizou.com</a></p>
+
+      <p>Mosher, M. (2022). Technology tools available for implementing social skill instruction. <em>TEACHING Exceptional Children</em>, 55(1), 76–80. <a href="https://doi.org/10.1177/00400599211041738" target="_blank">https://doi.org/10.1177/00400599211041738</a></p>
+
+      <p>Mosher, M. (2024, November). Presentations by Dr. Mosher: Free AI-assisted research tools, cautions, benefits, and questions to ponder [Presentation]. ResearchGate. <a href="https://www.researchgate.net/publication/386113416_Presentations_by_Dr_Mosher_Free_AI-Assisted_Research_Tools_Cautions_Benefits_and_Questions_to_Ponder_Nov_2024" target="_blank">https://www.researchgate.net/publication/386113416</a></p>
+
+      <p>Mosher, M. A. (2024). Teaching with AI Working Group resources. Digital Education Council.</p>
+
+      <p>Mosher, M. A., Carreon, A. C., Craig, S. L., &amp; Ruhter, L. C. (2022). Immersive technology to teach social skills to students with autism spectrum disorder: A literature review. <em>Review Journal of Autism and Developmental Disorders</em>, 1–17. <a href="https://doi.org/10.1007/s40489-021-00259-6" target="_blank">https://doi.org/10.1007/s40489-021-00259-6</a></p>
+
+      <p>Mosher, M. A., Carreon, A. C., &amp; Sullivan, B. J. (2020). A step-by-step process for selecting technology tools for students with ADHD. <em>Journal of Special Education Technology</em>, 37(4), 450–460. <a href="https://doi.org/10.1177/0162643420978570" target="_blank">https://doi.org/10.1177/0162643420978570</a></p>
+
+      <p>Mosher, M. A., Carreon, A. C., Smith, S. J., Frey, B. B., Rowland, A. L., Lane, K. L., Sailor, W. S., Kingston, N. M., Jackson, H.A., Goldman, S.R, Ruhter, L.C., Williams, A., &amp; Bhattashali, A. (2024). The social validity of video modeling versus virtual reality for improving social communication skills of middle school students. <em>Issues and Trends in Learning Technology</em>, 12(1), 1–20.</p>
+
+      <p>Mosher, M. A., Dieker, L., &amp; Turpin, M. (2024). <em>Empowered by AI: 10 practical approaches for today's educators</em>. AAI Publishing.</p>
+
+      <p>Mosher, M. A., Frey, B., Carreon, A., Smith, S., Rowland, A., &amp; Lowrey, A. (2024). The Technology Immersive Presence Scale (TIPS) proof of concept: Creating a student accessible measure of presence in virtual environments. <em>Journal of Interactive Learning Research</em>, 35(1), 101–133.</p>
+
+      <p>Mosher, M. A., Lane, K. L., Rowland, A. L., Carreon, A. C., Smith, S. J., Frey, B. B., Sailor, W. S., Kingston, N. M., Jackson, H. A., Goldman, S. R., Ruhter, L., Williams, A., &amp; Bhattashali, A. (2024). The social validity of video modeling versus virtual reality for improving students' social communication. <em>Issues and Trends in Learning Technology</em>, 12(2). <a href="https://doi.org/10.2458/itlt.5830" target="_blank">https://doi.org/10.2458/itlt.5830</a></p>
+
+      <p>Mosher, M. A., Rowland, A. L., Frey, B. B., Smith, S. J., Sulaimon, T. L., &amp; Carreon, A. C. (2024). Artificial intelligence techniques and best practices to improve motivation and learning. <em>Journal of Research on Technology in Education</em>. Advance online publication.</p>
+
+      <p>Mosher, M., &amp; Carreon, A. (2021). Teaching social skills to students with autism spectrum disorder through augmented, virtual, and mixed reality. <em>Research in Learning Technology</em>, 29. <a href="https://doi.org/10.25304/rlt.v29.2626" target="_blank">https://doi.org/10.25304/rlt.v29.2626</a></p>
+
+      <p>Mosher, M., Dieker, L., &amp; Hines, R. (2024). The past, present, and future use of artificial intelligence in teacher education. <em>Journal of Special Education Preparation</em>. <a href="https://doi.org/10.33043/8aa9855b" target="_blank">https://doi.org/10.33043/8aa9855b</a></p>
+
+      <p>Mosher, M., Rowland, A., &amp; Dieker, L. (2025). Advancing military education, assessment, and communication through AI-enhanced extended reality simulations (Paper No. 25365). <em>Interservice/Industry Training, Simulation and Education (ITSEC) Proceedings</em>, Orlando, FL. <a href="https://www.xcdsystem.com/iitsec/proceedings/index.cfm" target="_blank">https://www.xcdsystem.com/iitsec/proceedings/index.cfm</a></p>
+
+      <p>Mosher, M., Smith, S. J., Rowland, A., Frey, B., Sulaimon, T., &amp; Carreon, A. (2024). Artificial intelligence techniques and best practices to improve motivation and learning (Paper No. 25365). <em>Interservice/Industry Training, Simulation and Education (ITSEC) Proceedings</em>. <a href="https://www.xcdsystem.com/iitsec/proceedings/index.cfm?Year=2024&CID=1060&AbID=133804" target="_blank">https://www.xcdsystem.com/iitsec/proceedings/index.cfm?Year=2024&amp;CID=1060&amp;AbID=133804</a></p>
+
+      <p>Muljana, P. S., &amp; Luo, T. (2021). Utilizing learning analytics in course design: Voices from instructional designers in higher education. <em>Journal of Computing in Higher Education</em>, 33(1), 206–234. <a href="https://doi.org/10.1007/s12528-020-09262-y" target="_blank">https://doi.org/10.1007/s12528-020-09262-y</a></p>
+
+      <p>Ng, D. T. K., Lee, M., Tan, R. J. Y., Hu, X., Downie, J. S., &amp; Chu, S. K. W. (2023a). A review of AI teaching and learning from 2000 to 2020. <em>Education and Information Technologies</em>, 28(7), 8445–8501. <a href="https://doi.org/10.1007/s10639-022-11491-w" target="_blank">https://doi.org/10.1007/s10639-022-11491-w</a></p>
+
+      <p>Ng, D. T. K., Su, J., Leung, J. K. L., &amp; Chu, S. K. W. (2023b). Artificial intelligence (AI) literacy education in secondary schools: A review. <em>Interactive Learning Environments</em>, 1–21. <a href="https://doi.org/10.1080/10494820.2023.2255228" target="_blank">https://doi.org/10.1080/10494820.2023.2255228</a></p>
+
+      <p>Okonkwo, C. W., &amp; Ade-Ibijola, A. (2021). Python-bot: A chatbot for teaching Python programming. <em>Engineering Letters</em>, 29(1), 25–34.</p>
+
+      <p>OpenAI. (2023). <em>ChatGPT</em> (November 2023 version) [Large language model]. Prompt: "How does APA 7 say AI questions with generated answers should be cited?" <a href="https://chat.openai.com" target="_blank">https://chat.openai.com</a></p>
+
+      <p>OpenAI. (2024). <em>ChatGPT</em> (Feb 20 version) [Large language model]. <a href="https://chat.openai.com" target="_blank">https://chat.openai.com</a></p>
+
+      <p>OpenAI. (2024). <em>ChatGPT</em> (May 2024 version) [Large language model]. Prompt: "How does APA 7 say AI questions with generated answers should be cited?" <a href="https://chat.openai.com" target="_blank">https://chat.openai.com</a></p>
+
+      <p>Pavlik, J. V. (2023). Collaborating with ChatGPT: Considering the implications of generative artificial intelligence for journalism and media education. <em>Journalism &amp; Mass Communication Educator</em>, 78(1), 84–93. <a href="https://doi.org/10.1177/10776958221149577" target="_blank">https://doi.org/10.1177/10776958221149577</a></p>
+
+      <p>PlayLab. (2024). <em>PlayLab.ai</em> [Software]. Prompt: "Create a website using all of the documents in this folder and my logos and design choices here." PlayLab. <a href="https://playlab.ai" target="_blank">https://playlab.ai</a></p>
+
+      <p>Poe. (2024). <em>Higher Ed Chatbot</em> (June 2024 version) [Large language model]. Prompt: "Provide content ideas for the attached presentation that are acceptable for University staff and educators and explicitly state what needs to be changed to ensure it is acceptable for all learners. Add a hook to get everyone interested at the start of the activity." <a href="https://poe.com" target="_blank">https://poe.com</a></p>
+
+      <p>Poe. (2024). <em>HigherEdTranslate</em> (September 2024 version) [Large language model]. Prompt: "Is the attached presentation acceptable for University staff and educators?" <a href="https://poe.com" target="_blank">https://poe.com</a></p>
+
+      <p>Rello, L., &amp; Ballesteros, M. (2015). Detecting readers with dyslexia using machine learning with eye tracking measures. In <em>Proceedings of the 12th Web for All Conference</em> (Article 29, pp. 1–8). <a href="https://doi.org/10.1145/2745555.2746644" target="_blank">https://doi.org/10.1145/2745555.2746644</a></p>
+
+      <p>Rock, M., Dieker, L., Billingsley, B., Timara, D., Cartagena, S., Lannan, A., &amp; Romualdo, A. (2023). Ameliorating the special education teacher crisis: Systems thinking and innovative approaches. <em>Journal of Special Education Preparation</em>, 3(1), 8–17. <a href="https://doi.org/10.33043/JOSEP.3.1.8-17" target="_blank">https://doi.org/10.33043/JOSEP.3.1.8-17</a></p>
+
+      <p>Salas-Pilco, S. Z., Xiao, K., &amp; Hu, X. (2022). Artificial intelligence and learning analytics in teacher education: A systematic review. <em>Education Sciences</em>, 12(8), 569. <a href="https://doi.org/10.3390/educsci12080569" target="_blank">https://doi.org/10.3390/educsci12080569</a></p>
+
+      <p>Sallam, M. (2023). The utility of ChatGPT as an example of large language models in healthcare education, research and practice: Systematic review on the future perspectives and potential limitations. <em>medRxiv</em>. <a href="https://doi.org/10.1101/2023.02.19.23286155" target="_blank">https://doi.org/10.1101/2023.02.19.23286155</a></p>
+
+      <p>Sanusi, I. T., Oyelere, S. S., Vartiainen, H., Suhonen, J., &amp; Tukiainen, M. (2023). A systematic review of teaching and learning machine learning in K-12 education. <em>Education and Information Technologies</em>, 28(5), 5967–5997. <a href="https://doi.org/10.1007/s10639-022-11416-7" target="_blank">https://doi.org/10.1007/s10639-022-11416-7</a></p>
+
+      <p>Sarker, I. H. (2021). Deep learning: A comprehensive overview on techniques, taxonomy, applications and research directions. <em>SN Computer Science</em>, 2(6), 420. <a href="https://doi.org/10.1007/s42979-021-00815-1" target="_blank">https://doi.org/10.1007/s42979-021-00815-1</a></p>
+
+      <p>Shumanov, M., &amp; Johnson, L. (2021). Making conversations with chatbots more personalized. <em>Computers in Human Behavior</em>, 117, 106627. <a href="https://doi.org/10.1016/j.chb.2020.106627" target="_blank">https://doi.org/10.1016/j.chb.2020.106627</a></p>
+
+      <p>Smith, S., Cheatham, G., &amp; Mosher, M. (2020). Evidence-based practices to promote inclusion in today's Catholic school. <em>Journal of Catholic Education</em>, 23(2), 111–134. <a href="http://dx.doi.org/10.15365/joce.2302102020" target="_blank">http://dx.doi.org/10.15365/joce.2302102020</a></p>
+
+      <p>Smith, S. J., Mosher, M. A., Rowland, A. L., Goldman, S., &amp; Carreon, A. C. (2024). A guide for special education leaders to utilize artificial intelligence: Students' perspectives for future consideration. <em>Journal of Special Education Leadership</em>. Advance online publication.</p>
+
+      <p>Su, J., Zhong, Y., &amp; Ng, D. T. K. (2022). A meta-review of literature on educational approaches for teaching AI at the K-12 levels in the Asia-Pacific region. <em>Computers and Education: Artificial Intelligence</em>, 3, 100065. <a href="https://doi.org/10.1016/j.caeai.2022.100065" target="_blank">https://doi.org/10.1016/j.caeai.2022.100065</a></p>
+
+      <p>Sun, G. H., &amp; Hoelscher, S. H. (2023). The ChatGPT storm and what faculty can do. <em>Nurse Educator</em>, 48(3), 119–124. <a href="https://doi.org/10.1097/NNE.0000000000001390" target="_blank">https://doi.org/10.1097/NNE.0000000000001390</a></p>
+
+      <p>Tan, S. C., Lee, A. V. Y., &amp; Lee, M. (2022). A systematic review of artificial intelligence techniques for collaborative learning over the past two decades. <em>Computers and Education: Artificial Intelligence</em>, 3, 100097. <a href="https://doi.org/10.1016/j.caeai.2022.100097" target="_blank">https://doi.org/10.1016/j.caeai.2022.100097</a></p>
+
+      <p>Timms, M. J. (2016). Letting artificial intelligence in education out of the box: Educational cobots and smart classrooms. <em>International Journal of Artificial Intelligence in Education</em>, 26(2), 701–712. <a href="https://doi.org/10.1007/s40593-016-0095-y" target="_blank">https://doi.org/10.1007/s40593-016-0095-y</a></p>
+
+      <p>Tlili, A., Shehata, B., Adarkwah, M.A., Bozkurt, A., Hickey, D.T., Huang, R., &amp; Agyemang, B. (2023). What if the devil is my guardian angel: ChatGPT as a case study of using chatbots in Education. <em>Smart Learning Environments</em>, 10(1), 15. <a href="https://doi.org/10.1186/s40561-023-00237-x" target="_blank">https://doi.org/10.1186/s40561-023-00237-x</a></p>
+
+      <p>Voithofer, R., &amp; Nelson, M. J. (2021). Teacher educator technology integration preparation practices around TPACK in the United States. <em>Journal of Teacher Education</em>, 72(3), 314–328. <a href="https://doi.org/10.1177/0022487120949842" target="_blank">https://doi.org/10.1177/0022487120949842</a></p>
+
+      <p>Wangenheim, C., Hauck, J. C., Pacheco, F. S., &amp; Bertonceli Bueno, M. F. (2021). Visual tools for teaching machine learning in K-12: A ten-year systematic mapping. <em>Education and Information Technologies</em>, 26(5), 5733–5778. <a href="https://doi.org/10.1007/s10639-021-10570-8" target="_blank">https://doi.org/10.1007/s10639-021-10570-8</a></p>
+
+      <p>Wei, J., Tay, Y., Bommasani, R., Raffel, C., Zoph, B., Borgeaud, S., &amp; Le, Q. (2023). Emergent abilities of large language models. <em>Transactions on Machine Learning Research</em>.</p>
+
+      <p>Yin, J., Goh, T. T., Yang, B., &amp; Xiaobin, Y. (2021). Conversation technology with micro-learning: The impact of chatbot-based learning on students' learning motivation and performance. <em>Journal of Educational Computing Research</em>, 59(1), 154–177. <a href="https://doi.org/10.1177/0735633120952067" target="_blank">https://doi.org/10.1177/0735633120952067</a></p>
+
+      <p>Zawacki-Richter, O., Marín, V. I., Bond, M., &amp; Gouverneur, F. (2019). Systematic review of research on artificial intelligence applications in higher education – where are the educators? <em>International Journal of Educational Technology in Higher Education</em>, 16(1), 39. <a href="https://doi.org/10.1186/s41239-019-0171-0" target="_blank">https://doi.org/10.1186/s41239-019-0171-0</a></p>
+
+      <p>Zhou, J., Ke, P., Qiu, X., Huang, M., &amp; Zhang, J. (2023). ChatGPT: potential, prospects, and limitations. <em>Frontiers of Information Technology &amp; Electronic Engineering</em>, 24(3), 355–360. <a href="https://doi.org/10.1631/FITEE.2300089" target="_blank">https://doi.org/10.1631/FITEE.2300089</a></p>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <a href="index.html">InspiredBI.org</a> — All resources free for educators &nbsp;|&nbsp;
+  <a href="tutorials.html">Tutorials Hub</a> &nbsp;|&nbsp;
+  <a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a> &nbsp;|&nbsp;
+  <a href="https://www.linkedin.com/in/maggiemosher/" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+  <a href="https://www.youtube.com/@KUAIAdvocates" target="_blank">YouTube</a></p>
+</footer>
+
+</body>
+</html>
