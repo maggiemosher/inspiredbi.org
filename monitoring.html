@@ -56,6 +56,12 @@
     .compare-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text); }
     .compare-table tr:last-child td { border-bottom: none; }
     .compare-table tr:nth-child(even) td { background: var(--cream); }
+    .compare-table .section-row td { background: rgba(201,150,58,0.08); font-weight: 700; color: var(--navy); font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    .check { color: var(--green); font-weight: 700; }
+    .cross { color: #D04040; font-weight: 700; }
+    .partial { color: var(--gold); font-weight: 700; }
+    .risk-low { display: inline-block; background: #EDF7F1; color: var(--green); padding: 2px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+    .risk-med { display: inline-block; background: rgba(201,150,58,0.12); color: #8A6220; padding: 2px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; }
     footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; }
     footer a { color: var(--gold-light); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
@@ -91,6 +97,7 @@
     <a href="#magicschool" class="jump-link">MagicSchool Setup</a>
     <a href="#boodlebox" class="jump-link">BoodleBox Setup</a>
     <a href="#pedagogy" class="jump-link">What to Monitor</a>
+    <a href="#comparison-tables" class="jump-link">Comparison Tables</a>
   </div>
 </div>
 
@@ -212,6 +219,147 @@
       <p style="font-size:0.92rem;color:var(--muted);">The Safe and Secure page includes FERPA/HIPAA/COPPA overviews, Google Workspace tier comparisons, platform security tables, and IT recommendations.</p>
       <a href="safe-secure.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--white);padding:10px 18px;border-radius:8px;font-size:0.88rem;font-weight:600;text-decoration:none;margin-top:10px;">Go to Safe &amp; Secure →</a>
     </div>
+  </div>
+</section>
+
+<!-- AI COMPARISON TABLES -->
+<section class="tutorial-section" id="comparison-tables">
+  <div class="container">
+    <div class="section-eyebrow">Feature Comparisons</div>
+    <h2 class="section-title">AI Tool Comparison Tables</h2>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);margin-bottom:16px;">ChatGPT 4.0 vs MagicSchool vs Khanmigo vs Gemini for Education</h3>
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>ChatGPT 4.0</th>
+            <th>MagicSchool AI</th>
+            <th>Khanmigo</th>
+            <th>Gemini for Education</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Primary purpose</td><td>General AI assistant</td><td>Teacher productivity tools</td><td>AI tutor for students</td><td>AI across Google Workspace</td></tr>
+          <tr><td>FERPA compliant</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Student data used for training</td><td><span class="partial">Opt-out required</span></td><td><span class="cross">✗ Never</span></td><td><span class="cross">✗ Never</span></td><td><span class="cross">✗ Never</span></td></tr>
+          <tr><td>Teacher monitoring dashboard</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="partial">Via Google Admin</span></td></tr>
+          <tr><td>Safe for K–12 students</td><td><span class="cross">✗ Not without guardrails</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓ (Edu tier)</span></td></tr>
+          <tr><td>Custom chatbot builder</td><td><span class="check">✓ (GPT Builder)</span></td><td><span class="check">✓ (MagicStudent)</span></td><td><span class="cross">✗</span></td><td><span class="check">✓ (Gems)</span></td></tr>
+          <tr><td>Pricing (educator)</td><td>$20/mo (Plus)</td><td>Free / Pro tier</td><td>Free for US teachers</td><td>Free–$20/mo (Edu tier)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);margin:40px 0 16px;">Goblin Tools vs NotebookLM vs Suno vs Veo</h3>
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Goblin Tools</th>
+            <th>NotebookLM</th>
+            <th>Suno</th>
+            <th>Veo (Google)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Primary use</td><td>Task breakdown &amp; executive function support</td><td>AI research assistant from your own documents</td><td>AI music generation</td><td>AI video generation</td></tr>
+          <tr><td>Best for education</td><td>Students with ADHD, anxiety, or executive function challenges</td><td>Research synthesis, study guides, audio summaries</td><td>Creative projects, music classes, social skills learning</td><td>Media production, visual learning, creative arts</td></tr>
+          <tr><td>FERPA risk</td><td>Low (no student data required)</td><td>Low (Google Edu tier)</td><td>Medium (verify policy)</td><td>Low (Google Edu tier)</td></tr>
+          <tr><td>Free tier</td><td><span class="check">✓ Fully free</span></td><td><span class="check">✓ Free with Google account</span></td><td><span class="partial">Limited free tier</span></td><td><span class="partial">Education access varies</span></td></tr>
+          <tr><td>Accessibility value</td><td>Very high — designed for neurodivergent support</td><td>High — Audio Overview is ideal for auditory learners</td><td>High for music &amp; creative expression</td><td>High for visual and kinesthetic learners</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);margin:40px 0 16px;">Mizou vs PlayLab vs MagicSchool — FERPA Compliance</h3>
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Mizou</th>
+            <th>PlayLab.ai</th>
+            <th>MagicSchool AI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>FERPA compliant</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>COPPA compliant (K–8)</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Student data for AI training</td><td><span class="cross">✗ Never</span></td><td><span class="cross">✗ Never</span></td><td><span class="cross">✗ Never</span></td></tr>
+          <tr><td>Student accounts required</td><td><span class="cross">✗ Link-only access</span></td><td><span class="partial">Org-based access</span></td><td><span class="partial">Class code join</span></td></tr>
+          <tr><td>Teacher conversation logs</td><td><span class="check">✓</span></td><td><span class="partial">App-level analytics</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Advertising to students</td><td><span class="cross">✗ None</span></td><td><span class="cross">✗ None</span></td><td><span class="cross">✗ None</span></td></tr>
+          <tr><td>Custom rubric integration</td><td><span class="check">✓ (auto-grading)</span></td><td><span class="partial">Via instructions</span></td><td><span class="partial">Via MagicStudent setup</span></td></tr>
+          <tr><td>Free for teachers</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin:48px 0 16px;border-top:2px solid var(--border);padding-top:40px;">AI Platform Security &amp; Compliance Comparison</h3>
+    <p style="font-size:0.95rem;color:var(--muted);margin-bottom:24px;">How do the major AI platforms compare on data privacy, security certifications, and suitability for educational use?</p>
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="width:22%;">Category</th>
+            <th>Google (Workspace Education)</th>
+            <th>Microsoft (Copilot / M365 Education)</th>
+            <th>Apple (Education)</th>
+            <th>Anthropic Claude (Education API)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-row"><td colspan="5">PRODUCT OVERVIEW &amp; PRICING</td></tr>
+          <tr><td>Main AI Product</td><td>Gemini + Workspace</td><td>Microsoft Copilot + M365</td><td>Apple Intelligence / Siri</td><td>Claude (claude.ai / API)</td></tr>
+          <tr><td>Education pricing</td><td>Free–$20/user/mo</td><td>Free–$6/user/mo (A1–A5)</td><td>Free (device-based)</td><td>Pro: $20/mo; API pricing</td></tr>
+
+          <tr class="section-row"><td colspan="5">DATA STORAGE &amp; HOSTING</td></tr>
+          <tr><td>Data region</td><td>US / EU configurable</td><td>US / EU configurable</td><td>On-device (Private Cloud)</td><td>US data centers</td></tr>
+          <tr><td>Data residency controls</td><td><span class="check">✓ Admin configurable</span></td><td><span class="check">✓ Admin configurable</span></td><td><span class="check">✓ On-device default</span></td><td><span class="partial">Limited</span></td></tr>
+          <tr><td>Encryption at rest &amp; transit</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">AI MODEL TRAINING</td></tr>
+          <tr><td>Uses your data to train AI</td><td><span class="cross">✗ Never (Edu)</span></td><td><span class="cross">✗ Never (Edu)</span></td><td><span class="cross">✗ Never</span></td><td><span class="cross">✗ Never (paid plans)</span></td></tr>
+          <tr><td>Opt-out available (free tier)</td><td>N/A (Edu never trains)</td><td>N/A (Edu never trains)</td><td>N/A</td><td><span class="partial">Must be on paid plan</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">COMPLIANCE</td></tr>
+          <tr><td>FERPA</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="partial">Requires enterprise agreement</span></td></tr>
+          <tr><td>COPPA</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="partial">Verify current policy</span></td></tr>
+          <tr><td>HIPAA (if applicable)</td><td><span class="check">✓ (BAA available)</span></td><td><span class="check">✓ (BAA available)</span></td><td><span class="partial">Limited</span></td><td><span class="partial">Not standard; enterprise only</span></td></tr>
+          <tr><td>GDPR</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">SECURITY CERTIFICATIONS</td></tr>
+          <tr><td>SOC 2 Type II</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>ISO 27001</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>FedRAMP</td><td><span class="check">✓ (High)</span></td><td><span class="check">✓ (High)</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">AI CAPABILITIES FOR EDUCATION</td></tr>
+          <tr><td>AI writing assistance</td><td>Gemini in Docs/Gmail</td><td>Copilot in Word/Outlook</td><td>Apple Writing Tools</td><td>Claude Chat / Projects</td></tr>
+          <tr><td>Custom agents / bots</td><td>Gems / Workspace Studio</td><td>Copilot Studio</td><td>Siri Shortcuts</td><td>Claude Projects / API</td></tr>
+          <tr><td>Knowledge base / RAG</td><td>NotebookLM</td><td>Copilot Pages</td><td>Apple Notes integration</td><td>Projects (document upload)</td></tr>
+
+          <tr class="section-row"><td colspan="5">ADVERTISING</td></tr>
+          <tr><td>Ads shown to students</td><td><span class="cross">✗ None (Edu)</span></td><td><span class="cross">✗ None (Edu)</span></td><td><span class="cross">✗ None</span></td><td><span class="cross">✗ None</span></td></tr>
+          <tr><td>Behavioral tracking for ads</td><td><span class="cross">✗ None (Edu)</span></td><td><span class="cross">✗ None (Edu)</span></td><td><span class="cross">✗ None</span></td><td><span class="cross">✗ None</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">SECURITY CONTROLS FOR IT</td></tr>
+          <tr><td>Centralized admin console</td><td><span class="check">✓ Google Admin</span></td><td><span class="check">✓ Entra ID / Intune</span></td><td><span class="check">✓ Apple Business Manager</span></td><td><span class="partial">API key management only</span></td></tr>
+          <tr><td>SSO / MFA support</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Ability to block specific AI features</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="partial">Limited</span></td></tr>
+
+          <tr class="section-row"><td colspan="5">OVERALL RISK RATING FOR K–12</td></tr>
+          <tr><td>Risk rating</td><td><span class="risk-low">LOW</span></td><td><span class="risk-low">LOW</span></td><td><span class="risk-low">LOW</span></td><td><span class="risk-med">MEDIUM</span> (paid plan required)</td></tr>
+
+          <tr class="section-row"><td colspan="5">OVERALL RISK RATING FOR UNIVERSITY</td></tr>
+          <tr><td>Risk rating</td><td><span class="risk-low">LOW</span></td><td><span class="risk-low">LOW</span></td><td><span class="risk-low">LOW</span></td><td><span class="risk-low">LOW</span> (with enterprise agreement)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size:0.82rem;color:var(--muted);margin-top:16px;font-style:italic;">Table data reflects publicly available compliance documentation as of 2025–2026. Always verify current compliance status directly with each vendor before institutional deployment.</p>
   </div>
 </section>
 

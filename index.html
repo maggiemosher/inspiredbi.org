@@ -190,6 +190,44 @@
       background: var(--clr-teal) !important;
       border-color: var(--clr-teal) !important;
     }
+
+    /* ── NAV SEARCH ── */
+    .nav__search {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .nav__search-input {
+      padding: 7px 16px;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: 9999px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 0.8125rem;
+      outline: none;
+      width: 160px;
+      backdrop-filter: blur(6px);
+      font-family: 'Inter', sans-serif;
+      transition: all 0.25s;
+    }
+    .nav__search-input::placeholder { color: rgba(255,255,255,0.5); }
+    .nav__search-input:focus { border-color: rgba(245,158,11,0.6); background: rgba(255,255,255,0.15); width: 200px; }
+    .nav__search-btn {
+      padding: 7px 14px;
+      background: var(--clr-gold);
+      color: var(--clr-navy);
+      border: none;
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.25s;
+    }
+    .nav__search-btn:hover { background: #d97706; }
+
     .nav__hamburger {
       display: none;
       flex-direction: column;
@@ -1014,6 +1052,7 @@
     @media (max-width: 768px) {
       :root { --section-pad: 64px 24px; }
       .nav__links { display: none; }
+      .nav__search { display: none; }
       .nav__hamburger { display: flex; }
 
       .hero__content {
@@ -1065,6 +1104,10 @@
         <li><a href="free-tools.html">Free Tools</a></li>
         <li><a href="#contact" class="nav__cta">Get In Touch</a></li>
       </ul>
+      <div class="nav__search">
+        <input type="text" class="nav__search-input" id="nav-search-input" placeholder="Search this page..." aria-label="Search this page" onkeydown="if(event.key==='Enter')pageSearch()">
+        <button class="nav__search-btn" onclick="pageSearch()">Search</button>
+      </div>
       <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -1101,10 +1144,6 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
           <a href="#dr-mosher" class="btn btn-outline">Learn the Founder's Story</a>
-        </div>
-        <div class="hero__search">
-          <input type="text" id="site-search-input" placeholder="Search InspiredBI.org..." aria-label="Search the site" onkeydown="if(event.key==='Enter')inspiredSearch()">
-          <button onclick="inspiredSearch()">Search</button>
         </div>
       </div>
       <div class="hero__stats">
@@ -1305,7 +1344,7 @@
   <section style="padding: var(--section-pad); background: var(--clr-off-white);">
     <div style="max-width: var(--max-w); margin-inline: auto;">
       <div class="section-label">Top Tools for Educators</div>
-      <h2 class="section-title" style="font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.4rem);color:var(--clr-navy);margin-bottom:16px;">Top 7 AI Tools for Student Support,<br>Individualized Learning &amp; Teacher Productivity</h2>
+      <h2 class="section-title" style="font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.4rem);color:var(--clr-navy);margin-bottom:16px;">Top 12 AI Tools for Student Support,<br>Individualized Learning &amp; Teacher Productivity</h2>
       <div style="overflow-x:auto;margin-bottom:56px;">
         <table style="width:100%;border-collapse:collapse;font-size:.875rem;">
           <thead>
@@ -1375,11 +1414,51 @@
               <td style="padding:12px 16px;">Integrates seamlessly into a teacher's workflow (Google Docs, Chrome) to provide immediate, practical support.</td>
               <td style="padding:12px 16px;">Free version allows text leveling, feedback, and resource generation with daily usage limits.</td>
             </tr>
+            <tr style="background:var(--clr-gray-100);border-bottom:1px solid var(--clr-gray-300);">
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">8</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://eduaide.ai" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Eduaide.AI</a></td>
+              <td style="padding:12px 16px;"><a href="https://eduaide.ai" target="_blank" rel="noopener" style="color:var(--clr-teal);">eduaide.ai</a></td>
+              <td style="padding:12px 16px;">Comprehensive Educator AI Suite</td>
+              <td style="padding:12px 16px;">Generate lesson plans, assessments, rubrics, and differentiated materials from a single prompt — one of the most versatile all-in-one educator platforms available.</td>
+              <td style="padding:12px 16px;">Free tier available with a generous set of generation tools covering the full range of educator workflows.</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--clr-gray-300);">
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">9</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://teachaid.ai" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">TeachAid</a></td>
+              <td style="padding:12px 16px;"><a href="https://teachaid.ai" target="_blank" rel="noopener" style="color:var(--clr-teal);">teachaid.ai</a></td>
+              <td style="padding:12px 16px;">Adaptive Learning Support</td>
+              <td style="padding:12px 16px;">Personalizes learning pathways and provides adaptive instructional support based on individual student needs, performance data, and learning goals.</td>
+              <td style="padding:12px 16px;">Free tier available for educators to explore adaptive support tools and personalized learning features.</td>
+            </tr>
+            <tr style="background:var(--clr-gray-100);border-bottom:1px solid var(--clr-gray-300);">
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">10</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://mizou.com" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Mizou</a></td>
+              <td style="padding:12px 16px;"><a href="https://mizou.com" target="_blank" rel="noopener" style="color:var(--clr-teal);">mizou.com</a></td>
+              <td style="padding:12px 16px;">Student Chatbots &amp; Formative Assessment</td>
+              <td style="padding:12px 16px;">Build private AI chatbots students interact with via a simple shared link — no student accounts or PII required. Supports automated grading, rubric-aligned feedback, and 50+ languages.</td>
+              <td style="padding:12px 16px;">Free tier includes chatbot creation and deployment; students access via link with no signup required.</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--clr-gray-300);">
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">11</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://playlab.ai" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">PlayLab</a></td>
+              <td style="padding:12px 16px;"><a href="https://playlab.ai" target="_blank" rel="noopener" style="color:var(--clr-teal);">playlab.ai</a></td>
+              <td style="padding:12px 16px;">Custom AI Tool Builder</td>
+              <td style="padding:12px 16px;">A nonprofit platform that lets educators build custom AI applications aligned to specific pedagogical goals — no coding required. Ideal for creating reusable, shareable classroom AI tools.</td>
+              <td style="padding:12px 16px;">Completely free with a nonprofit mission — build, publish, and share custom AI tools with your school community.</td>
+            </tr>
+            <tr style="background:var(--clr-gray-100);border-bottom:1px solid var(--clr-gray-300);">
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">12</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://goblin.tools" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Goblin Tools</a></td>
+              <td style="padding:12px 16px;"><a href="https://goblin.tools" target="_blank" rel="noopener" style="color:var(--clr-teal);">goblin.tools</a></td>
+              <td style="padding:12px 16px;">Student Support &amp; Executive Function</td>
+              <td style="padding:12px 16px;">A brilliant set of micro-tools designed to support executive functioning for all students, especially neurodiverse learners — breaks tasks down, adjusts tone, and estimates effort.</td>
+              <td style="padding:12px 16px;">The entire suite (Magic ToDo, Formalizer, Judge, Estimator, etc.) is completely free with no account required.</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
-      <h2 class="section-title" style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.5vw,2rem);color:var(--clr-navy);margin-bottom:16px;">5 Video AI Tools for Those Familiar with Tools 1–7<br><span style="font-size:.85em;font-weight:500;color:var(--clr-gray-500);">For Students Who Love Visual Design &amp; Media Clips</span></h2>
+      <h2 class="section-title" style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.5vw,2rem);color:var(--clr-navy);margin-bottom:16px;">AI Media<br><span style="font-size:.85em;font-weight:500;color:var(--clr-gray-500);">For Students Who Love Visual Design &amp; Media Clips</span></h2>
       <div style="overflow-x:auto;">
         <table style="width:100%;border-collapse:collapse;font-size:.875rem;">
           <thead>
@@ -1394,47 +1473,143 @@
           </thead>
           <tbody>
             <tr style="border-bottom:1px solid var(--clr-gray-300);">
-              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">8</td>
-              <td style="padding:12px 16px;font-weight:600;"><a href="https://ltx.studio" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">LTX Studio</a></td>
-              <td style="padding:12px 16px;"><a href="https://ltx.studio" target="_blank" rel="noopener" style="color:var(--clr-teal);">ltx.studio</a></td>
-              <td style="padding:12px 16px;">Cinematic Video Generation</td>
-              <td style="padding:12px 16px;">The cutting edge of AI filmmaking — control scenes, characters, and camera angles.</td>
-              <td style="padding:12px 16px;">Free access for experimentation; limited credits; watermarked downloads.</td>
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">1</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://canva.com/education" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Canva</a></td>
+              <td style="padding:12px 16px;"><a href="https://canva.com/education" target="_blank" rel="noopener" style="color:var(--clr-teal);">canva.com/education</a></td>
+              <td style="padding:12px 16px;">Visuals, Design &amp; Video</td>
+              <td style="padding:12px 16px;">The gold standard for educational design with an expanding Magic Studio AI suite.</td>
+              <td style="padding:12px 16px;">100% free premium access for verified K-12 teachers and students.</td>
             </tr>
             <tr style="background:var(--clr-gray-100);border-bottom:1px solid var(--clr-gray-300);">
-              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">9</td>
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">2</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://blockadelabs.com" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Skybox AI by Blockade Labs</a></td>
+              <td style="padding:12px 16px;"><a href="https://blockadelabs.com" target="_blank" rel="noopener" style="color:var(--clr-teal);">blockadelabs.com</a></td>
+              <td style="padding:12px 16px;">360° XR Simulations</td>
+              <td style="padding:12px 16px;">Instantly generates immersive 360-degree worlds from text prompts — an incredible asset for rapidly prototyping VR and XR simulations for advanced coursework or research.</td>
+              <td style="padding:12px 16px;">Free tier allows you to generate and preview 360° environments directly in the browser.</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--clr-gray-300);">
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">3</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://groovelit.com" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Groovelit</a></td>
+              <td style="padding:12px 16px;"><a href="https://groovelit.com" target="_blank" rel="noopener" style="color:var(--clr-teal);">groovelit.com</a></td>
+              <td style="padding:12px 16px;">Gamified AI Writing Practice</td>
+              <td style="padding:12px 16px;">Like a "Kahoot for writing," it turns short writing exercises into an interactive, AI-scored multiplayer game.</td>
+              <td style="padding:12px 16px;">100% free to sign up and use, including hundreds of prompts and no ads.</td>
+            </tr>
+            <tr style="background:var(--clr-gray-100);border-bottom:1px solid var(--clr-gray-300);">
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">4</td>
               <td style="padding:12px 16px;font-weight:600;"><a href="https://adobe.com/education/express" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Adobe Express</a></td>
               <td style="padding:12px 16px;"><a href="https://adobe.com/education/express" target="_blank" rel="noopener" style="color:var(--clr-teal);">adobe.com/education/express</a></td>
               <td style="padding:12px 16px;">Video, Visuals &amp; Design</td>
               <td style="padding:12px 16px;">A powerful all-in-one design tool with an exceptional free offering for schools.</td>
-              <td style="padding:12px 16px;">Verified K–12 educators get a free premium license with AI features and watermark-free exports.</td>
+              <td style="padding:12px 16px;">Verified K–12 educators get a free premium license with AI features.</td>
             </tr>
             <tr style="border-bottom:1px solid var(--clr-gray-300);">
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">5</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://capcut.com" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">CapCut</a></td>
+              <td style="padding:12px 16px;"><a href="https://capcut.com" target="_blank" rel="noopener" style="color:var(--clr-teal);">capcut.com</a></td>
+              <td style="padding:12px 16px;">Video Editing &amp; AI Tools</td>
+              <td style="padding:12px 16px;">A powerhouse editor featuring incredible AI auto-captions, background removal, and templates.</td>
+              <td style="padding:12px 16px;">Robust free tier; standard exports are entirely watermark-free.</td>
+            </tr>
+            <tr style="background:var(--clr-gray-100);border-bottom:1px solid var(--clr-gray-300);">
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">6</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://inworld.ai" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Inworld AI</a></td>
+              <td style="padding:12px 16px;"><a href="https://inworld.ai" target="_blank" rel="noopener" style="color:var(--clr-teal);">inworld.ai</a></td>
+              <td style="padding:12px 16px;">Voice AI &amp; Interactive Agents</td>
+              <td style="padding:12px 16px;">The top-ranked platform for building responsive, conversational AI companions and simulations.</td>
+              <td style="padding:12px 16px;">Free tier available for developers to prototype and test voice agents.</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--clr-gray-300);">
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">7</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://kapwing.com" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Kapwing</a></td>
+              <td style="padding:12px 16px;"><a href="https://kapwing.com" target="_blank" rel="noopener" style="color:var(--clr-teal);">kapwing.com</a></td>
+              <td style="padding:12px 16px;">Collaborative Video Editing</td>
+              <td style="padding:12px 16px;">A powerful browser-based editor with AI tools great for student projects.</td>
+              <td style="padding:12px 16px;">Edit and export up to 4 minutes; Kapwing watermark; file size limits.</td>
+            </tr>
+            <tr style="background:var(--clr-gray-100);border-bottom:1px solid var(--clr-gray-300);">
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">8</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://lumalabs.ai/dream-machine" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Luma Dream Machine</a></td>
+              <td style="padding:12px 16px;"><a href="https://lumalabs.ai/dream-machine" target="_blank" rel="noopener" style="color:var(--clr-teal);">lumalabs.ai/dream-machine</a></td>
+              <td style="padding:12px 16px;">Cinematic Video Generation</td>
+              <td style="padding:12px 16px;">Creates highly photorealistic AI video clips and smooth motion directly from text or images.</td>
+              <td style="padding:12px 16px;">Free tier offers limited daily generations with a watermark.</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--clr-gray-300);">
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">9</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://runwayml.com" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Runway</a></td>
+              <td style="padding:12px 16px;"><a href="https://runwayml.com" target="_blank" rel="noopener" style="color:var(--clr-teal);">runwayml.com</a></td>
+              <td style="padding:12px 16px;">Generative AI Video</td>
+              <td style="padding:12px 16px;">The industry pioneer offering powerful text-to-video and advanced motion control.</td>
+              <td style="padding:12px 16px;">Free basic account provides 125 one-time credits to test capabilities.</td>
+            </tr>
+            <tr style="background:var(--clr-gray-100);border-bottom:1px solid var(--clr-gray-300);">
               <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">10</td>
               <td style="padding:12px 16px;font-weight:600;"><a href="https://invideo.io/ai" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Invideo AI</a></td>
               <td style="padding:12px 16px;"><a href="https://invideo.io/ai" target="_blank" rel="noopener" style="color:var(--clr-teal);">invideo.io/ai</a></td>
               <td style="padding:12px 16px;">Text-to-Video Creation</td>
-              <td style="padding:12px 16px;">Effective at quickly turning articles or scripts into videos using AI-suggested visuals and voiceovers.</td>
-              <td style="padding:12px 16px;">Free plan allows a small number of exports with watermark and quality/length restrictions.</td>
+              <td style="padding:12px 16px;">Effective at quickly turning articles or scripts into videos using AI visuals.</td>
+              <td style="padding:12px 16px;">Small number of exports with watermark and length restrictions.</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--clr-gray-300);">
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">11</td>
+              <td style="padding:12px 16px;font-weight:600;"><a href="https://ltx.studio" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">LTX Studio</a></td>
+              <td style="padding:12px 16px;"><a href="https://ltx.studio" target="_blank" rel="noopener" style="color:var(--clr-teal);">ltx.studio</a></td>
+              <td style="padding:12px 16px;">Cinematic Video Generation</td>
+              <td style="padding:12px 16px;">The cutting edge of AI filmmaking — control scenes, characters, and cameras.</td>
+              <td style="padding:12px 16px;">Free access for experimentation; limited credits; watermarked downloads.</td>
             </tr>
             <tr style="background:var(--clr-gray-100);border-bottom:1px solid var(--clr-gray-300);">
-              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">11</td>
+              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">12</td>
               <td style="padding:12px 16px;font-weight:600;"><a href="https://animoto.com" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Animoto</a></td>
               <td style="padding:12px 16px;"><a href="https://animoto.com" target="_blank" rel="noopener" style="color:var(--clr-teal);">animoto.com</a></td>
               <td style="padding:12px 16px;">Video Creation &amp; Slideshows</td>
-              <td style="padding:12px 16px;">Extremely easy to use for professional-looking video slideshows from photos and clips using drag-and-drop templates.</td>
+              <td style="padding:12px 16px;">Extremely easy to use for professional-looking drag-and-drop slideshows.</td>
               <td style="padding:12px 16px;">Create unlimited videos; all exports have a prominent Animoto watermark.</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--clr-gray-300);">
-              <td style="padding:12px 16px;font-weight:700;color:var(--clr-teal);">12</td>
-              <td style="padding:12px 16px;font-weight:600;"><a href="https://kapwing.com" target="_blank" rel="noopener" style="color:var(--clr-navy);text-decoration:none;">Kapwing</a></td>
-              <td style="padding:12px 16px;"><a href="https://kapwing.com" target="_blank" rel="noopener" style="color:var(--clr-teal);">kapwing.com</a></td>
-              <td style="padding:12px 16px;">Collaborative Video Editing &amp; AI Tools</td>
-              <td style="padding:12px 16px;">A powerful browser-based editor with AI tools (Smart Cut, Script Generator, Image Generator) great for student projects.</td>
-              <td style="padding:12px 16px;">Free plan: edit and export videos up to 4 minutes; Kapwing watermark; file size limits.</td>
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- UP TO DATE FREE TOOLS AND TIPS -->
+  <section style="padding: var(--section-pad); background: var(--clr-white);">
+    <div style="max-width: var(--max-w); margin-inline: auto;">
+      <div class="section-label">Always Updating</div>
+      <h2 class="section-title">Up to Date Free Tools &amp; Tips</h2>
+      <p style="font-size:1.0625rem;line-height:1.75;color:var(--clr-gray-500);max-width:680px;margin-bottom:48px;">Try out this live AI chatbot built with Mizou — a free platform for creating custom AI tutors students can use without an account. Click the images below to open full-size educator resources.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+
+        <!-- Mizou Bot Embed -->
+        <div>
+          <div style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--clr-teal);margin-bottom:12px;">Try It Live — Mizou AI Chatbot</div>
+          <div style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-xl);border:1.5px solid var(--clr-gray-300);">
+            <iframe src="https://mizou.com/preview-bot?ID=146122" width="100%" height="520" style="display:block;border:none;" title="Mizou AI Chatbot Preview" loading="lazy" allow="microphone"></iframe>
+          </div>
+          <p style="font-size:.8125rem;color:var(--clr-gray-500);margin-top:10px;line-height:1.5;">Powered by <a href="https://mizou.com" target="_blank" rel="noopener" style="color:var(--clr-teal);font-weight:600;">Mizou</a> — build your own free AI chatbot for your students at mizou.com</p>
+        </div>
+
+        <!-- Infographic Links -->
+        <div style="display:flex;flex-direction:column;gap:24px;">
+          <div>
+            <div style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--clr-teal);margin-bottom:12px;">50+ AI Tools for Educators</div>
+            <a href="images/my-apps.png" target="_blank" rel="noopener" style="display:block;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-lg);border:1.5px solid var(--clr-gray-300);transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 16px 40px rgba(0,0,0,.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+              <img src="images/my-apps.png" alt="50+ AI Tools for Educators — full infographic" style="width:100%;display:block;object-fit:cover;" />
+              <div style="background:var(--clr-navy);color:rgba(255,255,255,.85);padding:10px 16px;font-size:.8125rem;font-weight:600;">Click to open full size →</div>
+            </a>
+          </div>
+          <div>
+            <div style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--clr-teal);margin-bottom:12px;">Hiring an AI Co-Collaborator</div>
+            <a href="images/co-collaborator.png" target="_blank" rel="noopener" style="display:block;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-lg);border:1.5px solid var(--clr-gray-300);transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 16px 40px rgba(0,0,0,.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+              <img src="images/co-collaborator.png" alt="Hiring an AI Co-Collaborator — KU infographic" style="width:100%;display:block;object-fit:cover;" />
+              <div style="background:var(--clr-navy);color:rgba(255,255,255,.85);padding:10px 16px;font-size:.8125rem;font-weight:600;">Click to open full size →</div>
+            </a>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1925,9 +2100,50 @@
     });
   </script>
   <script>
-    function inspiredSearch() {
-      var q = document.getElementById('site-search-input').value.trim();
-      if (q) window.open('https://www.google.com/search?q=site%3Ainspiredbi.org+' + encodeURIComponent(q), '_blank');
+    function pageSearch() {
+      var input = document.getElementById('nav-search-input');
+      var q = input ? input.value.trim() : '';
+      if (!q) return;
+      // Clear previous highlights
+      document.querySelectorAll('mark.search-highlight').forEach(function(el) {
+        el.replaceWith(document.createTextNode(el.textContent));
+      });
+      document.body.normalize();
+      var regex = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+      var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode: function(n) {
+          var p = n.parentNode;
+          if (!p || ['SCRIPT','STYLE','NOSCRIPT','INPUT','TEXTAREA','BUTTON'].indexOf(p.nodeName) !== -1) return NodeFilter.FILTER_REJECT;
+          regex.lastIndex = 0;
+          return regex.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+        }
+      });
+      var nodes = [], node;
+      while ((node = walker.nextNode())) nodes.push(node);
+      var firstMark = null;
+      nodes.forEach(function(textNode) {
+        var str = textNode.nodeValue;
+        var frag = document.createDocumentFragment();
+        var last = 0, match;
+        regex.lastIndex = 0;
+        while ((match = regex.exec(str)) !== null) {
+          frag.appendChild(document.createTextNode(str.slice(last, match.index)));
+          var mark = document.createElement('mark');
+          mark.className = 'search-highlight';
+          mark.style.cssText = 'background:rgba(245,158,11,0.45);color:inherit;padding:0 2px;border-radius:2px;';
+          mark.textContent = match[0];
+          frag.appendChild(mark);
+          if (!firstMark) firstMark = mark;
+          last = regex.lastIndex;
+        }
+        frag.appendChild(document.createTextNode(str.slice(last)));
+        textNode.parentNode.replaceChild(frag, textNode);
+      });
+      if (firstMark) {
+        firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        alert('No results found for "' + q + '" on this page.');
+      }
     }
   </script>
 </body>
