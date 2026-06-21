@@ -192,6 +192,63 @@
     }
 
 
+    /* ── NAV SEARCH ── */
+    .nav__search-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    #site-search-input {
+      width: 148px;
+      padding: 7px 16px;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: 9999px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 0.8125rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      backdrop-filter: blur(6px);
+      transition: width 0.25s, border-color 0.25s, background 0.25s;
+    }
+    #site-search-input::placeholder { color: rgba(255,255,255,0.5); }
+    #site-search-input:focus {
+      width: 192px;
+      border-color: rgba(245,158,11,0.65);
+      background: rgba(255,255,255,0.15);
+    }
+    .nav__search-btn {
+      padding: 7px 14px;
+      background: var(--clr-gold);
+      color: var(--clr-navy);
+      border: none;
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .nav__search-btn:hover { background: #d97706; }
+    #search-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: 320px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      border: 1px solid #e2e8f0;
+      z-index: 300;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
     .nav__hamburger {
       display: none;
       flex-direction: column;
@@ -1067,6 +1124,11 @@
         <li><a href="free-tools.html">Free Tools</a></li>
         <li><a href="#contact" class="nav__cta">Get In Touch</a></li>
       </ul>
+      <div class="nav__search-wrap" id="search-wrap">
+        <input type="text" id="site-search-input" placeholder="Search site…" autocomplete="off" aria-label="Search InspiredBI" />
+        <button class="nav__search-btn" id="search-btn" aria-label="Search">Search</button>
+        <div id="search-dropdown"></div>
+      </div>
       <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -1103,10 +1165,6 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
           <a href="#dr-mosher" class="btn btn-outline">Learn the Founder's Story</a>
-        </div>
-        <div class="hero__search">
-          <input type="text" id="hero-search-input" placeholder="Search inspiredbi.org…" aria-label="Search InspiredBI" onkeydown="if(event.key==='Enter')siteSearch()">
-          <button onclick="siteSearch()">Search</button>
         </div>
       </div>
       <div class="hero__stats">
@@ -2062,13 +2120,6 @@
       observer.observe(el);
     });
   </script>
-  <script>
-    function siteSearch() {
-      var input = document.getElementById('hero-search-input');
-      var q = input ? input.value.trim() : '';
-      if (!q) return;
-      window.open('https://www.google.com/search?q=site%3Ainspiredbi.org+' + encodeURIComponent(q), '_blank');
-    }
-  </script>
+  <script src="search.js"></script>
 </body>
 </html>
