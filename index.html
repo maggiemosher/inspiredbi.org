@@ -191,42 +191,6 @@
       border-color: var(--clr-teal) !important;
     }
 
-    /* ── NAV SEARCH ── */
-    .nav__search {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
-    }
-    .nav__search-input {
-      padding: 7px 16px;
-      border: 1.5px solid rgba(255,255,255,0.25);
-      border-radius: 9999px;
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      font-size: 0.8125rem;
-      outline: none;
-      width: 160px;
-      backdrop-filter: blur(6px);
-      font-family: 'Inter', sans-serif;
-      transition: all 0.25s;
-    }
-    .nav__search-input::placeholder { color: rgba(255,255,255,0.5); }
-    .nav__search-input:focus { border-color: rgba(245,158,11,0.6); background: rgba(255,255,255,0.15); width: 200px; }
-    .nav__search-btn {
-      padding: 7px 14px;
-      background: var(--clr-gold);
-      color: var(--clr-navy);
-      border: none;
-      border-radius: 9999px;
-      font-size: 0.8125rem;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-      font-family: 'Inter', sans-serif;
-      transition: background 0.25s;
-    }
-    .nav__search-btn:hover { background: #d97706; }
 
     .nav__hamburger {
       display: none;
@@ -1052,7 +1016,6 @@
     @media (max-width: 768px) {
       :root { --section-pad: 64px 24px; }
       .nav__links { display: none; }
-      .nav__search { display: none; }
       .nav__hamburger { display: flex; }
 
       .hero__content {
@@ -1104,10 +1067,6 @@
         <li><a href="free-tools.html">Free Tools</a></li>
         <li><a href="#contact" class="nav__cta">Get In Touch</a></li>
       </ul>
-      <div class="nav__search">
-        <input type="text" class="nav__search-input" id="nav-search-input" placeholder="Search this page..." aria-label="Search this page" onkeydown="if(event.key==='Enter')pageSearch()">
-        <button class="nav__search-btn" onclick="pageSearch()">Search</button>
-      </div>
       <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -1144,6 +1103,10 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
           <a href="#dr-mosher" class="btn btn-outline">Learn the Founder's Story</a>
+        </div>
+        <div class="hero__search">
+          <input type="text" id="hero-search-input" placeholder="Search inspiredbi.org…" aria-label="Search InspiredBI" onkeydown="if(event.key==='Enter')siteSearch()">
+          <button onclick="siteSearch()">Search</button>
         </div>
       </div>
       <div class="hero__stats">
@@ -2100,50 +2063,11 @@
     });
   </script>
   <script>
-    function pageSearch() {
-      var input = document.getElementById('nav-search-input');
+    function siteSearch() {
+      var input = document.getElementById('hero-search-input');
       var q = input ? input.value.trim() : '';
       if (!q) return;
-      // Clear previous highlights
-      document.querySelectorAll('mark.search-highlight').forEach(function(el) {
-        el.replaceWith(document.createTextNode(el.textContent));
-      });
-      document.body.normalize();
-      var regex = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
-      var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-        acceptNode: function(n) {
-          var p = n.parentNode;
-          if (!p || ['SCRIPT','STYLE','NOSCRIPT','INPUT','TEXTAREA','BUTTON'].indexOf(p.nodeName) !== -1) return NodeFilter.FILTER_REJECT;
-          regex.lastIndex = 0;
-          return regex.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
-        }
-      });
-      var nodes = [], node;
-      while ((node = walker.nextNode())) nodes.push(node);
-      var firstMark = null;
-      nodes.forEach(function(textNode) {
-        var str = textNode.nodeValue;
-        var frag = document.createDocumentFragment();
-        var last = 0, match;
-        regex.lastIndex = 0;
-        while ((match = regex.exec(str)) !== null) {
-          frag.appendChild(document.createTextNode(str.slice(last, match.index)));
-          var mark = document.createElement('mark');
-          mark.className = 'search-highlight';
-          mark.style.cssText = 'background:rgba(245,158,11,0.45);color:inherit;padding:0 2px;border-radius:2px;';
-          mark.textContent = match[0];
-          frag.appendChild(mark);
-          if (!firstMark) firstMark = mark;
-          last = regex.lastIndex;
-        }
-        frag.appendChild(document.createTextNode(str.slice(last)));
-        textNode.parentNode.replaceChild(frag, textNode);
-      });
-      if (firstMark) {
-        firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } else {
-        alert('No results found for "' + q + '" on this page.');
-      }
+      window.open('https://www.google.com/search?q=site%3Ainspiredbi.org+' + encodeURIComponent(q), '_blank');
     }
   </script>
 </body>
