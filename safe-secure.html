@@ -160,6 +160,7 @@
     <a href="#it-recs" class="jump-link">IT Recommendations</a>
     <a href="#monitoring" class="jump-link">Monitor Student AI</a>
     <a href="#comparison-tables" class="jump-link">AI Tool Comparisons</a>
+    <a href="#cyber-security" class="jump-link">Cyber Security Domains</a>
   </div>
 </div>
 
@@ -586,6 +587,150 @@
     </div>
 
     <p style="font-size:0.82rem;color:var(--muted);margin-top:16px;font-style:italic;">Table data reflects publicly available compliance documentation as of 2025–2026. Always verify current compliance status directly with each vendor before institutional deployment. Compliance status can change with product updates.</p>
+  </div>
+</section>
+
+<!-- CYBER SECURITY DOMAINS -->
+<section class="tutorial-section" id="cyber-security">
+  <div class="container">
+    <div class="section-eyebrow">Cyber Security Framework</div>
+    <h2 class="section-title">The Six Domains of Cyber Security</h2>
+    <p class="section-intro">Modern cyber security isn't one thing — it's a layered system of six interconnected domains, each protecting a different part of your digital environment. Understanding how these pieces fit together helps educators, IT leaders, and administrators make smarter decisions when adopting AI tools and managing school technology.</p>
+
+    <div style="text-align:center;margin:0 auto 48px;max-width:700px;">
+      <img src="images/security-diagram.png" alt="Cyber Security domains diagram showing six areas: Endpoint Security, Network Security, IoT Security, Application Security, Cloud Security, and Data Security" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,0.08);" />
+      <p style="font-size:0.8rem;color:var(--muted);margin-top:10px;font-style:italic;">The six domains of cyber security and the key practices within each.</p>
+    </div>
+
+    <!-- Endpoint Security -->
+    <div class="law-card" style="border-left:4px solid #3B7DD8;">
+      <div class="law-card-header">
+        <span class="law-badge" style="background:#3B7DD8;">Endpoint Security</span>
+        <h3>Protecting the Devices People Use</h3>
+      </div>
+      <p>An "endpoint" is any device that connects to your network — a Chromebook, iPad, teacher laptop, or smartphone. Endpoint security ensures that every device accessing school systems is trusted, managed, and protected against compromise. This is the first line of defense because attackers frequently target the weakest device to gain entry to a larger network.</p>
+      <p><strong>What the practices mean:</strong></p>
+      <ul>
+        <li><strong>Device Authentication</strong> — Only registered, verified devices are allowed to connect. Prevents unknown devices (like a student's personal phone) from accessing school systems without approval.</li>
+        <li><strong>Network Segmentation</strong> — Student devices, staff devices, and administrative systems are kept on separate network segments so a compromised student device cannot reach payroll or student records.</li>
+        <li><strong>Firmware Updates</strong> — Keeping the low-level software inside devices (below the operating system) updated to patch known vulnerabilities. Often overlooked but critical.</li>
+        <li><strong>Encryption for IoT Data</strong> — Smart devices (thermostats, door sensors, security cameras) transmit data that must be encrypted so it cannot be intercepted.</li>
+        <li><strong>Anomaly Detection</strong> — Software that notices when a device is behaving unusually (sending abnormal amounts of data, connecting to unexpected servers) and raises an alert.</li>
+        <li><strong>Vulnerability Management</strong> — A continuous process of scanning devices for known weaknesses and patching them before attackers can exploit them.</li>
+        <li><strong>Device Lifecycle Management</strong> — Policies for what happens when a device is lost, retired, or reassigned — including remote wiping and data removal.</li>
+        <li><strong>Secure Boot</strong> — A hardware feature that ensures a device only loads trusted, verified software when it starts up, preventing malicious code from embedding itself at the deepest level.</li>
+      </ul>
+    </div>
+
+    <!-- Network Security -->
+    <div class="law-card" style="border-left:4px solid #2D8F5A;">
+      <div class="law-card-header">
+        <span class="law-badge" style="background:#2D8F5A;">Network Security</span>
+        <h3>Protecting Data as It Travels</h3>
+      </div>
+      <p>Network security covers everything that happens as data moves from one place to another — through school Wi-Fi, the internet, or between cloud services. If endpoint security protects devices, network security protects the roads those devices use to communicate. In an AI-heavy environment, virtually all interactions pass through network infrastructure, making this domain especially critical.</p>
+      <p><strong>What the practices mean:</strong></p>
+      <ul>
+        <li><strong>Intrusion Detection System (IDS)</strong> — Monitors network traffic and flags suspicious patterns, like repeated failed login attempts or unusual data transfers. It watches but does not block.</li>
+        <li><strong>Intrusion Prevention System (IPS)</strong> — Like an IDS, but it actively blocks detected threats in real time rather than just alerting administrators.</li>
+        <li><strong>Network Access Control (NAC)</strong> — A gatekeeper system that checks each device's health and identity before allowing it onto the network. Unpatched or unrecognized devices can be quarantined automatically.</li>
+        <li><strong>SSL/TLS (Transport Layer Security)</strong> — The protocol that encrypts data in transit. When you see "https://" in a URL, TLS is protecting the data between your browser and the server. All reputable AI platforms use TLS.</li>
+        <li><strong>Virtual Private Network (VPN)</strong> — Creates an encrypted tunnel between a remote user and the school network. Important for staff working from home who need access to sensitive systems.</li>
+        <li><strong>Firewalls</strong> — Hardware or software barriers that filter incoming and outgoing network traffic based on rules. Schools commonly use firewalls to block access to harmful websites and to control which external services are reachable.</li>
+        <li><strong>Traffic Analysis and Anomaly Detection</strong> — Continuous analysis of network traffic patterns to identify unusual behavior — such as a device suddenly uploading gigabytes of data to an unknown server — that could indicate a breach or data exfiltration.</li>
+      </ul>
+    </div>
+
+    <!-- IoT Security -->
+    <div class="law-card" style="border-left:4px solid #7B5EA7;">
+      <div class="law-card-header">
+        <span class="law-badge" style="background:#7B5EA7;">IoT Security</span>
+        <h3>Protecting Smart Devices and Connected Sensors</h3>
+      </div>
+      <p>IoT (Internet of Things) refers to the growing ecosystem of internet-connected physical devices beyond traditional computers — smart TVs, security cameras, HVAC sensors, badge readers, and even AI-powered classroom tools. These devices are notoriously difficult to secure because they often lack robust operating systems, receive infrequent updates, and outnumber traditional computers on school networks by a wide margin.</p>
+      <p><strong>What the practices mean:</strong></p>
+      <ul>
+        <li><strong>Device Authentication</strong> — Each IoT device must prove its identity before communicating on the network, preventing rogue devices from masquerading as legitimate ones.</li>
+        <li><strong>Network Segmentation for IoT</strong> — Placing all IoT devices on their own isolated network segment so that a compromised smart thermostat cannot provide a path into the student records database.</li>
+        <li><strong>Firmware Updates</strong> — Automatically pushing security patches to IoT devices, which often have vulnerabilities discovered months or years after deployment.</li>
+        <li><strong>Encryption for IoT Data</strong> — Ensuring data collected by sensors (temperature, motion, access logs) is encrypted both in transit and at rest, even on low-power devices.</li>
+        <li><strong>Anomaly Detection</strong> — Monitoring IoT device behavior for sudden changes (a camera that starts sending data at 3 a.m. to an overseas IP address) that may indicate compromise.</li>
+        <li><strong>Vulnerability Management</strong> — Tracking known vulnerabilities in each IoT device model and prioritizing patches or device replacement when critical flaws are discovered.</li>
+        <li><strong>Device Lifecycle Management</strong> — Procedures for securely decommissioning IoT devices — resetting them to factory defaults and removing them from network access lists when they are retired.</li>
+        <li><strong>Secure Boot</strong> — Verifying that IoT device firmware has not been tampered with when the device powers on.</li>
+      </ul>
+    </div>
+
+    <!-- Application Security -->
+    <div class="law-card" style="border-left:4px solid #C9963A;">
+      <div class="law-card-header">
+        <span class="law-badge">Application Security</span>
+        <h3>Protecting the Software Educators and Students Use</h3>
+      </div>
+      <p>Application security (AppSec) focuses on making the software itself — learning management systems, AI tools, student portals, and custom-built apps — resistant to attack. Most data breaches in education involve exploiting vulnerabilities in web applications. When evaluating AI tools for school use, AppSec practices are a key indicator of whether a vendor takes security seriously.</p>
+      <p><strong>What the practices mean:</strong></p>
+      <ul>
+        <li><strong>Secure Code Review</strong> — Human experts examine the application's source code looking for security flaws before the software is released. A vendor that does code reviews is less likely to ship vulnerabilities.</li>
+        <li><strong>Web Application Firewall (WAF)</strong> — A filter that sits in front of a web application and blocks common attack patterns like SQL injection and cross-site scripting (XSS) before they reach the application.</li>
+        <li><strong>API Security</strong> — APIs are how applications talk to each other (how SchoolAI talks to its AI model, for example). API security ensures those connections are authenticated, encrypted, and rate-limited so they cannot be abused.</li>
+        <li><strong>Runtime Application Self-Protection (RASP)</strong> — Security controls built directly into an application that can detect and block attacks as they happen, even when a WAF misses them.</li>
+        <li><strong>Software Composition Analysis (SCA)</strong> — Automated scanning of the third-party libraries and components an application uses to identify known vulnerabilities in dependencies. Important because most modern apps rely heavily on open-source code.</li>
+        <li><strong>Secure Software Development Life Cycle (SSDLC)</strong> — A development process where security requirements, threat modeling, code review, and penetration testing are built into every phase of building an application — not bolted on at the end.</li>
+        <li><strong>Static Application Security Testing (SAST)</strong> — Automated tools that scan source code for vulnerabilities without running the application. Finds issues early and inexpensively.</li>
+        <li><strong>Dynamic Application Security Testing (DAST)</strong> — Automated tools that test a running application by simulating real attacks. Finds issues that only appear when the software is actually executing.</li>
+      </ul>
+    </div>
+
+    <!-- Cloud Security -->
+    <div class="law-card" style="border-left:4px solid #D04040;">
+      <div class="law-card-header">
+        <span class="law-badge" style="background:#D04040;">Cloud Security</span>
+        <h3>Protecting Data Stored and Processed in the Cloud</h3>
+      </div>
+      <p>Nearly every AI tool used in education today is a cloud service — the AI model, the data storage, and the application layer all run on cloud infrastructure. Cloud security ensures that student data stored in these environments is protected, access is controlled, and the shared responsibility between your institution and the cloud provider is clearly understood.</p>
+      <p><strong>What the practices mean:</strong></p>
+      <ul>
+        <li><strong>Cloud Access Security Broker (CASB)</strong> — A security layer between your users and cloud services that enforces security policies, monitors usage, and prevents unauthorized data sharing. Large districts use CASBs to see which cloud apps staff are using and block unapproved ones.</li>
+        <li><strong>Data Encryption</strong> — All data stored in the cloud should be encrypted at rest (when stored) and in transit (when moving). Top-tier vendors use AES-256 encryption — ask vendors for their encryption specifications.</li>
+        <li><strong>Identity and Access Management (IAM)</strong> — Controls who can access which cloud resources. Strong IAM means using single sign-on (SSO), multi-factor authentication (MFA), and least-privilege access so users can only see data relevant to their role.</li>
+        <li><strong>Security Posture Management</strong> — Continuously assessing cloud environment configurations against security best practices and flagging misconfigurations — like a storage bucket accidentally made publicly accessible — before they become breaches.</li>
+        <li><strong>Shared Responsibility Model</strong> — Cloud providers secure the infrastructure; you secure your data and how you configure the service. Understanding where the provider's responsibility ends and yours begins is critical. Many breaches happen in the gap.</li>
+        <li><strong>Continuous Compliance Monitoring</strong> — Automated checks that your cloud environment remains compliant with FERPA, HIPAA, or other regulations 24/7, not just at annual audit time.</li>
+        <li><strong>Cloud Identity Federation</strong> — Connecting your school's identity system (Google Workspace, Microsoft Entra ID) to cloud services so students and staff use one set of credentials across all approved tools.</li>
+        <li><strong>Cloud Security Audits</strong> — Periodic third-party reviews of your cloud configurations, access logs, and security controls. Look for vendors who share their audit results (SOC 2 Type II reports are the standard).</li>
+      </ul>
+    </div>
+
+    <!-- Data Security -->
+    <div class="law-card" style="border-left:4px solid #1A7BA4;">
+      <div class="law-card-header">
+        <span class="law-badge" style="background:#1A7BA4;">Data Security</span>
+        <h3>Protecting the Data Itself — Wherever It Lives</h3>
+      </div>
+      <p>Data security focuses on protecting the actual information — student records, grades, health data, personally identifiable information (PII) — regardless of where it is stored or how it is accessed. Unlike network or endpoint security, which protect containers and pathways, data security treats the data itself as the primary asset to be protected. In education, this directly maps to FERPA, HIPAA, and COPPA compliance.</p>
+      <p><strong>What the practices mean:</strong></p>
+      <ul>
+        <li><strong>Encryption (At Rest &amp; In Transit)</strong> — Data is encrypted both when stored on servers (at rest) and while being transmitted between systems (in transit). Both are required for FERPA-compliant AI tools. Encryption ensures that even if data is stolen, it is unreadable without the decryption key.</li>
+        <li><strong>Data Masking</strong> — Replacing sensitive data values with realistic but fictional substitutes for use in testing, analytics, or demonstrations. A report can show "Student A" instead of a real name and still be useful for analysis — protecting privacy without losing utility.</li>
+        <li><strong>Data Loss Prevention (DLP)</strong> — Policies and software that detect and block the unauthorized transmission of sensitive data. A DLP system can, for example, prevent a teacher from emailing a spreadsheet of student Social Security numbers or pasting PII into an unapproved AI tool.</li>
+        <li><strong>Access Controls</strong> — Strict rules determining who can read, modify, or delete specific data. A classroom teacher should be able to see their own students' grades, but not another teacher's roster. Role-based access controls implement this at scale.</li>
+        <li><strong>Backup and Recovery</strong> — Regular, tested backups of critical data so that a ransomware attack or accidental deletion does not result in permanent data loss. The test is essential — backups that have never been restored are often discovered to be corrupt when they are most needed.</li>
+        <li><strong>Data Integrity Verification</strong> — Mechanisms (like cryptographic hashes) that detect whether data has been tampered with. Ensures that a student's transcript, when accessed, is exactly what was originally stored.</li>
+        <li><strong>Tokenization</strong> — Replacing sensitive data (like a student ID number) with a non-sensitive token that can be used in systems without exposing the real value. The token is meaningless to an attacker; only the tokenization system can map it back to the original.</li>
+        <li><strong>IoT Security for Data</strong> — Applying data security principles specifically to the streams of information generated by connected devices — access logs, sensor readings, and usage data — which are increasingly used in smart campus and classroom management systems.</li>
+      </ul>
+    </div>
+
+    <div class="tips-box" style="margin-top:40px;">
+      <h4>What This Means for Educators Adopting AI Tools</h4>
+      <ul>
+        <li>Ask AI vendors which of these six domains their security program covers — a mature vendor will have documentation for all six.</li>
+        <li>SOC 2 Type II reports are the standard proof that a vendor's security controls across these domains have been independently audited. Request this report before deploying any tool with student data.</li>
+        <li>The Shared Responsibility Model means your school has obligations too — enabling MFA, using approved apps, and not pasting student PII into unapproved AI tools are your side of the security equation.</li>
+        <li>For K–12, focus first on Data Security (FERPA/COPPA) and Cloud Security (where most EdTech lives). Endpoint and Application Security are primarily the vendor's domain — audit them by reviewing their certifications.</li>
+        <li>Network Security is largely your IT department's responsibility. The most impactful step educators can take is using only approved, district-managed devices on school networks when accessing student data.</li>
+      </ul>
+    </div>
   </div>
 </section>
 
