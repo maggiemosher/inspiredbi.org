@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Change How We Assess Please — KSDE ELA Standards visualization tools from the KU PRISM Project, including standards network, vertical alignment, career connections, and assessment system resources." />
+  <title>Change How We Assess Please — InspiredBI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9963A; --gold-light: #F0C060; --navy: #1A2744;
+      --cream: #FBF8F2; --white: #FFFFFF; --text: #1A1A2E;
+      --muted: #5A6070; --border: #E8E2D8; --accent: #3B7DD8;
+      --prism: #1a237e; --prism-light: #e8eaf6;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26,39,68,0.97); backdrop-filter: blur(8px);
+      padding: 14px 40px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-back { color: var(--gold-light); text-decoration: none; font-size: 14px; font-weight: 600; }
+    .nav-back:hover { color: var(--white); }
+
+    .page-hero {
+      background: linear-gradient(135deg, #1a237e 0%, #0F1A33 100%);
+      padding: 140px 24px 80px; text-align: center;
+    }
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(201,150,58,0.15); border: 1px solid rgba(201,150,58,0.4);
+      color: var(--gold-light); padding: 6px 18px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--white); margin-bottom: 16px; line-height: 1.2;
+    }
+    .page-hero h1 em { color: var(--gold-light); font-style: normal; }
+    .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 680px; margin: 0 auto 32px; line-height: 1.7; }
+
+    .hero-badges {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 8px;
+    }
+    .hero-badge {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.85); padding: 8px 18px; border-radius: 20px;
+      font-size: 13px; font-weight: 500;
+    }
+
+    .jump-nav {
+      background: var(--cream); border-bottom: 1px solid var(--border);
+      padding: 16px 24px; position: sticky; top: 65px; z-index: 50;
+    }
+    .jump-nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: center;
+    }
+    .jump-nav span { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 8px; white-space: nowrap; }
+    .jump-link {
+      background: var(--white); border: 1px solid var(--border);
+      color: var(--navy); padding: 6px 14px; border-radius: 20px;
+      font-size: 13px; font-weight: 500; text-decoration: none;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .jump-link:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
+
+    .section { padding: 80px 24px; }
+    .section:nth-child(even) { background: var(--cream); }
+    .container { max-width: 1040px; margin: 0 auto; }
+    .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+    .section-intro { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 720px; margin-bottom: 40px; }
+
+    /* TOOL CARDS */
+    .tool-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      margin-bottom: 40px;
+    }
+    .tool-card-header {
+      background: linear-gradient(135deg, var(--prism), #283593);
+      padding: 32px 36px; display: flex; align-items: flex-start; gap: 20px;
+    }
+    .tool-card-icon { font-size: 2.5rem; flex-shrink: 0; margin-top: 2px; }
+    .tool-card-header h2 {
+      font-family: 'Playfair Display', serif; font-size: 1.5rem;
+      color: var(--white); margin-bottom: 6px; line-height: 1.25;
+    }
+    .tool-card-header p { color: rgba(255,255,255,0.75); font-size: 0.9rem; line-height: 1.6; }
+    .tool-card-body { padding: 32px 36px; }
+
+    .tab-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .tab-pill {
+      background: var(--prism-light); color: var(--prism);
+      border: 1px solid #c5cae9; border-radius: 20px;
+      padding: 5px 14px; font-size: 12.5px; font-weight: 600;
+    }
+
+    .open-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--prism); color: var(--white);
+      padding: 14px 28px; border-radius: 10px; font-size: 15px; font-weight: 700;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .open-btn:hover { background: var(--gold); color: var(--navy); }
+    .open-btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--white); color: var(--navy);
+      border: 2px solid var(--border);
+      padding: 13px 28px; border-radius: 10px; font-size: 15px; font-weight: 700;
+      text-decoration: none; transition: all 0.2s; margin-left: 12px;
+    }
+    .open-btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 28px; }
+    .feature-item {
+      background: var(--prism-light); border: 1px solid #c5cae9;
+      border-radius: 10px; padding: 16px 18px;
+    }
+    .feature-item .fi-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--prism); margin-bottom: 4px; }
+    .feature-item .fi-text { font-size: 13px; color: #37474f; line-height: 1.5; }
+
+    .context-box {
+      background: linear-gradient(135deg, rgba(26,35,126,0.06), rgba(40,53,147,0.04));
+      border: 1px solid #c5cae9; border-radius: 14px;
+      padding: 28px 32px; margin-bottom: 40px;
+    }
+    .context-box h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 10px; }
+    .context-box p { font-size: 0.93rem; color: var(--muted); line-height: 1.75; }
+
+    footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; }
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .tool-card-header { padding: 24px 20px; }
+      .tool-card-body { padding: 24px 20px; }
+      .open-btn-secondary { margin-left: 0; margin-top: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo-banner.png" alt="InspiredBI" style="height:44px; width:auto; object-fit:contain; display:block;" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Resources</a></li>
+    <li><a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a></li>
+    <li><a href="free-resources.html#videos">Videos</a></li>
+    <li><a href="free-resources.html#courses">Free Courses</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="tutorials.html" class="nav-back">← Back to Tutorials</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-badge">KU PRISM Project &nbsp;|&nbsp; KSDE ELA Standards</div>
+  <h1>Change How We <em>Assess</em> Please</h1>
+  <p>Two interactive tools built from the KU PRISM Project's balanced assessment research. Explore how ELA standards connect, progress K–12, link to real careers, and fit inside a data-driven instructional cycle.</p>
+  <div class="hero-badges">
+    <span class="hero-badge">📊 Standards Network Visualization</span>
+    <span class="hero-badge">📐 Vertical Alignment K–12</span>
+    <span class="hero-badge">💼 Standard → Career Pathways</span>
+    <span class="hero-badge">🗂️ KAP Assessment System</span>
+    <span class="hero-badge">🌍 Real World &amp; PBL Projects</span>
+    <span class="hero-badge">📝 Full Source Citations</span>
+  </div>
+</div>
+
+<div class="jump-nav">
+  <div class="jump-nav-inner">
+    <span>Jump to:</span>
+    <a href="#visualization" class="jump-link">Standards Visualization</a>
+    <a href="#citations" class="jump-link">Source Citations</a>
+  </div>
+</div>
+
+<!-- CONTEXT -->
+<section class="section" id="about-prism">
+  <div class="container">
+    <div class="context-box">
+      <h3>About These Tools</h3>
+      <p>These interactive visualizations were built from materials produced by the <strong>KU PRISM Project</strong> in partnership with KSDE's "Balanced Assessments with KAP" professional development series (Fall 2025). They show Kansas ELA teachers exactly how the six standard domains connect to each other, how any single standard grows in complexity from kindergarten through grade 12, how academic standards map to high-value careers, and how mini tests, interims, and the KAP summative form one coherent instructional system. The citations tool traces every data point back to its originating source document.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TOOL 1 -->
+<section class="section" id="visualization" style="background:var(--cream);">
+  <div class="container">
+    <div class="section-eyebrow">Interactive Tool 1</div>
+    <h2 class="section-title">KSDE ELA Standards Visualization</h2>
+    <p class="section-intro">Six tabs covering the full KSDE ELA landscape — from the network of domain connections to grade-by-grade standard progression, career pathways, assessment system architecture, project-based learning, and cross-curricular connections.</p>
+
+    <div class="tool-card">
+      <div class="tool-card-header">
+        <div class="tool-card-icon">🗺️</div>
+        <div>
+          <h2>KSDE ELA Standards — Connection Visualization</h2>
+          <p>KU PRISM Project &nbsp;|&nbsp; Balanced Assessments with KAP &nbsp;|&nbsp; Standards Alignment &amp; Vertical Progression</p>
+        </div>
+      </div>
+      <div class="tool-card-body">
+        <div class="tab-pills">
+          <span class="tab-pill">🌐 Standards Network</span>
+          <span class="tab-pill">📈 Vertical Alignment</span>
+          <span class="tab-pill">💼 Standard → Career</span>
+          <span class="tab-pill">📊 Assessment System</span>
+          <span class="tab-pill">🌍 Real World &amp; PBL</span>
+          <span class="tab-pill">🎨 Cross Curricular</span>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="fi-label">Standards Network</div>
+            <div class="fi-text">SVG node diagram showing how RL, RI, RF, W, SL, and Language connect — with hover tooltips and DOK progression axis.</div>
+          </div>
+          <div class="feature-item">
+            <div class="fi-label">Vertical Alignment</div>
+            <div class="fi-text">RI.3 traced from kindergarten through Grade 12 — verb complexity, content scope, and DOK demand at every level.</div>
+          </div>
+          <div class="feature-item">
+            <div class="fi-label">Standard → Career</div>
+            <div class="fi-text">RI.5.3 broken into four DOK levels and mapped to Data Analyst, Journalist, Policy Analyst, and Attorney career pathways.</div>
+          </div>
+          <div class="feature-item">
+            <div class="fi-label">Assessment System</div>
+            <div class="fi-text">Mini Tests → Interim → KAP Summative pyramid with exact dates, cut scores, and the four-step instructional cycle.</div>
+          </div>
+          <div class="feature-item">
+            <div class="fi-label">Real World &amp; PBL</div>
+            <div class="fi-text">Grade-band PBL projects (K–2, 3–5, 6–8, 9–12) with deliverables, real-world connections, and DOK progressions per project.</div>
+          </div>
+          <div class="feature-item">
+            <div class="fi-label">Cross Curricular</div>
+            <div class="fi-text">ELA standards bridged to Math, Science, Social Studies, Arts, PE/Health, and School Counseling — with ready activities.</div>
+          </div>
+        </div>
+        <a href="standards-visualization.html" target="_blank" class="open-btn">Open Full Visualization ↗</a>
+        <a href="standards-visualization.html" class="open-btn-secondary">Open in Same Tab</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOL 2 -->
+<section class="section" id="citations">
+  <div class="container">
+    <div class="section-eyebrow">Interactive Tool 2</div>
+    <h2 class="section-title">Source Citations Document</h2>
+    <p class="section-intro">Every data point, number, and claim in the visualization traced back to its originating source — KSDE standards, the KU Prism Project PPTX, the Standard Alignment PPTX and DOCX, KSDE CTE, and the Kansas Education Portal.</p>
+
+    <div class="tool-card">
+      <div class="tool-card-header">
+        <div class="tool-card-icon">📝</div>
+        <div>
+          <h2>KSDE ELA Standards Visualization — Source Citations</h2>
+          <p>Companion document &nbsp;|&nbsp; Traces each visualization element to its originating source with direct quotations</p>
+        </div>
+      </div>
+      <div class="tool-card-body">
+        <div class="tab-pills">
+          <span class="tab-pill">🌐 Network Citations</span>
+          <span class="tab-pill">📈 Vertical Alignment Citations</span>
+          <span class="tab-pill">💼 Career Citations</span>
+          <span class="tab-pill">📊 Assessment Citations</span>
+          <span class="tab-pill">📄 By Source Summary</span>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-item">
+            <div class="fi-label">6 Source Documents</div>
+            <div class="fi-text">S1 KSDE Standards · S2 KU Prism PPTX · S3 Std. Alignment PPTX · S4 Std. Alignment DOCX · S5 KSDE CTE · S6 Kansas Portal/ATS</div>
+          </div>
+          <div class="feature-item">
+            <div class="fi-label">Direct Quotations</div>
+            <div class="fi-text">Every visualization element has the exact passage from the source document that justifies its inclusion — no assumptions.</div>
+          </div>
+          <div class="feature-item">
+            <div class="fi-label">By-Source Summary Tab</div>
+            <div class="fi-text">Lists every contribution each source makes across all four visualization sections — useful for attribution statements.</div>
+          </div>
+          <div class="feature-item">
+            <div class="fi-label">Inaccessible URL Notes</div>
+            <div class="fi-text">Transparent disclosure of which URLs returned SSL errors and how their content was represented using the provided documents.</div>
+          </div>
+        </div>
+        <a href="standards-citations.html" target="_blank" class="open-btn">Open Citations Document ↗</a>
+        <a href="standards-citations.html" class="open-btn-secondary">Open in Same Tab</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <a href="index.html">InspiredBI.org</a> — All resources free for educators &nbsp;|&nbsp;
+  <a href="https://aiadvocates.buzzsprout.com/" target="_blank">Podcast</a> &nbsp;|&nbsp;
+  <a href="https://www.linkedin.com/in/maggiemosher/" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+  <a href="https://www.youtube.com/@KUAIAdvocates" target="_blank">YouTube</a></p>
+</footer>
+
+<script src="search.js"></script>
+<script src="ai-guide.js"></script>
+</body>
+</html>

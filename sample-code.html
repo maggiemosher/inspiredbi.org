@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ready-to-use CLAUDE.md sample files for educators — build AI websites, syllabus chatbots, feedback pipelines, and course Q&amp;A agents with Claude Code." />
+  <title>Sample Code for Educators — InspiredBI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9963A; --gold-light: #F0C060; --navy: #1A2744;
+      --cream: #FBF8F2; --white: #FFFFFF; --text: #1A1A2E;
+      --muted: #5A6070; --border: #E8E2D8; --accent: #3B7DD8;
+      --green: #2D8F5A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26,39,68,0.97); backdrop-filter: blur(8px);
+      padding: 14px 40px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-back { color: var(--gold-light); text-decoration: none; font-size: 14px; font-weight: 600; }
+    .nav-back:hover { color: var(--white); }
+
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0F1A33 100%);
+      padding: 140px 24px 80px; text-align: center;
+    }
+    .page-hero-badge {
+      display: inline-block;
+      background: rgba(201,150,58,0.15); border: 1px solid rgba(201,150,58,0.4);
+      color: var(--gold-light); padding: 6px 18px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); color: var(--white); margin-bottom: 16px; line-height: 1.2; }
+    .page-hero h1 em { color: var(--gold-light); font-style: normal; }
+    .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 640px; margin: 0 auto 28px; line-height: 1.7; }
+
+    .how-it-works {
+      display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 8px;
+    }
+    .hw-step {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px; padding: 14px 20px;
+      display: flex; align-items: center; gap: 10px;
+      color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500;
+    }
+    .hw-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--gold); color: var(--navy);
+      font-size: 12px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    .jump-nav {
+      background: var(--cream); border-bottom: 1px solid var(--border);
+      padding: 16px 24px; position: sticky; top: 65px; z-index: 50;
+    }
+    .jump-nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: center;
+    }
+    .jump-nav span { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 8px; white-space: nowrap; }
+    .jump-link {
+      background: var(--white); border: 1px solid var(--border);
+      color: var(--navy); padding: 6px 14px; border-radius: 20px;
+      font-size: 13px; font-weight: 500; text-decoration: none;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .jump-link:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
+
+    .sample-section { padding: 80px 24px; }
+    .sample-section:nth-child(even) { background: var(--cream); }
+    .container { max-width: 960px; margin: 0 auto; }
+    .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+    .section-intro { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 720px; margin-bottom: 32px; }
+
+    .what-builds {
+      background: var(--navy); color: var(--white);
+      border-radius: 14px; padding: 24px 28px; margin-bottom: 28px;
+    }
+    .what-builds h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--gold-light); margin-bottom: 10px; }
+    .what-builds ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .what-builds ul li { font-size: 0.9rem; color: rgba(255,255,255,0.8); padding-left: 18px; position: relative; }
+    .what-builds ul li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+
+    .code-block-wrap { position: relative; margin-bottom: 12px; }
+    .code-block {
+      background: #0D1B2A; color: #e2e8f0;
+      border-radius: 12px; padding: 28px 32px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.82rem; line-height: 1.75;
+      overflow-x: auto; white-space: pre; max-height: 520px;
+      overflow-y: auto; border: 1px solid rgba(255,255,255,0.06);
+    }
+    .code-block::-webkit-scrollbar { width: 6px; height: 6px; }
+    .code-block::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 3px; }
+    .code-block::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+    .copy-btn {
+      position: absolute; top: 12px; right: 12px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.75); padding: 6px 14px; border-radius: 6px;
+      font-size: 12px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { background: rgba(201,150,58,0.25); border-color: var(--gold); color: var(--gold-light); }
+    .copy-btn.copied { background: rgba(45,143,90,0.25); border-color: #2D8F5A; color: #4ade80; }
+
+    .use-now {
+      display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px;
+    }
+    .use-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--white); border: 2px solid var(--border);
+      color: var(--navy); padding: 10px 18px; border-radius: 8px;
+      font-size: 13px; font-weight: 600; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .use-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .use-btn-primary {
+      background: var(--navy); color: var(--white);
+      border-color: var(--navy);
+    }
+    .use-btn-primary:hover { background: #243054; border-color: #243054; color: var(--white); }
+
+    .tips-box { background: #EDF7F1; border: 1px solid #B8DEC9; border-radius: 12px; padding: 20px 24px; margin-top: 24px; }
+    .tips-box h4 { color: var(--green); font-size: 0.95rem; font-weight: 700; margin-bottom: 10px; }
+    .tips-box ul { list-style: none; }
+    .tips-box ul li { font-size: 0.88rem; color: #1A3D2B; padding: 3px 0 3px 18px; position: relative; }
+    .tips-box ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+    .cta-band {
+      background: linear-gradient(135deg, var(--navy), #243054);
+      padding: 64px 24px; text-align: center;
+    }
+    .cta-band h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem,3vw,2.2rem); color: var(--white); margin-bottom: 12px; }
+    .cta-band p { color: rgba(255,255,255,0.7); font-size: 1rem; margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .cta-band a {
+      display: inline-block; background: var(--gold); color: var(--navy);
+      padding: 13px 30px; border-radius: 8px; font-weight: 700; font-size: 14px;
+      text-decoration: none; transition: background 0.2s; margin: 0 6px 8px;
+    }
+    .cta-band a:hover { background: var(--gold-light); }
+    .cta-band a.secondary {
+      background: rgba(255,255,255,0.1); color: var(--white);
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .cta-band a.secondary:hover { background: rgba(255,255,255,0.18); }
+
+    footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; }
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .code-block { padding: 20px 18px; font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo-banner.png" alt="InspiredBI" style="height:44px;width:auto;object-fit:contain;display:block;" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#services">Resources</a></li>
+    <li><a href="tutorials.html">Tutorials</a></li>
+    <li><a href="agentic.html">Agentic AI</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="tutorials.html" class="nav-back">← Back to Tutorials</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-badge">Claude Code — Sample Files</div>
+  <h1>Ready-to-Use <em>CLAUDE.md</em> Templates</h1>
+  <p>Drop any file below into a new project folder, rename it <code style="background:rgba(255,255,255,0.1);padding:2px 8px;border-radius:4px;font-size:0.9em;">CLAUDE.md</code>, run <code style="background:rgba(255,255,255,0.1);padding:2px 8px;border-radius:4px;font-size:0.9em;">claude</code> in that directory, and Claude Code builds the entire project autonomously. No IDE required.</p>
+  <div class="how-it-works">
+    <div class="hw-step"><span class="hw-num">1</span> Copy a template below</div>
+    <div class="hw-step"><span class="hw-num">2</span> Save as <code>CLAUDE.md</code> in a new folder</div>
+    <div class="hw-step"><span class="hw-num">3</span> Run <code>claude</code> in that folder</div>
+    <div class="hw-step"><span class="hw-num">4</span> Fill in your content — Claude builds it</div>
+  </div>
+</div>
+
+<div class="jump-nav">
+  <div class="jump-nav-inner">
+    <span>Jump to:</span>
+    <a href="#website-ai" class="jump-link">Professional Website + AI</a>
+    <a href="#syllabus-bot" class="jump-link">Syllabus Chatbot</a>
+    <a href="#feedback-pipeline" class="jump-link">Feedback Pipeline</a>
+    <a href="#course-qa" class="jump-link">Course Q&amp;A Agent</a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SAMPLE 1: Professional Website + AI Guide       -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="sample-section" id="website-ai">
+  <div class="container">
+    <div class="section-eyebrow">Sample 1 — Next.js + Anthropic SDK</div>
+    <h2 class="section-title">Build a Professional Website with an Embedded AI Guide</h2>
+    <p class="section-intro">Drop this CLAUDE.md into a new folder and run <code>claude</code>. Claude Code sets up a full Next.js 14 site with a floating AI chat guide on every page — pre-loaded with your site's content, ready to deploy to Vercel. Fill in the bracketed placeholders before running.</p>
+
+    <div class="what-builds">
+      <h3>What this builds</h3>
+      <ul>
+        <li>Next.js 14 (App Router) with TypeScript + Tailwind CSS + shadcn/ui</li>
+        <li>Home, About, Services, and Contact pages — all populated from one <code>site-content.ts</code> file</li>
+        <li>Floating AI chat guide (Claude Haiku) on every page, pre-loaded with your content</li>
+        <li>Streaming API route at <code>/api/chat</code> using the Vercel AI SDK</li>
+        <li>One-command deploy to Vercel when ready</li>
+      </ul>
+    </div>
+
+    <div class="code-block-wrap">
+      <button class="copy-btn" onclick="copyCode(this, 'code-website')">Copy</button>
+      <pre class="code-block" id="code-website"># Claude Code Project Brief
+## Build a Professional Website with an Embedded AI Guide
+
+> **How to use this file:** Drop it into a new project folder, rename it `CLAUDE.md`,
+> then run `claude` in that directory. Claude Code will read it as its standing
+> instructions and build the entire project autonomously. Customize every
+> [BRACKETED] placeholder before you start.
+
+---
+
+## 1. Project Identity
+
+| Field | Value |
+|---|---|
+| **Site name** | [YOUR SITE NAME] |
+| **Owner / brand** | [YOUR NAME OR ORGANIZATION] |
+| **One-line purpose** | [What this site does for visitors in one sentence] |
+| **Primary audience** | [Who will visit — e.g., "K-12 educators exploring AI tools"] |
+| **Tone** | [e.g., "warm, expert, approachable — like a knowledgeable colleague"] |
+| **Domain (later)** | [yourdomain.com] |
+
+---
+
+## 2. Tech Stack (use exactly these — no substitutions without asking)
+
+| Layer | Choice | Reason |
+|---|---|---|
+| Framework | **Next.js 14** (App Router) | File-based routing, API routes, streaming, excellent defaults |
+| Language | **TypeScript** (strict mode) | Catches errors before runtime |
+| Styling | **Tailwind CSS v3** | Utility-first, no CSS files to manage |
+| UI Components | **shadcn/ui** | Accessible, unstyled-then-styled, copy-paste components |
+| Icons | **Lucide React** | Clean, consistent icon set included with shadcn |
+| AI SDK | **Vercel AI SDK (`ai` package)** | Handles streaming, tool calls, message history cleanly |
+| AI Model | **`claude-haiku-4-5`** (via Anthropic API) | Fast + cheap for a guide; upgrade to Sonnet if needed |
+| Fonts | **Google Fonts via `next/font`** | Zero layout shift |
+| Deployment | **Vercel** | Zero-config Next.js hosting, edge functions |
+| Env secrets | **`.env.local`** | Never commit this file |
+
+---
+
+## 3. Project Structure
+
+Build this exact directory structure:
+
+```
+/
+├── CLAUDE.md
+├── .env.local                    ← ANTHROPIC_API_KEY=sk-ant-...
+├── .gitignore                    ← include .env.local, .next/, node_modules/
+├── next.config.ts
+├── tailwind.config.ts
+├── tsconfig.json
+├── package.json
+│
+├── app/
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── globals.css
+│   ├── about/page.tsx
+│   ├── services/page.tsx
+│   ├── contact/page.tsx
+│   └── api/chat/route.ts         ← AI Guide API endpoint (streaming)
+│
+├── components/
+│   ├── layout/Navbar.tsx
+│   ├── layout/Footer.tsx
+│   ├── sections/Hero.tsx
+│   ├── sections/About.tsx
+│   ├── sections/Services.tsx
+│   ├── sections/Testimonials.tsx
+│   ├── sections/CTA.tsx
+│   └── ai-guide/
+│       ├── GuideButton.tsx
+│       ├── GuidePanel.tsx
+│       ├── GuideMessages.tsx
+│       ├── GuideInput.tsx
+│       ├── GuideProvider.tsx
+│       └── useGuide.ts
+│
+├── lib/
+│   ├── site-content.ts           ← ALL site text as structured data
+│   ├── ai-system-prompt.ts       ← AI guide system prompt
+│   └── utils.ts
+│
+└── public/
+    ├── favicon.ico
+    └── og-image.png
+```
+
+---
+
+## 4. Environment Setup
+
+### Step 1 — Initialize the project
+```bash
+npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir=no --import-alias="@/*"
+```
+
+### Step 2 — Install dependencies
+```bash
+npm install ai @ai-sdk/anthropic lucide-react clsx tailwind-merge
+npx shadcn@latest init
+npx shadcn@latest add button card input textarea sheet badge scroll-area
+```
+
+### Step 3 — Create `.env.local`
+```
+ANTHROPIC_API_KEY=sk-ant-YOUR_KEY_HERE
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
+
+Get the API key from **console.anthropic.com → API Keys**.
+
+---
+
+## 5. Site Content
+
+Edit `lib/site-content.ts` first. All page content lives here as TypeScript objects.
+The AI guide reads this same file, so updating content in one place updates both
+the website and the AI's knowledge.
+
+```typescript
+// lib/site-content.ts
+export const siteContent = {
+  brand: {
+    name: "[YOUR SITE NAME]",
+    tagline: "[YOUR TAGLINE]",
+    description: "[2-3 sentence description of who you are and what you do]",
+  },
+  nav: {
+    links: [
+      { label: "Home",     href: "/" },
+      { label: "About",    href: "/about" },
+      { label: "Services", href: "/services" },
+      { label: "Contact",  href: "/contact" },
+    ],
+  },
+  hero: {
+    headline: "[MAIN HEADLINE — bold, benefit-focused, 6-10 words]",
+    subheadline: "[Supporting sentence that expands on the headline]",
+    cta: { label: "[Button text]", href: "/contact" },
+    secondaryCta: { label: "[Secondary button]", href: "/about" },
+  },
+  about: {
+    heading: "[About heading]",
+    body: [
+      "[Paragraph 1: your story / background]",
+      "[Paragraph 2: your approach / philosophy]",
+      "[Paragraph 3: who you serve best]",
+    ],
+    credentials: [
+      "[Credential 1 — e.g., PhD, University Name]",
+      "[Credential 2 — e.g., 15 years experience in X]",
+    ],
+  },
+  services: [
+    {
+      id: "service-1",
+      icon: "Lightbulb",
+      title: "[Service Title]",
+      description: "[What this service is and who it helps]",
+      outcomes: ["[Outcome 1]", "[Outcome 2]", "[Outcome 3]"],
+    },
+    {
+      id: "service-2",
+      icon: "Users",
+      title: "[Service Title]",
+      description: "[Description]",
+      outcomes: ["[Outcome 1]", "[Outcome 2]", "[Outcome 3]"],
+    },
+  ],
+  testimonials: [
+    {
+      quote: "[Testimonial text]",
+      name: "[Person Name]",
+      title: "[Their title and organization]",
+    },
+  ],
+  contact: {
+    heading: "[Ready to get started?]",
+    body: "[One sentence inviting them to reach out]",
+    email: "[your@email.com]",
+    formFields: ["name", "email", "organization", "message"],
+  },
+  footer: {
+    tagline: "[Short closing line]",
+    socialLinks: [
+      { platform: "LinkedIn", href: "[URL]" },
+    ],
+  },
+};
+```
+
+---
+
+## 6. Build the Website
+
+Build in this order. Complete each phase before moving on.
+
+### Phase A — Foundation
+1. Set up `app/layout.tsx` with Google Fonts, metadata from siteContent, Navbar, Footer
+2. Build sticky `Navbar.tsx`: logo left, nav links right, mobile hamburger → Sheet drawer
+3. Build minimal `Footer.tsx`: tagline, nav links, copyright
+
+### Phase B — Home Page Sections (in order)
+- **Hero**: full-viewport, large headline + 2 CTAs, subtle gradient background, no stock photos
+- **About**: two-column layout, text left, credentials/stats right
+- **Services**: grid of cards with icon, title, description, outcomes list. Hover: lift + border
+- **Testimonials**: quote cards, auto-scrolling carousel if more than 2
+- **CTA**: high-contrast band, single action
+
+### Phase C — Inner Pages
+- `/about` — expand About content, add timeline/milestones
+- `/services` — full detail per service, FAQ accordion at bottom (5-8 questions)
+- `/contact` — form + email link, client-side validation, Server Action on submit
+
+### Design Rules (apply consistently)
+- One primary accent color matching the brand tone, 3 colors maximum
+- H1 = 3.5rem bold, H2 = 2rem semibold, body = 1rem/1.7
+- `rounded-xl` for cards, `rounded-full` for buttons
+- `shadow-sm` default, `shadow-md` on hover — never `shadow-xl`
+- `transition-all duration-200` on interactive elements only
+- Mobile-first. Test at 375px, 768px, 1280px.
+
+---
+
+## 7. Build the AI Guide
+
+The AI Guide is a floating chat assistant on every page. It knows the site content,
+greets visitors, answers questions, and guides them toward the right service.
+
+### API Route (`app/api/chat/route.ts`)
+```typescript
+import { anthropic } from '@ai-sdk/anthropic';
+import { streamText } from 'ai';
+import { buildSystemPrompt } from '@/lib/ai-system-prompt';
+
+export const runtime = 'edge';
+export const maxDuration = 30;
+
+export async function POST(req: Request) {
+  const { messages } = await req.json();
+  const result = streamText({
+    model: anthropic('claude-haiku-4-5'),
+    system: buildSystemPrompt(),
+    messages,
+    maxTokens: 600,
+    temperature: 0.7,
+  });
+  return result.toDataStreamResponse();
+}
+```
+
+### System Prompt (`lib/ai-system-prompt.ts`)
+```typescript
+import { siteContent } from './site-content';
+
+export function buildSystemPrompt(): string {
+  const { brand, about, services, contact } = siteContent;
+  return `
+You are ${brand.name}'s friendly website guide. Help visitors find exactly what
+they need and decide whether to reach out.
+
+## Your Personality
+- Warm, knowledgeable, genuinely helpful — never salesy
+- Answer in 2-4 sentences unless a longer answer is clearly needed
+- Ask one clarifying question at a time
+- If you don't know something, suggest they contact ${contact.email}
+- Never make up services, prices, or credentials not listed below
+
+## About ${brand.name}
+${brand.description}
+${about.body.join('\n\n')}
+Credentials: ${about.credentials.join(' | ')}
+
+## Services
+${services.map(s => `**${s.title}**: ${s.description}\nOutcomes: ${s.outcomes.join(', ')}`).join('\n\n')}
+
+## How to Guide Visitors
+- First message: "Hi! I'm here to help you find what you need. What brings you here today?"
+- Problem described → match to most relevant service
+- Pricing questions → "Pricing varies by scope. The best next step is a free call."
+- Ready to connect → guide to ${contact.email}
+- Keep responses concise. One idea per message.
+`.trim();
+}
+```
+
+### Custom Hook (`components/ai-guide/useGuide.ts`)
+```typescript
+'use client';
+import { useChat } from 'ai/react';
+import { useState } from 'react';
+
+export function useGuide() {
+  const [isOpen, setIsOpen] = useState(false);
+  const chat = useChat({
+    api: '/api/chat',
+    initialMessages: [{
+      id: 'welcome',
+      role: 'assistant',
+      content: "Hi! I'm here to help you find what you need. What brings you here today?",
+    }],
+    onError: (err) => console.error('Guide error:', err),
+  });
+  return { ...chat, isOpen, open: () => setIsOpen(true), close: () => setIsOpen(false), toggle: () => setIsOpen(p => !p) };
+}
+```
+
+### Guide Button (`components/ai-guide/GuideButton.tsx`)
+- Fixed: `bottom-6 right-6`, 56px circle, primary accent color
+- Icon: MessageCircle (closed) → X (open)
+- Pulse ring on first load; stop after user clicks (localStorage flag)
+- Badge with unread count when panel is closed
+
+### Guide Panel (`components/ai-guide/GuidePanel.tsx`)
+- Slides in from right, 300ms ease-out
+- Width: w-80 mobile, w-96 md+; Height: 70vh, min 400px, max 600px
+- Structure: dark header (name + Online dot + close) → scrollable messages → sticky input
+- Escape key closes panel
+- shadow-2xl
+
+### Messages (`components/ai-guide/GuideMessages.tsx`)
+- User: right-aligned, accent background, `rounded-xl rounded-tr-sm`
+- Assistant: left-aligned, gray-100, `rounded-xl rounded-tl-sm`
+- Typing indicator (3 animated dots) while streaming
+- Auto-scroll to newest message
+
+### Input (`components/ai-guide/GuideInput.tsx`)
+- Auto-resizing textarea (1-4 rows)
+- Enter sends, Shift+Enter newline
+- Disabled + spinner while AI responds
+- 500 char limit, counter shown below 100 remaining
+
+### Wire Up in layout.tsx
+```tsx
+// Wrap button + panel in a thin 'use client' GuideProvider component
+// Render outside <main> so it appears on every page
+import { GuideProvider } from '@/components/ai-guide/GuideProvider';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
+        <GuideProvider />
+      </body>
+    </html>
+  );
+}
+```
+
+---
+
+## 8. Quality Checklist
+
+- [ ] All [BRACKETED] placeholders replaced
+- [ ] No lorem ipsum anywhere
+- [ ] All links work
+- [ ] Contact form submits successfully
+- [ ] Guide opens/closes cleanly; first message appears without API call
+- [ ] Streaming works — text appears word by word
+- [ ] Guide knows services and describes them accurately
+- [ ] Panel closes on Escape; works on mobile
+- [ ] No API key exposed in client-side code
+- [ ] `npm run build` — zero TypeScript errors, zero ESLint errors
+- [ ] Lighthouse: Performance ≥ 90, Accessibility ≥ 95
+
+---
+
+## 9. Deployment
+
+```bash
+# Push to GitHub
+git init && git add . && git commit -m "Initial build"
+gh repo create [repo-name] --private --source=. --push
+
+# Deploy to Vercel
+npx vercel
+# Then add ANTHROPIC_API_KEY to Vercel Dashboard → Settings → Environment Variables
+```
+
+---
+
+## 10. Common Errors
+
+| Error | Fix |
+|---|---|
+| `ANTHROPIC_API_KEY is not defined` | Add to `.env.local` AND Vercel env vars |
+| AI doesn't stream | Ensure `export const runtime = 'edge'` in route.ts |
+| `useChat` not found | `npm install ai@latest` — requires v3+ |
+| Guide overlaps navbar | Panel z-50, navbar z-40 |
+| Tailwind classes not applying | Check content paths in tailwind.config.ts |
+
+---
+
+*Fill in your content, run `claude` in this directory, and let it build.*</pre>
+    </div>
+
+    <div class="use-now">
+      <a href="agentic.html" class="use-btn">Learn Claude Code basics →</a>
+      <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" class="use-btn">Get an Anthropic API key ↗</a>
+    </div>
+
+    <div class="tips-box">
+      <h4>✨ Before you run this</h4>
+      <ul>
+        <li>Install Claude Code first: <code>npm install -g @anthropic-ai/claude-code</code></li>
+        <li>Replace every [BRACKETED] value in the CLAUDE.md before running <code>claude</code></li>
+        <li>Create your <code>.env.local</code> file with your Anthropic API key before the first build</li>
+        <li>Run <code>claude</code> — not <code>claude build</code> — Claude Code reads CLAUDE.md automatically</li>
+        <li>After first build: run <code>npm run dev</code> to see your site at localhost:3000</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SAMPLE 2: Syllabus Chatbot                      -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="sample-section" id="syllabus-bot">
+  <div class="container">
+    <div class="section-eyebrow">Sample 2 — Static HTML + Anthropic API</div>
+    <h2 class="section-title">Syllabus Navigator Chatbot</h2>
+    <p class="section-intro">A standalone HTML chatbot that answers student questions about your course 24/7 — deadlines, grade weights, late policies, office hours. No backend, no hosting fees. Drop the file on any web server or open it locally.</p>
+
+    <div class="what-builds">
+      <h3>What this builds</h3>
+      <ul>
+        <li>Single HTML file — no Node.js, no server, no framework required</li>
+        <li>Pre-loaded with your syllabus content via a structured data block at the top of the file</li>
+        <li>Students enter their own API key once (stored in their browser only)</li>
+        <li>Clean academic design with your course name and institution branding</li>
+        <li>Handles: deadline lookups, grade weight questions, late policy, office hours, assignment descriptions</li>
+      </ul>
+    </div>
+
+    <div class="code-block-wrap">
+      <button class="copy-btn" onclick="copyCode(this, 'code-syllabus')">Copy</button>
+      <pre class="code-block" id="code-syllabus"># Claude Code Project Brief
+## Build a Syllabus Navigator Chatbot
+
+> Drop this CLAUDE.md into a new folder and run `claude`. Claude Code builds a
+> single self-contained HTML file — no server required. Students open it in a
+> browser and ask questions about the course.
+
+---
+
+## 1. Project Identity
+
+| Field | Value |
+|---|---|
+| **Course code** | [e.g., EN.601.421] |
+| **Course name** | [Full course title] |
+| **Instructor** | [Your name] |
+| **Institution** | [University/school name] |
+| **Term** | [e.g., Fall 2026] |
+| **Bot name** | [e.g., "CHEM 101 Guide" or "Professor's Assistant"] |
+| **Tone** | [e.g., "Friendly and clear — like a helpful TA"] |
+
+---
+
+## 2. Output
+
+Build exactly ONE file: `syllabus-bot.html`
+
+This file must be fully self-contained (no external JS files, no build step).
+It works when opened directly in a browser from the file system or any web server.
+
+---
+
+## 3. Syllabus Data Block
+
+At the top of the HTML file, before the `<style>` tag, embed a JavaScript
+`const SYLLABUS` object with every piece of course information. Use this
+structure and fill in the real content from the placeholders:
+
+```javascript
+const SYLLABUS = {
+  course: {
+    code: "[COURSE CODE]",
+    name: "[COURSE NAME]",
+    instructor: "[INSTRUCTOR NAME]",
+    institution: "[INSTITUTION]",
+    term: "[TERM]",
+    credits: "[NUMBER OF CREDITS]",
+    meetingTime: "[e.g., Mon/Wed 2:00-3:15pm]",
+    location: "[Room or Zoom link]",
+    officeHours: "[e.g., Tue/Thu 4-5pm, or by appointment at calendly.com/...]",
+    officeLocation: "[Office room or Zoom link]",
+    email: "[instructor@university.edu]",
+  },
+  grading: {
+    weights: [
+      { item: "[e.g., Midterm Exam]", weight: "[e.g., 25%]", notes: "[e.g., Closed book, in class]" },
+      { item: "[e.g., Final Project]", weight: "[e.g., 30%]", notes: "[e.g., Group project, see rubric on Canvas]" },
+      { item: "[e.g., Weekly Assignments]", weight: "[e.g., 20%]", notes: "[e.g., 10 total, lowest dropped]" },
+      { item: "[e.g., Participation]", weight: "[e.g., 15%]", notes: "" },
+      { item: "[e.g., Quizzes]", weight: "[e.g., 10%]", notes: "[e.g., Weekly, open-note]" },
+    ],
+    scale: "[e.g., A: 93-100, A-: 90-92, B+: 87-89, B: 83-86, ...]",
+  },
+  policies: {
+    lateWork: "[Your exact late work policy — be specific]",
+    attendance: "[Attendance policy and consequences]",
+    academicIntegrity: "[AI use policy and academic honesty expectations]",
+    accessibility: "[Accommodation statement and who to contact]",
+    communication: "[Expected response time for emails, preferred contact method]",
+  },
+  assignments: [
+    {
+      name: "[Assignment name]",
+      dueDate: "[Exact due date and time]",
+      weight: "[% of final grade]",
+      description: "[1-2 sentence description of what it is and what to submit]",
+      submissionMethod: "[e.g., Canvas, email, in-person]",
+    },
+    // Repeat for each major assignment
+  ],
+  schedule: [
+    { week: 1, topic: "[Topic]", readings: "[Required readings]", dueThisWeek: "[Anything due]" },
+    { week: 2, topic: "[Topic]", readings: "[Required readings]", dueThisWeek: "" },
+    // Continue for all weeks
+  ],
+  resources: {
+    textbook: "[Required textbook with ISBN or free link]",
+    lms: "[Canvas/Blackboard/etc. URL]",
+    additionalLinks: [
+      { label: "[e.g., Course repository]", url: "[URL]" },
+    ],
+  },
+  faq: [
+    { q: "[Common student question]", a: "[Your answer]" },
+    { q: "[e.g., Can I work with a partner?]", a: "[Your answer]" },
+    { q: "[e.g., What happens if I miss class?]", a: "[Your answer]" },
+  ],
+};
+```
+
+---
+
+## 4. System Prompt
+
+Build the system prompt from the SYLLABUS object at runtime:
+
+```javascript
+function buildSystemPrompt() {
+  return `You are the AI assistant for ${SYLLABUS.course.name} (${SYLLABUS.course.code}),
+taught by ${SYLLABUS.course.instructor} at ${SYLLABUS.course.institution}, ${SYLLABUS.course.term}.
+
+## Your Job
+Answer student questions about this course accurately, based ONLY on the syllabus
+data provided. If a student asks something not covered here, say so honestly and
+direct them to contact ${SYLLABUS.course.instructor} at ${SYLLABUS.course.email}.
+
+## Course Snapshot
+- Meeting time: ${SYLLABUS.course.meetingTime} at ${SYLLABUS.course.location}
+- Office hours: ${SYLLABUS.course.officeHours}
+
+## Grading
+${SYLLABUS.grading.weights.map(g => `- ${g.item}: ${g.weight}${g.notes ? ' (' + g.notes + ')' : ''}`).join('\n')}
+Grading scale: ${SYLLABUS.grading.scale}
+
+## Key Policies
+- Late work: ${SYLLABUS.policies.lateWork}
+- Attendance: ${SYLLABUS.policies.attendance}
+- Academic integrity / AI use: ${SYLLABUS.policies.academicIntegrity}
+- Accessibility: ${SYLLABUS.policies.accessibility}
+
+## Assignments
+${SYLLABUS.assignments.map(a => `- ${a.name}: due ${a.dueDate}, worth ${a.weight}. ${a.description}`).join('\n')}
+
+## Rules
+- Never invent deadlines, grade weights, or policies not listed above
+- Always recommend contacting the instructor for anything ambiguous
+- Be warm and clear — students are stressed, help them
+- Keep responses concise: 2-4 sentences for simple questions, a structured list for complex ones`.trim();
+}
+```
+
+---
+
+## 5. UI Design
+
+Build a clean, academic-feeling single-page app inside the HTML file.
+
+**Color palette** — pull from the institution's brand colors if possible; otherwise:
+- Primary: deep navy (#1A2744)
+- Accent: your course's discipline color (STEM: teal, Humanities: gold, etc.)
+- Background: off-white (#FAFAF8)
+
+**Layout**:
+```
+┌──────────────────────────────────────┐
+│  [Course Code] — [Course Name]       │  ← header with instructor name
+│  [Institution] · [Term]              │
+├──────────────────────────────────────┤
+│  Quick topics: Deadlines | Grading   │  ← suggestion chips
+│  | Late Policy | Office Hours        │
+├──────────────────────────────────────┤
+│                                      │
+│    Chat messages area                │  ← scrollable
+│    (user right, assistant left)      │
+│                                      │
+├──────────────────────────────────────┤
+│  [ Ask a question...         ] [→]   │  ← input
+└──────────────────────────────────────┘
+```
+
+**Suggestion chips**: 4-6 pre-built quick questions at the top:
+- "When is the next assignment due?"
+- "What's the late work policy?"
+- "How is my grade calculated?"
+- "When are office hours?"
+- "What are the AI use rules?"
+- "What do I need for the final?"
+
+Clicking a chip sends that question directly to the chat.
+
+---
+
+## 6. API Key Handling
+
+First-time visitors see an onboarding overlay:
+
+1. Brief explanation: "This chatbot uses the Claude AI API. Enter your Anthropic API key
+   to get started. Your key is stored only in your browser."
+2. Link to console.anthropic.com for new keys
+3. Password input field + "Start" button
+4. Key validated and stored in localStorage
+5. On subsequent visits, key is loaded automatically
+
+API call (call directly from browser — no proxy needed):
+```javascript
+const response = await fetch('https://api.anthropic.com/v1/messages', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': apiKey,
+    'anthropic-version': '2023-06-01',
+    'anthropic-dangerous-direct-browser-access': 'true'
+  },
+  body: JSON.stringify({
+    model: 'claude-haiku-4-5-20251001',
+    max_tokens: 500,
+    system: buildSystemPrompt(),
+    messages: conversationHistory
+  })
+});
+```
+
+---
+
+## 7. Features to Include
+
+- **Typing indicator** (3 animated dots) while waiting for response
+- **Conversation history** maintained in memory for the session
+- **"Clear chat"** button in the header
+- **"Change API key"** link in the footer
+- Error handling: if API call fails, show a friendly message with the error reason
+- Responsive: works on mobile (important — students ask questions on phones)
+- No external dependencies except the Google Font for the heading typeface
+
+---
+
+## 8. Deployment Options
+
+Add a comment block at the bottom of the HTML file explaining how to share:
+
+```
+<!-- DEPLOYMENT OPTIONS:
+  1. Local: Open syllabus-bot.html directly in any browser — no server needed
+  2. Course LMS: Upload to Canvas/Blackboard as a file, link from the course page
+  3. GitHub Pages: Put in a repo, enable Pages — free HTTPS hosting
+  4. Netlify Drop: Drag the file to netlify.com/drop — live in 30 seconds
+  5. Share link: Once hosted, share the URL with students in the syllabus
+-->
+```
+
+---
+
+*Fill in the SYLLABUS data block with your real course information, then run `claude`.*</pre>
+    </div>
+
+    <div class="use-now">
+      <a href="chatbots.html" class="use-btn">See no-code chatbot options →</a>
+      <a href="agentic.html#playlab" class="use-btn">Build with PlayLab instead →</a>
+    </div>
+
+    <div class="tips-box">
+      <h4>✨ Pro tips for syllabus bots</h4>
+      <ul>
+        <li>Fill in the SYLLABUS object completely — the more detail you add, the fewer "I don't know" responses</li>
+        <li>Add your FAQ entries first — they cover 80% of student questions before they even type</li>
+        <li>Host on GitHub Pages for a permanent URL you can paste into your Canvas course</li>
+        <li>Update the file each semester — just change the SYLLABUS object and redeploy</li>
+        <li>For privacy-conscious institutions: students use their own API key, so no student data hits your servers</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SAMPLE 3: Assignment Feedback Pipeline          -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="sample-section" id="feedback-pipeline">
+  <div class="container">
+    <div class="section-eyebrow">Sample 3 — Next.js + File Upload</div>
+    <h2 class="section-title">Assignment Draft Feedback Pipeline</h2>
+    <p class="section-intro">A web app where students paste a draft assignment and receive rubric-aligned feedback — specific strengths, one actionable improvement — before they submit the final version. Reduces your grading load while giving students more iterations.</p>
+
+    <div class="what-builds">
+      <h3>What this builds</h3>
+      <ul>
+        <li>Next.js app with a two-panel layout: rubric on the left, student draft input on the right</li>
+        <li>Instructor configures rubric criteria and grade levels once via a JSON config file</li>
+        <li>Students paste their draft, click "Get Feedback" — streaming response aligned to the rubric</li>
+        <li>Feedback format is locked: one strength paragraph + one improvement paragraph (no grade given)</li>
+        <li>Session logs optionally saved to a Google Sheet via Google Apps Script webhook</li>
+      </ul>
+    </div>
+
+    <div class="code-block-wrap">
+      <button class="copy-btn" onclick="copyCode(this, 'code-feedback')">Copy</button>
+      <pre class="code-block" id="code-feedback"># Claude Code Project Brief
+## Build an Assignment Draft Feedback Pipeline
+
+> Drop this CLAUDE.md into a new project folder and run `claude`.
+> Claude Code builds a complete Next.js feedback app for student draft submissions.
+
+---
+
+## 1. Project Identity
+
+| Field | Value |
+|---|---|
+| **App name** | [e.g., "Draft Feedback — ENGL 201"] |
+| **Assignment name** | [e.g., "Persuasive Essay — Unit 3"] |
+| **Instructor** | [Your name] |
+| **Course** | [Course name and code] |
+
+---
+
+## 2. Tech Stack
+
+- **Next.js 14** (App Router, TypeScript)
+- **Tailwind CSS** for styling
+- **Vercel AI SDK** (`ai` + `@ai-sdk/anthropic`) for streaming
+- **shadcn/ui** for UI components
+- Model: `claude-haiku-4-5` (fast, inexpensive for student drafts)
+
+---
+
+## 3. Configuration File
+
+Create `lib/assignment-config.ts` — the instructor edits this once to configure
+the rubric. The app reads it at build time and runtime.
+
+```typescript
+// lib/assignment-config.ts
+export const assignmentConfig = {
+  assignmentName: "[Assignment name — e.g., Persuasive Essay: Climate Policy]",
+  learningGoals: [
+    "[e.g., Develop a clear, arguable thesis statement]",
+    "[e.g., Support claims with credible evidence and citations]",
+    "[e.g., Address counterarguments effectively]",
+    "[e.g., Use appropriate academic tone and vocabulary]",
+  ],
+  rubric: [
+    {
+      criterion: "[e.g., Thesis & Argument]",
+      weight: "[e.g., 30%]",
+      levels: {
+        excellent: "[What an excellent thesis looks like — specific]",
+        proficient: "[What a proficient thesis looks like]",
+        developing: "[What a developing thesis looks like]",
+        beginning: "[What a beginning thesis looks like]",
+      },
+    },
+    {
+      criterion: "[e.g., Evidence & Support]",
+      weight: "[e.g., 25%]",
+      levels: {
+        excellent: "[Description]",
+        proficient: "[Description]",
+        developing: "[Description]",
+        beginning: "[Description]",
+      },
+    },
+    {
+      criterion: "[e.g., Counterargument]",
+      weight: "[e.g., 20%]",
+      levels: {
+        excellent: "[Description]",
+        proficient: "[Description]",
+        developing: "[Description]",
+        beginning: "[Description]",
+      },
+    },
+    {
+      criterion: "[e.g., Organization & Flow]",
+      weight: "[e.g., 15%]",
+      levels: {
+        excellent: "[Description]",
+        proficient: "[Description]",
+        developing: "[Description]",
+        beginning: "[Description]",
+      },
+    },
+    {
+      criterion: "[e.g., Mechanics & Citation]",
+      weight: "[e.g., 10%]",
+      levels: {
+        excellent: "[Description]",
+        proficient: "[Description]",
+        developing: "[Description]",
+        beginning: "[Description]",
+      },
+    },
+  ],
+  feedbackRules: {
+    maxDraftLength: 3000,      // words — longer drafts get a warning
+    minDraftLength: 100,       // words — shorter submissions get rejected
+    forbiddenOutputs: [
+      "Do not give a numeric grade or letter grade",
+      "Do not rewrite sections of the student's draft",
+      "Do not tell the student their work is bad — always be constructive",
+      "Do not reference specific grades on the rubric levels",
+    ],
+    feedbackFormat: "Two paragraphs only: (1) one specific strength, (2) one concrete improvement strategy",
+  },
+};
+```
+
+---
+
+## 4. App Structure
+
+```
+app/
+├── page.tsx                  ← main feedback interface
+├── api/
+│   └── feedback/
+│       └── route.ts          ← streaming feedback endpoint
+└── admin/
+    └── page.tsx              ← optional: view submission log (password-protected)
+
+lib/
+├── assignment-config.ts      ← instructor configures this
+├── build-feedback-prompt.ts  ← builds system prompt from config
+└── utils.ts
+
+components/
+├── RubricPanel.tsx           ← displays rubric criteria for reference
+├── DraftInput.tsx            ← textarea + word count + submit button
+├── FeedbackDisplay.tsx       ← streaming feedback display
+└── SubmissionLog.tsx         ← optional: admin view
+```
+
+---
+
+## 5. API Route (`app/api/feedback/route.ts`)
+
+```typescript
+import { anthropic } from '@ai-sdk/anthropic';
+import { streamText } from 'ai';
+import { buildFeedbackPrompt } from '@/lib/build-feedback-prompt';
+import { assignmentConfig } from '@/lib/assignment-config';
+
+export const runtime = 'edge';
+
+export async function POST(req: Request) {
+  const { draft } = await req.json();
+
+  const wordCount = draft.trim().split(/\s+/).length;
+  if (wordCount < assignmentConfig.feedbackRules.minDraftLength) {
+    return new Response('Draft too short for meaningful feedback.', { status: 400 });
+  }
+
+  const result = streamText({
+    model: anthropic('claude-haiku-4-5'),
+    system: buildFeedbackPrompt(),
+    messages: [{ role: 'user', content: `Here is my draft for review:\n\n${draft}` }],
+    maxTokens: 500,
+    temperature: 0.3,
+  });
+
+  return result.toDataStreamResponse();
+}
+```
+
+---
+
+## 6. System Prompt Builder (`lib/build-feedback-prompt.ts`)
+
+```typescript
+import { assignmentConfig } from './assignment-config';
+
+export function buildFeedbackPrompt(): string {
+  const { assignmentName, learningGoals, rubric, feedbackRules } = assignmentConfig;
+
+  return `
+You are a writing coach providing pre-submission feedback on student drafts for: "${assignmentName}".
+
+## Learning Goals for This Assignment
+${learningGoals.map((g, i) => `${i + 1}. ${g}`).join('\n')}
+
+## Rubric
+${rubric.map(r => `
+**${r.criterion}** (${r.weight})
+- Excellent: ${r.levels.excellent}
+- Proficient: ${r.levels.proficient}
+- Developing: ${r.levels.developing}
+- Beginning: ${r.levels.beginning}`).join('\n')}
+
+## How to Give Feedback
+${feedbackRules.feedbackFormat}
+
+**Rules you must follow:**
+${feedbackRules.forbiddenOutputs.map(r => `- ${r}`).join('\n')}
+
+Always be specific: quote or paraphrase a specific sentence from the student's draft
+when identifying a strength or area for improvement. Generic feedback ("good job!")
+is not acceptable. Cite the rubric criterion you are addressing.
+`.trim();
+}
+```
+
+---
+
+## 7. UI Layout
+
+**Main page (`app/page.tsx`)**:
+
+```
+┌─────────────────────────┬──────────────────────────────┐
+│   RUBRIC PANEL (25%)    │   DRAFT INPUT (75%)          │
+│                         │                              │
+│  Assignment: [name]     │  [Paste your draft here...]  │
+│                         │                              │
+│  ┌─────────────────┐    │  Word count: 0 / 3,000 max   │
+│  │ Criterion 1     │    │                              │
+│  │ ○ Excellent     │    │  [Get Feedback →]            │
+│  │ ○ Proficient    │    │                              │
+│  │ ○ Developing    │    │  ─────────────────────────── │
+│  │ ○ Beginning     │    │                              │
+│  └─────────────────┘    │  FEEDBACK (streams in)       │
+│  [repeat per criterion] │                              │
+│                         │  Strength: ...               │
+│                         │  Improvement: ...            │
+└─────────────────────────┴──────────────────────────────┘
+```
+
+On mobile: stack vertically (rubric collapsed by default, expandable)
+
+**Feedback display**:
+- Stream the response word-by-word using Vercel AI SDK `useCompletion` hook
+- Show a spinner + "Reviewing your draft…" while loading
+- After response: show a "Submit to [LMS name]" button that links to the Canvas assignment
+
+---
+
+## 8. Optional: Submission Logging
+
+If the instructor wants to see what questions students are struggling with,
+add optional anonymous logging to a Google Sheet:
+
+1. Create a Google Apps Script Web App that accepts POST requests
+2. On each feedback request, POST the word count, which rubric criterion got the most
+   attention in the feedback (detected from Claude's response), and a timestamp
+3. No student identifying information
+4. The instructor sees a dashboard: "Most common feedback focus this week: Evidence (42%)"
+
+Add the webhook URL to `.env.local`:
+```
+FEEDBACK_LOG_WEBHOOK=https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec
+```
+
+---
+
+## 9. Environment Variables
+
+```
+ANTHROPIC_API_KEY=sk-ant-YOUR_KEY_HERE
+FEEDBACK_LOG_WEBHOOK=              # optional
+NEXT_PUBLIC_LMS_SUBMIT_URL=        # e.g., your Canvas assignment URL
+NEXT_PUBLIC_ASSIGNMENT_DEADLINE=   # e.g., "Friday, Nov 15 at 11:59pm"
+```
+
+---
+
+*Fill in `lib/assignment-config.ts` with your real rubric, then run `claude`.*</pre>
+    </div>
+
+    <div class="use-now">
+      <a href="agentic.html#goals-framework" class="use-btn">Learn the G.O.A.L.S. framework →</a>
+      <a href="frameworks.html" class="use-btn">See more prompting frameworks →</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SAMPLE 4: Course Q&A Agent                      -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="sample-section" id="course-qa">
+  <div class="container">
+    <div class="section-eyebrow">Sample 4 — Static HTML, Zero Dependencies</div>
+    <h2 class="section-title">Course Q&amp;A Agent for Students</h2>
+    <p class="section-intro">A comprehensive Q&amp;A agent covering your entire course — policies, assignments, resources, and week-by-week content. Students can ask natural questions instead of hunting through a 20-page syllabus PDF. Built as a single HTML file, ready in minutes.</p>
+
+    <div class="what-builds">
+      <h3>What this builds</h3>
+      <ul>
+        <li>Single HTML file, no build step — works offline or hosted anywhere</li>
+        <li>Covers policies, assignments, schedule, resources, and FAQs in one agent</li>
+        <li>Quick-select topic buttons: Policy, Deadlines, Resources, Grade Calculator</li>
+        <li>Grade calculator mode: student inputs scores, agent estimates current grade</li>
+        <li>Escalation phrases: automatically detects when to refer students to instructor</li>
+      </ul>
+    </div>
+
+    <div class="code-block-wrap">
+      <button class="copy-btn" onclick="copyCode(this, 'code-qa')">Copy</button>
+      <pre class="code-block" id="code-qa"># Claude Code Project Brief
+## Build a Course Q&A Agent for Students
+
+> Single HTML file. No dependencies. No server. Drop the output on any web host
+> or open locally — it works immediately.
+
+---
+
+## 1. Project Identity
+
+| Field | Value |
+|---|---|
+| **Course** | [Course name and code] |
+| **Instructor** | [Name + email + office hours] |
+| **Term** | [e.g., Spring 2027] |
+| **Agent name** | [e.g., "Ask PSYC 310"] |
+| **Tone** | [e.g., "Supportive and clear — like a well-informed peer tutor"] |
+
+---
+
+## 2. Output
+
+One file: `course-qa-agent.html`
+Fully self-contained. No external scripts. One Google Font import is acceptable.
+
+---
+
+## 3. Knowledge Base Structure
+
+Embed ALL course knowledge as a structured JavaScript object at the top of the file.
+This is the only data source the agent uses.
+
+```javascript
+const COURSE_KNOWLEDGE = {
+  meta: {
+    code: "[COURSE CODE]",
+    name: "[COURSE NAME]",
+    instructor: { name: "[NAME]", email: "[EMAIL]", officeHours: "[HOURS + LOCATION]" },
+    ta: { name: "[TA NAME or null]", email: "[TA EMAIL or null]", officeHours: "[TA HOURS or null]" },
+    term: "[TERM]",
+    lms: "[Canvas/Blackboard URL]",
+  },
+  policies: {
+    lateWork: { summary: "[One sentence]", details: "[Full policy text]" },
+    attendance: { summary: "[One sentence]", details: "[Full policy]" },
+    aiUse: { summary: "[One sentence]", details: "[Full AI use policy]" },
+    regrade: { summary: "[One sentence]", details: "[Full regrade policy]" },
+    incompletes: { summary: "[One sentence]", details: "[When/how to request]" },
+    communication: "[Expected response time + preferred method]",
+  },
+  grading: {
+    components: [
+      { name: "[e.g., Exam 1]", weight: 20, due: "[date]", description: "[brief]" },
+      { name: "[e.g., Exam 2]", weight: 20, due: "[date]", description: "[brief]" },
+      { name: "[e.g., Final Project]", weight: 30, due: "[date]", description: "[brief]" },
+      { name: "[e.g., Homework (10 sets)]", weight: 20, due: "Weekly Fridays", description: "[brief]" },
+      { name: "[e.g., Participation]", weight: 10, due: "Ongoing", description: "[brief]" },
+    ],
+    scale: { A: "93-100", "A-": "90-92", "B+": "87-89", B: "83-86", "B-": "80-82",
+             "C+": "77-79", C: "73-76", "C-": "70-72", D: "60-69", F: "below 60" },
+    extraCredit: "[Any extra credit opportunities or 'none']",
+  },
+  schedule: [
+    // One entry per week
+    { week: 1, dates: "[e.g., Jan 13-15]", topic: "[Topic]",
+      readings: "[Required reading]", assignments: "[Due this week]", notes: "" },
+    // ... continue for all weeks
+  ],
+  assignments: [
+    {
+      name: "[Assignment name]",
+      type: "[Exam | Project | Homework | Lab | Quiz]",
+      due: "[Date + time + timezone]",
+      weight: "[% of grade]",
+      format: "[In-class | Take-home | Group | Individual]",
+      description: "[What it covers and what students submit]",
+      resources: "[Study guide location, allowed materials, etc.]",
+    },
+    // repeat for each
+  ],
+  resources: {
+    required: [
+      { type: "Textbook", title: "[Full title]", author: "[Author]", isbn: "[ISBN]", access: "[Purchase/Library/Free PDF]" },
+    ],
+    recommended: [
+      { type: "[Supplemental reading / tool / website]", title: "[Name]", access: "[URL or location]" },
+    ],
+    tutoring: "[Campus tutoring center info or online resources]",
+    writingCenter: "[If applicable]",
+    libraryGuide: "[Subject librarian page if available]",
+  },
+  faq: [
+    { category: "Grades", q: "When will grades be posted?", a: "[Your answer]" },
+    { category: "Grades", q: "How do I calculate my current grade?", a: "[Formula or explanation]" },
+    { category: "Exams", q: "What is covered on Exam 1?", a: "[Scope of content]" },
+    { category: "Exams", q: "Are exams open book/note?", a: "[Policy]" },
+    { category: "Assignments", q: "Can I work with others on homework?", a: "[Collaboration policy]" },
+    { category: "Assignments", q: "How do I submit assignments?", a: "[Submission method]" },
+    { category: "Absence", q: "What happens if I miss class?", a: "[Make-up policy]" },
+    { category: "Absence", q: "Do you offer exam make-ups?", a: "[Make-up policy]" },
+    { category: "Technical", q: "The LMS isn't working. What do I do?", a: "[IT contact + email fallback]" },
+    { category: "AI", q: "Can I use AI tools like ChatGPT?", a: "[Your AI use policy]" },
+  ],
+  escalationPhrases: [
+    "I'm struggling with", "I'm failing", "I need help", "I don't understand",
+    "anxiety", "family emergency", "extension", "incomplete grade",
+    "dispute", "unfair", "appeal", "accommodation", "disability"
+  ],
+};
+```
+
+---
+
+## 4. System Prompt
+
+Build from the knowledge base at page load:
+
+```javascript
+function buildSystemPrompt() {
+  const kb = COURSE_KNOWLEDGE;
+  const components = kb.grading.components
+    .map(c => `- ${c.name}: ${c.weight}% (due ${c.due})`).join('\n');
+
+  return `You are the AI course assistant for ${kb.meta.name} (${kb.meta.code}),
+taught by ${kb.meta.instructor.name} at ${kb.meta.term}.
+
+Your job: answer student questions accurately using only the course knowledge
+provided. Do not guess or invent information not listed here.
+
+## Instructor Contact
+Email: ${kb.meta.instructor.email}
+Office hours: ${kb.meta.instructor.officeHours}
+${kb.meta.ta.name ? `TA: ${kb.meta.ta.name} — ${kb.meta.ta.email} (${kb.meta.ta.officeHours})` : ''}
+
+## Grade Components
+${components}
+Grading scale: A(93+), A-(90-92), B+(87-89), B(83-86), B-(80-82), C+(77-79), C(73-76), D(60-69), F(<60)
+
+## Key Policies (1-line summaries)
+- Late work: ${kb.policies.lateWork.summary}
+- Attendance: ${kb.policies.attendance.summary}
+- AI use: ${kb.policies.aiUse.summary}
+- Regrades: ${kb.policies.regrade.summary}
+
+## Rules
+1. Only answer from the knowledge base above. Say "I'm not sure — please ask the instructor" for anything else.
+2. When a student expresses distress or uses escalation phrases, warmly acknowledge it and provide the instructor's email immediately. Don't try to resolve sensitive situations yourself.
+3. For grade calculations: guide the student through the math step-by-step.
+4. Keep responses to 2-4 sentences for simple questions; use bullet points for complex multi-part answers.
+5. Never make students feel bad for asking "obvious" questions — they're stressed.`;
+}
+```
+
+---
+
+## 5. Special Features
+
+### Grade Estimator Mode
+When a student types "calculate my grade" or "what's my grade":
+1. Agent asks them to provide their scores on each component
+2. Walks through the weighted calculation step-by-step
+3. Shows the current estimated grade AND what they need on remaining work to achieve a target grade
+4. Reminds them to verify on the LMS
+
+### Escalation Detection
+Scan each user message for COURSE_KNOWLEDGE.escalationPhrases before sending to the API.
+If a match is found, prepend a soft message before the API response:
+> "It sounds like you're dealing with something difficult. I want to make sure you get
+> the right support — the instructor's email is [email]. I'll also answer your question below:"
+
+This ensures students in distress get a human contact immediately.
+
+---
+
+## 6. UI
+
+**Header**: Course code + name, term, small "Powered by Claude" badge
+
+**Topic buttons** (below header, above chat):
+```
+[📋 Policies]  [📅 Deadlines]  [📊 Grade Calc]  [📚 Resources]  [❓ FAQs]
+```
+Clicking a topic sends a pre-written question to the chat, e.g.:
+- Policies → "Can you summarize the key course policies?"
+- Deadlines → "What are all the upcoming deadlines this month?"
+- Grade Calc → "Can you help me calculate my current grade?"
+- Resources → "What resources are available to help me succeed?"
+- FAQs → "What are the most common student questions for this course?"
+
+**Chat area**: Standard message bubbles, auto-scroll, typing indicator
+
+**Footer**: "This assistant uses information from your course syllabus. For urgent or
+sensitive matters, contact [instructor email] directly."
+
+---
+
+## 7. Deployment Note
+
+Add to the HTML file's comment header:
+
+```
+<!--
+  COURSE Q&A AGENT — [COURSE CODE] [TERM]
+  Generated by Claude Code from instructor-provided course data.
+
+  TO UPDATE: Edit the COURSE_KNOWLEDGE object and redeploy.
+  HOSTING OPTIONS: GitHub Pages | Netlify Drop | Canvas Files | Any web server
+  STUDENT INSTRUCTIONS: Share the URL. Students enter their own Anthropic API key
+  (free tier works; new accounts get $5 credit at console.anthropic.com).
+-->
+```
+
+---
+
+*Fill in COURSE_KNOWLEDGE with your real course data, then run `claude`.*</pre>
+    </div>
+
+    <div class="use-now">
+      <a href="chatbots.html" class="use-btn">No-code chatbot platforms →</a>
+      <a href="agentic.html" class="use-btn">See the full agentic toolkit →</a>
+    </div>
+
+    <div class="tips-box">
+      <h4>✨ Make it better in 5 minutes</h4>
+      <ul>
+        <li>The FAQ section is the highest-ROI part — add your 10 most-asked email questions and the bot handles them</li>
+        <li>Add the escalationPhrases that are specific to your students (past semesters reveal patterns)</li>
+        <li>Host on GitHub Pages with your course code as the repo name — clean URL for students to bookmark</li>
+        <li>Update `schedule` every 2 weeks during the semester so deadline answers stay accurate</li>
+        <li>Pair with the Syllabus Chatbot (Sample 2) if you also want deep syllabus Q&amp;A coverage</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════ CTA ═══════════════════════ -->
+<section class="cta-band">
+  <h2>Ready to build your first agentic tool?</h2>
+  <p>Start with a copy of any template above. The AI Guide (bottom right) can walk you through any step.</p>
+  <a href="agentic.html">Explore Agentic AI →</a>
+  <a href="tutorials.html" class="secondary">Back to Tutorials</a>
+</section>
+
+<footer>
+  <p>© 2026 InspiredBI · <a href="index.html">Home</a> · <a href="index.html#contact">Contact</a> · <a href="tutorials.html">Tutorials</a></p>
+</footer>
+
+<script>
+function copyCode(btn, id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var text = el.textContent;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;opacity:0;';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  }
+}
+</script>
+
+<script src="ai-guide.js"></script>
+</body>
+</html>

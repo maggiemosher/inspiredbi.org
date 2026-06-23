@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 380" font-family="Arial,Helvetica,sans-serif">
+  <!-- Browser chrome -->
+  <rect width="560" height="380" rx="8" fill="#e8eaf6" stroke="#c5cae9" stroke-width="1.5"/>
+
+  <!-- Header gradient -->
+  <defs>
+    <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a237e"/>
+      <stop offset="100%" stop-color="#283593"/>
+    </linearGradient>
+    <linearGradient id="glow1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1565c0" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#1565c0" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="glow2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00695c" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#00695c" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="glow3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c62828" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#c62828" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="glow4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2e7d32" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#2e7d32" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="glow5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e65100" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#e65100" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="glow6" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6a1b9a" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#6a1b9a" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="560" height="62" rx="8" fill="url(#hdr)"/>
+  <rect x="0" y="50" width="560" height="12" fill="url(#hdr)"/>
+  <text x="20" y="28" font-size="14" font-weight="700" fill="white">KSDE ELA Standards — Connection Visualization</text>
+  <text x="20" y="48" font-size="10" fill="#c5cae9">KU PRISM Project  |  Balanced Assessments with KAP  |  Standards Alignment &amp; Vertical Progression</text>
+
+  <!-- Tab bar -->
+  <rect x="0" y="62" width="560" height="36" fill="white"/>
+  <rect x="0" y="95" width="560" height="2" fill="#e8eaf6"/>
+  <!-- Active tab underline -->
+  <rect x="10" y="95" width="82" height="2" fill="#1a237e"/>
+  <text x="15" y="84" font-size="10" font-weight="700" fill="#1a237e">🌐 Standards Network</text>
+  <text x="97" y="84" font-size="10" fill="#607d8b">📈 Vertical Alignment</text>
+  <text x="203" y="84" font-size="10" fill="#607d8b">💼 Std→Career</text>
+  <text x="285" y="84" font-size="10" fill="#607d8b">📊 Assessment</text>
+  <text x="365" y="84" font-size="10" fill="#607d8b">🌍 Real World</text>
+  <text x="440" y="84" font-size="10" fill="#607d8b">🎨 Cross-Curricular</text>
+
+  <!-- Content area -->
+  <rect x="0" y="97" width="560" height="283" fill="#f0f2ff"/>
+
+  <!-- Card background -->
+  <rect x="14" y="109" width="532" height="258" rx="8" fill="white" stroke="#e3e8f0" stroke-width="1"/>
+  <text x="24" y="128" font-size="12" font-weight="700" fill="#1a237e">ELA Standards Ecosystem — How Domains Connect</text>
+  <text x="24" y="143" font-size="9" fill="#607d8b">Hover over any domain node to see how it connects to others.</text>
+
+  <!-- Network diagram - edges first -->
+  <!-- RL ↔ RI parallel edges -->
+  <path d="M 185,185 Q 280,160 375,185" stroke="#1a237e" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M 375,195 Q 280,170 185,195" stroke="#1a237e" stroke-width="2" fill="none" opacity="0.6"/>
+
+  <!-- L to RL -->
+  <path d="M 265,230 Q 225,210 195,205" stroke="#2e7d32" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <!-- L to RI -->
+  <path d="M 295,230 Q 335,210 365,205" stroke="#2e7d32" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <!-- L to W -->
+  <path d="M 270,260 Q 235,280 205,295" stroke="#2e7d32" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <!-- L to SL -->
+  <path d="M 300,255 Q 360,265 400,275" stroke="#2e7d32" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <!-- L to RF -->
+  <path d="M 258,240 Q 190,240 148,240" stroke="#6a1b9a" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <!-- RF to RL -->
+  <path d="M 143,218 Q 160,200 178,196" stroke="#6a1b9a" stroke-width="1" fill="none" stroke-dasharray="3,2" opacity="0.6"/>
+  <!-- RI to W -->
+  <path d="M 372,210 Q 335,260 220,298" stroke="#00695c" stroke-width="1.5" fill="none" stroke-dasharray="4,2" opacity="0.5"/>
+  <!-- W to SL -->
+  <path d="M 225,310 Q 310,318 390,300" stroke="#e65100" stroke-width="1.5" fill="none" opacity="0.6"/>
+
+  <!-- DOK axis -->
+  <line x1="35" y1="347" x2="525" y2="347" stroke="#37474f" stroke-width="1" opacity="0.4"/>
+  <text x="280" y="358" text-anchor="middle" font-size="8" fill="#607d8b">INCREASING DEPTH OF KNOWLEDGE →</text>
+
+  <!-- DOK nodes -->
+  <rect x="45" y="333" width="52" height="20" rx="10" fill="#eceff1" stroke="#607d8b" stroke-width="1"/>
+  <text x="71" y="347" text-anchor="middle" font-size="9" font-weight="700" fill="#37474f">DOK 1</text>
+  <rect x="155" y="333" width="52" height="20" rx="10" fill="#cfd8dc" stroke="#455a64" stroke-width="1"/>
+  <text x="181" y="347" text-anchor="middle" font-size="9" font-weight="700" fill="#37474f">DOK 2</text>
+  <rect x="265" y="333" width="52" height="20" rx="10" fill="#90a4ae" stroke="#37474f" stroke-width="1"/>
+  <text x="291" y="347" text-anchor="middle" font-size="9" font-weight="700" fill="white">DOK 3</text>
+  <rect x="375" y="333" width="52" height="20" rx="10" fill="#37474f" stroke="#263238" stroke-width="1"/>
+  <text x="401" y="347" text-anchor="middle" font-size="9" font-weight="700" fill="white">DOK 4</text>
+
+  <!-- Domain nodes -->
+  <!-- L - center hub (green) -->
+  <circle cx="280" cy="248" r="32" fill="#2e7d32" stroke="white" stroke-width="2"/>
+  <text x="280" y="244" text-anchor="middle" font-size="16" font-weight="900" fill="white">L</text>
+  <text x="280" y="259" text-anchor="middle" font-size="8" fill="#c8e6c9">Language</text>
+
+  <!-- RL -->
+  <circle cx="182" cy="192" r="28" fill="#1565c0" stroke="white" stroke-width="2"/>
+  <text x="182" y="188" text-anchor="middle" font-size="14" font-weight="900" fill="white">RL</text>
+  <text x="182" y="202" text-anchor="middle" font-size="7.5" fill="#bbdefb">Literature</text>
+
+  <!-- RI -->
+  <circle cx="376" cy="192" r="28" fill="#00695c" stroke="white" stroke-width="2"/>
+  <text x="376" y="188" text-anchor="middle" font-size="14" font-weight="900" fill="white">RI</text>
+  <text x="376" y="202" text-anchor="middle" font-size="7.5" fill="#b2dfdb">Informational</text>
+
+  <!-- RF -->
+  <circle cx="135" cy="240" r="22" fill="#6a1b9a" stroke="white" stroke-width="2"/>
+  <text x="135" y="236" text-anchor="middle" font-size="12" font-weight="900" fill="white">RF</text>
+  <text x="135" y="249" text-anchor="middle" font-size="7" fill="#e1bee7">Foundational</text>
+
+  <!-- W -->
+  <circle cx="208" cy="305" r="26" fill="#c62828" stroke="white" stroke-width="2"/>
+  <text x="208" y="301" text-anchor="middle" font-size="14" font-weight="900" fill="white">W</text>
+  <text x="208" y="315" text-anchor="middle" font-size="7.5" fill="#ffcdd2">Writing</text>
+
+  <!-- SL -->
+  <circle cx="405" cy="285" r="24" fill="#e65100" stroke="white" stroke-width="2"/>
+  <text x="405" y="281" text-anchor="middle" font-size="12" font-weight="900" fill="white">SL</text>
+  <text x="405" y="295" text-anchor="middle" font-size="7" fill="#ffe0b2">Speaking</text>
+
+  <!-- Legend box -->
+  <rect x="447" y="155" width="90" height="52" rx="4" fill="white" stroke="#e3e8f0" stroke-width="1"/>
+  <text x="492" y="168" text-anchor="middle" font-size="7.5" font-weight="700" fill="#37474f">CONNECTION KEY</text>
+  <line x1="454" y1="178" x2="475" y2="178" stroke="#1a237e" stroke-width="2"/>
+  <text x="478" y="181" font-size="7" fill="#37474f">Strong link</text>
+  <line x1="454" y1="190" x2="475" y2="190" stroke="#607d8b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="478" y="193" font-size="7" fill="#37474f">Enables</text>
+  <line x1="454" y1="202" x2="475" y2="202" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="478" y="205" font-size="7" fill="#37474f">Language</text>
+</svg>

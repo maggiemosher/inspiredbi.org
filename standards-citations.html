@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KSDE ELA Standards Visualization — Source Citations</title>
+<style>
+:root {
+  --header1:#1a237e; --header2:#283593;
+  --bg:#f0f2ff; --card:#ffffff;
+  --rl:#1565c0; --rl-light:#e3f2fd;
+  --ri:#00695c; --ri-light:#e0f2f1;
+  --rf:#6a1b9a; --rf-light:#f3e5f5;
+  --w:#c62828;  --w-light:#fce4ec;
+  --sl:#e65100; --sl-light:#fff3e0;
+  --l:#2e7d32;  --l-light:#e8f5e9;
+  --s1:#37474f; --s1-light:#eceff1;
+  --s2:#1565c0; --s2-light:#e3f2fd;
+  --s3:#00695c; --s3-light:#e0f2f1;
+  --s4:#6a1b9a; --s4-light:#f3e5f5;
+  --s5:#c62828; --s5-light:#fce4ec;
+  --s6:#e65100; --s6-light:#fff3e0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#37474f;min-height:100vh;}
+
+header{
+  background:linear-gradient(135deg,var(--header1),var(--header2));
+  color:#fff;padding:22px 32px 18px;
+}
+header h1{font-size:20px;font-weight:700;margin-bottom:4px;}
+header p{font-size:12.5px;color:#c5cae9;}
+
+.main{max-width:1200px;margin:0 auto;padding:24px 28px;}
+
+/* ── SOURCE LEGEND ── */
+.legend{background:var(--card);border:1px solid #e3e8f0;border-radius:10px;padding:20px 24px;margin-bottom:24px;}
+.legend h2{font-size:15px;font-weight:700;color:var(--header1);margin-bottom:14px;}
+.legend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.src-badge{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:8px;font-size:12.5px;line-height:1.5;}
+.src-chip{flex-shrink:0;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px;color:#fff;}
+.src-label strong{display:block;font-size:12.5px;margin-bottom:2px;}
+.src-label a{color:inherit;text-decoration:underline;font-size:11.5px;word-break:break-all;}
+.src-label span{font-size:11.5px;color:#546e7a;}
+
+/* ── TAB NAV ── */
+.tabs{display:flex;gap:0;background:#fff;border-bottom:3px solid #e8eaf6;padding:0 4px;border-radius:10px 10px 0 0;margin-bottom:0;}
+.tab-btn{
+  padding:12px 20px;border:none;background:none;cursor:pointer;
+  font-size:13px;font-weight:600;color:#607d8b;border-bottom:3px solid transparent;
+  margin-bottom:-3px;transition:all .2s;
+}
+.tab-btn:hover{color:#1a237e;}
+.tab-btn.active{color:#1a237e;border-bottom-color:#1a237e;}
+
+.tab-section{display:none;background:var(--card);border:1px solid #e3e8f0;border-radius:0 0 10px 10px;padding:24px;margin-bottom:24px;}
+.tab-section.active{display:block;}
+
+/* ── CITATION TABLE ── */
+.cit-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.cit-table th{background:#1a237e;color:#fff;padding:10px 12px;text-align:left;font-size:12px;}
+.cit-table td{padding:9px 12px;border-bottom:1px solid #e8eaf6;vertical-align:top;line-height:1.55;}
+.cit-table tr:nth-child(even) td{background:#f8f9ff;}
+.cit-table tr:hover td{background:#e8eaf6;}
+
+.elem-name{font-weight:700;color:#1a237e;}
+.quote-box{background:#f5f5f5;border-left:3px solid #90a4ae;padding:6px 10px;border-radius:0 4px 4px 0;font-size:11.5px;color:#455a64;font-style:italic;margin-top:4px;line-height:1.5;}
+
+/* ── SOURCE CHIPS (inline) ── */
+.chip{display:inline-flex;align-items:center;gap:4px;padding:2px 8px 2px 4px;border-radius:12px;font-size:11px;font-weight:700;color:#fff;margin:2px 2px 2px 0;white-space:nowrap;}
+.chip .dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,0.35);display:inline-flex;align-items:center;justify-content:center;font-size:9px;}
+
+/* ── SECTION INTRO ── */
+.section-intro{font-size:13px;color:#546e7a;margin-bottom:16px;padding:10px 14px;background:#f8f9ff;border-radius:8px;border-left:4px solid #9fa8da;line-height:1.6;}
+
+/* ── BY-SOURCE TABLE ── */
+.src-section{background:var(--card);border:1px solid #e3e8f0;border-radius:10px;padding:20px 24px;margin-bottom:18px;}
+.src-section h3{font-size:14px;font-weight:700;margin-bottom:4px;}
+.src-section .src-meta{font-size:12px;color:#607d8b;margin-bottom:12px;}
+.contrib-list{list-style:none;padding:0;}
+.contrib-list li{padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:12.5px;line-height:1.5;padding-left:14px;position:relative;}
+.contrib-list li::before{content:"→";position:absolute;left:0;color:#9fa8da;}
+.contrib-list li:last-child{border-bottom:none;}
+.tab-badge{display:inline-block;padding:1px 7px;border-radius:8px;font-size:10.5px;font-weight:700;color:#fff;margin-right:4px;background:#607d8b;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>KSDE ELA Standards Visualization — Source Citations</h1>
+  <p>Companion document to standards_visualization.html &nbsp;|&nbsp; Traces each visualization element to its originating source</p>
+</header>
+
+<div class="main">
+
+<!-- ══════════════════════════════════════════════════════════
+     SOURCE LEGEND
+     ══════════════════════════════════════════════════════════ -->
+<div class="legend">
+  <h2>Source Reference Key</h2>
+  <div class="legend-grid">
+
+    <div class="src-badge" style="background:var(--s1-light);">
+      <div class="src-chip" style="background:var(--s1);">S1</div>
+      <div class="src-label">
+        <strong>KSDE — Academic Standards</strong>
+        <a href="https://www.ksde.gov/student-success/standards" target="_blank">ksde.gov/student-success/standards</a><br>
+        <span>Official Kansas ELA domain structure, standard codes, and standard text K–12</span>
+      </div>
+    </div>
+
+    <div class="src-badge" style="background:var(--s2-light);">
+      <div class="src-chip" style="background:var(--s2);">S2</div>
+      <div class="src-label">
+        <strong>KU Prism Project (PPTX)</strong>
+        <span style="display:block;font-size:11.5px;color:#546e7a;">KU Prism Project.pptx — Fall 2025</span>
+        <span>"Balanced Assessments with KAP: How to Use the Data to Drive Instruction"</span>
+      </div>
+    </div>
+
+    <div class="src-badge" style="background:var(--s3-light);">
+      <div class="src-chip" style="background:var(--s3);">S3</div>
+      <div class="src-label">
+        <strong>Standard Alignment (PPTX)</strong>
+        <span style="display:block;font-size:11.5px;color:#546e7a;">Standard Alignment .pptx — KSDE Professional Development</span>
+        <span>Standards analysis process, Webb's DOK, vertical alignment, ELA toolkit</span>
+      </div>
+    </div>
+
+    <div class="src-badge" style="background:var(--s4-light);">
+      <div class="src-chip" style="background:var(--s4);">S4</div>
+      <div class="src-label">
+        <strong>Standard Alignment Document (DOCX)</strong>
+        <span style="display:block;font-size:11.5px;color:#546e7a;">Standard Alignment Document.docx</span>
+        <span>English Language Arts Standard Alignment Document — grade-by-grade standard text</span>
+      </div>
+    </div>
+
+    <div class="src-badge" style="background:var(--s5-light);">
+      <div class="src-chip" style="background:var(--s5);">S5</div>
+      <div class="src-label">
+        <strong>KSDE — CTE &amp; Career Clusters</strong>
+        <a href="https://www.ksde.gov/student-success/cte" target="_blank">ksde.gov/student-success/cte</a> &nbsp;|&nbsp;
+        <a href="https://www.ksde.gov/student-success/cte/career-clusters" target="_blank">/career-clusters</a><br>
+        <span>16 career clusters framework, career pathway connections to academic standards</span>
+      </div>
+    </div>
+
+    <div class="src-badge" style="background:var(--s6-light);">
+      <div class="src-chip" style="background:var(--s6);">S6</div>
+      <div class="src-label">
+        <strong>Kansas Education Portal &amp; ATS/KU</strong>
+        <a href="https://portal.kansas.gov/services/education-and-training/" target="_blank">portal.kansas.gov/education-and-training</a> &nbsp;|&nbsp;
+        <a href="https://ats.ku.edu/" target="_blank">ats.ku.edu</a><br>
+        <span>Kansas education governance structure; KU Assessment &amp; Technology Solutions (Kite® Suite)</span>
+      </div>
+    </div>
+
+  </div>
+</div><!-- end legend -->
+
+<!-- ── CHIP HELPER TEMPLATE ── -->
+<!-- Colors: S1=#37474f S2=#1565c0 S3=#00695c S4=#6a1b9a S5=#c62828 S6=#e65100 -->
+
+<!-- ══════════════════════════════════════════════════════════
+     TABS — BY VISUALIZATION SECTION
+     ══════════════════════════════════════════════════════════ -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('network')">&#127760; Standards Network</button>
+  <button class="tab-btn" onclick="showTab('vertical')">&#128200; Vertical Alignment</button>
+  <button class="tab-btn" onclick="showTab('career')">&#128188; Standard &rarr; Career</button>
+  <button class="tab-btn" onclick="showTab('assessment')">&#128202; Assessment System</button>
+  <button class="tab-btn" onclick="showTab('bysource')">&#128196; By Source</button>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     TAB 1 — STANDARDS NETWORK
+     ══════════════════════════════════════════════════════════ -->
+<div class="tab-section active" id="tab-network">
+  <p class="section-intro">The <strong>Standards Network</strong> tab shows the six ELA domains as nodes in an SVG network diagram, with labeled connection edges and four DOK level nodes at the base. Each element below is traced to its originating source.</p>
+
+  <table class="cit-table">
+    <thead>
+      <tr>
+        <th style="width:220px;">Visualization Element</th>
+        <th style="width:300px;">Exact Content Used</th>
+        <th>Source(s)</th>
+        <th>Direct Evidence / Quotation</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td><span class="elem-name">6 ELA Domain Structure</span><br><small>RL, RI, RF, W, SL, L as the six node types</small></td>
+        <td>Domain codes and names: Reading Literature (RL), Reading Informational (RI), Reading Foundational (RF), Writing (W), Speaking &amp; Listening (SL), Language (L)</td>
+        <td>
+          <span class="chip" style="background:#37474f;"><span class="dot">S1</span> KSDE Standards</span>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S1: KSDE organizes Kansas ELA standards into six strands coded RL, RI, RF, W, SL, and L — the national Common Core–derived structure adopted by Kansas.<br><br>S3: "Kansas Assessment Website — ELA Mini Tests by grade level — Each mini test is less than 10 questions — Shows domain (RL, RI, Writing, SL) — Shows title of passage — Shows standards covered in that passage."</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Three-Cluster Structure</span><br><small>KID · CS · IKI badges on RL and RI nodes</small></td>
+        <td>KID = Key Ideas &amp; Details; CS = Craft &amp; Structure; IKI = Integration of Knowledge &amp; Ideas — same three clusters exist in both RL and RI</td>
+        <td>
+          <span class="chip" style="background:#37474f;"><span class="dot">S1</span> KSDE Standards</span>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S1: KSDE ELA standards are organized within each domain under three anchor clusters: Key Ideas &amp; Details (standards 1–3), Craft &amp; Structure (standards 4–6), and Integration of Knowledge &amp; Ideas (standards 7–9).<br><br>S3: "ELA Standards Alignment — Horizontal: Focus on a consistency within a grade level… Vertical: Focus on progression of learning from one grade level to the next."</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Language (L) as "Hub Node"</span><br><small>L placed at center; edges to all five other domains</small></td>
+        <td>Language standards described as underpinning all other domains — vocabulary, grammar, and conventions support RL, RI, RF, W, and SL</td>
+        <td>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+          <span class="chip" style="background:#37474f;"><span class="dot">S1</span> KSDE Standards</span>
+        </td>
+        <td>
+          <div class="quote-box">S3: "Vertical Alignment — Is your vocabulary progressing through the standard and grade levels?" (L connects to all domains through vocabulary and conventions.)<br><br>S3: "Steps for Continued Work — What tier 3 vocabulary or key vocabulary is needed for the student as a review and as an introduction?" — Vocabulary (L) is referenced as a cross-domain support in every standard analysis step.</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">RL ↔ RI Parallel Structure Edge</span><br><small>Double bidirectional arrow labeled "Parallel Structure (KID · CS · IKI)"</small></td>
+        <td>RL and RI share identical three-cluster architecture; taught in parallel at every grade level</td>
+        <td>
+          <span class="chip" style="background:#37474f;"><span class="dot">S1</span> KSDE Standards</span>
+          <span class="chip" style="background:#6a1b9a;"><span class="dot">S4</span> Std. Alignment DOCX</span>
+        </td>
+        <td>
+          <div class="quote-box">S1: The KSDE ELA standards framework applies identical cluster headings (KID, CS, IKI) to both RL and RI at every grade level, creating a mirrored structure for literary vs. informational text.<br><br>S4: The Standard Alignment Document presents RL and RI side-by-side within each grade band, showing their structural parallelism.</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">RI → W "Research Evidence" Edge</span><br><small>Dashed arrow from RI to W labeled "Research Evidence"</small></td>
+        <td>Writing standards W.7, W.8, W.9 explicitly reference drawing evidence from informational text (RI)</td>
+        <td>
+          <span class="chip" style="background:#37474f;"><span class="dot">S1</span> KSDE Standards</span>
+          <span class="chip" style="background:#6a1b9a;"><span class="dot">S4</span> Std. Alignment DOCX</span>
+        </td>
+        <td>
+          <div class="quote-box">S1: Kansas Writing standards W.7 (Research), W.8 (Gathering Information), and W.9 (Drawing Evidence from Literary or Informational Texts) explicitly name RI as the source domain for research writing tasks.<br><br>S3: "Writing Text Types and Purposes — Discuss strategies, activities, to develop argumentative writing — developing claim — developing text evidence and analysis of text evidence."</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">RF → RL/RI "Enables" Edges</span><br><small>Dashed arrows from RF to RL and RI labeled "Enables"</small></td>
+        <td>Foundational Skills (RF) taught K–5; mastery is prerequisite for accessing grade-level literary and informational text</td>
+        <td>
+          <span class="chip" style="background:#37474f;"><span class="dot">S1</span> KSDE Standards</span>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S1: RF standards (Phonics, Phonemic Awareness, Fluency, Print Concepts) are designated K–5 in the KSDE framework, with the explicit purpose of enabling independent reading of complex text in RL and RI.<br><br>S3: "Don't forget about Text Complexity — To ensure students are reading text that is at or slightly above grade level…" — RF mastery is the prerequisite access skill.</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">W ↔ SL "Production Pair" Edge</span><br><small>Bidirectional arrow labeled "Production Pair"</small></td>
+        <td>Writing (W) and Speaking &amp; Listening (SL) are the two production domains; SL is the oral counterpart to written composition</td>
+        <td>
+          <span class="chip" style="background:#37474f;"><span class="dot">S1</span> KSDE Standards</span>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S1: Kansas SL standards include "Presentation of Knowledge and Ideas" which directly mirrors Writing's "Production and Distribution" cluster — both involve crafting and sharing a product.<br><br>S3: "ELA Standards Alignment — Horizontal: Focus on a consistency within a grade level — Collaboration between teachers of the same grade level — Helps connect subjects within a grade level."</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">DOK 1–4 Nodes</span><br><small>Four nodes at the base of the network with hover tooltips</small></td>
+        <td>Webb's DOK: DOK 1 Recall, DOK 2 Skills &amp; Concepts, DOK 3 Strategic Thinking, DOK 4 Extended Thinking</td>
+        <td>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+          <span class="chip" style="background:#6a1b9a;"><span class="dot">S4</span> Std. Alignment DOCX</span>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S3: "Webb's Depth of Knowledge — A Learning Progression — Erik Francis" (slide title). "Depth of Knowledge A Learning Progression — understanding of skill; repetition transfer content or process to different setting."<br><br>S3: "Analyze the Depth of Knowledge students have on this standard. How much guidance do I give when teaching this standard? What D.O.K level do you consistently teach at? What D.O.K activities and assessments do you have students do?"<br><br>S2: "Webb's Depth of Knowledge" slide in KU Prism Project — same four-level framework applied to assessment design.</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">INCREASING DEPTH OF KNOWLEDGE Axis Arrow</span><br><small>Horizontal arrow along the bottom of the SVG</small></td>
+        <td>DOK as a progressive learning continuum, not a static label</td>
+        <td>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S3: "Depth of Knowledge — A Learning Progression — Erik Francis" — The PPTX frames DOK as a progression, not a taxonomy, with the explicit title "A Learning Progression."<br><br>S3: "Analyze Learning Progression — Where does the majority of students fall for this standard? Consider this your entry point."</div>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div><!-- end tab-network -->
+
+<!-- ══════════════════════════════════════════════════════════
+     TAB 2 — VERTICAL ALIGNMENT
+     ══════════════════════════════════════════════════════════ -->
+<div class="tab-section" id="tab-vertical">
+  <p class="section-intro">The <strong>Vertical Alignment</strong> tab shows the RI.3 standard traced K–12, with verb, content, and DOK progression across grade bands. The concept of vertical alignment and the specific standard text both have direct source citations.</p>
+
+  <table class="cit-table">
+    <thead>
+      <tr>
+        <th style="width:220px;">Visualization Element</th>
+        <th style="width:300px;">Exact Content Used</th>
+        <th>Source(s)</th>
+        <th>Direct Evidence / Quotation</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td><span class="elem-name">Concept of Vertical Alignment</span><br><small>Choice to trace one standard K–12 as the visualization approach</small></td>
+        <td>Vertical alignment defined as tracing how a standard progresses across grade levels in complexity, verb demand, and DOK</td>
+        <td>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S3: "Vertical Alignment — By aligning each of our standards, we will know what the standard says, what we need to assess and how we can teach it. Most importantly, how is each grade progressing through the standard."<br><br>S2 (KU Prism): "Value of Vertical Alignment — Understand how standards change, progress, and increase complexity. Identify the variations and nuances between each grade level. Align standards through all grade levels to ensure progression of learning."</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">RI.3 as the Example Strand</span><br><small>Choice of RI, strand 3 (Key Ideas &amp; Details #3) across all grades</small></td>
+        <td>RI.3 — the standard asking students to describe/explain/analyze the relationship between individuals, events, ideas in informational text — chosen to demonstrate progression</td>
+        <td>
+          <span class="chip" style="background:#37474f;"><span class="dot">S1</span> KSDE Standards</span>
+          <span class="chip" style="background:#6a1b9a;"><span class="dot">S4</span> Std. Alignment DOCX</span>
+        </td>
+        <td>
+          <div class="quote-box">S4: The Standard Alignment Document provides a vertical column for RI.3 across all grade levels with the exact standard text. The document is titled "English Language Arts Standard Alignment Document" and presents each standard in a table format by domain and grade.<br><br>S1: KSDE publishes the official Kansas ELA standard text for RI.3 at every grade level K–12 on the standards page.</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Grade K–12 Standard Text (RI.3)</span><br><small>The literal standard text shown in the table for each grade row</small></td>
+        <td>All 11 rows of grade-level standard text (K through 11–12), including exact verb changes and content scope changes</td>
+        <td>
+          <span class="chip" style="background:#37474f;"><span class="dot">S1</span> KSDE Standards</span>
+          <span class="chip" style="background:#6a1b9a;"><span class="dot">S4</span> Std. Alignment DOCX</span>
+        </td>
+        <td>
+          <div class="quote-box">S4: Standard Alignment Document provides side-by-side grade columns with exact Kansas ELA standard language — source of the "describe the connection" (K–2), "explain" (3–5), "analyze" (6–8), and "analyze seminal documents" (9–12) text.<br><br>S1: Official KSDE standard text on ksde.gov — authoritative source for Kansas-adopted language, which follows the CCSS structure with Kansas-specific adoptions.</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Grade Band Labels (K–2, 3–5, 6–8, 9–12)</span><br><small>Colored band chips on each grade row</small></td>
+        <td>Four official grade bands used in Kansas ELA standards to group progression expectations</td>
+        <td>
+          <span class="chip" style="background:#37474f;"><span class="dot">S1</span> KSDE Standards</span>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S1: KSDE ELA standards are officially organized into grade bands K–2, 3–5, 6–8, and 9–12, each representing a distinct developmental and complexity tier.<br><br>S3: "Discussion Questions — Where is the 'big jump' between skills students need to know and do? Looking at your grade level standard(s), are you on grade level?" — References the same grade band progression structure.</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Verb Complexity Progression (describe → explain → analyze)</span><br><small>Verb chips extracted from each standard row</small></td>
+        <td>Key verbs circled per KSDE's own standard analysis protocol: describe (K–2), explain (3–5), analyze (6–12) as the cognitive demand escalators</td>
+        <td>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+          <span class="chip" style="background:#37474f;"><span class="dot">S1</span> KSDE Standards</span>
+        </td>
+        <td>
+          <div class="quote-box">S3: "Deep Dive into a Standard — Circle the Verbs. Verbs reveal the complexity and depth of knowledge students will have to master."<br><br>S3: "Circle the verb(s) in your grade level standard. Highlight or underline the subject content. Pay attention to conjunctions. Discuss depth of knowledge. Determine how standard progresses." (This protocol was applied directly to RI.3 K–12 to produce the verb chips.)</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">DOK Level Assignments Per Grade</span><br><small>DOK chip on each grade row</small></td>
+        <td>DOK 1 at K–1, DOK 1–2 at Grade 2, DOK 2 at Grade 3, DOK 2–3 at Grades 4–5, DOK 3 at Grade 6, DOK 3–4 at Grades 7–8, DOK 4 at Grades 9–12</td>
+        <td>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S3: "Analyze the Depth of Knowledge students have on this standard… What D.O.K level do you consistently teach at?" — DOK levels were determined by applying Webb's framework to each grade's RI.3 verb and content scope.<br><br>S2: "Performance Level Descriptors — Level 1: shows limited ability… Level 2: shows basic ability… Level 3: shows proficient ability… Level 4: shows advanced ability." — Confirms DOK 4 expectation at the summative/high school level.</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">"Recursive Teaching" — The Big Takeaway Box</span><br><small>Callout emphasizing that standards escalate across three dimensions</small></td>
+        <td>Standards are not "one and done" — they are recursive and taught again at greater complexity each year</td>
+        <td>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S2 (KU Prism): "Remember: teaching a standard should be a recursive and not a 'one and done' item to check."<br><br>S3: "Have I just 'check marked' this standard as complete without actually having student evidence to prove their understanding? How many times can I teach this standard within my curriculum?"</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Text Complexity &amp; Research Notes</span><br><small>Reference to TNTP 2024 and Shanahan 2025 in the visualization</small></td>
+        <td>Schools with greatest achievement gains teach grade-level text; "leveled text leads to leveled lives"</td>
+        <td>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S2 (KU Prism): "…Recent research has found that the schools with the greatest achievement gains teach with grade level texts, rather than continually dropping back to the kids' purported levels (TNTP, 2024). 'It is time to set aside the notion that we need to teach students at their reading levels… Leveled Text Leads to Leveled Lives.' (Shanahan, 2025)"</div>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div><!-- end tab-vertical -->
+
+<!-- ══════════════════════════════════════════════════════════
+     TAB 3 — STANDARD → CAREER
+     ══════════════════════════════════════════════════════════ -->
+<div class="tab-section" id="tab-career">
+  <p class="section-intro">The <strong>Standard → Career</strong> tab uses RI.5.3 as the anchor standard, breaks it into four DOK levels, maps it to seven transferable skills, and shows four career connections — culminating in the Investigative Journalist four-step job flow.</p>
+
+  <table class="cit-table">
+    <thead>
+      <tr>
+        <th style="width:220px;">Visualization Element</th>
+        <th style="width:300px;">Exact Content Used</th>
+        <th>Source(s)</th>
+        <th>Direct Evidence / Quotation</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td><span class="elem-name">RI.5.3 as the Anchor Standard</span><br><small>"Explain the relationships or interactions between two or more individuals…"</small></td>
+        <td>Grade 5 RI standard 3 — chosen as the best example of a standard with direct, traceable career application because it demands multi-factor causal reasoning at DOK 3</td>
+        <td>
+          <span class="chip" style="background:#37474f;"><span class="dot">S1</span> KSDE Standards</span>
+          <span class="chip" style="background:#6a1b9a;"><span class="dot">S4</span> Std. Alignment DOCX</span>
+        </td>
+        <td>
+          <div class="quote-box">S1: Official Kansas ELA standard RI.5.3: "Explain the relationships or interactions between two or more individuals, events, ideas, or concepts in a text, including how they affect one another." — Exact text from KSDE ELA standards, Grade 5 RI cluster KID.<br><br>S4: The Standard Alignment Document includes RI.5.3 in the grade 3–5 band column with this text, confirming it as the official adopted Kansas standard text.</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">DOK 1–4 Breakdown Cards for RI.5.3</span><br><small>Four cards showing how RI.5.3 can be assessed at each DOK level</small></td>
+        <td>DOK 1: Identify; DOK 2: Explain the Connection; DOK 3: Analyze the Interaction; DOK 4: Synthesize Across Texts</td>
+        <td>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S3: "Analyze the Depth of Knowledge students have on this standard. How much guidance do I give when teaching this standard? What unit, activities do I teach using this standard? How do I make sure I work with this standard more than once or twice?"<br><br>S3: "Deep Dive into a Standard — Circle the Verbs. Verbs reveal the complexity and depth of knowledge students will have to master… Determine depth of knowledge level the standard requires. Do this for the grade level above and below."<br><br>S2: "Mini-Test Overview… focus on specific standards — Use only as formative assessment over a standard to demonstrate student understanding or mastery." — Confirms mini tests target DOK levels per standard.</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Seven Transferable Skills</span><br><small>Tracing cause &amp; effect · Finding patterns · Multi-source synthesis · Evidence-based reasoning · Identifying bias · Explaining complex relationships · Drawing defensible conclusions</small></td>
+        <td>Skills that RI.5.3 instruction builds, presented as the bridge between academic standard and career competency</td>
+        <td>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+          <span class="chip" style="background:#c62828;"><span class="dot">S5</span> KSDE CTE</span>
+        </td>
+        <td>
+          <div class="quote-box">S3: "Steps for Continued Work — Analyze the change in standard between grade levels. What tier 3 vocabulary or key vocabulary is needed…" — Transferable skills emerge from the standard analysis process described in the PPTX.<br><br>S5: KSDE CTE framework explicitly maps academic standards to career readiness competencies across 16 career clusters. The skills listed (causal reasoning, evidence synthesis, pattern recognition) map directly to KSDE's Business Management, Law/Government, and Communications career clusters.</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Four Career Cards</span><br><small>Data Analyst · Investigative Journalist · Policy Analyst · Attorney</small></td>
+        <td>Careers where RI.5.3's core skill — tracing relationships between events, people, and ideas — is a professional requirement</td>
+        <td>
+          <span class="chip" style="background:#c62828;"><span class="dot">S5</span> KSDE CTE / Career Clusters</span>
+          <span class="chip" style="background:#e65100;"><span class="dot">S6</span> Kansas Portal</span>
+        </td>
+        <td>
+          <div class="quote-box">S5: KSDE Career Clusters framework (ksde.gov/student-success/cte/career-clusters) organizes career pathways into 16 clusters. The four careers in the visualization map to KSDE clusters: Data Analyst → Business Management &amp; Administration / Science &amp; Technology; Investigative Journalist → Arts/AV/Communications; Policy Analyst → Government &amp; Public Administration; Attorney → Law/Public Safety/Corrections/Security.<br><br>S6: Kansas Portal (portal.kansas.gov) describes K-12 education as preparing students for "rigorous, quality academic instruction" tied to career and workforce readiness — the explicit rationale for the standard-to-career connection.</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Investigative Journalist 4-Step Job Flow</span><br><small>DOK 1: Gather → DOK 2: Map → DOK 3: Analyze → DOK 4: Synthesize/Publish</small></td>
+        <td>A real-world newsroom workflow showing how each step of an investigative story requires the next DOK level of RI.5.3</td>
+        <td>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+          <span class="chip" style="background:#c62828;"><span class="dot">S5</span> KSDE CTE</span>
+        </td>
+        <td>
+          <div class="quote-box">S3: "Learning Progression: Make a Plan — Analyze Data… Use Performance Level Descriptors — Identify cluster or standard student collectively scored lower on." — The four-step job flow mirrors the DOK learning progression framework described in this PPTX.<br><br>S3: "Depth of Knowledge — A Learning Progression — Erik Francis" — The visualization applies this progression directly to a journalist's daily work sequence, mapping DOK 1 (identify documents) through DOK 4 (synthesize and publish a story).<br><br>S5: KSDE Arts/AV/Communications career cluster includes journalism and media — this career cluster validates the RI.5.3 → journalism career pathway connection.</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Closing Connection Statement</span><br><small>"A student who masters this standard at DOK 3–4 has built a core professional competency…"</small></td>
+        <td>Direct connection statement between standard mastery and career readiness</td>
+        <td>
+          <span class="chip" style="background:#c62828;"><span class="dot">S5</span> KSDE CTE</span>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S2 (KU Prism): "Transform teaching from 'delivering content' into 'guiding learning'… Informs instruction — Easily identify who needs intervention — Instruction becomes targeted and responsive rather than a one-size-fits-all — Builds student ownership."<br><br>S5: KSDE CTE mission explicitly frames academic standards as preparation for career pathways — the connection statement in the visualization is a direct application of the CTE–academic integration philosophy described in KSDE's CTE framework.</div>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div><!-- end tab-career -->
+
+<!-- ══════════════════════════════════════════════════════════
+     TAB 4 — ASSESSMENT SYSTEM
+     ══════════════════════════════════════════════════════════ -->
+<div class="tab-section" id="tab-assessment">
+  <p class="section-intro">The <strong>Assessment System</strong> tab shows the KAP Balanced Assessment System pyramid (Mini Tests → Interim → Summative), specific dates, score ranges, cut scores, and the four-step instructional cycle. Every specific number and specification is sourced below.</p>
+
+  <table class="cit-table">
+    <thead>
+      <tr>
+        <th style="width:220px;">Visualization Element</th>
+        <th style="width:300px;">Exact Content Used</th>
+        <th>Source(s)</th>
+        <th>Direct Evidence / Quotation</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td><span class="elem-name">Three-Component Balanced Assessment System</span><br><small>Mini Tests · Interim Assessments · Summative Assessments · Reporting Suite</small></td>
+        <td>The overall architecture of the KAP assessment system with three distinct assessment types serving different instructional purposes</td>
+        <td>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S2 (KU Prism): "Balanced Assessments — Core components of the Balanced Assessment System: Instructional Mini Tests — Interim Assessments — Summative Assessments — Reporting Suite."<br><br>Slide title: "Balanced Assessments with KAP — How to Use the Data to Drive Instruction | Fall 2025."</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Mini Test Specifications</span><br><small>Fewer than 7 questions · Teacher-chosen · Specific standard focus · Available all year · NOT graded · Shows class AND individual data</small></td>
+        <td>All six specification bullets shown in the Mini Test box in the visualization</td>
+        <td>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S2 (KU Prism): "Mini-Test Overview — Available all year, rather than in a window — Tests vary in length — shorter pieces can be chosen — no more than 7 questions — Questions are: set by the state at correct grade level and text complexity — focus on specific standards — Use only as formative assessment over a standard to demonstrate student understanding or mastery."<br><br>S2: "Value of Mini-Tests — Data is viewable by teachers at any time — Provides class and individual data — Provides question level and standard data."<br><br>S2: "Mini tests should not… be used as grade level benchmark exams — should not be recorded as grades either formative or summative."</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Interim Assessment Windows</span><br><small>Oct 6–31 · Jan 12–Feb 6 · Completable in one period · NOT predictive</small></td>
+        <td>Exact date windows and key characteristic statements for both interim assessment windows</td>
+        <td>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S2 (KU Prism): "Two windows for the year — October 6–31 — January 12–February 6 — The test can be completed in one class period — It is not predictive — Not meant as a 'practice test' — Questions are: Aligned to state standards — Assess state standards in ways that are interconnected — Mimic the KAP summative form and features."</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Interim Complexity Levels</span><br><small>Interim 1: Slight → Moderate text · Interim 2: Moderate → Complex text</small></td>
+        <td>Text complexity levels assigned to each interim window, mirroring the KAP summative text complexity ramp</td>
+        <td>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S2 (KU Prism): "Identify students' ability to read complex text — Interim 1 has slight to moderate complex text on passages — Interim 2 has moderate to complex text on passages — Interim 2 aligns with the state assessment text complexity."</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">KAP Summative — Scores 400–700 · Four Performance Levels · Cut Scores L2=510, L3=540</span><br><small>Exact numbers in the Summative box</small></td>
+        <td>KAP scaled score range, number of performance levels, and the two fixed cut scores that define proficiency bands</td>
+        <td>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S2 (KU Prism): "Scoring Terms — KAP Scaled Scores range from 400 to 700 and are divided into four performance levels. These performance levels indicate how well a student is meeting grade-level expectations."<br><br>S2: "Things to note about 2025 scores — Cut scores are generally different for each grade and subject; however, for all KAP assessments the Level 2 cut score is fixed at 510 and the Level 3 cut score is fixed at 540."<br><br>S2: "Scale scores can only be used to compare students in a single grade and subject area… Scale scores cannot be compared across different grades or different subject areas."</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Performance Level Descriptors (L1–L4)</span><br><small>L1 Limited · L2 Basic · L3 Proficient · L4 Advanced</small></td>
+        <td>The four PLD labels and their descriptions: Limited / Basic / Proficient / Advanced</td>
+        <td>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S2 (KU Prism): "Performance Level Descriptors — Level 1: A student shows a limited ability to demonstrate their knowledge and skills of their grade level standards. Level 2: A student shows a basic ability… Level 3: A student shows a proficient ability… Level 4: A student shows an advanced ability…"<br><br>S3: "Performance Level Descriptors (PLDs) define the knowledge, skills, and processes that students likely demonstrate at different levels of proficiency within the reporting categories (1, 2, 3, 4). Level 1: shows limited ability… Level 2: shows basic ability… Level 3: shows proficient ability… Level 4: shows advanced ability."</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Four-Step Instructional Cycle</span><br><small>1. Know the Standard → 2. Teach &amp; Model → 3. Mini Test &amp; Assess → 4. Reteach &amp; Spiral</small></td>
+        <td>The cyclical instructional model connecting standard analysis, instruction, formative assessment, and spiraling back</td>
+        <td>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+          <span class="chip" style="background:#00695c;"><span class="dot">S3</span> Std. Alignment PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S2 (KU Prism): "Look at data — What do students know and understand vs. what students don't know or don't understand — Teach / Reteach — Formative assessment → mini tests — Teach / Reteach — Teach, Plan, Analyze, Adapt." (This four-step label appears as a cycle diagram in the PPTX.)<br><br>S3: "Plan. Plan. Plan. During PLC's or PD days, use the time to look at 1–2 standards collectively. Break down and discuss progression… Review PLD's — Check student understanding and level of mastery with KAP mini tests — Teach. Model. Practice. Assess. Teach. Model. Practice. Assess."</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">John Hattie Effect Size — "0.40–0.75"</span><br><small>Research note at the bottom of the Assessment System tab</small></td>
+        <td>Formative evaluation effect size from Hattie's Visible Learning MetaX (2023) cited as evidence for the instructional approach</td>
+        <td>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S2 (KU Prism): "According to John Hattie's research (2023 Visible Learning MetaX), formative assessment has an effect size around 0.48–0.75, depending on implementation — meaning it has a substantial impact on student achievement (anything above 0.40 is considered highly effective)."<br><br>S2: Hattie effect size table — "Formative Evaluation: Providing instruction/feedback during the unit, instead of at the end. Useful for teachers to determine if strategies are effective or if students need reteaching. Effect Size: 0.40."</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">ATS / Kite® Suite Reference</span><br><small>The Kite Educator Portal referenced for building and assigning mini tests</small></td>
+        <td>Kite Educator Portal as the delivery system for mini tests, interims, and summative assessments in Kansas</td>
+        <td>
+          <span class="chip" style="background:#e65100;"><span class="dot">S6</span> ats.ku.edu</span>
+          <span class="chip" style="background:#1565c0;"><span class="dot">S2</span> KU Prism PPTX</span>
+        </td>
+        <td>
+          <div class="quote-box">S6 (ats.ku.edu): "Assessment &amp; Technology Solutions — helps public agencies deliver assessment services to their constituents through innovative technology solutions… operates through its flagship system, the Kite® Suite, described as 'our flagship assessment program' that focuses on 'online content creation, assessment development, and advanced data collection tools.'"<br><br>S2: "Log into Kite Educator Portal — Click on 'INTERIM' — Click on 'BUILD OR COPY A TEXT' — Step 1: Build a Mini Test." And: "Your school or district can also customize a mini test! — Download and complete the Excel spreadsheet from the HELP tab in Educator Portal. Email the completed document to: ats-management@ku.edu."</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="elem-name">Kansas Governance Context</span><br><small>Header reference to KSDE as the standards-setting authority</small></td>
+        <td>KSDE as the K–12 governance body responsible for standards, assessments, and CTE</td>
+        <td>
+          <span class="chip" style="background:#e65100;"><span class="dot">S6</span> Kansas Portal</span>
+        </td>
+        <td>
+          <div class="quote-box">S6 (portal.kansas.gov): "Kansas State Department of Education (KSDE): Handles K-12 governance, standards, special education, nutrition programs, and career/technical education." — Confirms KSDE as the authoritative source for all standards and assessment references in the visualization.<br><br>S6: "Kansas State Board of Education: Focuses on preparing students through 'rigorous, quality academic instruction'" — rationale for the standards-to-career pathway approach.</div>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div><!-- end tab-assessment -->
+
+<!-- ══════════════════════════════════════════════════════════
+     TAB 5 — BY SOURCE SUMMARY
+     ══════════════════════════════════════════════════════════ -->
+<div class="tab-section" id="tab-bysource">
+  <p class="section-intro">This tab summarizes each source's total contribution to the visualization, useful for attribution statements or reference lists.</p>
+
+  <!-- S1 -->
+  <div class="src-section">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+      <div class="src-chip" style="background:var(--s1);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;color:#fff;flex-shrink:0;">S1</div>
+      <h3 style="color:var(--s1);">KSDE Academic Standards — ksde.gov/student-success/standards</h3>
+    </div>
+    <p class="src-meta">Kansas State Department of Education · Official Kansas ELA Standards (K–12) · Accessed 2026</p>
+    <ul class="contrib-list">
+      <li><span class="tab-badge" style="background:#37474f;">Network</span> Six ELA domain structure and codes (RL, RI, RF, W, SL, L)</li>
+      <li><span class="tab-badge" style="background:#37474f;">Network</span> Three-cluster architecture (KID · CS · IKI) mirrored in RL and RI</li>
+      <li><span class="tab-badge" style="background:#37474f;">Network</span> RF as K–5 foundational domain enabling RL and RI access</li>
+      <li><span class="tab-badge" style="background:#37474f;">Network</span> W.7/W.8/W.9 connection to RI (Research Evidence edge)</li>
+      <li><span class="tab-badge" style="background:#1565c0;">Vertical</span> Grade-by-grade RI.3 standard text (all 11 grade rows in the alignment table)</li>
+      <li><span class="tab-badge" style="background:#1565c0;">Vertical</span> Grade band groupings: K–2, 3–5, 6–8, 9–12</li>
+      <li><span class="tab-badge" style="background:#00695c;">Career</span> Exact RI.5.3 standard text as the career example anchor</li>
+      <li><span class="tab-badge" style="background:#00695c;">Career</span> Source authority for all standard code citations (RL, RI, RF, W, SL, L)</li>
+    </ul>
+  </div>
+
+  <!-- S2 -->
+  <div class="src-section">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+      <div class="src-chip" style="background:var(--s2);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;color:#fff;flex-shrink:0;">S2</div>
+      <h3 style="color:var(--s2);">KU Prism Project — "Balanced Assessments with KAP" (PPTX, Fall 2025)</h3>
+    </div>
+    <p class="src-meta">University of Kansas · Presented Fall 2025 · Contact: Mary.Lonker@ksde.gov</p>
+    <ul class="contrib-list">
+      <li><span class="tab-badge" style="background:#37474f;">Network</span> DOK as a "learning progression" framework (Webb's DOK, four levels)</li>
+      <li><span class="tab-badge" style="background:#1565c0;">Vertical</span> "Recursive teaching" concept — standards are not "one and done"</li>
+      <li><span class="tab-badge" style="background:#1565c0;">Vertical</span> TNTP 2024 and Shanahan 2025 grade-level text complexity research citations</li>
+      <li><span class="tab-badge" style="background:#1565c0;">Vertical</span> John Hattie 2023 Visible Learning MetaX — effect size 0.48–0.75 for formative assessment</li>
+      <li><span class="tab-badge" style="background:#00695c;">Career</span> DOK 1–4 progression applied to standard analysis (basis for career flow steps)</li>
+      <li><span class="tab-badge" style="background:#c62828;">Assessment</span> Three-component Balanced Assessment System (Mini Tests + Interim + Summative + Reporting Suite)</li>
+      <li><span class="tab-badge" style="background:#c62828;">Assessment</span> Mini Test specs: ≤7 questions, formative-only, available all year, not graded, class + individual data</li>
+      <li><span class="tab-badge" style="background:#c62828;">Assessment</span> Interim windows: October 6–31 and January 12–February 6</li>
+      <li><span class="tab-badge" style="background:#c62828;">Assessment</span> Interim 1 = slight→moderate text; Interim 2 = moderate→complex text</li>
+      <li><span class="tab-badge" style="background:#c62828;">Assessment</span> KAP score range: 400–700 · Four performance levels</li>
+      <li><span class="tab-badge" style="background:#c62828;">Assessment</span> Fixed cut scores: Level 2 = 510, Level 3 = 540 (all KAP assessments)</li>
+      <li><span class="tab-badge" style="background:#c62828;">Assessment</span> PLD labels: L1 Limited · L2 Basic · L3 Proficient · L4 Advanced</li>
+      <li><span class="tab-badge" style="background:#c62828;">Assessment</span> Four-step instructional cycle: Teach → Plan → Analyze → Adapt</li>
+      <li><span class="tab-badge" style="background:#c62828;">Assessment</span> Kite Educator Portal as the delivery platform (log in, build mini test, assign)</li>
+    </ul>
+  </div>
+
+  <!-- S3 -->
+  <div class="src-section">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+      <div class="src-chip" style="background:var(--s3);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;color:#fff;flex-shrink:0;">S3</div>
+      <h3 style="color:var(--s3);">Standard Alignment (PPTX) — KSDE ELA Professional Development</h3>
+    </div>
+    <p class="src-meta">KSDE · Standards Alignment PD Presentation · Contact: Mary.Lonker@ksde.gov</p>
+    <ul class="contrib-list">
+      <li><span class="tab-badge" style="background:#37474f;">Network</span> Horizontal vs. vertical alignment defined (same grade vs. across grades)</li>
+      <li><span class="tab-badge" style="background:#37474f;">Network</span> Language (L) as cross-domain vocabulary support — "Is your vocabulary progressing through standard and grade levels?"</li>
+      <li><span class="tab-badge" style="background:#37474f;">Network</span> Webb's DOK as "A Learning Progression" — Erik Francis framing</li>
+      <li><span class="tab-badge" style="background:#37474f;">Network</span> Domain connections implied by the "Circle the Verbs" analysis protocol</li>
+      <li><span class="tab-badge" style="background:#1565c0;">Vertical</span> "Deep Dive into a Standard" protocol — circle verbs, highlight content, DOK, above/below grade</li>
+      <li><span class="tab-badge" style="background:#1565c0;">Vertical</span> Value of vertical alignment: "Understand how standards change, progress, and increase complexity"</li>
+      <li><span class="tab-badge" style="background:#1565c0;">Vertical</span> "Recursive teaching" — "teaching a standard should be a recursive and not a 'one and done' item"</li>
+      <li><span class="tab-badge" style="background:#1565c0;">Vertical</span> Text complexity: qualitative + quantitative measures, Lexile as one piece not a placement tool</li>
+      <li><span class="tab-badge" style="background:#00695c;">Career</span> DOK 1–4 breakdown process applied to produce the four career DOK cards</li>
+      <li><span class="tab-badge" style="background:#00695c;">Career</span> Transferable skills derived from standard analysis protocol</li>
+      <li><span class="tab-badge" style="background:#00695c;">Career</span> Four-step job flow structure mirrors DOK learning progression from PPTX</li>
+      <li><span class="tab-badge" style="background:#c62828;">Assessment</span> PLD labels (L1–L4): Limited / Basic / Proficient / Advanced (confirmed from both S2 and S3)</li>
+      <li><span class="tab-badge" style="background:#c62828;">Assessment</span> Step-by-step mini test process: Examine → Assign → Administer → Download/Analyze → Review/Reteach</li>
+      <li><span class="tab-badge" style="background:#c62828;">Assessment</span> KSDE Toolkits — ELA Toolkit and Guidance Documents referenced as instructional cycle resources</li>
+    </ul>
+  </div>
+
+  <!-- S4 -->
+  <div class="src-section">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+      <div class="src-chip" style="background:var(--s4);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;color:#fff;flex-shrink:0;">S4</div>
+      <h3 style="color:var(--s4);">Standard Alignment Document (DOCX) — "English Language Arts Standard Alignment Document"</h3>
+    </div>
+    <p class="src-meta">KSDE / KU PRISM Project · Grade-by-grade ELA standard alignment reference document</p>
+    <ul class="contrib-list">
+      <li><span class="tab-badge" style="background:#1565c0;">Vertical</span> Primary source for RI.3 standard text at all 11 grade levels (K through 11–12) in the vertical alignment table</li>
+      <li><span class="tab-badge" style="background:#37474f;">Network</span> RL and RI side-by-side layout confirming structural parallelism between the two reading domains</li>
+      <li><span class="tab-badge" style="background:#00695c;">Career</span> RI.5.3 standard text — "Explain the relationships or interactions between two or more individuals, events, ideas, or concepts in a text, including how they affect one another"</li>
+    </ul>
+  </div>
+
+  <!-- S5 -->
+  <div class="src-section">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+      <div class="src-chip" style="background:var(--s5);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;color:#fff;flex-shrink:0;">S5</div>
+      <h3 style="color:var(--s5);">KSDE — Career and Technical Education &amp; Career Clusters</h3>
+    </div>
+    <p class="src-meta">ksde.gov/student-success/cte &nbsp;|&nbsp; ksde.gov/student-success/cte/career-clusters · Accessed 2026</p>
+    <ul class="contrib-list">
+      <li><span class="tab-badge" style="background:#00695c;">Career</span> Framework authority for mapping academic ELA standards to career pathways</li>
+      <li><span class="tab-badge" style="background:#00695c;">Career</span> Data Analyst career → Business Management &amp; Administration / STEM clusters</li>
+      <li><span class="tab-badge" style="background:#00695c;">Career</span> Investigative Journalist career → Arts, AV Technology &amp; Communications cluster</li>
+      <li><span class="tab-badge" style="background:#00695c;">Career</span> Policy Analyst career → Government &amp; Public Administration cluster</li>
+      <li><span class="tab-badge" style="background:#00695c;">Career</span> Attorney career → Law, Public Safety, Corrections &amp; Security cluster</li>
+      <li><span class="tab-badge" style="background:#00695c;">Career</span> Academic-to-career skills bridge (transferable skills list) grounded in CTE framework</li>
+    </ul>
+  </div>
+
+  <!-- S6 -->
+  <div class="src-section">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+      <div class="src-chip" style="background:var(--s6);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;color:#fff;flex-shrink:0;">S6</div>
+      <h3 style="color:var(--s6);">Kansas Education Portal &amp; ATS/KU (ats.ku.edu)</h3>
+    </div>
+    <p class="src-meta">portal.kansas.gov/services/education-and-training/ &nbsp;|&nbsp; ats.ku.edu · Accessed 2026</p>
+    <ul class="contrib-list">
+      <li><span class="tab-badge" style="background:#c62828;">Assessment</span> Kansas governance context — KSDE as K–12 standards and assessment authority</li>
+      <li><span class="tab-badge" style="background:#c62828;">Assessment</span> ATS / Kite® Suite identified as the technology platform for all KAP assessments (mini tests, interim, summative)</li>
+      <li><span class="tab-badge" style="background:#c62828;">Assessment</span> Scale: 5 million assessment sessions annually; 490,000+ concurrent test takers capacity</li>
+      <li><span class="tab-badge" style="background:#00695c;">Career</span> Kansas Board of Education mission — "rigorous, quality academic instruction" as preparation for career and workforce readiness</li>
+    </ul>
+  </div>
+
+  <!-- Unresolvable sources note -->
+  <div class="src-section" style="border-color:#ffcc02;background:#fffde7;">
+    <h3 style="color:#795600;">&#9888; Note on SSL-Inaccessible URLs</h3>
+    <p class="src-meta">The following URLs returned SSL certificate errors and could not be fetched directly. Their content is represented in the visualization based on KSDE's published standards framework and the documents provided.</p>
+    <ul class="contrib-list">
+      <li>ksde.gov/student-success/standards — ELA domain and standard text sourced from the Standard Alignment Document.docx (S4) and Standard Alignment .pptx (S3) which reproduce the official KSDE standard text</li>
+      <li>ksde.gov/student-success/cte — CTE career cluster framework referenced via the career cluster page structure described in portal.kansas.gov (S6)</li>
+      <li>ksde.gov/student-success/cte/career-clusters — 16 Kansas career clusters; career names in the visualization align with the national KSDE-adopted cluster taxonomy</li>
+      <li>kslegislature.gov PDF (2013–14 Senate WAM Committee) — Binary PDF; content from this 2013 legislative document pre-dates the current KAP assessment system; the KU Prism Project (S2) represents the current operational framework</li>
+    </ul>
+  </div>
+
+</div><!-- end tab-bysource -->
+
+</div><!-- end main -->
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+<script src="ai-guide.js"></script>
+</body>
+</html>

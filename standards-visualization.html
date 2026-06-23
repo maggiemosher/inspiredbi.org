@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KSDE ELA Standards — Connection Visualization</title>
+<style>
+:root {
+  --rl:#1565c0; --rl-light:#e3f2fd;
+  --ri:#00695c; --ri-light:#e0f2f1;
+  --rf:#6a1b9a; --rf-light:#f3e5f5;
+  --w:#c62828;  --w-light:#fce4ec;
+  --sl:#e65100; --sl-light:#fff3e0;
+  --l:#2e7d32;  --l-light:#e8f5e9;
+  --dok:#37474f;--dok-light:#f5f5f5;
+  --bg:#f0f2ff; --card:#ffffff;
+  --header1:#1a237e; --header2:#283593;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#37474f;min-height:100vh;}
+
+/* ── HEADER ── */
+header{
+  background:linear-gradient(135deg,var(--header1),var(--header2));
+  color:#fff;padding:22px 32px 18px;
+}
+header h1{font-size:22px;font-weight:700;margin-bottom:4px;}
+header p{font-size:13px;color:#c5cae9;}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:0;background:#fff;border-bottom:3px solid #e8eaf6;padding:0 24px;}
+.tab-btn{
+  padding:13px 22px;border:none;background:none;cursor:pointer;
+  font-size:13.5px;font-weight:600;color:#607d8b;border-bottom:3px solid transparent;
+  margin-bottom:-3px;transition:all .2s;
+}
+.tab-btn:hover{color:#1a237e;}
+.tab-btn.active{color:#1a237e;border-bottom-color:#1a237e;}
+
+/* ── SECTIONS ── */
+.tab-section{display:none;padding:24px 28px;}
+.tab-section.active{display:block;}
+
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid #e3e8f0;border-radius:10px;padding:20px 24px;margin-bottom:18px;}
+.card h2{font-size:16px;font-weight:700;color:var(--header1);margin-bottom:4px;}
+.card .subtitle{font-size:12.5px;color:#607d8b;margin-bottom:16px;}
+
+/* ── SVG NETWORK ── */
+#network-svg{width:100%;max-width:960px;display:block;margin:0 auto;}
+.domain-node{cursor:pointer;transition:all .2s;}
+.domain-node circle{filter:drop-shadow(2px 3px 6px rgba(0,0,0,.18));}
+.domain-node:hover circle{filter:drop-shadow(2px 3px 12px rgba(0,0,0,.32));}
+.edge-label{font-size:10px;fill:#546e7a;pointer-events:none;}
+.legend-item{cursor:default;}
+
+/* ── TOOLTIP ── */
+#tooltip{
+  position:fixed;display:none;background:#1a237e;color:#fff;
+  padding:10px 14px;border-radius:8px;font-size:12.5px;
+  max-width:240px;line-height:1.6;z-index:999;
+  box-shadow:0 4px 14px rgba(0,0,0,.3);pointer-events:none;
+}
+#tooltip strong{display:block;font-size:13px;margin-bottom:4px;color:#c5cae9;}
+
+/* ── VERTICAL ALIGNMENT TABLE ── */
+.va-table{width:100%;border-collapse:collapse;font-size:13px;}
+.va-table th{background:#1a237e;color:#fff;padding:10px 12px;text-align:left;}
+.va-table td{padding:9px 12px;border-bottom:1px solid #e8eaf6;vertical-align:top;line-height:1.5;}
+.va-table tr:nth-child(even) td{background:#f8f9ff;}
+.band-chip{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;margin-right:4px;}
+.dok-chip{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;color:#fff;}
+.verb-chip{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11.5px;font-weight:600;margin:2px 2px 2px 0;background:#e8eaf6;color:#1a237e;}
+
+/* ── CAREER SECTION ── */
+.career-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:18px;}
+.career-col{background:var(--card);border:1px solid #e3e8f0;border-radius:10px;padding:16px 18px;}
+.career-col h3{font-size:14px;font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #e8eaf6;}
+.step-arrow{text-align:center;font-size:28px;color:#1a237e;align-self:center;margin-top:24px;}
+.skill-pill{display:inline-block;background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;border-radius:20px;padding:5px 12px;font-size:12.5px;margin:3px;font-weight:600;}
+.career-card{border-left:4px solid var(--ri);padding:14px 16px;background:#e0f2f1;border-radius:0 8px 8px 0;margin-bottom:10px;}
+.career-card h4{font-size:14px;font-weight:700;color:#004d40;margin-bottom:6px;}
+.career-card p{font-size:13px;color:#37474f;line-height:1.6;}
+
+.standard-box{background:linear-gradient(135deg,var(--header1),var(--header2));color:#fff;border-radius:10px;padding:18px 22px;margin-bottom:18px;}
+.standard-box .code{font-size:18px;font-weight:700;margin-bottom:4px;}
+.standard-box .text{font-size:14px;color:#c5cae9;line-height:1.6;}
+
+.dok-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
+.dok-card{border-radius:8px;padding:14px 16px;border:1px solid #e3e8f0;}
+.dok-card .level{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.dok-card .what{font-size:13px;font-weight:600;margin-bottom:6px;}
+.dok-card .example{font-size:12px;color:#455a64;line-height:1.5;}
+
+.job-showcase{background:var(--card);border:2px solid var(--ri);border-radius:10px;padding:20px 24px;}
+.job-showcase h3{font-size:16px;font-weight:700;color:#004d40;margin-bottom:14px;}
+.job-flow{display:flex;align-items:flex-start;gap:0;}
+.job-step{background:#e0f2f1;border-radius:8px;padding:14px 16px;flex:1;min-height:120px;}
+.job-step .step-num{font-size:11px;font-weight:700;color:#00897b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.job-step .step-title{font-size:13.5px;font-weight:700;color:#004d40;margin-bottom:6px;}
+.job-step .step-desc{font-size:12.5px;color:#37474f;line-height:1.5;}
+.job-arrow{font-size:22px;color:#00897b;align-self:center;padding:0 8px;flex-shrink:0;}
+
+/* ── ASSESSMENT HIERARCHY ── */
+.assess-row{display:flex;align-items:stretch;gap:12px;margin-bottom:12px;}
+.assess-box{flex:1;border-radius:8px;padding:14px 16px;border:1px solid #e3e8f0;}
+.assess-box .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.assess-box .name{font-size:14px;font-weight:700;margin-bottom:4px;}
+.assess-box .desc{font-size:12.5px;line-height:1.5;}
+
+/* ── PBL TAB ── */
+.grade-filter{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;align-items:center;}
+.grade-filter-label{font-size:12px;font-weight:700;color:#607d8b;text-transform:uppercase;letter-spacing:.06em;margin-right:4px;}
+.grade-btn{padding:8px 20px;border:2px solid #e8eaf6;background:#fff;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;color:#607d8b;transition:all .2s;}
+.grade-btn:hover{border-color:#1a237e;color:#1a237e;}
+.grade-btn.active{background:#1a237e;color:#fff;border-color:#1a237e;}
+.pbl-band{display:none;}
+.pbl-band.active{display:block;}
+.pbl-intro-box{background:linear-gradient(135deg,var(--header1),var(--header2));color:#fff;border-radius:10px;padding:20px 26px;margin-bottom:22px;}
+.pbl-intro-box h2{font-size:16px;font-weight:700;margin-bottom:6px;}
+.pbl-intro-box p{font-size:13.5px;color:#c5cae9;line-height:1.7;}
+.rw-connection-box{border-radius:10px;padding:16px 22px;margin-bottom:20px;border:1px solid;}
+.rw-connection-box h3{font-size:14px;font-weight:700;margin-bottom:8px;}
+.rw-connection-box p{font-size:13px;line-height:1.65;}
+.pbl-activity-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px;}
+@media(max-width:700px){.pbl-activity-grid{grid-template-columns:1fr;}}
+.pbl-card{background:#fff;border:1px solid #e3e8f0;border-radius:10px;padding:18px 20px;border-top:4px solid #1a237e;position:relative;}
+.pbl-card .project-emoji{font-size:24px;margin-bottom:8px;display:block;}
+.pbl-card .project-name{font-size:14.5px;font-weight:700;color:var(--header1);margin-bottom:6px;line-height:1.3;}
+.pbl-section-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#607d8b;margin:10px 0 4px;}
+.pbl-desc{font-size:12.5px;color:#37474f;line-height:1.65;}
+.deliverable-chip{display:inline-block;background:#fff3e0;color:#e65100;border:1px solid #ffcc80;border-radius:12px;padding:3px 10px;font-size:11.5px;font-weight:600;margin:2px 2px 2px 0;}
+.pbl-standards-row{display:flex;flex-wrap:wrap;gap:3px;margin:4px 0;}
+.dok-badge{display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:700;color:#fff;}
+.pbl-spotlight{background:#e8eaf6;border:2px solid #1a237e;border-radius:10px;padding:16px 20px;margin-top:20px;}
+.pbl-spotlight h3{font-size:14px;font-weight:700;color:#1a237e;margin-bottom:8px;}
+.pbl-spotlight p{font-size:13px;color:#37474f;line-height:1.65;}
+.pbl-band-header{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid #e8eaf6;}
+.pbl-band-header .band-icon{font-size:36px;}
+.pbl-band-header h2{font-size:18px;font-weight:700;color:var(--header1);margin-bottom:3px;}
+.pbl-band-header p{font-size:13px;color:#607d8b;}
+.pbl-full-project{background:#fff;border:1px solid #e3e8f0;border-radius:10px;padding:20px 24px;margin-bottom:16px;border-left:5px solid;}
+.pbl-full-project .proj-title{font-size:15px;font-weight:700;color:var(--header1);margin-bottom:4px;}
+.pbl-full-project .proj-tagline{font-size:12.5px;color:#607d8b;margin-bottom:14px;font-style:italic;}
+.pbl-full-project .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:700px){.pbl-full-project .proj-grid{grid-template-columns:1fr;}}
+.proj-cell{background:#f8f9ff;border-radius:7px;padding:12px 14px;}
+.proj-cell .cell-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#607d8b;margin-bottom:5px;}
+.proj-cell .cell-body{font-size:12.5px;color:#37474f;line-height:1.6;}
+
+/* ── CROSS-CURRICULAR TAB ── */
+.special-filter{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;align-items:center;}
+.special-btn{padding:8px 18px;border:2px solid #e8eaf6;background:#fff;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;color:#607d8b;transition:all .2s;}
+.special-btn:hover{border-color:#1a237e;color:#1a237e;}
+.special-btn.active{background:#1a237e;color:#fff;border-color:#1a237e;}
+.special-panel{display:none;}
+.special-panel.active{display:block;}
+.special-header{display:flex;align-items:center;gap:16px;margin-bottom:18px;padding:16px 20px;border-radius:10px;border:1px solid #e3e8f0;}
+.special-header .sp-icon{font-size:40px;flex-shrink:0;}
+.special-header h2{font-size:17px;font-weight:700;color:var(--header1);margin-bottom:3px;}
+.special-header p{font-size:13px;color:#607d8b;line-height:1.55;}
+.sp-bridge{border-radius:10px;padding:15px 20px;margin-bottom:18px;border-left:5px solid;}
+.sp-bridge h3{font-size:13.5px;font-weight:700;margin-bottom:6px;}
+.sp-bridge p{font-size:13px;line-height:1.65;}
+.sp-activity{background:#fff;border:1px solid #e3e8f0;border-radius:10px;padding:18px 22px;margin-bottom:14px;border-top:4px solid;}
+.sp-activity .act-title{font-size:14px;font-weight:700;color:var(--header1);margin-bottom:3px;}
+.sp-activity .act-sub{font-size:12px;color:#607d8b;font-style:italic;margin-bottom:12px;}
+.sp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+@media(max-width:700px){.sp-grid{grid-template-columns:1fr;}}
+.sp-cell{background:#f8f9ff;border-radius:7px;padding:11px 13px;}
+.sp-cell .sc-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#607d8b;margin-bottom:4px;}
+.sp-cell .sc-body{font-size:12.5px;color:#37474f;line-height:1.6;}
+.cross-intro{background:linear-gradient(135deg,#1a237e,#283593);color:#fff;border-radius:10px;padding:20px 26px;margin-bottom:22px;}
+.cross-intro h2{font-size:16px;font-weight:700;margin-bottom:6px;}
+.cross-intro p{font-size:13.5px;color:#c5cae9;line-height:1.7;}
+.gen-note{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:8px;padding:13px 18px;margin-top:18px;font-size:13px;color:#1b5e20;line-height:1.65;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>KSDE ELA Standards — Connection Visualization</h1>
+  <p>KU PRISM Project &nbsp;|&nbsp; Balanced Assessments with KAP &nbsp;|&nbsp; Standards Alignment &amp; Vertical Progression</p>
+</header>
+
+<!-- ── TAB NAVIGATION ── -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('network')">&#127760;&nbsp; Standards Network</button>
+  <button class="tab-btn" onclick="showTab('vertical')">&#128200;&nbsp; Vertical Alignment</button>
+  <button class="tab-btn" onclick="showTab('career')">&#128188;&nbsp; Standard &rarr; Career</button>
+  <button class="tab-btn" onclick="showTab('assessment')">&#128202;&nbsp; Assessment System</button>
+  <button class="tab-btn" onclick="showTab('pbl')">&#127758;&nbsp; Real World &amp; PBL</button>
+  <button class="tab-btn" onclick="showTab('cross')">&#127912;&nbsp; Cross Curricular</button>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     TAB 1 — STANDARDS NETWORK
+     ══════════════════════════════════════════════════════════ -->
+<div class="tab-section active" id="tab-network">
+  <div class="card">
+    <h2>ELA Standards Ecosystem — How Domains Connect</h2>
+    <p class="subtitle">Hover over any domain node to see how it connects to others. Lines show the relationship type; line weight shows connection strength.</p>
+
+    <svg id="network-svg" viewBox="0 0 960 590" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Arrow markers -->
+        <marker id="arrow-bidi" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#90a4ae"/>
+        </marker>
+        <marker id="arrow-one" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#b0bec5"/>
+        </marker>
+        <marker id="arrow-strong" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#1a237e"/>
+        </marker>
+
+        <!-- Glow filter -->
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- ── BACKGROUND ZONES ── -->
+      <rect x="30" y="20" width="900" height="560" rx="14" fill="#f8f9ff" stroke="#e8eaf6" stroke-width="1.5"/>
+
+
+      <!-- ── EDGES (drawn first, behind nodes) ── -->
+
+      <!-- RL ↔ RI: parallel structure — strong double line -->
+      <path d="M 310,150 Q 480,95 650,150" stroke="#1a237e" stroke-width="3" fill="none" stroke-dasharray="none" marker-end="url(#arrow-strong)" opacity="0.7"/>
+      <path d="M 650,170 Q 480,120 310,170" stroke="#1a237e" stroke-width="3" fill="none" marker-end="url(#arrow-strong)" opacity="0.7"/>
+      <text x="480" y="108" text-anchor="middle" class="edge-label" fill="#1a237e" font-weight="700">Parallel Structure (KID · CS · IKI)</text>
+
+      <!-- L → RL -->
+      <path d="M 455,280 Q 380,230 320,200" stroke="#2e7d32" stroke-width="2.5" fill="none" marker-end="url(#arrow-bidi)" opacity="0.8"/>
+      <text x="370" y="231" class="edge-label" transform="rotate(-30,370,231)" fill="#2e7d32">Vocabulary</text>
+
+      <!-- L → RI -->
+      <path d="M 505,280 Q 580,230 640,200" stroke="#2e7d32" stroke-width="2.5" fill="none" marker-end="url(#arrow-bidi)" opacity="0.8"/>
+      <text x="590" y="231" class="edge-label" transform="rotate(30,590,231)" fill="#2e7d32">Vocabulary</text>
+
+      <!-- L → W -->
+      <path d="M 460,340 Q 410,390 370,430" stroke="#2e7d32" stroke-width="2.5" fill="none" marker-end="url(#arrow-bidi)" opacity="0.8"/>
+      <text x="395" y="398" class="edge-label" transform="rotate(-45,395,398)" fill="#2e7d32">Grammar &amp; Conventions</text>
+
+      <!-- L → SL -->
+      <path d="M 525,315 Q 620,340 710,360" stroke="#2e7d32" stroke-width="2" fill="none" marker-end="url(#arrow-bidi)" opacity="0.6"/>
+      <text x="625" y="330" class="edge-label" fill="#2e7d32">Language in Discourse</text>
+
+      <!-- L → RF -->
+      <path d="M 455,315 Q 330,330 250,340" stroke="#6a1b9a" stroke-width="2" fill="none" marker-end="url(#arrow-bidi)" opacity="0.6"/>
+      <text x="320" y="315" class="edge-label" fill="#6a1b9a">Phonics &amp; Word Study</text>
+
+      <!-- RF → RL -->
+      <path d="M 240,290 Q 270,220 290,185" stroke="#6a1b9a" stroke-width="2" fill="none" marker-end="url(#arrow-one)" stroke-dasharray="5,3" opacity="0.7"/>
+      <text x="240" y="228" class="edge-label" transform="rotate(-70,240,228)" fill="#6a1b9a">Enables</text>
+
+      <!-- RF → RI (long arc) -->
+      <path d="M 240,275 Q 350,200 620,175" stroke="#6a1b9a" stroke-width="1.5" fill="none" marker-end="url(#arrow-one)" stroke-dasharray="5,3" opacity="0.5"/>
+
+      <!-- RI → W (research) -->
+      <path d="M 640,220 Q 590,340 395,435" stroke="#00695c" stroke-width="2" fill="none" marker-end="url(#arrow-one)" stroke-dasharray="4,3" opacity="0.6"/>
+      <text x="565" y="340" class="edge-label" transform="rotate(-60,565,340)" fill="#00695c">Research Evidence</text>
+
+      <!-- RL → W (literary evidence) -->
+      <path d="M 300,215 Q 330,330 355,430" stroke="#1565c0" stroke-width="2" fill="none" marker-end="url(#arrow-one)" stroke-dasharray="4,3" opacity="0.6"/>
+      <text x="295" y="340" class="edge-label" transform="rotate(-80,295,340)" fill="#1565c0">Literary Evidence</text>
+
+      <!-- W ↔ SL -->
+      <path d="M 410,445 Q 560,460 700,415" stroke="#e65100" stroke-width="2" fill="none" marker-end="url(#arrow-bidi)" opacity="0.7"/>
+      <text x="555" y="467" text-anchor="middle" class="edge-label" fill="#e65100">Production Pair</text>
+
+      <!-- SL ↔ RL -->
+      <path d="M 720,340 Q 680,250 650,195" stroke="#c62828" stroke-width="1.5" fill="none" marker-end="url(#arrow-bidi)" stroke-dasharray="4,3" opacity="0.5"/>
+      <text x="710" y="270" class="edge-label" transform="rotate(-75,710,270)" fill="#c62828">Literary Discussion</text>
+
+      <!-- DOK progression arrow -->
+      <path d="M 100,557 L 840,557" stroke="#37474f" stroke-width="2" fill="none" marker-end="url(#arrow-strong)" opacity="0.5"/>
+      <text x="470" y="574" text-anchor="middle" font-size="10.5" fill="#546e7a" font-weight="600">INCREASING DEPTH OF KNOWLEDGE →</text>
+
+      <!-- DOK connectors to L (center) -->
+      <path d="M 210,527 Q 350,450 472,342" stroke="#37474f" stroke-width="1" fill="none" stroke-dasharray="2,4" opacity="0.35"/>
+      <path d="M 410,527 Q 450,450 478,342" stroke="#37474f" stroke-width="1" fill="none" stroke-dasharray="2,4" opacity="0.35"/>
+
+      <!-- ── DOK NODES ── -->
+      <!-- DOK 1 -->
+      <g class="domain-node" onmouseenter="showTip(event,'DOK 1 — Recall &amp; Reproduction','Identifying, listing, defining. Students can name a concept but not yet explain it. Example: Circle the verbs in the standard.')" onmouseleave="hideTip()">
+        <rect x="80" y="510" width="120" height="34" rx="17" fill="#eceff1" stroke="#607d8b" stroke-width="1.5"/>
+        <text x="140" y="530" text-anchor="middle" font-size="12" font-weight="700" fill="#37474f">DOK 1</text>
+        <text x="140" y="543" text-anchor="middle" font-size="10" fill="#607d8b">Recall</text>
+      </g>
+      <!-- DOK 2 -->
+      <g class="domain-node" onmouseenter="showTip(event,'DOK 2 — Skills &amp; Concepts','Comparing, categorizing, inferring. Students apply a skill in a familiar context. Example: Compare how RL and RI standards differ at Grade 5.')" onmouseleave="hideTip()">
+        <rect x="280" y="510" width="120" height="34" rx="17" fill="#cfd8dc" stroke="#455a64" stroke-width="1.5"/>
+        <text x="340" y="530" text-anchor="middle" font-size="12" font-weight="700" fill="#37474f">DOK 2</text>
+        <text x="340" y="543" text-anchor="middle" font-size="10" fill="#546e7a">Skills</text>
+      </g>
+      <!-- DOK 3 -->
+      <g class="domain-node" onmouseenter="showTip(event,'DOK 3 — Strategic Thinking','Analyzing, evaluating, justifying. Students construct reasoning. Example: Evaluate how a text's structure affects the reader's understanding of the author's purpose.')" onmouseleave="hideTip()">
+        <rect x="480" y="510" width="120" height="34" rx="17" fill="#90a4ae" stroke="#37474f" stroke-width="1.5"/>
+        <text x="540" y="530" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">DOK 3</text>
+        <text x="540" y="543" text-anchor="middle" font-size="10" fill="#e8eaf6">Strategic</text>
+      </g>
+      <!-- DOK 4 -->
+      <g class="domain-node" onmouseenter="showTip(event,'DOK 4 — Extended Thinking','Designing, synthesizing across texts/sources. Students transfer learning to new situations. Example: Write an original argument synthesizing claims across three informational texts.')" onmouseleave="hideTip()">
+        <rect x="680" y="510" width="120" height="34" rx="17" fill="#37474f" stroke="#263238" stroke-width="1.5"/>
+        <text x="740" y="530" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">DOK 4</text>
+        <text x="740" y="543" text-anchor="middle" font-size="10" fill="#b0bec5">Extended</text>
+      </g>
+
+      <!-- ── DOMAIN NODES ── -->
+
+      <!-- L — Language (CENTER HUB) -->
+      <g class="domain-node"
+         onmouseenter="showTip(event,'Language (L) — The Connective Hub','Language standards underpin every other ELA domain. Vocabulary, grammar, and conventions standards support reading comprehension (RL, RI), enable written expression (W), and shape spoken communication (SL). L is taught in context, not in isolation. Connects: RL, RI, RF, W, SL.')"
+         onmouseleave="hideTip()">
+        <circle cx="480" cy="308" r="50" fill="var(--l)" stroke="#fff" stroke-width="3"/>
+        <text x="480" y="302" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">L</text>
+        <text x="480" y="320" text-anchor="middle" font-size="11" fill="#c8e6c9">Language</text>
+        <text x="480" y="334" text-anchor="middle" font-size="10" fill="#a5d6a7">Hub Node</text>
+      </g>
+
+      <!-- RL — Reading Literature -->
+      <g class="domain-node"
+         onmouseenter="showTip(event,'Reading: Literature (RL)','Covers Key Ideas &amp; Details, Craft &amp; Structure, and Integration of Knowledge &amp; Ideas for literary text. Shares parallel cluster structure with RI. Connects to: W (literary evidence in argument writing), SL (discussion of literary themes), L (vocabulary in context). Progresses K–12 in text complexity and cognitive demand.')"
+         onmouseleave="hideTip()">
+        <circle cx="290" cy="175" r="58" fill="var(--rl)" stroke="#fff" stroke-width="3"/>
+        <text x="290" y="165" text-anchor="middle" font-size="24" font-weight="900" fill="#fff">RL</text>
+        <text x="290" y="184" text-anchor="middle" font-size="11" fill="#bbdefb">Reading:</text>
+        <text x="290" y="197" text-anchor="middle" font-size="11" fill="#bbdefb">Literature</text>
+      </g>
+
+      <!-- RI — Reading Informational -->
+      <g class="domain-node"
+         onmouseenter="showTip(event,'Reading: Informational Text (RI)','Same three-cluster structure as RL (KID, CS, IKI) but applied to nonfiction. Connects to: W (research &amp; evidence writing — W.7, W.8, W.9 explicitly reference RI), SL (discussing informational content), L (academic vocabulary). Text complexity increases from slight (Interim 1) to complex (Interim 2 / Summative).')"
+         onmouseleave="hideTip()">
+        <circle cx="670" cy="175" r="58" fill="var(--ri)" stroke="#fff" stroke-width="3"/>
+        <text x="670" y="165" text-anchor="middle" font-size="24" font-weight="900" fill="#fff">RI</text>
+        <text x="670" y="184" text-anchor="middle" font-size="11" fill="#b2dfdb">Reading:</text>
+        <text x="670" y="197" text-anchor="middle" font-size="11" fill="#b2dfdb">Informational</text>
+      </g>
+
+      <!-- RF — Reading Foundational -->
+      <g class="domain-node"
+         onmouseenter="showTip(event,'Reading: Foundational Skills (RF)','Phonics, phonemic awareness, fluency, and print concepts. Foundational for all reading (RL, RI). Connects strongly to Language (L) for word study and phonics. Taught K–5; mastery enables students to access grade-level complex text. Without RF, students cannot access RL or RI independently.')"
+         onmouseleave="hideTip()">
+        <circle cx="195" cy="320" r="52" fill="var(--rf)" stroke="#fff" stroke-width="3"/>
+        <text x="195" y="310" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">RF</text>
+        <text x="195" y="327" text-anchor="middle" font-size="10.5" fill="#e1bee7">Reading:</text>
+        <text x="195" y="341" text-anchor="middle" font-size="10.5" fill="#e1bee7">Foundational</text>
+      </g>
+
+      <!-- W — Writing -->
+      <g class="domain-node"
+         onmouseenter="showTip(event,'Writing (W)','Text Types (Opinion/Argument, Informative, Narrative), Production &amp; Distribution, Research, and Range of Writing. Writing standards explicitly require students to draw evidence from RL and RI texts (W.9). Connects to SL (drafting &amp; presenting), L (grammar/conventions), RI (research writing). Progresses from basic structure (K–2) through argumentation (3–12).')"
+         onmouseleave="hideTip()">
+        <circle cx="362" cy="450" r="55" fill="var(--w)" stroke="#fff" stroke-width="3"/>
+        <text x="362" y="443" text-anchor="middle" font-size="24" font-weight="900" fill="#fff">W</text>
+        <text x="362" y="462" text-anchor="middle" font-size="11" fill="#ffcdd2">Writing</text>
+      </g>
+
+      <!-- SL — Speaking & Listening -->
+      <g class="domain-node"
+         onmouseenter="showTip(event,'Speaking &amp; Listening (SL)','Comprehension &amp; Collaboration and Presentation of Knowledge &amp; Ideas. Students discuss what they read (RL, RI) and present ideas they developed in writing (W). Language (L) vocabulary supports oral expression. SL is the spoken counterpart to Writing — both are production domains. Connects: RL, RI, W, L.')"
+         onmouseleave="hideTip()">
+        <circle cx="755" cy="380" r="52" fill="var(--sl)" stroke="#fff" stroke-width="3"/>
+        <text x="755" y="370" text-anchor="middle" font-size="20" font-weight="900" fill="#fff">SL</text>
+        <text x="755" y="386" text-anchor="middle" font-size="10.5" fill="#ffe0b2">Speaking &amp;</text>
+        <text x="755" y="400" text-anchor="middle" font-size="10.5" fill="#ffe0b2">Listening</text>
+      </g>
+
+
+      <!-- ── LEGEND ── -->
+      <g transform="translate(30,430)">
+        <rect x="0" y="0" width="180" height="68" rx="6" fill="#fff" stroke="#e3e8f0" stroke-width="1"/>
+        <text x="90" y="14" text-anchor="middle" font-size="10.5" font-weight="700" fill="#37474f">CONNECTION KEY</text>
+        <line x1="10" y1="28" x2="50" y2="28" stroke="#1a237e" stroke-width="2.5"/>
+        <text x="56" y="32" font-size="10" fill="#37474f">Strong / Parallel Structure</text>
+        <line x1="10" y1="44" x2="50" y2="44" stroke="#607d8b" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="56" y="48" font-size="10" fill="#37474f">Supports / Enables</text>
+        <line x1="10" y1="60" x2="50" y2="60" stroke="#2e7d32" stroke-width="2"/>
+        <text x="56" y="64" font-size="10" fill="#37474f">Language Support</text>
+      </g>
+    </svg>
+  </div>
+</div><!-- end tab-network -->
+
+<!-- ══════════════════════════════════════════════════════════
+     TAB 2 — VERTICAL ALIGNMENT
+     ══════════════════════════════════════════════════════════ -->
+<div class="tab-section" id="tab-vertical">
+  <div class="card">
+    <h2>Vertical Alignment — How One Standard Grows Across Grade Levels</h2>
+    <p class="subtitle">Standard strand: <strong>RI.3 — Key Ideas &amp; Details, Standard 3</strong> &nbsp;|&nbsp; Traced from Grade K through Grade 12. Notice how the verbs, content complexity, and DOK demand escalate at every grade band.</p>
+
+    <table class="va-table">
+      <thead>
+        <tr>
+          <th style="width:70px;">Grade</th>
+          <th style="width:100px;">Band</th>
+          <th>Standard Text (RI.3)</th>
+          <th style="width:130px;">Key Verbs</th>
+          <th style="width:80px;">DOK</th>
+          <th>What It Means in Practice</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:700;color:var(--rf);">K</td>
+          <td><span class="band-chip" style="background:#f3e5f5;color:#6a1b9a;">K–2</span></td>
+          <td>With prompting and support, describe the connection between two individuals, events, ideas, or pieces of information in a text.</td>
+          <td><span class="verb-chip">describe</span><span class="verb-chip">connect</span></td>
+          <td><span class="dok-chip" style="background:#90a4ae;">DOK 1</span></td>
+          <td>Teacher points to two pictures; student says how they relate. "The sun gives us warmth AND light."</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--rf);">1</td>
+          <td><span class="band-chip" style="background:#f3e5f5;color:#6a1b9a;">K–2</span></td>
+          <td>Describe the connection between two individuals, events, ideas, or pieces of information in a text.</td>
+          <td><span class="verb-chip">describe</span><span class="verb-chip">connect</span></td>
+          <td><span class="dok-chip" style="background:#90a4ae;">DOK 1</span></td>
+          <td>Prompting scaffold removed. Student identifies connection independently from simple texts.</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--rf);">2</td>
+          <td><span class="band-chip" style="background:#f3e5f5;color:#6a1b9a;">K–2</span></td>
+          <td>Describe the connection between a series of historical events, scientific ideas or concepts, or steps in technical procedures in a text.</td>
+          <td><span class="verb-chip">describe</span><span class="verb-chip">series</span><span class="verb-chip">steps</span></td>
+          <td><span class="dok-chip" style="background:#78909c;">DOK 1–2</span></td>
+          <td>Now must track a <em>sequence or chain</em> of relationships — procedural and historical texts introduced.</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--rl);">3</td>
+          <td><span class="band-chip" style="background:#e3f2fd;color:#1565c0;">3–5</span></td>
+          <td>Describe the relationship between a series of historical events, scientific ideas or concepts, or steps in technical procedures in a text, using language that pertains to time, sequence, and cause/effect.</td>
+          <td><span class="verb-chip">describe</span><span class="verb-chip">cause/effect</span><span class="verb-chip">sequence</span></td>
+          <td><span class="dok-chip" style="background:#546e7a;">DOK 2</span></td>
+          <td><strong>Cause/effect language explicitly added.</strong> Students must label WHY events connect, not just that they do.</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--rl);">4</td>
+          <td><span class="band-chip" style="background:#e3f2fd;color:#1565c0;">3–5</span></td>
+          <td>Explain events, procedures, ideas, or concepts in a historical, scientific, or technical text, including what happened and why, based on specific information in the text.</td>
+          <td><span class="verb-chip">explain</span><span class="verb-chip">what happened</span><span class="verb-chip">why</span></td>
+          <td><span class="dok-chip" style="background:#455a64;">DOK 2–3</span></td>
+          <td>Verb upgrades from <em>describe</em> → <em>explain</em>. Evidence must come <em>from the text</em>. "Why" is now required.</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--rl);">5</td>
+          <td><span class="band-chip" style="background:#e3f2fd;color:#1565c0;">3–5</span></td>
+          <td>Explain the relationships or interactions between two or more individuals, events, ideas, or concepts in a text, including how they affect one another.</td>
+          <td><span class="verb-chip">explain</span><span class="verb-chip">relationships</span><span class="verb-chip">how they affect</span></td>
+          <td><span class="dok-chip" style="background:#455a64;">DOK 3</span></td>
+          <td>Plural: <em>two or more</em> relationships. Must explain <em>effect direction</em> (A affects B, B affects C). This is the career-connection example.</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--ri);">6</td>
+          <td><span class="band-chip" style="background:#e0f2f1;color:#00695c;">6–8</span></td>
+          <td>Analyze in detail how a key individual, event, or idea is introduced, illustrated, and elaborated in a text.</td>
+          <td><span class="verb-chip">analyze</span><span class="verb-chip">introduced</span><span class="verb-chip">elaborated</span></td>
+          <td><span class="dok-chip" style="background:#37474f;">DOK 3</span></td>
+          <td>Major shift: <em>describe/explain</em> → <em>analyze</em>. Now must examine HOW the author constructs meaning, not just what the text says.</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--ri);">7</td>
+          <td><span class="band-chip" style="background:#e0f2f1;color:#00695c;">6–8</span></td>
+          <td>Analyze the interactions between individuals, events, and ideas in a text (e.g., how ideas influence individuals or events, or how individuals influence ideas or events).</td>
+          <td><span class="verb-chip">analyze</span><span class="verb-chip">interactions</span><span class="verb-chip">influence</span></td>
+          <td><span class="dok-chip" style="background:#37474f;">DOK 3–4</span></td>
+          <td>Bidirectional influence now required. Students must trace multi-directional causation across a complex text.</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--ri);">8</td>
+          <td><span class="band-chip" style="background:#e0f2f1;color:#00695c;">6–8</span></td>
+          <td>Analyze how a text makes connections among and distinctions between individuals, ideas, or events (e.g., through comparisons, analogies, or categories).</td>
+          <td><span class="verb-chip">analyze</span><span class="verb-chip">connections</span><span class="verb-chip">distinctions</span></td>
+          <td><span class="dok-chip" style="background:#37474f;">DOK 3–4</span></td>
+          <td>Now analyzing the <em>author's rhetorical choices</em> in how they organize and connect ideas — not just what the connections are.</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--w);">9–10</td>
+          <td><span class="band-chip" style="background:#fce4ec;color:#c62828;">9–12</span></td>
+          <td>Analyze seminal U.S. documents of historical and literary significance, noting how they address related themes or topics.</td>
+          <td><span class="verb-chip">analyze</span><span class="verb-chip">seminal documents</span><span class="verb-chip">across texts</span></td>
+          <td><span class="dok-chip" style="background:#c62828;">DOK 4</span></td>
+          <td>Cross-text analysis required. Students connect primary sources to each other and to larger historical themes. DOK 4 transfer.</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--w);">11–12</td>
+          <td><span class="band-chip" style="background:#fce4ec;color:#c62828;">9–12</span></td>
+          <td>Analyze seventeenth-, eighteenth-, and nineteenth-century foundational U.S. and world documents of historical and literary significance for their themes, purposes, and rhetorical features.</td>
+          <td><span class="verb-chip">analyze</span><span class="verb-chip">themes</span><span class="verb-chip">rhetorical features</span><span class="verb-chip">purpose</span></td>
+          <td><span class="dok-chip" style="background:#b71c1c;">DOK 4</span></td>
+          <td>Highest complexity: analyze rhetorical structure, purpose, and historical context simultaneously across primary source documents.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>The Big Takeaway — What Vertical Alignment Reveals</h2>
+    <p class="subtitle">Three dimensions escalate together as grade level rises.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:6px;">
+      <div style="background:#e8f5e9;border-left:4px solid #2e7d32;border-radius:6px;padding:14px;">
+        <p style="font-weight:700;color:#1b5e20;margin-bottom:6px;">&#128200; Verb Complexity</p>
+        <p style="font-size:13px;color:#37474f;line-height:1.6;"><strong>K–2:</strong> describe, connect<br><strong>3–5:</strong> explain<br><strong>6–8:</strong> analyze<br><strong>9–12:</strong> analyze + evaluate + synthesize</p>
+      </div>
+      <div style="background:#e3f2fd;border-left:4px solid #1565c0;border-radius:6px;padding:14px;">
+        <p style="font-weight:700;color:#1565c0;margin-bottom:6px;">&#128221; Content Complexity</p>
+        <p style="font-size:13px;color:#37474f;line-height:1.6;"><strong>K–2:</strong> two pieces of info<br><strong>3–5:</strong> cause/effect chains<br><strong>6–8:</strong> author's craft in complex texts<br><strong>9–12:</strong> seminal documents, rhetoric</p>
+      </div>
+      <div style="background:#fff3e0;border-left:4px solid #e65100;border-radius:6px;padding:14px;">
+        <p style="font-weight:700;color:#e65100;margin-bottom:6px;">&#127919; DOK Progression</p>
+        <p style="font-size:13px;color:#37474f;line-height:1.6;"><strong>K–1:</strong> DOK 1 (recall)<br><strong>2–4:</strong> DOK 1–2 (skills)<br><strong>5–8:</strong> DOK 3 (strategic)<br><strong>9–12:</strong> DOK 4 (extended)</p>
+      </div>
+    </div>
+  </div>
+</div><!-- end tab-vertical -->
+
+<!-- ══════════════════════════════════════════════════════════
+     TAB 3 — STANDARD → CAREER
+     ══════════════════════════════════════════════════════════ -->
+<div class="tab-section" id="tab-career">
+
+  <div class="standard-box">
+    <div class="code">RI.5.3 &nbsp;&mdash;&nbsp; Reading: Informational Text, Grade 5, Standard 3</div>
+    <div class="text">"Explain the <strong>relationships or interactions</strong> between two or more individuals, events, ideas, or concepts in a text, including <strong>how they affect one another.</strong>"</div>
+  </div>
+
+  <!-- DOK breakdown for this standard -->
+  <div class="card">
+    <h2>Breaking Down RI.5.3 — DOK Level by Level</h2>
+    <p class="subtitle">The same standard can be taught and assessed at four levels of cognitive demand. This is what the Standard Alignment Document means by "recursive teaching."</p>
+    <div class="dok-row">
+      <div class="dok-card" style="background:#f5f5f5;border-color:#90a4ae;">
+        <div class="level" style="color:#546e7a;">DOK 1 — Recall</div>
+        <div class="what">Identify</div>
+        <div class="example">Name two events or people mentioned in the article. What does the text say about them?</div>
+      </div>
+      <div class="dok-card" style="background:#e8f5e9;border-color:#66bb6a;">
+        <div class="level" style="color:#2e7d32;">DOK 2 — Skills</div>
+        <div class="what">Explain the Connection</div>
+        <div class="example">How did the invention of the printing press affect the spread of literacy in Europe? Use two details from the text.</div>
+      </div>
+      <div class="dok-card" style="background:#e3f2fd;border-color:#42a5f5;">
+        <div class="level" style="color:#1565c0;">DOK 3 — Strategic</div>
+        <div class="what">Analyze the Interaction</div>
+        <div class="example">Explain how three interconnected factors — trade routes, literacy rates, and political power — influenced each other during the Renaissance. Cite specific evidence.</div>
+      </div>
+      <div class="dok-card" style="background:#f3e5f5;border-color:#ab47bc;">
+        <div class="level" style="color:#6a1b9a;">DOK 4 — Extended</div>
+        <div class="what">Synthesize Across Texts</div>
+        <div class="example">Using your research article AND the primary source excerpt, construct a multi-paragraph analysis of how cause-and-effect relationships shaped a historical outcome.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skills column bridge -->
+  <div class="card">
+    <h2>From Standard to Skills to Career — The Full Pathway</h2>
+    <p class="subtitle">RI.5.3 builds transferable skills that appear directly in high-value careers. The table below traces the line from standard → skill → job requirement.</p>
+    <div class="career-grid">
+      <div class="career-col">
+        <h3 style="color:var(--ri);">What RI.5.3 Teaches</h3>
+        <p style="font-size:13px;color:#37474f;margin-bottom:10px;">Skills students build through instruction at DOK 1–4:</p>
+        <div><span class="skill-pill">Tracing cause &amp; effect</span></div>
+        <div><span class="skill-pill">Finding patterns in data</span></div>
+        <div><span class="skill-pill">Multi-source synthesis</span></div>
+        <div><span class="skill-pill">Evidence-based reasoning</span></div>
+        <div><span class="skill-pill">Identifying bias in sources</span></div>
+        <div><span class="skill-pill">Explaining complex relationships</span></div>
+        <div><span class="skill-pill">Drawing defensible conclusions</span></div>
+      </div>
+      <div style="text-align:center;padding:20px 0;align-self:center;">
+        <div style="font-size:42px;color:#1a237e;">&#8594;</div>
+        <div style="font-size:11px;font-weight:700;color:#607d8b;text-transform:uppercase;letter-spacing:1px;margin-top:4px;">Transfers to</div>
+      </div>
+      <div class="career-col">
+        <h3 style="color:var(--sl);">Career Competencies That Match</h3>
+        <div class="career-card" style="border-color:#1565c0;background:#e3f2fd;margin-bottom:8px;">
+          <h4 style="color:#1565c0;">&#128200; Data Analyst</h4>
+          <p>Reads reports to identify which variables <em>caused</em> a metric to change. Presents relationship maps to decision-makers.</p>
+        </div>
+        <div class="career-card" style="border-color:#c62828;background:#fce4ec;">
+          <h4 style="color:#c62828;">&#128240; Investigative Journalist</h4>
+          <p>Traces how events, organizations, and individuals affect each other to expose a story. RI.5.3 is their core professional skill.</p>
+        </div>
+        <div class="career-card" style="border-color:#e65100;background:#fff3e0;">
+          <h4 style="color:#e65100;">&#9878; Policy Analyst</h4>
+          <p>Explains how a proposed policy would interact with existing laws, stakeholders, and social conditions.</p>
+        </div>
+        <div class="career-card" style="border-color:#2e7d32;background:#e8f5e9;">
+          <h4 style="color:#2e7d32;">&#128084; Attorney / Litigator</h4>
+          <p>Constructs arguments about how evidence, law, and actions interact to produce a legal outcome.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Real-life job showcase -->
+  <div class="job-showcase">
+    <h3>&#128188; Real-World Example: Investigative Journalist at a Newsroom</h3>
+    <p style="font-size:13.5px;color:#37474f;margin-bottom:16px;line-height:1.7;">Follow exactly how RI.5.3 skills show up in a journalist's daily work — from morning briefing to published story.</p>
+    <div class="job-flow">
+      <div class="job-step">
+        <div class="step-num">Step 1 — DOK 1</div>
+        <div class="step-title">Gather &amp; Identify</div>
+        <div class="step-desc">Reporter reads 12 documents — court filings, emails, financial records. Identifies the <em>individuals, events, and concepts</em> present. (RI.5.3 DOK 1)</div>
+      </div>
+      <div class="job-arrow">&#8594;</div>
+      <div class="job-step">
+        <div class="step-num">Step 2 — DOK 2</div>
+        <div class="step-title">Map the Connections</div>
+        <div class="step-desc">Reporter charts: "Company A donated to Official B <em>one week before</em> Contract C was awarded." Explains the <em>sequence and interaction</em>. (RI.5.3 DOK 2)</div>
+      </div>
+      <div class="job-arrow">&#8594;</div>
+      <div class="job-step">
+        <div class="step-num">Step 3 — DOK 3</div>
+        <div class="step-title">Analyze the Effect Chain</div>
+        <div class="step-desc">Reporter constructs the causal chain: Donation → Access → Contract → Public Harm. Each link must be supported by evidence. Editors challenge every step. (RI.5.3 DOK 3)</div>
+      </div>
+      <div class="job-arrow">&#8594;</div>
+      <div class="job-step">
+        <div class="step-num">Step 4 — DOK 4</div>
+        <div class="step-title">Synthesize &amp; Publish</div>
+        <div class="step-desc">Reporter synthesizes across all 12 sources, interviews, and public records into a 3,000-word article explaining the full web of relationships and their consequences. (RI.5.3 DOK 4)</div>
+      </div>
+    </div>
+    <div style="background:#e0f2f1;border-radius:8px;padding:14px 18px;margin-top:14px;">
+      <p style="font-size:13.5px;color:#004d40;line-height:1.7;"><strong>&#128204; The connection is direct:</strong> The investigative journalist does exactly what RI.5.3 asks — "explain the relationships or interactions between two or more individuals, events, ideas, or concepts in a text, including how they affect one another." A student who masters this standard at DOK 3–4 has built a core professional competency used in journalism, law, research, policy, medicine, and business analysis.</p>
+    </div>
+  </div>
+
+</div><!-- end tab-career -->
+
+<!-- ══════════════════════════════════════════════════════════
+     TAB 4 — ASSESSMENT SYSTEM
+     ══════════════════════════════════════════════════════════ -->
+<div class="tab-section" id="tab-assessment">
+  <div class="card">
+    <h2>KAP Balanced Assessment System — How the Pieces Connect</h2>
+    <p class="subtitle">From the KU PRISM Project: "Every assessment type connects to standards, but serves a different instructional purpose." The arrow shows the flow from daily instruction to annual reporting.</p>
+
+    <!-- Assessment pyramid -->
+    <div style="margin:8px 0 18px;">
+      <div class="assess-row">
+        <div class="assess-box" style="border-color:#2e7d32;background:#e8f5e9;max-width:340px;margin:0 auto;">
+          <div class="label" style="color:#2e7d32;">Year-Round &nbsp;|&nbsp; Formative</div>
+          <div class="name" style="color:#1b5e20;">&#128196; Instructional Mini Tests</div>
+          <div class="desc">Fewer than 7 questions · Teacher-chosen · Specific standard focus · Available all year · NOT graded · Shows class AND individual data · Immediate feedback loop</div>
+        </div>
+      </div>
+      <div style="text-align:center;font-size:22px;color:#455a64;margin:4px 0;">&#8595;</div>
+      <div class="assess-row">
+        <div class="assess-box" style="border-color:#1565c0;background:#e3f2fd;max-width:480px;margin:0 auto;">
+          <div class="label" style="color:#1565c0;">Two Windows &nbsp;|&nbsp; Diagnostic</div>
+          <div class="name" style="color:#0d47a1;">&#128202; Interim Assessments</div>
+          <div class="desc">Oct 6–31 &amp; Jan 12–Feb 6 · Completable in one period · NOT predictive · State-aligned · Slight→Moderate complexity (Interim 1) · Moderate→Complex (Interim 2) · Identifies strength clusters and growth clusters · Mirrors KAP summative form</div>
+        </div>
+      </div>
+      <div style="text-align:center;font-size:22px;color:#455a64;margin:4px 0;">&#8595;</div>
+      <div class="assess-row">
+        <div class="assess-box" style="border-color:#c62828;background:#fce4ec;max-width:620px;margin:0 auto;">
+          <div class="label" style="color:#c62828;">March &nbsp;|&nbsp; Summative</div>
+          <div class="name" style="color:#b71c1c;">&#127942; KAP Summative Assessment</div>
+          <div class="desc">Scores 400–700 · Four Performance Levels (L1 Limited → L4 Advanced) · Cut scores: L2 = 510, L3 = 540 · NOT compared across grades or subjects · PLDs describe knowledge and skills at each level · Informs school/district reporting and state accountability</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>The Instructional Cycle — How Assessment Connects to Teaching</h2>
+    <p class="subtitle">Based on KU PRISM Project / KAP documentation. Standards are the anchor; every cycle step references the standard.</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px;">
+      <div style="background:#e8f5e9;border-radius:8px;padding:14px 16px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:8px;">&#128218;</div>
+        <div style="font-weight:700;color:#1b5e20;margin-bottom:6px;">1. Know the Standard</div>
+        <div style="font-size:12.5px;color:#37474f;line-height:1.5;">Break down verbs. Identify DOK. Compare grade above and below. Build vertical alignment understanding.</div>
+      </div>
+      <div style="background:#e3f2fd;border-radius:8px;padding:14px 16px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:8px;">&#128105;&#8205;&#127979;</div>
+        <div style="font-weight:700;color:#1565c0;margin-bottom:6px;">2. Teach &amp; Model</div>
+        <div style="font-size:12.5px;color:#37474f;line-height:1.5;">Use grade-level text (not leveled down). Explicit modeling. Project Zero thinking routines. Around the World / Get and Check strategies.</div>
+      </div>
+      <div style="background:#fff3e0;border-radius:8px;padding:14px 16px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:8px;">&#128202;</div>
+        <div style="font-weight:700;color:#e65100;margin-bottom:6px;">3. Mini Test &amp; Assess</div>
+        <div style="font-size:12.5px;color:#37474f;line-height:1.5;">Assign targeted mini test. Download data. Look at class percentages AND individual responses. Identify clusters of need.</div>
+      </div>
+      <div style="background:#fce4ec;border-radius:8px;padding:14px 16px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:8px;">&#128260;</div>
+        <div style="font-weight:700;color:#c62828;margin-bottom:6px;">4. Reteach &amp; Spiral</div>
+        <div style="font-size:12.5px;color:#37474f;line-height:1.5;">Standards are recursive — not "one and done." Spiral back with increased complexity (DOK 1 → DOK 3). Adjust for small groups. Loop back to Step 1.</div>
+      </div>
+    </div>
+    <div style="background:#e8eaf6;border-radius:8px;padding:12px 16px;margin-top:14px;font-size:13px;color:#37474f;text-align:center;">
+      <strong>Research note (John Hattie, 2023):</strong> Formative evaluation effect size = 0.40–0.75 &nbsp;&mdash;&nbsp; among the highest-impact instructional strategies. Schools with greatest achievement gains teach with grade-level complex text rather than dropping reading levels (TNTP 2024, Shanahan 2025).
+    </div>
+  </div>
+</div><!-- end tab-assessment -->
+
+<!-- ══════════════════════════════════════════════════════════
+     TAB 5 — REAL WORLD & PBL
+     ══════════════════════════════════════════════════════════ -->
+<div class="tab-section" id="tab-pbl">
+
+  <div class="pbl-intro-box">
+    <h2>&#127758; Standards in the Real World — Project-Based Learning Connections</h2>
+    <p>Every ELA standard describes a real cognitive task that adults perform every day. This tab connects each grade band's standards to authentic real-world contexts and gives teachers ready-to-use Project-Based Learning activities that make the standard's purpose visible to students. Select a grade band to explore projects, deliverables, and the specific standards each activity addresses.</p>
+  </div>
+
+  <!-- Grade Band Filter -->
+  <div class="grade-filter">
+    <span class="grade-filter-label">Grade Band:</span>
+    <button class="grade-btn active" onclick="showBand('k2', this)">K–2</button>
+    <button class="grade-btn" onclick="showBand('35', this)">3–5</button>
+    <button class="grade-btn" onclick="showBand('68', this)">6–8</button>
+    <button class="grade-btn" onclick="showBand('912', this)">9–12</button>
+  </div>
+
+  <!-- ── BAND K-2 ── -->
+  <div class="pbl-band active" id="band-k2">
+    <div class="pbl-band-header">
+      <div class="band-icon">&#128123;</div>
+      <div>
+        <h2>K–2 — Understanding Our Community &amp; Natural World</h2>
+        <p>At this stage students describe connections, sequence steps, and explain how two things relate. Real-world projects anchor abstract skills in familiar, concrete experiences.</p>
+      </div>
+    </div>
+
+    <div class="rw-connection-box" style="background:#f3e5f5;border-color:#ce93d8;">
+      <h3 style="color:#6a1b9a;">&#127760; Why Real-World Contexts Matter at K–2</h3>
+      <p style="color:#37474f;">Young learners need <em>visible, touchable</em> connections. When a kindergartner researches a firefighter using informational books and then <em>describes the connection</em> between a fire and the firefighter's job, they are practicing RI.K.3 in the most authentic way possible. The standard is not abstract — it is the skill of noticing that things in the world affect each other.</p>
+    </div>
+
+    <div class="pbl-full-project" style="border-color:#6a1b9a;">
+      <div class="project-emoji">&#128218;</div>
+      <div class="proj-title">Project 1 — Community Helper "Who Helps Us?" Book</div>
+      <div class="proj-tagline">Students research a community helper, find informational text evidence, and publish their own illustrated informational book.</div>
+      <div class="proj-grid">
+        <div class="proj-cell">
+          <div class="cell-label">&#127758; Real-World Connection</div>
+          <div class="cell-body">Doctors, firefighters, librarians, teachers, and postal workers perform specific tasks that <em>connect to and affect</em> the lives of community members. Students see the standard in action every day — RI.K.3/1.3/2.3 is literally "what does this person do and how does it help us?"</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#127919; Standards Addressed</div>
+          <div class="cell-body">
+            <div class="pbl-standards-row">
+              <span class="verb-chip">RI.K–2.3</span><span class="verb-chip">RI.K–2.1</span><span class="verb-chip">W.2</span><span class="verb-chip">SL.K–2.5</span><span class="verb-chip">L.K–2.1–2</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128218; What Students Do</div>
+          <div class="cell-body">1. Read 2–3 informational texts about one community helper.<br>2. List what that helper does (DOK 1 — Recall).<br>3. Draw arrows showing how the helper's actions connect to community needs (DOK 2).<br>4. Write and illustrate one page per connection.<br>5. Present the book to the class orally.</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128230; What They Produce</div>
+          <div class="cell-body">
+            <span class="deliverable-chip">Illustrated informational book</span>
+            <span class="deliverable-chip">Oral presentation</span>
+            <span class="deliverable-chip">Connection diagram (visual)</span>
+          </div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128203; DOK Progression</div>
+          <div class="cell-body"><span class="dok-badge" style="background:#90a4ae;">DOK 1</span> Name the helper's tasks &nbsp;→&nbsp; <span class="dok-badge" style="background:#546e7a;">DOK 2</span> Explain how one task helps the community &nbsp;→&nbsp; <span class="dok-badge" style="background:#37474f;">DOK 3</span> (Grade 2) Describe a sequence: when a fire starts → firefighter responds → community stays safe</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128161; Teacher Tip</div>
+          <div class="cell-body">Pair with a real community helper visit or video call. Students generate their own "connection" questions before reading — activating prior knowledge and purpose-setting for informational text.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pbl-full-project" style="border-color:#2e7d32;">
+      <div class="project-emoji">&#127783;</div>
+      <div class="proj-title">Project 2 — Weather Detectives: Cause &amp; Effect in the Sky</div>
+      <div class="proj-tagline">Students track daily weather, read informational texts about weather patterns, and explain how one weather event connects to another.</div>
+      <div class="proj-grid">
+        <div class="proj-cell">
+          <div class="cell-label">&#127758; Real-World Connection</div>
+          <div class="cell-body">Meteorologists use RI.2.3 every day — they explain how a cold front <em>affects</em> temperature and precipitation, how clouds <em>connect to</em> rain. Students become real scientists the moment they start tracing these relationships.</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#127919; Standards Addressed</div>
+          <div class="cell-body">
+            <div class="pbl-standards-row">
+              <span class="verb-chip">RI.1–2.3</span><span class="verb-chip">RI.1–2.1</span><span class="verb-chip">SL.2.4</span><span class="verb-chip">W.1–2.2</span><span class="verb-chip">L.2.1</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128218; What Students Do</div>
+          <div class="cell-body">1. Read informational texts about clouds, rain, and seasons.<br>2. Keep a 2-week weather journal (DOK 1).<br>3. Draw "if → then" arrows: clouds → rain, rain → puddles → evaporation (DOK 2).<br>4. Write a short report explaining one weather connection with a diagram.<br>5. Present as a "weather forecast" to the class.</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128230; What They Produce</div>
+          <div class="cell-body">
+            <span class="deliverable-chip">Weather journal</span>
+            <span class="deliverable-chip">Cause-effect diagram</span>
+            <span class="deliverable-chip">Written explanation</span>
+            <span class="deliverable-chip">"Weather forecast" presentation</span>
+          </div>
+        </div>
+        <div class="proj-cell" style="grid-column:1/-1;">
+          <div class="cell-label">&#128204; Standard → Real World Bridge</div>
+          <div class="cell-body">"Describe the connection between a series of events" (RI.2.3) is exactly what meteorologists do professionally. A student who can trace rain → river → flood → evacuation is performing DOK 2–3 informational text work grounded in real-world systems thinking.</div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end band-k2 -->
+
+  <!-- ── BAND 3-5 ── -->
+  <div class="pbl-band" id="band-35">
+    <div class="pbl-band-header">
+      <div class="band-icon">&#128269;</div>
+      <div>
+        <h2>3–5 — Investigating Causes, Effects, and Relationships</h2>
+        <p>Students move from "describe" to "explain" — they must now show WHY things connect and how changes in one element affect others. Real-world projects require this exact skill.</p>
+      </div>
+    </div>
+
+    <div class="rw-connection-box" style="background:#e3f2fd;border-color:#90caf9;">
+      <h3 style="color:#1565c0;">&#127760; Why Explanation Skills Matter Here</h3>
+      <p style="color:#37474f;">Grade 5 is the pivotal moment: RI.5.3 asks students to explain how <em>multiple</em> individuals, events, or ideas interact — tracking bidirectional cause-and-effect. Environmental scientists, historians, doctors, and engineers use this exact skill when they model systems. PBL projects at grades 3–5 should have real problems with multiple interacting causes.</p>
+    </div>
+
+    <div class="pbl-full-project" style="border-color:#1565c0;">
+      <div class="project-emoji">&#127807;</div>
+      <div class="proj-title">Project 1 — School Garden Systems Analyst</div>
+      <div class="proj-tagline">Students research how sunlight, water, soil, temperature, and pollinators interact in a garden ecosystem — then present findings to the school grounds committee.</div>
+      <div class="proj-grid">
+        <div class="proj-cell">
+          <div class="cell-label">&#127758; Real-World Connection</div>
+          <div class="cell-body">Agricultural scientists and environmental consultants do exactly this — they explain how drought <em>affects</em> soil, which <em>affects</em> plant growth, which <em>affects</em> food supply. RI.5.3 is the foundational skill of systems thinking used in ecology, public health, and urban planning.</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#127919; Standards Addressed</div>
+          <div class="cell-body">
+            <div class="pbl-standards-row">
+              <span class="verb-chip">RI.5.3</span><span class="verb-chip">RI.5.1</span><span class="verb-chip">W.4–5.7</span><span class="verb-chip">W.4–5.8</span><span class="verb-chip">W.4–5.2</span><span class="verb-chip">SL.5.4–5</span><span class="verb-chip">L.5.3</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128218; What Students Do</div>
+          <div class="cell-body">1. Read 3 informational texts on garden ecosystems (DOK 1 — identify variables).<br>2. Create a cause-effect map: sun → photosynthesis → growth → fruit → seeds (DOK 2).<br>3. Research one disruption (drought, frost, pests) and explain how it cascades through the system (DOK 3 — RI.5.3 core skill).<br>4. Write an informational report for the grounds committee.<br>5. Present with visual cause-effect diagram.</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128230; What They Produce</div>
+          <div class="cell-body">
+            <span class="deliverable-chip">Cause-effect systems map</span>
+            <span class="deliverable-chip">Informational report</span>
+            <span class="deliverable-chip">Presentation to real audience</span>
+            <span class="deliverable-chip">Research bibliography (W.8)</span>
+          </div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128203; DOK Progression in This Project</div>
+          <div class="cell-body"><span class="dok-badge" style="background:#90a4ae;">DOK 1</span> Identify all variables in the garden system &nbsp;→&nbsp; <span class="dok-badge" style="background:#546e7a;">DOK 2</span> Explain one cause-effect link with text evidence &nbsp;→&nbsp; <span class="dok-badge" style="background:#37474f;">DOK 3</span> Explain the chain: how drought affects three interconnected elements simultaneously</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128161; Differentiation</div>
+          <div class="cell-body">Grade 3: Describe connections between two factors (RI.3.3). Grade 4: Explain what happened AND why (RI.4.3). Grade 5: Explain how factors interact and affect each other (RI.5.3). Same project, escalating cognitive demand at each grade.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pbl-full-project" style="border-color:#e65100;">
+      <div class="project-emoji">&#128240;</div>
+      <div class="proj-title">Project 2 — Historical Turning Points: "What Changed Everything?"</div>
+      <div class="proj-tagline">Students choose a historical turning point and build a multi-cause explanation of how it reshaped the world — connecting to RI.4.3 and RI.5.3.</div>
+      <div class="proj-grid">
+        <div class="proj-cell">
+          <div class="cell-label">&#127758; Real-World Connection</div>
+          <div class="cell-body">Historians, economists, and political scientists build career-long careers out of RI.4–5.3 — explaining how inventions, wars, pandemics, and ideas <em>interact</em> to cause historical change. The printing press affected literacy, which affected religion, which affected political power. That is RI.5.3.</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#127919; Standards Addressed</div>
+          <div class="cell-body">
+            <div class="pbl-standards-row">
+              <span class="verb-chip">RI.4–5.3</span><span class="verb-chip">RI.4–5.6</span><span class="verb-chip">W.4–5.2</span><span class="verb-chip">W.4–5.9</span><span class="verb-chip">SL.4–5.4</span><span class="verb-chip">L.4–5.6</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128218; What Students Do</div>
+          <div class="cell-body">1. Research one turning point using 2+ informational texts (e.g., invention of the telephone, Emancipation Proclamation, moon landing).<br>2. Build a "ripple effect" diagram: event → caused → led to → resulted in (DOK 2–3).<br>3. Write a "Then and Now" essay: how did this event affect individuals, ideas, and society? (RI.5.3 evidence required).<br>4. Present as a museum exhibit panel to families or another class.</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128230; What They Produce</div>
+          <div class="cell-body">
+            <span class="deliverable-chip">Ripple-effect diagram</span>
+            <span class="deliverable-chip">Multi-paragraph essay</span>
+            <span class="deliverable-chip">Museum exhibit panel</span>
+            <span class="deliverable-chip">Annotated bibliography</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pbl-spotlight">
+      <h3>&#128204; RI.5.3 Spotlight — This Is the Pivotal Standard</h3>
+      <p>Grade 5's version of RI.3 is where cause-and-effect thinking becomes fully bidirectional: not just A causes B, but "A and B affect <em>each other</em>." This is the conceptual leap that separates simple retelling from genuine analytical thinking. Both projects above make this leap visible and necessary — students cannot complete the deliverable without performing exactly what the standard demands.</p>
+    </div>
+  </div><!-- end band-35 -->
+
+  <!-- ── BAND 6-8 ── -->
+  <div class="pbl-band" id="band-68">
+    <div class="pbl-band-header">
+      <div class="band-icon">&#128202;</div>
+      <div>
+        <h2>6–8 — Analyzing Systems, Authors, and Social Issues</h2>
+        <p>The cognitive shift from "explain" to "analyze" means students must now examine HOW authors construct meaning — not just what the text says. Real-world tasks require this exact meta-awareness.</p>
+      </div>
+    </div>
+
+    <div class="rw-connection-box" style="background:#e0f2f1;border-color:#80cbc4;">
+      <h3 style="color:#00695c;">&#127760; Why Authorial Analysis Is a Career Skill</h3>
+      <p style="color:#37474f;">By grade 6, RI.3 requires students to <em>analyze how</em> a key idea is introduced, illustrated, and elaborated — this is exactly what editors, communications professionals, lawyers, and researchers do when they evaluate sources. Grades 6–8 PBL projects should require students to assess the quality of how information is presented, not just what it says.</p>
+    </div>
+
+    <div class="pbl-full-project" style="border-color:#00695c;">
+      <div class="project-emoji">&#128240;</div>
+      <div class="proj-title">Project 1 — Youth Journalism: From Source to Story</div>
+      <div class="proj-tagline">Students analyze how a professional news article introduces and elaborates a complex issue, then report on a real school or community topic using the same techniques.</div>
+      <div class="proj-grid">
+        <div class="proj-cell">
+          <div class="cell-label">&#127758; Real-World Connection</div>
+          <div class="cell-body">Journalists are professional RI.6–8.3 practitioners. They must analyze how their sources introduce, illustrate, and elaborate on key facts — and then replicate that structure in their own writing. This project puts students directly inside a journalist's daily cognitive process. Connects to the Journalist career example in Tab 3.</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#127919; Standards Addressed</div>
+          <div class="cell-body">
+            <div class="pbl-standards-row">
+              <span class="verb-chip">RI.6.3</span><span class="verb-chip">RI.7.3</span><span class="verb-chip">RI.8.3</span><span class="verb-chip">RI.6–8.6</span><span class="verb-chip">W.6–8.2</span><span class="verb-chip">W.6–8.7</span><span class="verb-chip">SL.6–8.4–5</span><span class="verb-chip">L.6–8.3</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128218; What Students Do</div>
+          <div class="cell-body">1. Read 2 articles on the same topic; annotate HOW each introduces key individuals and ideas (RI.6.3 DOK 3).<br>2. Compare how the two authors structure their evidence differently (RI.8.3).<br>3. Interview a real stakeholder on a school or community issue.<br>4. Write a 400–600 word news article introducing, illustrating, and elaborating a key idea using their own sources.<br>5. Submit to school newspaper or local outlet.</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128230; What They Produce</div>
+          <div class="cell-body">
+            <span class="deliverable-chip">Annotated article analysis</span>
+            <span class="deliverable-chip">Comparison write-up</span>
+            <span class="deliverable-chip">Original news article</span>
+            <span class="deliverable-chip">Oral pitch to editorial "board"</span>
+          </div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128203; DOK Progression</div>
+          <div class="cell-body"><span class="dok-badge" style="background:#90a4ae;">DOK 1</span> Identify how each article introduces its topic &nbsp;→&nbsp; <span class="dok-badge" style="background:#37474f;">DOK 3</span> Analyze WHY the author chose that structure and how it affects the reader &nbsp;→&nbsp; <span class="dok-badge" style="background:#6a1b9a;">DOK 4</span> Apply the same analytical lens to produce original journalism</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128161; Grade-Band Differentiation</div>
+          <div class="cell-body">Grade 6: Focus on how one key idea is introduced and elaborated (RI.6.3). Grade 7: Track how individuals, events, and ideas interact bidirectionally (RI.7.3). Grade 8: Analyze the author's rhetorical choices — comparisons, analogies, categories used to connect ideas (RI.8.3).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pbl-full-project" style="border-color:#1565c0;">
+      <div class="project-emoji">&#127968;</div>
+      <div class="proj-title">Project 2 — Community Issue Forum: "What's Causing This?"</div>
+      <div class="proj-tagline">Students research a real local or national issue, map the interacting factors, and present a multi-perspective analysis at a structured community forum.</div>
+      <div class="proj-grid">
+        <div class="proj-cell">
+          <div class="cell-label">&#127758; Real-World Connection</div>
+          <div class="cell-body">Policy analysts, social workers, public health officials, and urban planners must analyze how multiple interacting factors — economics, race, geography, history — create and perpetuate social issues. RI.7.3 (analyze bidirectional interactions) is the exact skill. Students use the same analytical frameworks as real professionals.</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#127919; Standards Addressed</div>
+          <div class="cell-body">
+            <div class="pbl-standards-row">
+              <span class="verb-chip">RI.7.3</span><span class="verb-chip">RI.7.6</span><span class="verb-chip">RI.7.8</span><span class="verb-chip">W.7.1</span><span class="verb-chip">W.7.7–9</span><span class="verb-chip">SL.7.4–5</span><span class="verb-chip">SL.7.3</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128218; What Students Do</div>
+          <div class="cell-body">1. Research 3+ informational texts on one issue (food deserts, school funding gaps, local pollution).<br>2. Build an "interaction web" — map how each factor affects others (bidirectional, per RI.7.3).<br>3. Identify how different authors frame the same interactions differently (RI.7.6 point of view).<br>4. Write a position paper that analyzes the interactions and proposes one evidence-based response.<br>5. Present at a structured mock community forum with questions from peers and teacher-panelists.</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128230; What They Produce</div>
+          <div class="cell-body">
+            <span class="deliverable-chip">Interaction web diagram</span>
+            <span class="deliverable-chip">Source comparison chart</span>
+            <span class="deliverable-chip">Evidence-based position paper</span>
+            <span class="deliverable-chip">Forum presentation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end band-68 -->
+
+  <!-- ── BAND 9-12 ── -->
+  <div class="pbl-band" id="band-912">
+    <div class="pbl-band-header">
+      <div class="band-icon">&#127942;</div>
+      <div>
+        <h2>9–12 — Synthesizing Primary Sources for Civic Action</h2>
+        <p>At this level students analyze rhetorical features and purpose across seminal documents — the highest form of RI.3. Real-world tasks demand cross-text synthesis in nearly every professional domain.</p>
+      </div>
+    </div>
+
+    <div class="rw-connection-box" style="background:#fce4ec;border-color:#f48fb1;">
+      <h3 style="color:#c62828;">&#127760; DOK 4 Is Professional-Grade Thinking</h3>
+      <p style="color:#37474f;">RI.11–12.3 asks students to analyze foundational documents for their themes, purposes, AND rhetorical features simultaneously — and to connect them to each other. This is exactly what attorneys writing briefs, academics publishing research, policy directors drafting legislation, and speechwriters crafting arguments do every day. PBL projects at 9–12 should produce real documents for real audiences.</p>
+    </div>
+
+    <div class="pbl-full-project" style="border-color:#c62828;">
+      <div class="project-emoji">&#128196;</div>
+      <div class="proj-title">Project 1 — Policy Brief Challenge: Evidence-to-Action</div>
+      <div class="proj-tagline">Students analyze primary and secondary sources on a current policy issue and produce a professional-style policy brief addressed to a real local or state official.</div>
+      <div class="proj-grid">
+        <div class="proj-cell">
+          <div class="cell-label">&#127758; Real-World Connection</div>
+          <div class="cell-body">Policy analysts and legislative staff write policy briefs that analyze how a proposed change would interact with existing law, stakeholder interests, and social conditions — a direct application of RI.9–10.3 and RI.11–12.3. Students produce a document with the same structure and purpose as a professional deliverable.</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#127919; Standards Addressed</div>
+          <div class="cell-body">
+            <div class="pbl-standards-row">
+              <span class="verb-chip">RI.9–10.3</span><span class="verb-chip">RI.11–12.3</span><span class="verb-chip">RI.11–12.6</span><span class="verb-chip">W.9–12.1</span><span class="verb-chip">W.9–12.7–9</span><span class="verb-chip">SL.9–12.4–6</span><span class="verb-chip">L.9–12.3</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128218; What Students Do</div>
+          <div class="cell-body">1. Select a current local or state policy issue with a body of primary/secondary source documentation.<br>2. Analyze how seminal documents (legislation, court opinions, historical precedents) address related themes and how authors use rhetorical features to advance specific positions (RI.11–12.3 + RI.11–12.6).<br>3. Draft a 2–3 page policy brief: Executive Summary → Background → Interaction of Key Factors → Evidence → Recommendation.<br>4. Send to or present before a real official, school board member, or local organization.<br>5. Write a reflective analysis of the rhetorical choices they made and why.</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128230; What They Produce</div>
+          <div class="cell-body">
+            <span class="deliverable-chip">Annotated source set</span>
+            <span class="deliverable-chip">Rhetorical analysis</span>
+            <span class="deliverable-chip">Professional policy brief</span>
+            <span class="deliverable-chip">Oral presentation to real audience</span>
+            <span class="deliverable-chip">Reflective writer's memo</span>
+          </div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128203; DOK Breakdown</div>
+          <div class="cell-body"><span class="dok-badge" style="background:#90a4ae;">DOK 1</span> Identify key documents and their positions &nbsp;→&nbsp; <span class="dok-badge" style="background:#37474f;">DOK 3</span> Analyze how authors use rhetoric to advance their arguments &nbsp;→&nbsp; <span class="dok-badge" style="background:#c62828;">DOK 4</span> Synthesize across documents into an original evidence-based recommendation for a real audience</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128161; Authentic Audience Options</div>
+          <div class="cell-body">City council meeting public comment · School board open forum · State senator's constituent office · Local nonprofit board · Publish in school or community paper · Submit to a youth policy competition such as CIRCLE or Youth Speaks</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pbl-full-project" style="border-color:#6a1b9a;">
+      <div class="project-emoji">&#128076;</div>
+      <div class="proj-title">Project 2 — Seminal Documents Symposium: "Then &amp; Now"</div>
+      <div class="proj-tagline">Students analyze 17th–19th century foundational documents for rhetorical themes and purpose, then connect them to a contemporary issue in a structured academic symposium.</div>
+      <div class="proj-grid">
+        <div class="proj-cell">
+          <div class="cell-label">&#127758; Real-World Connection</div>
+          <div class="cell-body">Constitutional attorneys, Supreme Court clerks, historians, and political scientists spend careers analyzing how foundational documents interact with each other and shape contemporary law. RI.11–12.3 is their core professional competency — reading how seventeenth and eighteenth century texts address themes still operative today.</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#127919; Standards Addressed</div>
+          <div class="cell-body">
+            <div class="pbl-standards-row">
+              <span class="verb-chip">RI.11–12.3</span><span class="verb-chip">RI.11–12.6</span><span class="verb-chip">RI.11–12.8–9</span><span class="verb-chip">W.11–12.1</span><span class="verb-chip">W.11–12.9b</span><span class="verb-chip">SL.11–12.3–6</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128218; What Students Do</div>
+          <div class="cell-body">1. Each student selects one seminal document (Federalist No. 10, Seneca Falls Declaration, Gettysburg Address, Emancipation Proclamation, MLK Letter from Birmingham Jail, etc.).<br>2. Analyze: What is the theme? What is the purpose? What rhetorical features does the author use? (RI.11–12.3 core task).<br>3. Connect the document to one current policy debate — where do its themes still operate?<br>4. Write a scholarly analysis essay (4–6 pages).<br>5. Present at a structured symposium with cross-examination from peers on rhetorical choices.</div>
+        </div>
+        <div class="proj-cell">
+          <div class="cell-label">&#128230; What They Produce</div>
+          <div class="cell-body">
+            <span class="deliverable-chip">Rhetorical analysis essay</span>
+            <span class="deliverable-chip">Then-and-Now connection brief</span>
+            <span class="deliverable-chip">Symposium presentation</span>
+            <span class="deliverable-chip">Peer cross-examination participation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pbl-spotlight">
+      <h3>&#128204; The Full K–12 Arc — From "Describe" to "Synthesize Across Documents"</h3>
+      <p>A kindergartner who describes how a firefighter helps after a fire and a twelfth-grader who analyzes how the Federalist Papers' themes of governmental power still operate in today's Supreme Court decisions are performing the same fundamental cognitive act — they are tracing <em>how things connect and affect each other</em>. The difference is in text complexity, source quantity, directionality of influence, and rhetorical awareness. RI.3 is not a standard. It is a career skill, taught from age 5 to adulthood, scaled in sophistication every year.</p>
+    </div>
+  </div><!-- end band-912 -->
+
+</div><!-- end tab-pbl -->
+
+<!-- ══════════════════════════════════════════════════════════
+     TAB 6 — CROSS CURRICULAR
+     ══════════════════════════════════════════════════════════ -->
+<div class="tab-section" id="tab-cross">
+
+  <div class="cross-intro">
+    <h2>&#127912; Cross-Curricular Connections — Specials &amp; Related Services</h2>
+    <p>ELA standards describe cognitive skills — analyzing, synthesizing, arguing, presenting — that transfer directly into every subject. When specials teachers embed these skills in their content, students see the standard as a living, universal habit of mind rather than a "reading class" requirement. Generalization is the goal: a student who argues about a song structure, researches a sport's history, or writes an artist statement is practicing the same ELA standard in a new context, which deepens and solidifies mastery.</p>
+  </div>
+
+  <div class="special-filter">
+    <strong style="color:#37474f;font-size:13px;margin-right:4px;">Show subject:</strong>
+    <button class="special-btn active" onclick="showSpecial('music',this)">&#127925; Music</button>
+    <button class="special-btn" onclick="showSpecial('art',this)">&#127912; Visual Art</button>
+    <button class="special-btn" onclick="showSpecial('pe',this)">&#127939; Physical Education</button>
+    <button class="special-btn" onclick="showSpecial('drama',this)">&#127914; Drama &amp; Theater</button>
+    <button class="special-btn" onclick="showSpecial('library',this)">&#128218; Library &amp; Media</button>
+    <button class="special-btn" onclick="showSpecial('counselor',this)">&#128172; School Counselor</button>
+  </div>
+
+  <!-- ── MUSIC ── -->
+  <div class="special-panel active" id="sp-music">
+    <div class="special-header" style="background:#fff3e0;border-color:#ffb74d;">
+      <div style="font-size:40px;">&#127925;</div>
+      <div>
+        <h3 style="font-size:15px;font-weight:700;color:#e65100;margin-bottom:4px;">Music</h3>
+        <p>Song lyrics are literary texts. Composer biographies are informational texts. Music teachers can build RL, RI, W, and SL skills while students learn rhythm, notation, and music history — using the content they already love.</p>
+      </div>
+    </div>
+
+    <div class="sp-bridge" style="background:#fff8e1;border-color:#f9a825;">
+      <h3 style="color:#f57f17;">&#128279; ELA–Music Bridge</h3>
+      <p>RL standards ask students to analyze theme, structure, and craft — the same skills used when examining how a verse–chorus structure reinforces a song's message. RI connects to music history research. W skills surface when students write liner notes, concert programs, or music reviews.</p>
+    </div>
+
+    <div class="sp-activity" style="border-color:#ff8f00;">
+      <div class="act-title">&#127911; Activity 1 — Lyric Analysis as Literary Text (RL.3–6 / Grades 3–8)</div>
+      <div class="act-sub">Students analyze song lyrics the same way they would a poem or story passage — identifying theme, figurative language, and how structure reinforces meaning.</div>
+      <div class="sp-grid">
+        <div class="sp-cell">
+          <div class="sc-label">ELA Standard Applied</div>
+          <div class="sc-body">RL: Determine a theme; explain how words and phrases supply rhythm and meaning; compare poems, stories, and songs. SL: Engage in collaborative discussion about textual evidence.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Music Activity</div>
+          <div class="sc-body">Give students printed lyrics to a song you are learning. In pairs they highlight the "hook" (repeated idea), identify one example of figurative language, and write one sentence explaining what the song is really about beyond the literal words.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Transfer &amp; Assessment</div>
+          <div class="sc-body">Exit ticket: "Write two sentences — one quoting a lyric and one explaining what it reveals about the song's theme." This mirrors what students do on the ELA state test when analyzing a poem. Music teacher grades for musical insight; ELA teacher can co-score for reading evidence.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-activity" style="border-color:#ff8f00;">
+      <div class="act-title">&#127908; Activity 2 — Composer Research &amp; Informative Writing (RI.5–8 / W.7 / Grades 4–12)</div>
+      <div class="act-sub">Students research a composer or musician as an informational text task, then produce a short informative piece — deepening both music history knowledge and RI/W standards.</div>
+      <div class="sp-grid">
+        <div class="sp-cell">
+          <div class="sc-label">ELA Standard Applied</div>
+          <div class="sc-body">RI: Determine main idea and key details; integrate information from two sources; use text features. W.7: Conduct short research projects. W.2: Write informative/explanatory texts.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Music Activity</div>
+          <div class="sc-body">Before a unit on a composer (e.g., Beethoven, Nina Simone), students read two short biographies from different sources and fill a graphic organizer: who, what era, key works, influence on music today. They write a "concert program bio" paragraph (3–5 sentences, informative).</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Transfer &amp; Assessment</div>
+          <div class="sc-body">The paragraph must include one direct quote or specific fact with an informal citation. Rubric covers: main idea stated, at least two supporting details, accurate information. Students who complete this in music have a real-world model of the research writing cycle.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gen-note">&#128161; <strong>Generalization tip:</strong> When the music teacher uses the word "theme" intentionally in the same way the ELA teacher does, students begin to see it as a transferable concept — not isolated vocabulary. A post-it vocabulary anchor chart shared between classrooms accelerates this transfer.</div>
+  </div><!-- end sp-music -->
+
+  <!-- ── VISUAL ART ── -->
+  <div class="special-panel" id="sp-art">
+    <div class="special-header" style="background:#f3e5f5;border-color:#ba68c8;">
+      <div style="font-size:40px;">&#127912;</div>
+      <div>
+        <h3 style="font-size:15px;font-weight:700;color:#6a1b9a;margin-bottom:4px;">Visual Art</h3>
+        <p>Artworks function as visual texts. Analyzing a painting's composition, purpose, and message mirrors RI skills. Writing an artist statement or critique mirrors W standards. Art class is a natural, low-stakes venue for applying ELA skills to non-print media.</p>
+      </div>
+    </div>
+
+    <div class="sp-bridge" style="background:#f8e8ff;border-color:#8e24aa;">
+      <h3 style="color:#6a1b9a;">&#128279; ELA–Art Bridge</h3>
+      <p>RI.7 asks students to evaluate information presented in diverse formats including visual media. RL.7 asks students to compare how a text is experienced differently in different mediums. Art class gives students real media to analyze. W standards (opinion/argument) are exercised every time students write a critique or defend a creative choice.</p>
+    </div>
+
+    <div class="sp-activity" style="border-color:#8e24aa;">
+      <div class="act-title">&#128444; Activity 1 — Artwork as Informational Text (RI.6–7 / SL.1 / Grades 3–12)</div>
+      <div class="act-sub">Students "read" a masterwork painting or sculpture for author's purpose, point of view, and audience — exactly as they would an RI text.</div>
+      <div class="sp-grid">
+        <div class="sp-cell">
+          <div class="sc-label">ELA Standard Applied</div>
+          <div class="sc-body">RI: Determine an author's purpose; identify point of view; analyze how an author uses evidence to support points. SL.1: Collaborative discussion drawing on evidence. L: Domain-specific vocabulary (composition, perspective, medium).</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Art Activity</div>
+          <div class="sc-body">Project a masterwork (e.g., Grant Wood's "American Gothic," Frida Kahlo's self-portraits). Students complete a "Visual Text Analysis" card: What do you notice? What is the artist's message? What evidence (color, line, placement) supports your claim? Small groups discuss before sharing whole-class.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Transfer &amp; Assessment</div>
+          <div class="sc-body">Students write a "claim + evidence" sentence: "The artist's message is _____ because in the artwork I notice _____." This is structurally identical to RI analytical writing on state assessments. Art teacher evaluates for artistic insight; ELA teacher can use as a formative evidence-writing sample.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-activity" style="border-color:#8e24aa;">
+      <div class="act-title">&#128221; Activity 2 — Artist Statement as Argument Writing (W.1 / Grades 5–12)</div>
+      <div class="act-sub">Students write a formal artist statement defending the choices in their artwork, applying the same claim–evidence–reasoning structure as argumentative writing in ELA.</div>
+      <div class="sp-grid">
+        <div class="sp-cell">
+          <div class="sc-label">ELA Standard Applied</div>
+          <div class="sc-body">W.1: Write opinion/argument pieces — introduce claim, support with evidence, use linking words, provide a concluding statement. L.3: Use precise language and domain-specific vocabulary.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Art Activity</div>
+          <div class="sc-body">After completing a major artwork, students draft a 3–5 sentence artist statement: (1) State the main idea/theme of their work, (2) Describe two specific artistic choices they made and why, (3) Explain what they want the viewer to feel or think. Sentence starters provided for younger students.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Transfer &amp; Assessment</div>
+          <div class="sc-body">Rubric shared with ELA teacher: Is there a clear claim? Are at least two pieces of evidence given? Does the conclusion connect back to the claim? The statement is displayed with the artwork — giving students an authentic, visible audience for their writing.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gen-note">&#128161; <strong>Generalization tip:</strong> Use the same claim–evidence–reasoning sentence frame in both ELA and Art class. When students see the identical structure work in two different rooms, they internalize it as a transferable skill, not a subject-specific trick.</div>
+  </div><!-- end sp-art -->
+
+  <!-- ── PHYSICAL EDUCATION ── -->
+  <div class="special-panel" id="sp-pe">
+    <div class="special-header" style="background:#e8f5e9;border-color:#66bb6a;">
+      <div style="font-size:40px;">&#127939;</div>
+      <div>
+        <h3 style="font-size:15px;font-weight:700;color:#2e7d32;margin-bottom:4px;">Physical Education</h3>
+        <p>Rulebooks, training plans, and sports journalism are high-interest informational texts. Fitness goal-setting requires argument writing. PE uniquely positions students to practice SL skills during game debriefs and collaborative strategy sessions.</p>
+      </div>
+    </div>
+
+    <div class="sp-bridge" style="background:#f1f8e9;border-color:#7cb342;">
+      <h3 style="color:#33691e;">&#128279; ELA–PE Bridge</h3>
+      <p>RI standards require students to read and understand procedural and informational texts — rule books, fitness guides, and sports articles fit this perfectly. W standards for argument writing emerge naturally when students write goals and justify training choices. SL standards live in game strategy discussions, peer coaching, and oral self-assessments.</p>
+    </div>
+
+    <div class="sp-activity" style="border-color:#43a047;">
+      <div class="act-title">&#128218; Activity 1 — Rules as Informational Text (RI.1–3 / Grades 3–8)</div>
+      <div class="act-sub">Students read a real sport's rule excerpt, identify key details, and explain how following those rules affects play — connecting RI skills to the physical activity they are about to do.</div>
+      <div class="sp-grid">
+        <div class="sp-cell">
+          <div class="sc-label">ELA Standard Applied</div>
+          <div class="sc-body">RI.1: Cite textual evidence. RI.2: Determine main idea and supporting details. RI.3: Explain relationships between events/concepts in a text. RI.5: Use text features (numbered lists, diagrams).</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">PE Activity</div>
+          <div class="sc-body">Before introducing a new game (e.g., pickleball, ultimate frisbee), give students a one-page rules excerpt. In pairs: (1) Underline the three most important rules, (2) Summarize the main idea in one sentence, (3) Identify one rule they predict will be confusing for players and explain why. Then play.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Transfer &amp; Assessment</div>
+          <div class="sc-body">After playing, quick debrief: "Which rule was hardest to follow? Why did the rule-writers include it?" Students reference the text to answer — practicing the same "return to the text" habit required on ELA assessments. Takes 5 extra minutes; yields measurable RI skill practice.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-activity" style="border-color:#43a047;">
+      <div class="act-title">&#127947; Activity 2 — SMART Goal Writing (W.1–2 / Grades 4–12)</div>
+      <div class="act-sub">Students write a fitness or skill goal using SMART criteria — practicing claim, evidence, and reasoning within a personally meaningful context.</div>
+      <div class="sp-grid">
+        <div class="sp-cell">
+          <div class="sc-label">ELA Standard Applied</div>
+          <div class="sc-body">W.1: Argument — state a claim and support with reasons/evidence. W.2: Informative — explain how they will achieve the goal using domain-specific vocabulary. W.4: Clear, coherent writing appropriate for the task.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">PE Activity</div>
+          <div class="sc-body">At the start of a fitness unit, students write a 3–4 sentence SMART goal: (1) What is your specific, measurable goal? (2) Why is this goal realistic and achievable for you? (3) How will you track your progress? At unit end, they write a 2-sentence reflection on whether they met the goal, with evidence.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Transfer &amp; Assessment</div>
+          <div class="sc-body">Rubric: claim is specific and measurable (not vague); at least one piece of evidence or reasoning is given; reflection uses data (times, reps, scores). Students see goal-writing as a life skill, not a worksheet — the same transfer the ELA standard is designed to build.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gen-note">&#128161; <strong>Generalization tip:</strong> PE teachers who post vocabulary terms like "evidence," "claim," and "main idea" on the gym wall — even briefly on the board before a rules-reading activity — signal to students that reading and thinking skills belong everywhere. This visual cue dramatically increases transfer.</div>
+  </div><!-- end sp-pe -->
+
+  <!-- ── DRAMA / THEATER ── -->
+  <div class="special-panel" id="sp-drama">
+    <div class="special-header" style="background:#fff8e1;border-color:#ffca28;">
+      <div style="font-size:40px;">&#127914;</div>
+      <div>
+        <h3 style="font-size:15px;font-weight:700;color:#f57f17;margin-bottom:4px;">Drama &amp; Theater</h3>
+        <p>Script analysis is literary text analysis. Performing requires precise language and audience awareness (L + SL). Writing a character analysis or scene adaptation is W.1/W.3. Theater class may be the highest-engagement ELA practice space in the building.</p>
+      </div>
+    </div>
+
+    <div class="sp-bridge" style="background:#fffde7;border-color:#f9a825;">
+      <h3 style="color:#f57f17;">&#128279; ELA–Drama Bridge</h3>
+      <p>RL standards explicitly include drama as a literary form — students are expected to analyze how a play's structure differs from a story's, how dialogue reveals character, and how tone shifts across scenes. Theater teachers are already teaching RL when they discuss motivation, theme, and conflict. The bridge just needs to be named aloud.</p>
+    </div>
+
+    <div class="sp-activity" style="border-color:#ffa000;">
+      <div class="act-title">&#127917; Activity 1 — Script as Literary Text: Character &amp; Theme (RL.3–6 / Grades 3–12)</div>
+      <div class="act-sub">Students analyze a script excerpt for character motivation, how dialogue advances the plot, and what theme the playwright is communicating — mirroring RL deep-reading tasks.</div>
+      <div class="sp-grid">
+        <div class="sp-cell">
+          <div class="sc-label">ELA Standard Applied</div>
+          <div class="sc-body">RL.3: Describe how characters respond to events; explain how their actions drive the plot. RL.4: Determine the meaning of words used figuratively. RL.5: Explain how a drama's structure contributes to its meaning. RL.6: Point of view and how it shapes the story.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Theater Activity</div>
+          <div class="sc-body">Before blocking a scene, give students a "character lens" guide: (1) Circle all words your character says about themselves, (2) Box words others say about your character, (3) Underline words that reveal how your character feels. Then answer: What does your character want most in this scene? What is stopping them? Share in small groups before staging.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Transfer &amp; Assessment</div>
+          <div class="sc-body">Exit slip (written): "My character wants _____ because in the script _____ (quote). This connects to the play's theme of _____ because _____." This is a three-part analytical response identical in structure to a constructed-response ELA item. Theater teacher and ELA teacher can co-create the rubric.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-activity" style="border-color:#ffa000;">
+      <div class="act-title">&#9997; Activity 2 — Scene Adaptation as Narrative Writing (W.3 / Grades 5–12)</div>
+      <div class="act-sub">Students rewrite a scene from a different character's point of view or update the setting, applying narrative writing craft while deepening understanding of RL elements.</div>
+      <div class="sp-grid">
+        <div class="sp-cell">
+          <div class="sc-label">ELA Standard Applied</div>
+          <div class="sc-body">W.3: Engage the reader; establish situation; use dialogue and description; use narrative techniques; provide a conclusion. RL.6: Analyze how point of view affects the narrative. L.3: Use precise language, including dialogue conventions.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Theater Activity</div>
+          <div class="sc-body">After rehearsing a scene, students choose: (a) Rewrite the scene from the antagonist's point of view, or (b) Set the same scene 50 years in the future. They must keep the same conflict but adapt language and setting. Minimum: an opening stage direction, 6–8 lines of dialogue, one internal thought/aside.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Transfer &amp; Assessment</div>
+          <div class="sc-body">Rubric: dialogue reveals character; setting details are specific; the conflict is preserved in the new context; writing has a clear beginning and resolution. The optional performance of the adaptation adds SL presentation skills, completing RL + W + SL in a single assignment.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gen-note">&#128161; <strong>Generalization tip:</strong> Theater teachers who call scripts "literary texts" and use the words "theme," "conflict," and "point of view" in their normal rehearsal language remove the perceived barrier between "theater class" and "English class" — which is the most powerful generalization prompt possible.</div>
+  </div><!-- end sp-drama -->
+
+  <!-- ── LIBRARY / MEDIA ── -->
+  <div class="special-panel" id="sp-library">
+    <div class="special-header" style="background:#e3f2fd;border-color:#42a5f5;">
+      <div style="font-size:40px;">&#128218;</div>
+      <div>
+        <h3 style="font-size:15px;font-weight:700;color:#1565c0;margin-bottom:4px;">Library &amp; Media</h3>
+        <p>The library is where research writing (W.7–9) and informational reading (RI.1–9) happen in their most authentic form. Library/media specialists are positioned to be the most explicit cross-curricular ELA partners in the building.</p>
+      </div>
+    </div>
+
+    <div class="sp-bridge" style="background:#e8f4fd;border-color:#1e88e5;">
+      <h3 style="color:#1565c0;">&#128279; ELA–Library Bridge</h3>
+      <p>W.7–9 are the research writing standards: conducting research projects, gathering evidence from multiple sources, drawing on information while avoiding plagiarism. These standards can only be fully met if students are in a library or media center with curated resources and an expert to guide source evaluation. The library specialist is a co-teacher for W.7–9 by definition.</p>
+    </div>
+
+    <div class="sp-activity" style="border-color:#1e88e5;">
+      <div class="act-title">&#128269; Activity 1 — Source Credibility as RI Analysis (RI.6–8 / Grades 5–12)</div>
+      <div class="act-sub">Students evaluate two sources on the same topic for credibility, bias, and purpose — applying RI author's purpose and point of view skills to non-fiction media.</div>
+      <div class="sp-grid">
+        <div class="sp-cell">
+          <div class="sc-label">ELA Standard Applied</div>
+          <div class="sc-body">RI.6: Determine author's purpose and point of view; explain how it affects the text. RI.8: Evaluate the argument and claims; assess reasoning and evidence. RI.9: Integrate and compare information across two or more sources.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Library Activity</div>
+          <div class="sc-body">Present two sources on the same topic (e.g., a .edu article and a personal blog). Students use SIFT (Stop, Investigate the source, Find better coverage, Trace claims) as a structured protocol. Record: Who wrote this? What is their purpose? What evidence do they use? Is there a perspective missing? Compare findings between the two sources.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Transfer &amp; Assessment</div>
+          <div class="sc-body">Written comparison: "Source A is more credible than Source B because _____. However, both sources agree that _____ and both have the limitation of _____." This structure matches RI.9 and W.9 exactly — the library visit doubles as an ELA skills lesson. Share rubric with classroom ELA teacher.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-activity" style="border-color:#1e88e5;">
+      <div class="act-title">&#128196; Activity 2 — Research Note-Taking to Synthesis (W.7–9 / Grades 4–12)</div>
+      <div class="act-sub">Students practice the full research cycle — question, locate, evaluate, take notes, synthesize — tying every step to the specific W and RI standards each step addresses.</div>
+      <div class="sp-grid">
+        <div class="sp-cell">
+          <div class="sc-label">ELA Standard Applied</div>
+          <div class="sc-body">W.7: Conduct short research projects. W.8: Gather relevant information from multiple sources; assess credibility; quote and paraphrase; avoid plagiarism. W.9: Draw evidence from informational texts. RI.2: Determine main idea from sources.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Library Activity</div>
+          <div class="sc-body">Students begin with a "Wonder question" tied to a class unit. Library specialist guides them through: (1) Choosing 2–3 sources using databases and the catalog, (2) Taking notes in their own words in a 3-column organizer (Source | Key Fact | Page/URL), (3) Writing one synthesis sentence per source that connects to the Wonder question.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Transfer &amp; Assessment</div>
+          <div class="sc-body">The synthesis sentences become the evidence paragraphs in the classroom essay or report. Assess: Are quotes and paraphrases distinguished? Is source information recorded? Does the synthesis connect back to the research question? This is W.8 completed in the library, ready to be W.2 back in class.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gen-note">&#128161; <strong>Generalization tip:</strong> When library specialists display the standard numbers (W.7, RI.9) on anchor charts during research visits, students begin to see that "what we do in the library" has the same name as "what we do in ELA class." This cross-labeling is one of the fastest generalization accelerators available.</div>
+  </div><!-- end sp-library -->
+
+  <!-- ── SCHOOL COUNSELOR ── -->
+  <div class="special-panel" id="sp-counselor">
+    <div class="special-header" style="background:#e0f2f1;border-color:#26a69a;">
+      <div style="font-size:40px;">&#128172;</div>
+      <div>
+        <h3 style="font-size:15px;font-weight:700;color:#00695c;margin-bottom:4px;">School Counselor</h3>
+        <p>Social-emotional learning uses the same cognitive tools as ELA: analyzing character motivation, understanding multiple perspectives, writing to process emotions, and speaking to advocate. Counselors reinforce RL, SL, and W standards in every classroom visit and small group session.</p>
+      </div>
+    </div>
+
+    <div class="sp-bridge" style="background:#e8f5e9;border-color:#43a047;">
+      <h3 style="color:#2e7d32;">&#128279; ELA–Counseling Bridge</h3>
+      <p>RL.3 asks students to describe how characters respond to challenges — this is perspective-taking, the heart of social-emotional learning. SL.1 requires students to engage in collaborative conversation, building on others' ideas — what counselors call active listening and discussion skills. W.3 narrative writing is one of the most powerful tools for processing experience and building self-awareness.</p>
+    </div>
+
+    <div class="sp-activity" style="border-color:#00897b;">
+      <div class="act-title">&#128218; Activity 1 — Character Study as Perspective-Taking (RL.3 / RL.6 / Grades K–8)</div>
+      <div class="act-sub">Counselors use read-alouds and short texts to explore how characters handle conflict, make choices, and feel consequences — building RL skills while developing empathy and social awareness.</div>
+      <div class="sp-grid">
+        <div class="sp-cell">
+          <div class="sc-label">ELA Standard Applied</div>
+          <div class="sc-body">RL.3: Describe how characters respond to challenges; explain how their actions contribute to events. RL.6: Identify points of view of narrator and characters; explain how multiple perspectives shape the story. SL.1: Collaborative discussion drawing on text evidence.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Counseling Activity</div>
+          <div class="sc-body">Read a picture book or short chapter excerpt featuring a character navigating a social challenge (conflict, exclusion, difficult choice). Discussion protocol: (1) What did the character do? (2) Why do you think they made that choice? (3) How did another character feel? (4) What would you have done differently and why? Final: "What is one thing we can all try this week based on this story?"</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Transfer &amp; Assessment</div>
+          <div class="sc-body">Brief written response: "The character faced _____. They chose to _____. I think another character felt _____ because _____. I would have _____ because _____." This is a perspective-taking paragraph that is also a complete RL analytical response. Counselor evaluates for social insight; ELA teacher can use as formative RL evidence.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-activity" style="border-color:#00897b;">
+      <div class="act-title">&#9997; Activity 2 — Self-Advocacy Letter as Argument Writing (W.1 / SL.4 / Grades 4–12)</div>
+      <div class="act-sub">Students write a letter to a teacher, principal, or community member about something that matters to them — practicing W.1 argument structure while building genuine self-advocacy skills.</div>
+      <div class="sp-grid">
+        <div class="sp-cell">
+          <div class="sc-label">ELA Standard Applied</div>
+          <div class="sc-body">W.1: Write opinion/argument — introduce the topic and claim, supply reasons and evidence, use linking words, provide a concluding statement. SL.4: Report on a topic or text; use appropriate facts; speak clearly. L.1–2: Conventions of standard English for formal writing.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Counseling Activity</div>
+          <div class="sc-body">In a classroom lesson on advocacy, students identify one thing they wish adults in their school understood about their experience. Draft a formal letter: (1) Opening — who you are writing to and why, (2) Middle — your main point with at least two specific reasons or examples, (3) Closing — what you are asking the reader to do or consider. Counselor provides sentence starters and a "formal vs. informal language" reference card.</div>
+        </div>
+        <div class="sp-cell">
+          <div class="sc-label">Transfer &amp; Assessment</div>
+          <div class="sc-body">Rubric: Is there a clear claim? Are reasons specific (not vague)? Is language formal and respectful? Does the conclusion call for action? Optional: students present their letter aloud (SL.4). The best letters can be sent — creating authentic audience and real-world consequence for writing quality, the most powerful motivation for W skill development.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gen-note">&#128161; <strong>Generalization tip:</strong> When counselors explicitly name the skill — "Right now we are practicing perspective-taking, which your ELA teacher calls 'point of view'" — students form a direct bridge between what they do in counseling and what appears on their report card and assessment. Naming the connection is the connection.</div>
+  </div><!-- end sp-counselor -->
+
+</div><!-- end tab-cross -->
+
+<!-- ── TOOLTIP DIV ── -->
+<div id="tooltip"></div>
+
+<!-- ── TOOLTIP ── -->
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function showSpecial(name, btn) {
+  document.querySelectorAll('.special-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.special-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sp-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showBand(band, btn) {
+  document.querySelectorAll('.pbl-band').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('band-' + band).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showTip(e, title, body) {
+  const t = document.getElementById('tooltip');
+  t.innerHTML = '<strong>' + title + '</strong>' + body;
+  t.style.display = 'block';
+  moveTip(e);
+}
+function moveTip(e) {
+  const t = document.getElementById('tooltip');
+  const x = e.clientX + 14;
+  const y = e.clientY + 14;
+  t.style.left = Math.min(x, window.innerWidth - 260) + 'px';
+  t.style.top  = Math.min(y, window.innerHeight - 120) + 'px';
+}
+function hideTip() {
+  document.getElementById('tooltip').style.display = 'none';
+}
+document.addEventListener('mousemove', function(e) {
+  const t = document.getElementById('tooltip');
+  if (t.style.display === 'block') moveTip(e);
+});
+</script>
+<script src="ai-guide.js"></script>
+</body>
+</html>

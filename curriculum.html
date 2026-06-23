@@ -107,6 +107,27 @@
 
     .subsection-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--navy); margin: 48px 0 16px; border-left: 4px solid var(--gold); padding-left: 16px; }
 
+    /* Image-linked feature cards */
+    .feature-item-link {
+      background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; text-decoration: none; color: inherit;
+      display: flex; flex-direction: column; transition: all 0.25s;
+    }
+    .feature-item-link:hover { border-color: var(--gold); box-shadow: 0 8px 28px rgba(0,0,0,0.1); transform: translateY(-3px); }
+    .feature-item-link .fi-img-wrap {
+      width: 100%; overflow: hidden; background: #e8eaf6;
+      border-bottom: 1px solid var(--border);
+    }
+    .feature-item-link .fi-img-wrap img {
+      width: 100%; display: block; transition: transform 0.3s;
+    }
+    .feature-item-link:hover .fi-img-wrap img { transform: scale(1.03); }
+    .feature-item-link .fi-body { padding: 18px 20px; flex: 1; }
+    .feature-item-link .fi-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .feature-item-link h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .feature-item-link p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 10px; }
+    .feature-item-link .fi-cta { font-size: 0.82rem; font-weight: 700; color: var(--accent); }
+
     footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 40px; text-align: center; }
     footer a { color: var(--gold-light); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
@@ -281,6 +302,31 @@
         <h4>Portfolio and Mastery Models</h4>
         <p>Utilizing AI platforms to help teachers map student artifacts to mastery standards, surface evidence of growth, and communicate progress to families.</p>
       </div>
+
+      <a href="standards-visualization.html" class="feature-item-link" target="_blank">
+        <div class="fi-img-wrap">
+          <img src="images/thumb-standards-viz.svg" alt="KSDE ELA Standards Connection Visualization — interactive network diagram showing how RL, RI, RF, W, SL, and Language standards connect" loading="lazy" />
+        </div>
+        <div class="fi-body">
+          <div class="fi-tag">KU PRISM Project</div>
+          <h4>KSDE ELA Standards Visualization</h4>
+          <p>Interactive network diagram, vertical alignment K–12, standard-to-career pathways, KAP assessment system, PBL projects, and cross-curricular connections.</p>
+          <span class="fi-cta">Open interactive tool →</span>
+        </div>
+      </a>
+
+      <a href="standards-citations.html" class="feature-item-link" target="_blank">
+        <div class="fi-img-wrap">
+          <img src="images/thumb-standards-citations.svg" alt="KSDE ELA Standards Source Citations — companion document tracing every visualization element to its originating source" loading="lazy" />
+        </div>
+        <div class="fi-body">
+          <div class="fi-tag">KU PRISM Project</div>
+          <h4>Standards Visualization — Source Citations</h4>
+          <p>Every data point and claim in the visualization traced to its source document with direct quotations — six sources across five tabbed citation tables.</p>
+          <span class="fi-cta">Open citations document →</span>
+        </div>
+      </a>
+
     </div>
 
     <h3 class="subsection-title">Assessment &amp; Evaluation Tools</h3>
@@ -397,5 +443,6 @@
 </footer>
 
 <script src="search.js"></script>
+<script src="ai-guide.js"></script>
 </body>
 </html>

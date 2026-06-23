@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 380" font-family="Arial,Helvetica,sans-serif">
+  <!-- Background -->
+  <rect width="560" height="380" rx="8" fill="#e8eaf6" stroke="#c5cae9" stroke-width="1.5"/>
+
+  <defs>
+    <linearGradient id="hdr2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a237e"/>
+      <stop offset="100%" stop-color="#283593"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="560" height="62" rx="8" fill="url(#hdr2)"/>
+  <rect x="0" y="50" width="560" height="12" fill="url(#hdr2)"/>
+  <text x="20" y="28" font-size="14" font-weight="700" fill="white">KSDE ELA Standards Visualization — Source Citations</text>
+  <text x="20" y="48" font-size="10" fill="#c5cae9">Companion document  |  Traces each visualization element to its originating source</text>
+
+  <!-- Source legend card -->
+  <rect x="0" y="62" width="560" height="108" fill="white"/>
+
+  <text x="20" y="82" font-size="11" font-weight="700" fill="#1a237e">Source Reference Key</text>
+
+  <!-- Legend grid - Row 1 -->
+  <!-- S1 -->
+  <rect x="16" y="90" width="162" height="34" rx="6" fill="#eceff1"/>
+  <circle cx="35" cy="107" r="11" fill="#37474f"/>
+  <text x="35" y="111" text-anchor="middle" font-size="9" font-weight="900" fill="white">S1</text>
+  <text x="52" y="103" font-size="9" font-weight="700" fill="#37474f">KSDE Academic Standards</text>
+  <text x="52" y="116" font-size="8" fill="#546e7a">Official Kansas ELA standards K–12</text>
+
+  <!-- S2 -->
+  <rect x="184" y="90" width="162" height="34" rx="6" fill="#e3f2fd"/>
+  <circle cx="203" cy="107" r="11" fill="#1565c0"/>
+  <text x="203" y="111" text-anchor="middle" font-size="9" font-weight="900" fill="white">S2</text>
+  <text x="220" y="103" font-size="9" font-weight="700" fill="#1565c0">KU Prism Project (PPTX)</text>
+  <text x="220" y="116" font-size="8" fill="#546e7a">Balanced Assessments with KAP</text>
+
+  <!-- S3 -->
+  <rect x="352" y="90" width="190" height="34" rx="6" fill="#e0f2f1"/>
+  <circle cx="371" cy="107" r="11" fill="#00695c"/>
+  <text x="371" y="111" text-anchor="middle" font-size="9" font-weight="900" fill="white">S3</text>
+  <text x="388" y="103" font-size="9" font-weight="700" fill="#00695c">Standard Alignment (PPTX)</text>
+  <text x="388" y="116" font-size="8" fill="#546e7a">KSDE ELA Professional Development</text>
+
+  <!-- Row 2 -->
+  <!-- S4 -->
+  <rect x="16" y="130" width="162" height="34" rx="6" fill="#f3e5f5"/>
+  <circle cx="35" cy="147" r="11" fill="#6a1b9a"/>
+  <text x="35" y="151" text-anchor="middle" font-size="9" font-weight="900" fill="white">S4</text>
+  <text x="52" y="143" font-size="9" font-weight="700" fill="#6a1b9a">Std. Alignment Document</text>
+  <text x="52" y="156" font-size="8" fill="#546e7a">ELA Standard Alignment DOCX</text>
+
+  <!-- S5 -->
+  <rect x="184" y="130" width="162" height="34" rx="6" fill="#fce4ec"/>
+  <circle cx="203" cy="147" r="11" fill="#c62828"/>
+  <text x="203" y="151" text-anchor="middle" font-size="9" font-weight="900" fill="white">S5</text>
+  <text x="220" y="143" font-size="9" font-weight="700" fill="#c62828">KSDE — CTE &amp; Career Clusters</text>
+  <text x="220" y="156" font-size="8" fill="#546e7a">Career pathway connections</text>
+
+  <!-- S6 -->
+  <rect x="352" y="130" width="190" height="34" rx="6" fill="#fff3e0"/>
+  <circle cx="371" cy="147" r="11" fill="#e65100"/>
+  <text x="371" y="151" text-anchor="middle" font-size="9" font-weight="900" fill="white">S6</text>
+  <text x="388" y="143" font-size="9" font-weight="700" fill="#e65100">Kansas Ed. Portal &amp; ATS/KU</text>
+  <text x="388" y="156" font-size="8" fill="#546e7a">Kite® Suite — ats.ku.edu</text>
+
+  <!-- Tab bar -->
+  <rect x="0" y="170" width="560" height="34" fill="white" stroke="#e8eaf6" stroke-width="0"/>
+  <rect x="0" y="201" width="560" height="1" fill="#e8eaf6"/>
+  <rect x="8" y="201" width="86" height="2" fill="#1a237e"/>
+  <text x="12" y="191" font-size="10" font-weight="700" fill="#1a237e">🌐 Standards Network</text>
+  <text x="100" y="191" font-size="10" fill="#607d8b">📈 Vertical Alignment</text>
+  <text x="218" y="191" font-size="10" fill="#607d8b">💼 Standard→Career</text>
+  <text x="330" y="191" font-size="10" fill="#607d8b">📊 Assessment</text>
+  <text x="430" y="191" font-size="10" fill="#607d8b">📄 By Source</text>
+
+  <!-- Content area -->
+  <rect x="0" y="203" width="560" height="177" fill="#f8f9ff"/>
+
+  <!-- Intro box -->
+  <rect x="14" y="212" width="532" height="28" rx="6" fill="white" stroke="#9fa8da" stroke-width="1"/>
+  <rect x="14" y="212" width="4" height="28" rx="2" fill="#9fa8da"/>
+  <text x="24" y="231" font-size="9.5" fill="#546e7a">The Standards Network tab shows the six ELA domains as nodes in an SVG network diagram, with labeled connection edges and four DOK level nodes.</text>
+
+  <!-- Citation table -->
+  <rect x="14" y="246" width="532" height="124" rx="6" fill="white" stroke="#e3e8f0" stroke-width="1"/>
+
+  <!-- Table header -->
+  <rect x="14" y="246" width="532" height="22" rx="4" fill="#1a237e"/>
+  <text x="24" y="261" font-size="9" font-weight="700" fill="white">Visualization Element</text>
+  <text x="194" y="261" font-size="9" font-weight="700" fill="white">Exact Content Used</text>
+  <text x="360" y="261" font-size="9" font-weight="700" fill="white">Source(s)</text>
+  <text x="430" y="261" font-size="9" font-weight="700" fill="white">Direct Evidence</text>
+
+  <!-- Row 1 -->
+  <rect x="14" y="268" width="532" height="24" fill="white"/>
+  <text x="24" y="283" font-size="9" font-weight="700" fill="#1a237e">6 ELA Domain Structure</text>
+  <text x="24" y="293" font-size="8" fill="#607d8b">RL, RI, RF, W, SL, L as six nodes</text>
+  <text x="194" y="283" font-size="8.5" fill="#37474f">Domain codes and names</text>
+  <rect x="360" y="272" width="26" height="14" rx="7" fill="#37474f"/>
+  <text x="373" y="282" text-anchor="middle" font-size="7.5" font-weight="700" fill="white">S1</text>
+  <rect x="390" y="272" width="26" height="14" rx="7" fill="#00695c"/>
+  <text x="403" y="282" text-anchor="middle" font-size="7.5" font-weight="700" fill="white">S3</text>
+
+  <!-- Row 2 -->
+  <rect x="14" y="292" width="532" height="24" fill="#f8f9ff"/>
+  <text x="24" y="307" font-size="9" font-weight="700" fill="#1a237e">Three-Cluster Structure</text>
+  <text x="24" y="317" font-size="8" fill="#607d8b">KID · CS · IKI badges on RL and RI</text>
+  <text x="194" y="307" font-size="8.5" fill="#37474f">Same three clusters in RL &amp; RI</text>
+  <rect x="360" y="296" width="26" height="14" rx="7" fill="#37474f"/>
+  <text x="373" y="306" text-anchor="middle" font-size="7.5" font-weight="700" fill="white">S1</text>
+  <rect x="390" y="296" width="26" height="14" rx="7" fill="#00695c"/>
+  <text x="403" y="306" text-anchor="middle" font-size="7.5" font-weight="700" fill="white">S3</text>
+
+  <!-- Row 3 -->
+  <rect x="14" y="316" width="532" height="24" fill="white"/>
+  <text x="24" y="331" font-size="9" font-weight="700" fill="#1a237e">Language (L) as "Hub Node"</text>
+  <text x="24" y="341" font-size="8" fill="#607d8b">L placed at center; edges to all five domains</text>
+  <text x="194" y="331" font-size="8.5" fill="#37474f">L underpins all other domains</text>
+  <rect x="360" y="320" width="26" height="14" rx="7" fill="#00695c"/>
+  <text x="373" y="330" text-anchor="middle" font-size="7.5" font-weight="700" fill="white">S3</text>
+  <rect x="390" y="320" width="26" height="14" rx="7" fill="#37474f"/>
+  <text x="403" y="330" text-anchor="middle" font-size="7.5" font-weight="700" fill="white">S1</text>
+
+  <!-- Row 4 partial -->
+  <rect x="14" y="340" width="532" height="18" fill="#f8f9ff"/>
+  <text x="24" y="353" font-size="9" font-weight="700" fill="#1a237e">RL ↔ RI Parallel Structure</text>
+  <text x="194" y="353" font-size="8.5" fill="#37474f">Shared three-cluster architecture</text>
+  <rect x="360" y="344" width="26" height="14" rx="7" fill="#37474f"/>
+  <text x="373" y="354" text-anchor="middle" font-size="7.5" font-weight="700" fill="white">S1</text>
+  <rect x="390" y="344" width="26" height="14" rx="7" fill="#6a1b9a"/>
+  <text x="403" y="354" text-anchor="middle" font-size="7.5" font-weight="700" fill="white">S4</text>
+</svg>
