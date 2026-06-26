@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Weekly — InspiredBI</title>
+  <meta name="description" content="Your weekly guide to what's new in AI — curated for K-12 educators, school leaders, higher education, and communities." />
+  <link rel="icon" href="images/logo-banner.png" />
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f8f9fa;
+      color: #1a1a1a;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ── Nav (matches inspiredbi.org) ─────────────────────────── */
+    .site-nav {
+      background: #1a1a2e;
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.35);
+    }
+    .site-nav .logo img { height: 38px; }
+    .site-nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .site-nav ul li a {
+      color: #e0e0e0;
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: background .2s, color .2s;
+    }
+    .site-nav ul li a:hover,
+    .site-nav ul li a.active {
+      background: #e8ac00;
+      color: #1a1a2e;
+    }
+
+    /* ── Hero ─────────────────────────────────────────────────── */
+    .news-hero {
+      background: linear-gradient(135deg, #1f5493 0%, #0d2d5e 60%, #e8ac00 200%);
+      color: #fff;
+      text-align: center;
+      padding: 64px 24px 48px;
+    }
+    .news-hero .eyebrow {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #e8d87f;
+      margin-bottom: 12px;
+    }
+    .news-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .news-hero p {
+      font-size: 1.1rem;
+      max-width: 640px;
+      margin: 0 auto 28px;
+      color: #cfe0ff;
+    }
+
+    /* ── Quick-jump audience tabs ─────────────────────────────── */
+    .audience-tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 0 16px;
+    }
+    .audience-tabs a {
+      padding: 9px 20px;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .audience-tabs a:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,.25); }
+    .tab-k12       { background: #1565c0; color: #fff; }
+    .tab-leaders   { background: #2e7d32; color: #fff; }
+    .tab-highered  { background: #6a1b9a; color: #fff; }
+    .tab-community { background: #bf360c; color: #fff; }
+
+    /* ── Week banner ──────────────────────────────────────────── */
+    .week-banner {
+      background: #fff;
+      border-bottom: 3px solid #e8ac00;
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .week-banner .week-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #e8ac00;
+    }
+    .week-banner .week-date {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1f5493;
+    }
+    .week-banner .week-num {
+      font-size: 0.82rem;
+      color: #888;
+    }
+
+    /* ── Main content wrapper ─────────────────────────────────── */
+    .weeks-container { max-width: 1100px; margin: 0 auto; padding: 0 20px 60px; }
+
+    /* ── Audience section card ────────────────────────────────── */
+    .audience-section {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 2px 18px rgba(0,0,0,.07);
+      margin: 36px 0;
+      overflow: hidden;
+    }
+    .audience-header {
+      padding: 22px 30px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .audience-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+    .audience-header-text h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .audience-header-text .subtitle {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,.8);
+      margin-top: 2px;
+    }
+    .k12-header       { background: linear-gradient(90deg, #1565c0, #1e88e5); }
+    .leaders-header   { background: linear-gradient(90deg, #2e7d32, #43a047); }
+    .highered-header  { background: linear-gradient(90deg, #6a1b9a, #8e24aa); }
+    .community-header { background: linear-gradient(90deg, #bf360c, #e64a19); }
+
+    .audience-body { padding: 28px 30px 32px; }
+
+    /* ── What's New blurb ─────────────────────────────────────── */
+    .whats-new {
+      background: #f4f8ff;
+      border-left: 4px solid #1565c0;
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      font-size: 0.97rem;
+      line-height: 1.7;
+    }
+    .k12 .whats-new         { border-color: #1565c0; background: #f0f4ff; }
+    .leaders .whats-new     { border-color: #2e7d32; background: #f0fff2; }
+    .highered .whats-new    { border-color: #6a1b9a; background: #f8f0ff; }
+    .community .whats-new   { border-color: #bf360c; background: #fff4f0; }
+    .whats-new .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .k12 .badge       { background: #1565c0; color: #fff; }
+    .leaders .badge   { background: #2e7d32; color: #fff; }
+    .highered .badge  { background: #6a1b9a; color: #fff; }
+    .community .badge { background: #bf360c; color: #fff; }
+
+    /* ── Video grid ───────────────────────────────────────────── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
+      margin-top: 4px;
+    }
+    .video-card {
+      background: #f9f9f9;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .video-card:hover { transform: translateY(-3px); box-shadow: 0 6px 22px rgba(0,0,0,.13); }
+    .video-card .video-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 10px 14px 6px;
+    }
+    .k12 .video-label       { color: #1565c0; }
+    .leaders .video-label   { color: #2e7d32; }
+    .highered .video-label  { color: #6a1b9a; }
+    .community .video-label { color: #bf360c; }
+    .video-card p.video-caption {
+      font-size: 0.88rem;
+      color: #555;
+      padding: 4px 14px 12px;
+      line-height: 1.5;
+    }
+    .video-card .video-wrapper {
+      position: relative;
+      padding-top: 56.25%;
+      background: #000;
+    }
+    .video-card .video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ── Extra links strip ────────────────────────────────────── */
+    .extra-links {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .extra-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      transition: opacity .2s;
+    }
+    .extra-links a:hover { opacity: .82; }
+    .k12 .extra-links a       { background: #e3ecff; color: #1565c0; }
+    .leaders .extra-links a   { background: #e6f4e6; color: #2e7d32; }
+    .highered .extra-links a  { background: #f3e5ff; color: #6a1b9a; }
+    .community .extra-links a { background: #ffe9e4; color: #bf360c; }
+
+    /* ── Week entry wrapper ───────────────────────────────────── */
+    .week-entry { padding: 8px 0 24px; }
+    .week-entry + .week-entry { border-top: 2px dashed #e0e0e0; padding-top: 32px; }
+
+    /* ── Archive ──────────────────────────────────────────────── */
+    .archive-section {
+      max-width: 1100px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+    .archive-section h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #1f5493;
+      margin-bottom: 16px;
+      border-bottom: 3px solid #e8ac00;
+      padding-bottom: 8px;
+    }
+    .archive-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .archive-list li a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 6px rgba(0,0,0,.06);
+      color: #1f5493;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background .15s;
+    }
+    .archive-list li a:hover { background: #edf2ff; }
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    .site-footer {
+      background: #1a1a2e;
+      color: #aaa;
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 0.87rem;
+      line-height: 1.8;
+    }
+    .site-footer a { color: #e8ac00; }
+    .site-footer .footer-logo { height: 32px; margin: 0 auto 14px; }
+
+    /* ── Responsive ───────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .audience-body { padding: 20px 18px 24px; }
+      .week-banner { flex-direction: column; align-items: flex-start; padding: 12px 18px; }
+      .site-nav { padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════ NAV ════════════════════════════ -->
+<nav class="site-nav">
+  <a class="logo" href="https://inspiredbi.org">
+    <img src="images/logo-banner.png" alt="InspiredBI" />
+  </a>
+  <ul>
+    <li><a href="https://inspiredbi.org/#about">About</a></li>
+    <li><a href="https://inspiredbi.org/#services">Services</a></li>
+    <li><a href="https://inspiredbi.org/#impact">Impact</a></li>
+    <li><a href="https://education.ku.edu/curriculum-teaching">KU Curriculum &amp; Teaching</a></li>
+    <li><a href="https://inspiredbi.org/free-tools.html">Free Tools</a></li>
+    <li><a href="weekly-news.html" class="active">AI Weekly</a></li>
+    <li><a href="https://inspiredbi.org/#contact">Get In Touch</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════════════ HERO ═══════════════════════════ -->
+<section class="news-hero">
+  <p class="eyebrow">InspiredBI Presents</p>
+  <h1>🤖 AI Weekly</h1>
+  <p>Every Monday — the freshest AI news, tools, videos, and insights curated for the people who shape learning.</p>
+  <div class="audience-tabs">
+    <a href="#k12"       class="tab-k12">🎓 K-12 Educators</a>
+    <a href="#leaders"   class="tab-leaders">🏫 School Leaders</a>
+    <a href="#highered"  class="tab-highered">🏛️ Higher Education</a>
+    <a href="#community" class="tab-community">🌍 Community</a>
+  </div>
+</section>
+
+<!-- ════════════════════════ WEEK BANNER ════════════════════════ -->
+<div class="week-banner">
+  <span class="week-label">Latest Issue</span>
+  <span class="week-date">📅 Week of June 23, 2026</span>
+  <span class="week-num">Issue #1 — Our First Edition!</span>
+</div>
+
+<!-- ════════════════════════ WEEKS CONTAINER ════════════════════ -->
+<!-- INSERT NEW WEEK HERE -->
+<div class="weeks-container">
+
+  <!-- ══════════ WEEK #1 — June 23, 2026 ══════════ -->
+  <article class="week-entry" id="week-2026-06-23">
+
+    <!-- ── K-12 EDUCATORS ─────────────────────────────────────── -->
+    <section class="audience-section k12" id="k12">
+      <div class="audience-header k12-header">
+        <div class="audience-icon">🎓</div>
+        <div class="audience-header-text">
+          <h2>K-12 Educators</h2>
+          <p class="subtitle">Image generators, media literacy &amp; teaching discernment</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · June 2026</span>
+          <p>AI image generation has reached a tipping point that every classroom teacher needs to understand. A 2026 EdWeek Research Center survey found that <strong>61% of elementary educators report their students struggle significantly to distinguish AI-generated images from real photographs</strong> — and with some estimates placing AI-generated content at over 57% of all online images, that challenge is only growing. The newest tools from Adobe Firefly, Midjourney, and Google's ImageFX now embed <strong>C2PA provenance metadata</strong> directly into AI-generated files, giving teachers a new tool for teaching visual verification. CoSN's 2026 Top Topics in K-12 Innovation has placed Critical AI Media Literacy at the top of its list, meaning districts are beginning to require structured "spot the AI" instruction across grade levels. The best classroom strategy right now: teach students to slow down, ask "how do I know this is real?", use reverse image search, and look for telltale signs like distorted hands, inconsistent backgrounds, and missing metadata. These aren't just tech skills — they are the new foundational literacy.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">🖼️ Infographics Redux</p>
+            <p class="video-caption">Understanding AI Image Generators — a visual breakdown of how these tools work and what students (and teachers) need to know.</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/19oT-B-lRBI" title="Understanding AI Image Generators — Infographics Redux" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="video-card">
+            <p class="video-label">🧠 Teaching Discernment</p>
+            <p class="video-caption">Practical strategies for teaching students to think critically about AI-generated content — the skills they need now.</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/BhfvHMgFUUk" title="Teaching Discernment in AI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://inspiredbi.org/monitoring.html" target="_blank" rel="noopener">🔍 Safe AI Monitoring Tools</a>
+          <a href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">⚖️ ETHICS Framework</a>
+          <a href="https://www.k12dive.com/news/ai-literacy-shouldnt-wait-for-middle-school/805295/" target="_blank" rel="noopener">📰 K-12 Dive: AI Literacy Starts Early</a>
+          <a href="https://medialiteracynow.org/ai-literacy-and-media-literacy-you-cant-have-one-without-the-other/" target="_blank" rel="noopener">📖 Media Literacy Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SCHOOL LEADERS ──────────────────────────────────────── -->
+    <section class="audience-section leaders" id="leaders">
+      <div class="audience-header leaders-header">
+        <div class="audience-icon">🏫</div>
+        <div class="audience-header-text">
+          <h2>School Leaders</h2>
+          <p class="subtitle">Policy, governance &amp; district AI strategy</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · June 2026</span>
+          <p>The policy window for school leaders is closing fast. <strong>Ohio's House Bill 96 mandates that every school district adopt a formal AI use policy by July 1, 2026</strong> — and similar legislation is moving in 12 additional states. Nationally, the percentage of districts without any AI guidelines has dropped from 43% in 2025 to 21% in 2026 (CoSN), but that still means 1 in 5 districts is operating without guardrails. The most progressive shift: districts that are winning on AI are the ones that moved from the outdated "ban or allow" framing to a third option — <strong>teach responsible use through structured, supervised AI literacy embedded across the curriculum</strong>. New York City's Department of Education is finalizing its June 2026 AI Playbook, Michigan's MDE released comprehensive district guidance in May, and NASBE has stated plainly that 2026 is the year for enforcement, not just guidance. Leaders who act now — with a cross-functional AI governance team including teachers, parents, IT, and student voice — are the ones who will be ahead of mandates rather than scrambling to comply. The InspiredBI ETHICS framework is a practical starting point for any district building its policy from scratch.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">📋 AI Leadership Strategy</p>
+            <p class="video-caption">What school leaders need to know right now about AI in their buildings — practical, actionable, and honest.</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/dhhQ5UVCVs0" title="AI Leadership Strategy for School Leaders" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="video-card">
+            <p class="video-label">🔑 Keys to AI Policy</p>
+            <p class="video-caption">Building an AI governance framework that works — from policy creation to implementation and student safety.</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/o2UCb5ANEJE" title="Keys to AI Policy for School Leaders" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.eschoolnews.com/digital-learning/2026/04/24/three-ways-school-districts-can-build-a-sustainable-ai-framework/" target="_blank" rel="noopener">📰 eSchool News: Sustainable AI Frameworks</a>
+          <a href="https://www.cosn.org/charting-whats-next-the-2026-top-topics-in-k-12-innovation/" target="_blank" rel="noopener">📊 CoSN 2026 Top Topics</a>
+          <a href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">⚖️ InspiredBI ETHICS Framework</a>
+          <a href="https://districtadministration.com/article/why-students-are-leading-this-districts-ai-strategy/" target="_blank" rel="noopener">🎙️ Student-Led AI Strategy</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HIGHER EDUCATION ────────────────────────────────────── -->
+    <section class="audience-section highered" id="highered">
+      <div class="audience-header highered-header">
+        <div class="audience-icon">🏛️</div>
+        <div class="audience-header-text">
+          <h2>Higher Education</h2>
+          <p class="subtitle">Research, governance &amp; institutional strategy</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · June 2026</span>
+          <p>EDUCAUSE's landmark 2026 report, <em>The Impact of AI on Work in Higher Education</em>, confirms what early adopters already know: institutions with proactive AI governance frameworks are pulling ahead on every measurable dimension — faculty productivity, research output quality, student satisfaction, and grant competitiveness. The landmark finding from Stanford HAI's 2026 AI Index: <strong>generative AI has moved from novelty to near universality among undergraduates in just three years</strong>, with the central question no longer being whether students use AI, but how well institutions are equipping them to use it responsibly. The University of Memphis, Arkansas, Mississippi, and UT Health Science Center launched the Mid-South AI Research Consortium this spring — a model for regional collaboration that research universities like KU should be watching closely. Meanwhile, a global synthesis published in March 2026 found a sharp rise in AI-related academic integrity incidents alongside near-universal student AI use, underscoring the urgency of institutional frameworks that address both ethics and authentic learning. The good news: Northwestern's Kellogg reports that 2,500+ business leaders enrolled in its AI strategy program in the past year — confirming strong market demand for graduates who can lead in AI-integrated organizations. KU graduates with AI fluency have a measurable career advantage.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">🌍 Worldwide AI News</p>
+            <p class="video-caption">What's happened in AI across global higher education in the past few months — the developments you cannot afford to miss.</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/t4B-scdZx4U" title="What's In the News Worldwide in AI Higher Education" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="video-card">
+            <p class="video-label">💡 Did You Know?</p>
+            <p class="video-caption">Surprising facts and findings from the latest AI research that every higher education leader should have at their fingertips.</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/JhOzAmj85U0" title="Did You Know? AI in Higher Education" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.educause.edu/research/2026/the-impact-of-ai-on-work-in-higher-education" target="_blank" rel="noopener">📊 EDUCAUSE: AI Impact on Higher Ed Work</a>
+          <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report/education" target="_blank" rel="noopener">🔬 Stanford HAI 2026 AI Index</a>
+          <a href="https://blogs.sussex.ac.uk/learning-matters/2026/06/22/spotlight-on-ai-in-education-june-2026/" target="_blank" rel="noopener">📰 Spotlight on AI: June 2026</a>
+          <a href="https://www.insidehighered.com/news/tech-innovation/artificial-intelligence/2026/01/05/5-predictions-how-ai-will-shape-higher-ed-2026" target="_blank" rel="noopener">🔮 5 Predictions for Higher Ed AI 2026</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── COMMUNITY ───────────────────────────────────────────── -->
+    <section class="audience-section community" id="community">
+      <div class="audience-header community-header">
+        <div class="audience-icon">🌍</div>
+        <div class="audience-header-text">
+          <h2>Community Members</h2>
+          <p class="subtitle">Claude updates, everyday AI &amp; what's new for everyone</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · June 2026</span>
+          <p>If you use Claude — Anthropic's AI assistant — it just got significantly more powerful. <strong>Claude Opus 4.8</strong>, the latest model, now supports a <strong>1 million token context window</strong> — meaning you can feed it an entire book, a year of emails, or a full research project and have a conversation about all of it at once. For everyday users, two features stand out this month: <strong>Claude Design</strong> (launched in the Claude desktop app sidebar, with over 1 million users in its first week) makes it easy to create visuals and documents that match your style, and <strong>Claude Tag for Slack</strong> lets teams @mention Claude directly in Slack channels where it can help delegate tasks, remember context, and handle async work. Anthropic also launched Claude on AWS with full AWS billing and IAM authentication — important for institutions considering enterprise AI tools. On the safety front, Anthropic continues to lead the industry in mechanistic interpretability research — work that helps explain what is actually happening inside AI models, building the kind of transparent, trustworthy AI that parents and community members deserve. For anyone new to Claude: it remains one of the safest and most reliably helpful AI assistants available, with strong built-in values and a free tier at claude.ai.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">🤖 Claude Updates — Part 1</p>
+            <p class="video-caption">The newest Claude features explained for everyday users — what changed, why it matters, and how to use it.</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/hDsZMb_8FYo" title="Claude AI Updates for Community Members Part 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="video-card">
+            <p class="video-label">🤖 Claude Updates — Part 2</p>
+            <p class="video-caption">More Claude news, tips, and what the latest AI developments mean for students, parents, and lifelong learners.</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/JfxLTPAjGgg" title="Claude AI Updates for Community Members Part 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">📰 Anthropic Newsroom</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">🚀 Try Claude Free</a>
+          <a href="https://aiadvocates.buzzsprout.com/" target="_blank" rel="noopener">🎙️ AI Advocates Podcast</a>
+          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
+        </div>
+      </div>
+    </section>
+
+  </article>
+  <!-- ══════════ END WEEK #1 ══════════ -->
+
+</div><!-- end .weeks-container -->
+
+<!-- ════════════════════════ ARCHIVE ════════════════════════════ -->
+<section class="archive-section">
+  <h2>📂 Past Issues</h2>
+  <ul class="archive-list" id="archive-list">
+    <li><a href="#week-2026-06-23">📅 Issue #1 — Week of June 23, 2026 <span style="margin-left:auto;font-size:.8rem;color:#aaa;">Inaugural Edition</span></a></li>
+    <!-- ARCHIVE ITEMS GO HERE -->
+  </ul>
+</section>
+
+<!-- ════════════════════════ FOOTER ═════════════════════════════ -->
+<footer class="site-footer">
+  <img class="footer-logo" src="images/logo-banner.png" alt="InspiredBI" />
+  <p>
+    Empowering students to eagerly learn, authentically communicate, boldly collaborate, and ignite a ripple effect of inspiration.<br />
+    <a href="mailto:mosherku@ku.edu">mosherku@ku.edu</a> &nbsp;·&nbsp;
+    <a href="https://inspiredbi.org">inspiredbi.org</a> &nbsp;·&nbsp;
+    <a href="https://voiss.org">voiss.org</a>
+  </p>
+  <p style="margin-top:10px;color:#666;">© 2026 InspiredBI.org — Education Meets Innovation</p>
+</footer>
+
+<script>
+  // Smooth scroll offset correction for sticky nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const offset = 70;
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
