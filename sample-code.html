@@ -201,6 +201,9 @@
     <a href="#syllabus-bot" class="jump-link">Syllabus Chatbot</a>
     <a href="#feedback-pipeline" class="jump-link">Feedback Pipeline</a>
     <a href="#course-qa" class="jump-link">Course Q&amp;A Agent</a>
+    <a href="#curriculum-map" class="jump-link">Curriculum Mapping</a>
+    <a href="#movement-lesson" class="jump-link">Movement &amp; Collaboration</a>
+    <a href="#hook-real-world" class="jump-link">Hooks + Real-World Lessons</a>
   </div>
 </div>
 
@@ -630,7 +633,6 @@ npx vercel
 
     <div class="use-now">
       <a href="agentic.html" class="use-btn">Learn Claude Code basics →</a>
-      <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" class="use-btn">Get an Anthropic API key ↗</a>
     </div>
 
     <div class="tips-box">
@@ -1486,6 +1488,351 @@ Add to the HTML file's comment header:
         <li>Update `schedule` every 2 weeks during the semester so deadline answers stay accurate</li>
         <li>Pair with the Syllabus Chatbot (Sample 2) if you also want deep syllabus Q&amp;A coverage</li>
       </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SAMPLE 5: Curriculum Mapping                    -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="sample-section" id="curriculum-map">
+  <div class="container">
+    <div class="section-eyebrow">Sample 5 — Spreadsheet + Static Site</div>
+    <h2 class="section-title">Curriculum Mapping &amp; Standards Alignment Agent</h2>
+    <p class="section-intro">Hand Claude Code your standards, your unit plans, and a roster of resources. It builds a navigable curriculum map (CSV + browsable HTML) that shows what's taught, when, by which standard — and flags gaps, repeats, and missing assessments. Perfect for grade-level teams, instructional coaches, and curriculum directors.</p>
+
+    <div class="what-builds">
+      <h3>What this builds</h3>
+      <ul>
+        <li>Standards-by-week matrix (CSV) ready for Google Sheets or Excel</li>
+        <li>Browsable HTML map with filters by unit, standard, DOK level, and subject</li>
+        <li>Auto-flagged gaps: standards never assessed, weeks with no formative check</li>
+        <li>Vertical alignment view — see how a standard scaffolds across grade levels</li>
+        <li>Per-unit summary cards: objectives, anchor texts, assessments, materials</li>
+      </ul>
+    </div>
+
+    <div class="code-block-wrap">
+      <button class="copy-btn" onclick="copyCode(this, 'code-curriculum')">Copy</button>
+      <pre class="code-block" id="code-curriculum"># Claude Code Project Brief
+## Curriculum Mapping &amp; Standards Alignment Agent
+
+&gt; Drop this into a new folder, rename to `CLAUDE.md`, and run `claude`.
+&gt; The agent will scaffold the project, ask for your standards file once,
+&gt; and produce a complete browsable curriculum map.
+
+---
+
+## 1. Project Identity
+
+| Field | Value |
+|---|---|
+| **Grade level(s)** | [e.g., 6-8 ELA] |
+| **State / standards body** | [e.g., KSDE, Common Core, NGSS, TEKS] |
+| **School year** | [e.g., 2026-2027] |
+| **Subject(s)** | [e.g., English Language Arts] |
+| **Team using this** | [Grade-level PLC / department / curriculum director] |
+
+---
+
+## 2. Inputs You Will Provide
+
+Place these files in `inputs/` before running:
+
+- `standards.csv` — code, strand, description, DOK target (one row per standard)
+- `units.csv` — unit name, weeks covered, big idea, anchor text, assessment type
+- `resources.md` — bullet list of texts, videos, labs, and apps you actually use
+- `pacing.csv` — week #, unit, sub-topic, days
+
+If any file is missing, ASK ONCE for it. Do not invent standards or units.
+
+---
+
+## 3. Deliverables
+
+Generate these in `outputs/`:
+
+1. **`curriculum-map.csv`** — one row per week, columns:
+   `Week, Unit, Sub-topic, Standards Covered, DOK Level, Anchor Text, Formative Check, Summative, Materials, Notes`
+
+2. **`map.html`** — single-file browsable site with:
+   - Top filters: Unit, Standard code, DOK level, Assessment type
+   - Color-coded cells by DOK level (1=gray, 2=blue, 3=gold, 4=green)
+   - "Gaps" panel: standards with &lt;2 instructional touchpoints, weeks with no formative
+   - "Vertical alignment" view: standard family across grades (if multi-grade input)
+
+3. **`gaps-report.md`** — narrative analysis with:
+   - Standards covered exactly once (risk: insufficient practice)
+   - Standards never assessed
+   - Weeks heavy on Standard X but missing Standard Y
+   - DOK distribution: are students mostly stuck at recall?
+
+4. **`unit-cards/`** — one Markdown file per unit:
+   - Objectives (I can…)
+   - Standards addressed
+   - Anchor text + supplementary texts
+   - 3 formative checks + 1 summative
+   - Materials list
+   - Differentiation notes (ELL, IEP, extension)
+
+---
+
+## 4. Rules &amp; Quality Bar
+
+- Never invent a standard code. If it isn't in `standards.csv`, flag it.
+- Never claim a standard is "covered" unless the unit explicitly references it.
+- DOK assignments come from `standards.csv`; do not upgrade or downgrade.
+- Use plain language in `unit-cards/` — teachers, parents, and students should both understand them.
+- The HTML map must work offline (no CDN, no external fonts beyond system stack).
+
+---
+
+## 5. Execution Directive
+
+Build the full project in one pass. Do not ask for confirmation on
+formatting choices — pick something clean and consistent. Only pause if an
+input file is missing or unreadable. When done, print a summary of:
+the number of weeks mapped, number of standards covered at least once,
+gap count, and the path to `map.html`.
+</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SAMPLE 6: Movement &amp; Collaborative Lessons  -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="sample-section" id="movement-lesson">
+  <div class="container">
+    <div class="section-eyebrow">Sample 6 — Lesson Pack Generator</div>
+    <h2 class="section-title">Collaborative Movement &amp; Embodied Learning Lesson Builder</h2>
+    <p class="section-intro">Sitting still all day isn't how kids learn best. This template tells Claude Code to take a topic and a standard and produce a complete lesson built around movement, collaboration, and embodied cognition — kinesthetic stations, partner protocols, gallery walks, and "human models" of abstract concepts. Output is a printable lesson packet plus a quick-prep checklist.</p>
+
+    <div class="what-builds">
+      <h3>What this builds</h3>
+      <ul>
+        <li>One full collaborative-movement lesson plan per topic (Markdown + PDF-ready HTML)</li>
+        <li>Four movement protocols built in: Stations, Human Number Line, Gallery Walk, Partner Talk &amp; Trade</li>
+        <li>Materials checklist with low-budget alternatives for under-resourced classrooms</li>
+        <li>Embedded formative checkpoints (no clipboards required — quick visual signals)</li>
+        <li>Accessibility appendix: how to honor the lesson for students who can't move freely</li>
+      </ul>
+    </div>
+
+    <div class="code-block-wrap">
+      <button class="copy-btn" onclick="copyCode(this, 'code-movement')">Copy</button>
+      <pre class="code-block" id="code-movement"># Claude Code Project Brief
+## Collaborative Movement &amp; Embodied Learning Lesson Builder
+
+&gt; Save as `CLAUDE.md`, run `claude` in the folder. The agent will produce
+&gt; complete lesson packets where movement and collaboration are the
+&gt; instructional method — not an afterthought tacked onto a worksheet.
+
+---
+
+## 1. Lesson Identity
+
+| Field | Value |
+|---|---|
+| **Grade level** | [e.g., 4th grade] |
+| **Subject** | [e.g., Math — Fractions] |
+| **Standard(s)** | [Exact code(s) — e.g., 4.NF.A.1] |
+| **Class size** | [Approx number of students] |
+| **Class period length** | [Minutes] |
+| **Space available** | [Classroom only / hallway / outdoors / gym time] |
+| **Mobility considerations** | [Wheelchair users, students with mobility limitations, sensory needs] |
+
+---
+
+## 2. Non-Negotiable Design Rules
+
+- **Movement is the method, not a brain break.** Students discover the concept by physically doing it.
+- **Every minute of movement has a learning purpose.** Tag it explicitly: "Why we move here: ___".
+- **Collaboration &gt; individual silent practice.** Pairs or small groups, with protocols (not "talk to your neighbor").
+- **No worksheets as the deliverable.** Deliverable evidence comes through human modeling, gallery products, or oral defense.
+- **Universal access by default.** Every movement task must have a seated/low-mobility equivalent that achieves the same cognitive target — not a watered-down alternative.
+
+---
+
+## 3. Pick at Least Two Movement Protocols
+
+Use AT LEAST two of these per lesson:
+
+1. **Stations** — 4-5 rotation points, 6-8 minutes each, escalating cognitive demand.
+2. **Human Number Line / Human Graph** — students embody data points or operations.
+3. **Gallery Walk + Sticky Note Critique** — partners post work, peers leave evidence-based feedback.
+4. **Partner Talk &amp; Trade** — A explains, B questions, then swap roles with new partner.
+5. **Carousel Brainstorm** — chart paper rotation, each group adds and responds to prior group's thinking.
+6. **Concept Sculptures** — small groups physically arrange themselves to model a concept (e.g., the water cycle, a sentence structure).
+
+For each protocol you use, write a 2-3 sentence "Why this here" justification tied to the standard.
+
+---
+
+## 4. Lesson Packet Structure (produce in `outputs/`)
+
+For each topic + standard combo, create:
+
+1. **`lesson-plan.md`** — the full plan:
+   - Standard, big idea, success criteria ("I can…")
+   - **Hook** (3-5 min, movement-based — never a video or a passive opener)
+   - **Mini-lesson** (5-8 min direct instruction, with one embodied demo)
+   - **Collaborative movement block** (20-25 min, the chosen protocols)
+   - **Reflection &amp; share** (5-7 min, with a quick formative signal)
+   - **Closing exit move** (60 seconds — students physically signal where they are)
+2. **`materials.md`** — exact prep list with low-budget alternatives.
+3. **`accessibility.md`** — adaptations for limited mobility, sensory needs, and ELLs.
+4. **`facilitator-script.md`** — a confident, minimal script (what to say at each transition).
+5. **`printable.html`** — clean print-friendly version of the lesson plan.
+
+---
+
+## 5. Quality Bar
+
+- If the lesson could be delivered without students leaving their seats, redesign it.
+- If collaboration is "turn and talk," redesign it with a real protocol.
+- If movement isn't tied to a cognitive target by name, cut it.
+- The exit move must produce evidence of learning the teacher can see in 30 seconds.
+
+---
+
+## 6. Execution Directive
+
+Build the full lesson packet end to end. Do not ask which protocols to pick;
+make the strongest pedagogical choice and document why. Do pause if the
+provided standard is ambiguous or the space description rules out movement.
+</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SAMPLE 7: Hook + Real-World Lessons             -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="sample-section" id="hook-real-world">
+  <div class="container">
+    <div class="section-eyebrow">Sample 7 — Lesson Series Generator</div>
+    <h2 class="section-title">Real-World Lessons with a Hook at the Start of Every Class</h2>
+    <p class="section-intro">Every lesson opens with a hook that makes students lean in — a real-world puzzle, a surprising data point, a one-minute video clip, a local headline. This template tells Claude Code to take your unit and build a hook-first lesson series where every day connects the standard to something students will actually encounter outside school.</p>
+
+    <div class="what-builds">
+      <h3>What this builds</h3>
+      <ul>
+        <li>One real-world-anchored lesson per day across your unit (any length, 3-15 days)</li>
+        <li>A distinct hook for every lesson — never repeats the same hook type two days in a row</li>
+        <li>Career, civic, and community connections explicitly named (not generic "this matters")</li>
+        <li>Local-context placeholders ("your city," "your local industry") with prompts for the teacher to swap in</li>
+        <li>Student-facing "Why this matters today" one-pager per lesson</li>
+      </ul>
+    </div>
+
+    <div class="code-block-wrap">
+      <button class="copy-btn" onclick="copyCode(this, 'code-hook-real')">Copy</button>
+      <pre class="code-block" id="code-hook-real"># Claude Code Project Brief
+## Real-World Lesson Series with a Hook at the Start of Every Class
+
+&gt; Drop in a folder, rename to `CLAUDE.md`, run `claude`. The agent
+&gt; produces a complete unit where the standard is taught *through* real-world
+&gt; questions students actually care about — and every lesson opens with a
+&gt; hook that earns attention in under five minutes.
+
+---
+
+## 1. Unit Identity
+
+| Field | Value |
+|---|---|
+| **Subject + grade** | [e.g., 9th grade Biology] |
+| **Unit title** | [e.g., Ecosystems &amp; Energy Flow] |
+| **Standards** | [List exact codes] |
+| **Number of class days** | [e.g., 10] |
+| **Class period length** | [Minutes] |
+| **Community / location context** | [e.g., rural Kansas, urban Baltimore, coastal Maine] |
+| **Student interests / careers in the region** | [Add what you know — agriculture, healthcare, tech, fishing, military, etc.] |
+
+---
+
+## 2. Hook Rules (non-negotiable)
+
+Every lesson opens with a hook that:
+
+- Lasts **3-5 minutes max** before students do something
+- Connects to the day's specific learning target — not just the unit broadly
+- Pulls from one of these categories (rotate; never repeat two days in a row):
+  1. **Real-world puzzle / mystery** (one weird data point, headline, or photo)
+  2. **Local connection** (your city, your industry, your community)
+  3. **Career or pro voice** (a 60-second clip or quote from someone doing this work)
+  4. **Counterintuitive claim** (something that contradicts what students would guess)
+  5. **Decision dilemma** (you are X — what would you do?)
+  6. **Sensory or physical artifact** (something to touch, smell, hold)
+- Ends with a question the lesson will answer — written on the board.
+
+If you can't write the lesson's question on the board after the hook, the hook is wrong.
+
+---
+
+## 3. Real-World Anchor (one per lesson, no exceptions)
+
+Every lesson must connect the standard to:
+
+- A **career** that uses this skill (name it specifically — not "scientist," but "wildlife biologist tracking deer populations")
+- A **civic** application (how citizens use this to make decisions)
+- A **community** application (how this shows up where students live)
+
+Place these in a "Why this matters today" sidebar visible to students.
+
+---
+
+## 4. Outputs (produce in `outputs/`)
+
+For each lesson day:
+
+1. **`day-XX-lesson.md`** — full plan:
+   - Standard, learning target (I can…)
+   - **Hook** (script, materials, exact opener, the question that goes on the board)
+   - **Real-world anchor sidebar** (career + civic + community connections)
+   - **Instruction &amp; practice** (your unit's content)
+   - **Application task** (students apply the day's learning to the real-world anchor)
+   - **Exit ticket** that asks: "Outside of school, where would someone use what we did today?"
+
+2. **`day-XX-handout.html`** — student one-pager:
+   - Today's question (top, large)
+   - Why this matters today (career, civic, community)
+   - Key terms / examples
+   - Application task instructions
+
+3. **`unit-overview.md`** — table of the full unit: day, target, hook type, anchor, exit ticket.
+
+4. **`teacher-prep-checklist.md`** — what to print, gather, queue up the night before.
+
+---
+
+## 5. Local Context Rule
+
+When the brief doesn't specify the local context, use bracketed placeholders
+the teacher swaps in (e.g., `[your local hospital]`, `[your river or lake]`,
+`[your nearest manufacturing or agricultural employer]`). Do NOT invent
+specific local facts the teacher would have to fact-check.
+
+---
+
+## 6. Quality Bar
+
+- A hook that could open any lesson on this topic is too generic. Tie it to the day.
+- "It's important" is not a real-world anchor. Name a person, a job, or a decision.
+- The exit ticket must connect to outside-of-school use, not just academic recall.
+- If two consecutive lessons have the same hook type, regenerate one.
+
+---
+
+## 7. Execution Directive
+
+Build the whole unit end to end. Do not stop after one day. Do not ask
+which hook types to use — choose the strongest one for each lesson and
+document why in a one-line teacher note. Print a summary of all daily
+hooks and anchors at the end so the teacher can scan the arc at a glance.
+</pre>
     </div>
   </div>
 </section>

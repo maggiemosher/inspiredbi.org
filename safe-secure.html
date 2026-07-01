@@ -148,19 +148,20 @@
 <div class="page-hero">
   <div class="page-hero-badge">Privacy · Security · Compliance</div>
   <h1>Safe and <em>Secure</em> AI in Education</h1>
-  <p>FERPA, HIPAA, and COPPA compliance guidelines. Google Workspace tier breakdowns. Platform security comparisons. Free student monitoring tools.</p>
+  <p>FERPA, HIPAA, and COPPA compliance. Google Workspace tier breakdowns. Platform security comparisons. Plus the full setup guides for free student AI monitoring tools — all in one place.</p>
 </div>
 
 <div class="jump-nav">
   <div class="jump-nav-inner">
     <span>Jump to:</span>
     <a href="#privacy-laws" class="jump-link">Privacy Laws</a>
+    <a href="#major-ai-players" class="jump-link">All Major AI Players</a>
     <a href="#google-workspace" class="jump-link">Google Workspace Tiers</a>
     <a href="#platform-security" class="jump-link">Platform Security</a>
-    <a href="#it-recs" class="jump-link">IT Recommendations</a>
+    <a href="#monitoring-overview" class="jump-link">Monitoring AI Use Platform Overview</a>
     <a href="#monitoring" class="jump-link">Monitor Student AI</a>
+    <a href="#it-recs" class="jump-link">IT Recommendations</a>
     <a href="#comparison-tables" class="jump-link">AI Tool Comparisons</a>
-    <a href="#major-ai-players" class="jump-link">All Major AI Players</a>
     <a href="#cyber-security" class="jump-link">Cyber Security Domains</a>
   </div>
 </div>
@@ -379,48 +380,68 @@
   </div>
 </section>
 
-<!-- IT RECOMMENDATIONS -->
-<section class="tutorial-section" id="it-recs">
+<!-- MONITORING AI USE PLATFORM OVERVIEW -->
+<section class="tutorial-section" id="monitoring-overview">
   <div class="container">
-    <div class="section-eyebrow">For IT Departments</div>
-    <h2 class="section-title">IT Department Recommendations</h2>
-    <p class="section-intro">Recommendations for IT administrators evaluating AI platform deployment across K–12 and university environments.</p>
+    <div class="section-eyebrow">Classroom Management</div>
+    <h2 class="section-title">Monitoring AI Use Platform Overview</h2>
+    <p class="section-intro">Rather than banning AI, these platforms give you visibility into exactly how students are using it — and let you guide them toward responsible, cognitively rigorous AI habits. Compare the seven free options at a glance, then jump to the setup guides below.</p>
 
-    <div class="platform-rec">
-      <span class="risk-low">RECOMMENDED · LOW RISK</span>
-      <h4>Google Workspace for Education</h4>
-      <p>Best-in-class for K–12 and higher ed due to strong FERPA/COPPA compliance, centralized admin controls, no student advertising, and the ability to disable AI features at the organizational unit level. Education Fundamentals is free. Gemini features require Education Plus or higher. Agentic AI requires Google AI Pro for Education and IT configuration of Workspace Studio.</p>
-    </div>
-
-    <div class="platform-rec">
-      <span class="risk-low">RECOMMENDED · LOW RISK</span>
-      <h4>Microsoft 365 Education</h4>
-      <p>Strong FERPA/COPPA compliance through A1–A5 licensing. Microsoft Copilot for Education integrates with Word, Teams, and OneNote. Excellent for institutions already standardized on Microsoft. Copilot Studio enables custom agent building. FedRAMP High certified — suitable for sensitive research environments. A1 tier is free for schools.</p>
-    </div>
-
-    <div class="platform-rec">
-      <span class="risk-low">RECOMMENDED · LOW RISK</span>
-      <h4>Apple Education (Apple Intelligence)</h4>
-      <p>On-device AI processing through Apple Intelligence provides the strongest privacy posture — student data never leaves the device for most AI features. Apple Business Manager provides centralized management. Best suited for 1:1 iPad or Mac programs. No advertising, no behavioral tracking. Limited agentic capabilities compared to Google or Microsoft.</p>
-    </div>
-
-    <div class="platform-rec">
-      <span class="risk-med">CONDITIONAL · MEDIUM RISK (K–12) · LOW RISK (University with agreement)</span>
-      <h4>Anthropic Claude</h4>
-      <p>Claude Pro ($20/mo) is appropriate for individual educator use with no student PII. For institutional deployment with students, require an Enterprise or API agreement with a Data Processing Addendum that addresses FERPA. Claude's free tier should be treated as a consumer product — do not use with student data. Claude Cowork (desktop, paid plan) is appropriate for teacher productivity with non-student data.</p>
-    </div>
-
-    <div class="tips-box" style="margin-top:32px;">
-      <h4>IT Deployment Checklist</h4>
-      <ul>
-        <li>Before deploying any AI tool, obtain and review the vendor's Data Processing Agreement (DPA)</li>
-        <li>Verify the tool's FERPA compliance documentation — ask for it in writing</li>
-        <li>Confirm the tool does NOT use student data to train its AI models</li>
-        <li>Test admin controls: can you disable specific AI features for student accounts?</li>
-        <li>Determine if parental consent is required for students under 13 (COPPA)</li>
-        <li>Create a documented AI tool approval process — staff should not self-adopt without IT review</li>
-        <li>Establish an AI incident response plan for data exposure events</li>
-      </ul>
+    <div class="table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>What It Monitors</th>
+            <th>Free Tier Features</th>
+            <th>Best For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>SchoolAI</strong><br/><a href="https://schoolai.com" target="_blank" style="font-size:0.8rem;color:var(--accent);">schoolai.com</a></td>
+            <td>Full conversation logs, student engagement patterns, keyword flagging</td>
+            <td>Unlimited students, full logs, conversation review dashboard, SafeChat filter</td>
+            <td>K–12 teachers deploying class-wide AI chatbots</td>
+          </tr>
+          <tr>
+            <td><strong>MagicSchool (MagicStudent)</strong><br/><a href="https://magicschool.ai" target="_blank" style="font-size:0.8rem;color:var(--accent);">magicschool.ai</a></td>
+            <td>Student prompt logs, frequency of use, tool usage breakdown</td>
+            <td>Free teacher account; supervised AI access</td>
+            <td>Blended classroom prompting practice with teacher oversight</td>
+          </tr>
+          <tr>
+            <td><strong>BoodleBox</strong><br/><a href="https://box.boodle.ai" target="_blank" style="font-size:0.8rem;color:var(--accent);">box.boodle.ai</a></td>
+            <td>Full conversation logs, student vs. AI message breakdown, session analytics</td>
+            <td>Free for educators; conversation archive; COPPA compliant</td>
+            <td>Higher ed and secondary; open-ended AI literacy projects</td>
+          </tr>
+          <tr>
+            <td><strong>Mizou</strong><br/><a href="https://mizou.com" target="_blank" style="font-size:0.8rem;color:var(--accent);">mizou.com</a></td>
+            <td>Real-time student chat logs and interactions with custom bots</td>
+            <td>Free teacher account, unlimited custom chatbots, link sharing without student logins</td>
+            <td>Creating specific, rules-based AI chatbot assignments</td>
+          </tr>
+          <tr>
+            <td><strong>Brisk Teaching (Brisk Boost)</strong><br/><a href="https://briskteaching.com" target="_blank" style="font-size:0.8rem;color:var(--accent);">briskteaching.com</a></td>
+            <td>Student engagement, progress, and interactions within specific activities</td>
+            <td>Free access to Boost activities, turn any webpage/doc into an AI activity, insights dashboard</td>
+            <td>Turning existing online resources into instant, monitored AI activities</td>
+          </tr>
+          <tr>
+            <td><strong>Socrat</strong><br/><a href="https://socrat.ai" target="_blank" style="font-size:0.8rem;color:var(--accent);">socrat.ai</a></td>
+            <td>Real-time student AI conversations and assignment progress</td>
+            <td>Free tier to create classes, build custom bots, and monitor live chat</td>
+            <td>Engaging students in Socratic dialogue and guided inquiry</td>
+          </tr>
+          <tr>
+            <td><strong>Edcafe AI</strong><br/><a href="https://edcafe.ai" target="_blank" style="font-size:0.8rem;color:var(--accent);">edcafe.ai</a></td>
+            <td>Chatbot thread summaries per student, alerts for off-task behavior</td>
+            <td>Free plan (100 generations/month), custom bots, real-time dashboards, QR code sharing</td>
+            <td>Managing full material creation and student AI interaction in one app</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
@@ -507,6 +528,84 @@
     <div class="what-is-box">
       <h3>Cognitive Offloading vs. Cognitive Scaffolding</h3>
       <p>Cognitive offloading = using AI to bypass thinking entirely (asking it to write the essay). Cognitive scaffolding = using AI to support thinking (asking it to explain a concept, then writing your own response). Conversation logs quickly reveal which is happening. <strong>Design your assignments and AI environments to make scaffolding the only possible use case</strong> — configure the AI to refuse direct answer delivery and redirect to guiding questions.</p>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin:48px 0 16px;">Setup Guide: Mizou</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Create a Teacher Account</h4><p>Go to <a href="https://mizou.com" target="_blank">mizou.com</a> and create a free teacher account. The platform is FERPA and COPPA compliant.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Design Your Chatbot</h4><p>Choose a pre-made chatbot or build your own. Provide a detailed system prompt and upload any relevant documents or worksheets for it to reference.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Deploy and Share</h4><p>Generate a secure link and share it directly with your students — no signup or personal information required.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Review the Dashboard</h4><p>Track performance metrics, grade interactions, and read text or listen to voice logs to assess student understanding.</p></div></div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin:48px 0 16px;">Setup Guide: Brisk Teaching (Brisk Boost)</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Install the Extension</h4><p>Go to <a href="https://briskteaching.com" target="_blank">briskteaching.com</a>, add the free Brisk Chrome extension, and sign in with your school Google or Microsoft account.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Find Your Material</h4><p>Open the Google Doc, PDF, webpage, or YouTube video you want to use. Click the Brisk "B" icon.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Boost the Activity</h4><p>Select <strong>Boost Student Activity</strong>. Set the learning objectives, choose the activity type, and define the AI's role (tutor, debate partner, feedback provider).</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Share &amp; Monitor</h4><p>Generate the activity link, share with your class, and track real-time engagement through the Brisk dashboard.</p></div></div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin:48px 0 16px;">Setup Guide: Socrat</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Create Your Account</h4><p>Go to <a href="https://socrat.ai" target="_blank">socrat.ai</a> and create a free teacher account.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Build a Socratic Bot</h4><p>Design your AI tutor with a system prompt that emphasizes inquiry — Socrat is built to ask probing questions rather than dispense answers.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Assign to a Class</h4><p>Add students to a class roster and share the activity. Students join the dialogue from any device.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Monitor Live Chats</h4><p>Watch student conversations in real time from the teacher dashboard and intervene when students need a nudge.</p></div></div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin:48px 0 16px;">Setup Guide: Edcafe AI</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Sign Up for the Free Plan</h4><p>Go to <a href="https://edcafe.ai" target="_blank">edcafe.ai</a> and create a free educator account. The free plan includes 100 generations per month.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Build a Custom Bot</h4><p>Design a chatbot tied to your unit content. Upload resources, set guardrails, and define the bot's persona.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Share via QR Code or Link</h4><p>Students access your bot from any device through a QR code or shareable link — no logins required.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Review Thread Summaries &amp; Alerts</h4><p>Check the real-time dashboard for thread summaries per student and alerts for off-task behavior.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- IT RECOMMENDATIONS -->
+<section class="tutorial-section" id="it-recs">
+  <div class="container">
+    <div class="section-eyebrow">For IT Departments</div>
+    <h2 class="section-title">IT Department Recommendations</h2>
+    <p class="section-intro">Recommendations for IT administrators evaluating AI platform deployment across K–12 and university environments.</p>
+
+    <div class="platform-rec">
+      <span class="risk-low">RECOMMENDED · LOW RISK</span>
+      <h4>Google Workspace for Education</h4>
+      <p>Best-in-class for K–12 and higher ed due to strong FERPA/COPPA compliance, centralized admin controls, no student advertising, and the ability to disable AI features at the organizational unit level. Education Fundamentals is free. Gemini features require Education Plus or higher. Agentic AI requires Google AI Pro for Education and IT configuration of Workspace Studio.</p>
+    </div>
+
+    <div class="platform-rec">
+      <span class="risk-low">RECOMMENDED · LOW RISK</span>
+      <h4>Microsoft 365 Education</h4>
+      <p>Strong FERPA/COPPA compliance through A1–A5 licensing. Microsoft Copilot for Education integrates with Word, Teams, and OneNote. Excellent for institutions already standardized on Microsoft. Copilot Studio enables custom agent building. FedRAMP High certified — suitable for sensitive research environments. A1 tier is free for schools.</p>
+    </div>
+
+    <div class="platform-rec">
+      <span class="risk-low">RECOMMENDED · LOW RISK</span>
+      <h4>Apple Education (Apple Intelligence)</h4>
+      <p>On-device AI processing through Apple Intelligence provides the strongest privacy posture — student data never leaves the device for most AI features. Apple Business Manager provides centralized management. Best suited for 1:1 iPad or Mac programs. No advertising, no behavioral tracking. Limited agentic capabilities compared to Google or Microsoft.</p>
+    </div>
+
+    <div class="platform-rec">
+      <span class="risk-med">CONDITIONAL · MEDIUM RISK (K–12) · LOW RISK (University with agreement)</span>
+      <h4>Anthropic Claude</h4>
+      <p>Claude Pro ($20/mo) is appropriate for individual educator use with no student PII. For institutional deployment with students, require an Enterprise or API agreement with a Data Processing Addendum that addresses FERPA. Claude's free tier should be treated as a consumer product — do not use with student data. Claude Cowork (desktop, paid plan) is appropriate for teacher productivity with non-student data.</p>
+    </div>
+
+    <div class="tips-box" style="margin-top:32px;">
+      <h4>IT Deployment Checklist</h4>
+      <ul>
+        <li>Before deploying any AI tool, obtain and review the vendor's Data Processing Agreement (DPA)</li>
+        <li>Verify the tool's FERPA compliance documentation — ask for it in writing</li>
+        <li>Confirm the tool does NOT use student data to train its AI models</li>
+        <li>Test admin controls: can you disable specific AI features for student accounts?</li>
+        <li>Determine if parental consent is required for students under 13 (COPPA)</li>
+        <li>Create a documented AI tool approval process — staff should not self-adopt without IT review</li>
+        <li>Establish an AI incident response plan for data exposure events</li>
+      </ul>
     </div>
   </div>
 </section>

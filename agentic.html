@@ -166,13 +166,19 @@
     <span>Jump to:</span>
     <a href="#workflows" class="jump-link">Agentic Workflows</a>
     <a href="#goals-framework" class="jump-link">G.O.A.L.S. Framework</a>
-    <a href="#platforms" class="jump-link">Choose a Platform</a>
+    <a href="#platforms" class="jump-link">Platform Tables</a>
+    <a href="#playlab" class="jump-link">PlayLab</a>
+    <a href="#mizou" class="jump-link">Mizou</a>
+    <a href="#google-agents" class="jump-link">Google</a>
+    <a href="#copilot" class="jump-link">Codex</a>
     <a href="#cowork" class="jump-link">Claude Cowork</a>
-    <a href="#platform-tables" class="jump-link">Platform Tables</a>
-    <a href="#by-role" class="jump-link">By Role</a>
-    <a href="#learning-path" class="jump-link">Full Learning Path</a>
+    <a href="#platform-tables" class="jump-link">Other Agentic Platforms Table</a>
     <a href="#ai-tools-agentic" class="jump-link">AI Tool Directory</a>
-    <a href="references.html" class="jump-link">References</a>
+    <a href="#by-role" class="jump-link">Agentic Tasks By Role</a>
+    <a href="#custom-tutor" class="jump-link">Build Your Custom Tutor Agent</a>
+    <a href="#learning-path" class="jump-link">Full AI Learning Path</a>
+    <a href="#course-credit" class="jump-link">Course and Credit</a>
+    <a href="references.html" class="jump-link">Website References</a>
   </div>
 </div>
 
@@ -776,41 +782,6 @@ If the brief is unclear, use AskUserQuestion. Don't fill gaps with filler. Don't
   </div>
 </section>
 
-<!-- CUSTOM TUTOR AGENT ARCHITECTURE -->
-<section class="tutorial-section">
-  <div class="container">
-    <div class="section-eyebrow">Agentic AI — Advanced Guide</div>
-    <h2 class="section-title">Step-by-Step Architecture for a Custom Tutor Agent</h2>
-    <p class="section-intro">A well-designed AI tutor doesn't hand over answers — it guides students to discover them. These four steps show you how to architect an agent that practices the Socratic method, stays grounded in your curriculum, and knows when to hand off to a human.</p>
-
-    <div class="steps">
-      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Establish the Socratic Guardrail</h4><p>The foundational layer of an instructional agent is its core system directive. You must explicitly strip the agent of its default tendency to be a "pleasing helper" that hands over direct answers.</p><ul style="margin-top:12px;list-style:none;"><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Define the Persona:</strong> Instruct the agent to act as an expert instructional coach practicing the Socratic method.</li><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Set Hard Constraints:</strong> <em>"Under no circumstances are you to provide the final answer, the completed code block, the balanced equation, or the fully drafted thesis statement."</em></li><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Enforce Brevity:</strong> Limit the agent's response length to one or two short paragraphs.</li></ul></div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Isolate the Knowledge Base</h4><p>To minimize hallucinations and keep the support tightly aligned with your curriculum, restrict the agent's data access.</p><ul style="margin-top:12px;list-style:none;"><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Upload Unit Materials:</strong> Provide the agent access to specific course documents.</li><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Contextual Grounding:</strong> Instruct the agent to draw hints and analogies exclusively from these uploaded materials.</li><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Boundary Enforcement:</strong> <em>"If a student asks a question outside of the provided text, inform them and guide them back to the active assignment."</em></li></ul></div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Program the Iterative Diagnostic Loop</h4><p>Instruct the agent to follow this mental model before generating any response: <strong>Analyze</strong> → <strong>Diagnose</strong> → <strong>Calibrate</strong> → <strong>Respond.</strong></p></div></div>
-      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Implement a "Human-in-the-Loop" Trigger</h4><p>Program specific safety valves that flag when a student needs actual human intervention. If a student remains stuck on the same step for more than three consecutive turns, the agent should: provide a conceptual bridge and instruct the student to contact the instructor for additional support.</p></div></div>
-    </div>
-
-    <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin:48px 0 12px;">System Prompt Blueprint</h3>
-    <pre style="background:var(--navy);color:rgba(255,255,255,0.88);border-radius:12px;padding:28px 32px;font-family:monospace;font-size:0.85rem;line-height:1.75;overflow-x:auto;white-space:pre-wrap;"><code>[ROLE &amp; GOAL]
-You are an expert AI Learning Coach. Your goal is to guide the student
-toward independent mastery of the provided material using scaffolded,
-Socratic questioning.
-
-[CRITICAL RULE]
-- NEVER give away the final solution, answer, or conclusion.
-- NEVER rewrite a student's work for them.
-- ALWAYS guide them to find the next logical micro-step on their own.
-
-[INTERACTION STRATEGY]
-1. Read the student's response.
-2. Identify the single misconception or missing piece of logic.
-3. Validate their effort in 1 sentence.
-4. Ask exactly ONE targeted question that prompts them to discover
-   the error or next step.
-5. Keep your entire response under 75 words.</code></pre>
-  </div>
-</section>
-
 <!-- BY ROLE -->
 <section class="tutorial-section" id="by-role">
   <div class="container">
@@ -844,6 +815,41 @@ Socratic questioning.
   </div>
 </section>
 
+<!-- CUSTOM TUTOR AGENT ARCHITECTURE -->
+<section class="tutorial-section" id="custom-tutor">
+  <div class="container">
+    <div class="section-eyebrow">Agentic AI — Advanced Guide</div>
+    <h2 class="section-title">Step-by-Step Architecture for a Custom Tutor Agent</h2>
+    <p class="section-intro">A well-designed AI tutor doesn't hand over answers — it guides students to discover them. These four steps show you how to architect an agent that practices the Socratic method, stays grounded in your curriculum, and knows when to hand off to a human.</p>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Establish the Socratic Guardrail</h4><p>The foundational layer of an instructional agent is its core system directive. You must explicitly strip the agent of its default tendency to be a "pleasing helper" that hands over direct answers.</p><ul style="margin-top:12px;list-style:none;"><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Define the Persona:</strong> Instruct the agent to act as an expert instructional coach practicing the Socratic method.</li><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Set Hard Constraints:</strong> <em>"Under no circumstances are you to provide the final answer, the completed code block, the balanced equation, or the fully drafted thesis statement."</em></li><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Enforce Brevity:</strong> Limit the agent's response length to one or two short paragraphs.</li></ul></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Isolate the Knowledge Base</h4><p>To minimize hallucinations and keep the support tightly aligned with your curriculum, restrict the agent's data access.</p><ul style="margin-top:12px;list-style:none;"><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Upload Unit Materials:</strong> Provide the agent access to specific course documents.</li><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Contextual Grounding:</strong> Instruct the agent to draw hints and analogies exclusively from these uploaded materials.</li><li style="padding:5px 0 5px 20px;position:relative;font-size:0.9rem;color:var(--muted);"><span style="position:absolute;left:0;color:var(--gold);font-weight:700;">▸</span><strong>Boundary Enforcement:</strong> <em>"If a student asks a question outside of the provided text, inform them and guide them back to the active assignment."</em></li></ul></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Program the Iterative Diagnostic Loop</h4><p>Instruct the agent to follow this mental model before generating any response: <strong>Analyze</strong> → <strong>Diagnose</strong> → <strong>Calibrate</strong> → <strong>Respond.</strong></p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Implement a "Human-in-the-Loop" Trigger</h4><p>Program specific safety valves that flag when a student needs actual human intervention. If a student remains stuck on the same step for more than three consecutive turns, the agent should: provide a conceptual bridge and instruct the student to contact the instructor for additional support.</p></div></div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin:48px 0 12px;">System Prompt Blueprint</h3>
+    <pre style="background:var(--navy);color:rgba(255,255,255,0.88);border-radius:12px;padding:28px 32px;font-family:monospace;font-size:0.85rem;line-height:1.75;overflow-x:auto;white-space:pre-wrap;"><code>[ROLE &amp; GOAL]
+You are an expert AI Learning Coach. Your goal is to guide the student
+toward independent mastery of the provided material using scaffolded,
+Socratic questioning.
+
+[CRITICAL RULE]
+- NEVER give away the final solution, answer, or conclusion.
+- NEVER rewrite a student's work for them.
+- ALWAYS guide them to find the next logical micro-step on their own.
+
+[INTERACTION STRATEGY]
+1. Read the student's response.
+2. Identify the single misconception or missing piece of logic.
+3. Validate their effort in 1 sentence.
+4. Ask exactly ONE targeted question that prompts them to discover
+   the error or next step.
+5. Keep your entire response under 75 words.</code></pre>
+  </div>
+</section>
+
 <!-- FULL LEARNING PATH -->
 <section class="tutorial-section" id="learning-path">
   <div class="container">
@@ -866,7 +872,7 @@ Socratic questioning.
       <li><span class="stage-check">12</span><strong>Co-Workers, Careers, &amp; Advanced Growth</strong> — Agents as co-workers, open-source contributions, building AI SaaS. <em>"Evaluation is the skill that separates a demo from a product. An agent that works once is a toy. An agent you can measure, audit, and trust is a coworker."</em></li>
     </ul>
 
-    <div class="cta-card">
+    <div class="cta-card" id="course-credit">
       <h3>Want to Learn More? Take the Course &amp; Get Credit.</h3>
       <p>Build your own AI-integrated learning experience while earning credit from <strong>Johns Hopkins University</strong> — and explore the latest AI in education research.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
