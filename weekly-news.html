@@ -243,6 +243,52 @@
       height: 100%;
       border: none;
     }
+    /* Insight-card — same footprint as video-card but no iframe */
+    .insight-card {
+      background: #f9f9f9;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+      transition: transform .2s, box-shadow .2s;
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .insight-card:hover { transform: translateY(-3px); box-shadow: 0 6px 22px rgba(0,0,0,.13); }
+    .insight-card .insight-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+    .k12 .insight-label       { color: #1565c0; }
+    .leaders .insight-label   { color: #2e7d32; }
+    .highered .insight-label  { color: #6a1b9a; }
+    .community .insight-label { color: #bf360c; }
+    .insight-card h3 {
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: #1a1a2e;
+      line-height: 1.3;
+    }
+    .insight-card p {
+      font-size: 0.9rem;
+      color: #444;
+      line-height: 1.6;
+    }
+    .insight-card a.insight-cta {
+      align-self: flex-start;
+      margin-top: auto;
+      padding: 8px 14px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    .k12 .insight-cta       { background: #1565c0; color: #fff; }
+    .leaders .insight-cta   { background: #2e7d32; color: #fff; }
+    .highered .insight-cta  { background: #6a1b9a; color: #fff; }
+    .community .insight-cta { background: #bf360c; color: #fff; }
 
     /* ── Extra links strip ────────────────────────────────────── */
     .extra-links {
@@ -334,6 +380,7 @@
     <li><a href="https://inspiredbi.org/#impact">Impact</a></li>
     <li><a href="https://education.ku.edu/curriculum-teaching">KU Curriculum &amp; Teaching</a></li>
     <li><a href="https://inspiredbi.org/free-resources.html">Free Tools</a></li>
+    <li><a href="https://inspiredbi.org/safe-secure.html">Safe and Secure AI</a></li>
     <li><a href="weekly-news.html" class="active">AI Weekly</a></li>
     <li><a href="https://inspiredbi.org/#contact">Get In Touch</a></li>
   </ul>
@@ -355,13 +402,183 @@
 <!-- ════════════════════════ WEEK BANNER ════════════════════════ -->
 <div class="week-banner">
   <span class="week-label">Latest Issue</span>
-  <span class="week-date">📅 Week of June 23, 2026</span>
-  <span class="week-num">Issue #1 — Our First Edition!</span>
+  <span class="week-date">📅 Week of June 29, 2026</span>
+  <span class="week-num">Issue #2 — July 2026</span>
 </div>
 
 <!-- ════════════════════════ WEEKS CONTAINER ════════════════════ -->
 <!-- INSERT NEW WEEK HERE -->
 <div class="weeks-container">
+
+  <!-- ══════════ WEEK #2 — June 29, 2026 ══════════ -->
+  <article class="week-entry" id="week-2026-06-29">
+
+    <!-- ── K-12 EDUCATORS ─────────────────────────────────────── -->
+    <section class="audience-section k12">
+      <div class="audience-header k12-header">
+        <div class="audience-icon">🎓</div>
+        <div class="audience-header-text">
+          <h2>K-12 Educators</h2>
+          <p class="subtitle">AI as a teaching partner &amp; elevating educator skills</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · July 2026</span>
+          <p><strong>Microsoft's 2026 AI in Education Report</strong>, released just days ago, confirms a massive shift: <strong>88% of educators are now using AI</strong>, but nearly <strong>66% are actively asking for more formal, role-based training</strong>. The conversation has moved from basic adoption to pedagogical intent. As highlighted in <em>Empowered by AI: 10 Practical Approaches for Today's Educators</em>, the focus is now on utilizing agentic AI and Extended Reality (XR) to create immersive, evidence-based learning experiences <em>without</em> offloading the cognitive work that builds critical thinking. The <strong>OECD's July 2026 Digital Education Outlook</strong> echoes this, noting that while generative AI makes a powerful tutor and assistant, it requires clear design criteria to prevent "metacognitive laziness" in students. For teachers, the priority this month is leveraging these tools to augment their own agency — co-designing lessons that demand authentic engagement rather than just output generation.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="insight-card">
+            <span class="insight-label">▶️ Report Breakdown</span>
+            <h3>Microsoft AI in Education 2026 Report</h3>
+            <p>A deep dive into the newest data on educator AI adoption, the skills gap, and the push for pedagogical intent.</p>
+            <a class="insight-cta" href="https://news.microsoft.com/source/topics/ai/" target="_blank" rel="noopener">Read the source →</a>
+          </div>
+          <div class="insight-card">
+            <span class="insight-label">▶️ Classroom Design</span>
+            <h3>Pedagogical Intent with GenAI</h3>
+            <p>How to design AI-integrated lessons that foster critical thinking and avoid metacognitive laziness in the classroom.</p>
+            <a class="insight-cta" href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">See ETHICS Framework →</a>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.microsoft.com/en-us/education/blog" target="_blank" rel="noopener">🔍 Microsoft Elevate for Educators</a>
+          <a href="https://www.oecd.org/education/ceri/" target="_blank" rel="noopener">⚖️ OECD Digital Education Outlook</a>
+          <a href="https://www.edsurge.com/news" target="_blank" rel="noopener">📰 EdSurge: Agentic AI in K-12</a>
+          <a href="https://inspiredbi.org/book-study.html" target="_blank" rel="noopener">📖 Empowered by AI Book Study</a>
+          <a href="https://www.engageli.com/" target="_blank" rel="noopener">🎥 Engageli — Active Learning Platform</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SCHOOL LEADERS ──────────────────────────────────────── -->
+    <section class="audience-section leaders">
+      <div class="audience-header leaders-header">
+        <div class="audience-icon">🏫</div>
+        <div class="audience-header-text">
+          <h2>School Leaders</h2>
+          <p class="subtitle">The policy window closes: Ohio's mandate &amp; data privacy</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · July 2026</span>
+          <p>The <strong>July 1, 2026 deadline</strong> has officially arrived for <strong>Ohio's House Bill 96</strong>, mandating that every public school district must now have an adopted AI policy. This statutory duty marks a turning point nationwide, moving AI governance from suggested guidance to legal compliance. Adopting a baseline model is just the first step. True governance requires robust vendor contracts that protect student data — specifically ensuring platforms <strong>do not train on district data</strong> and comply fully with <strong>FERPA and COPPA</strong>. District leaders are realizing that treating generative AI like a cellphone ban is a failing strategy; it requires a nuanced approach that distinguishes between AI as a vital learning accommodation and AI as a tool that masks a lack of student mastery. Forward-thinking leaders are also integrating clear directives on synthetic media, distinguishing school policy from federal laws like the <strong>Take It Down Act</strong>.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="insight-card">
+            <span class="insight-label">▶️ Compliance Alert</span>
+            <h3>Ohio's HB 96 AI Mandate Explained</h3>
+            <p>What the July 1st deadline means for districts nationwide and how to move from baseline compliance to robust governance.</p>
+            <a class="insight-cta" href="https://www.legislature.ohio.gov/legislation/135/hb96" target="_blank" rel="noopener">Read HB 96 →</a>
+          </div>
+          <div class="insight-card">
+            <span class="insight-label">▶️ Data Privacy</span>
+            <h3>Protecting Student Data in the AI Era</h3>
+            <p>A legal and practical guide to navigating vendor contracts, ensuring FERPA compliance, and selecting secure AI platforms.</p>
+            <a class="insight-cta" href="https://inspiredbi.org/safe-secure.html" target="_blank" rel="noopener">Safe &amp; Secure AI →</a>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">📋 Model AI Governance Framework</a>
+          <a href="https://inspiredbi.org/safe-secure.html#it-recs" target="_blank" rel="noopener">🔑 Vendor Contract Guidelines</a>
+          <a href="https://www.eschoolnews.com/" target="_blank" rel="noopener">📰 eSchool News: Beyond the Ban</a>
+          <a href="https://aiadvocates.buzzsprout.com/" target="_blank" rel="noopener">🎙️ District Policy Roundtable</a>
+          <a href="https://kjk.com/insights/" target="_blank" rel="noopener">⚖️ Kohrman Jackson Krantz — Ohio AI Law</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HIGHER EDUCATION ────────────────────────────────────── -->
+    <section class="audience-section highered">
+      <div class="audience-header highered-header">
+        <div class="audience-icon">🏛️</div>
+        <div class="audience-header-text">
+          <h2>Higher Education</h2>
+          <p class="subtitle">Economic returns, AI readiness &amp; institutional strategy</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · July 2026</span>
+          <p>The <strong>World Economic Forum's</strong> latest report, <em>Shaping the Future of Learning</em>, outlines a critical tension: generative AI is threatening to upend the traditional paradigm where economic shifts simply demanded more education. With AI now capable of performing high-level analysis previously reserved for well-credentialed workers, universities are facing unprecedented pressure to prove their ROI. Institutions like the <strong>University of Kansas</strong> and <strong>Johns Hopkins</strong> are demonstrating that the path forward lies in proactive research integration and equipping graduates with deep AI fluency. Academic integrity remains a flashpoint, but the focus is shifting toward <strong>"education readiness"</strong> — designing curricula that utilize AI to enhance research output while safeguarding learner agency and trust. The institutions that thrive in 2026 will be those that treat AI not as a threat to white-collar preparation, but as a foundational competency for the modern workforce.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="insight-card">
+            <span class="insight-label">▶️ Economic Outlook</span>
+            <h3>WEF: Education Readiness for the Age of AI</h3>
+            <p>Analyzing the World Economic Forum's June 2026 findings on higher education's economic return and the "great deskilling" debate.</p>
+            <a class="insight-cta" href="https://www.weforum.org/publications/" target="_blank" rel="noopener">Open WEF report →</a>
+          </div>
+          <div class="insight-card">
+            <span class="insight-label">▶️ Governance</span>
+            <h3>Institutional AI Governance in Research</h3>
+            <p>How top universities are balancing academic integrity with the need to build competitive AI fluency for graduates.</p>
+            <a class="insight-cta" href="https://education.ku.edu/curriculum-teaching" target="_blank" rel="noopener">KU Curriculum &amp; Teaching →</a>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.weforum.org/publications/" target="_blank" rel="noopener">🌍 WEF Future of Learning Report</a>
+          <a href="https://www.chalkbeat.org/" target="_blank" rel="noopener">💡 Chalkbeat: The AI Economy</a>
+          <a href="https://www.chronicle.com/" target="_blank" rel="noopener">📊 Chronicle: The ROI of AI Fluency</a>
+          <a href="https://hai.stanford.edu/" target="_blank" rel="noopener">🔬 Cross-Institutional AI Consortiums</a>
+          <a href="https://www.educause.edu/research" target="_blank" rel="noopener">📈 EDUCAUSE AI Research</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── COMMUNITY ───────────────────────────────────────────── -->
+    <section class="audience-section community">
+      <div class="audience-header community-header">
+        <div class="audience-icon">🌍</div>
+        <div class="audience-header-text">
+          <h2>Community Members</h2>
+          <p class="subtitle">Anthropic access restored &amp; the next wave of AI models</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · July 2026</span>
+          <p>The AI landscape saw major shifts this week as the <strong>U.S. Department of Commerce officially lifted export controls on Anthropic's most powerful AI models</strong>. As of July 1, access to <strong>Claude Fable 5</strong> and <strong>Mythos 5</strong> is being restored, bringing advanced reasoning and safety features back to everyday users and enterprise tools alike. Meanwhile, <strong>OpenAI has begun a limited rollout of its GPT-5.6 model</strong> to a small group of trusted partners, signaling the next leap in generative capabilities. Beyond chatbots, the market is seeing a surge in <strong>"narrative intelligence" tools</strong> — platforms designed to detect and combat disinformation in real time, a crucial development for maintaining trust in digital spaces. For the average user, these developments mean AI assistants are becoming more embedded, transparent, and capable of handling complex, multi-step tasks safely.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="insight-card">
+            <span class="insight-label">▶️ Access Restored</span>
+            <h3>Claude Fable 5 &amp; Mythos 5 Access Restored</h3>
+            <p>Everything you need to know about Anthropic's latest unblocked models and what their advanced reasoning means for everyday use.</p>
+            <a class="insight-cta" href="https://www.anthropic.com/news" target="_blank" rel="noopener">Anthropic Newsroom →</a>
+          </div>
+          <div class="insight-card">
+            <span class="insight-label">▶️ Next Wave</span>
+            <h3>The GPT-5.6 Preview &amp; Narrative Intelligence</h3>
+            <p>A look at the capabilities of the newly announced GPT-5.6 and how new tools are fighting digital disinformation.</p>
+            <a class="insight-cta" href="https://openai.com/news/" target="_blank" rel="noopener">OpenAI news →</a>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">🤖 Anthropic Policy Updates</a>
+          <a href="https://openai.com/news/" target="_blank" rel="noopener">🚀 OpenAI GPT-5.6 News</a>
+          <a href="https://www.aljazeera.com/tag/artificial-intelligence/" target="_blank" rel="noopener">📰 Narrative Intelligence Surge</a>
+          <a href="https://inspiredbi.org/safe-secure.html" target="_blank" rel="noopener">🛠️ Everyday AI Security Tips</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">💬 Try Claude Free</a>
+        </div>
+      </div>
+    </section>
+
+  </article>
+  <!-- ══════════ END WEEK #2 ══════════ -->
 
   <!-- ══════════ WEEK #1 — June 23, 2026 ══════════ -->
   <article class="week-entry" id="week-2026-06-23">
@@ -543,6 +760,7 @@
 <section class="archive-section">
   <h2>📂 Past Issues</h2>
   <ul class="archive-list" id="archive-list">
+    <li><a href="#week-2026-06-29">📅 Issue #2 — Week of June 29, 2026 <span style="margin-left:auto;font-size:.8rem;color:#aaa;">July 2026 Edition</span></a></li>
     <li><a href="#week-2026-06-23">📅 Issue #1 — Week of June 23, 2026 <span style="margin-left:auto;font-size:.8rem;color:#aaa;">Inaugural Edition</span></a></li>
     <!-- ARCHIVE ITEMS GO HERE -->
   </ul>
