@@ -290,6 +290,72 @@
     .highered .insight-cta  { background: #6a1b9a; color: #fff; }
     .community .insight-cta { background: #bf360c; color: #fff; }
 
+    /* Combined insight card — multiple items stacked inside one card */
+    .insight-card.combined { gap: 0; }
+    .insight-card .insight-item {
+      padding-bottom: 14px;
+      border-bottom: 1px solid #e5e5e5;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .insight-card .insight-item:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+    .insight-card .insight-item h4 { font-size: 1rem; font-weight: 800; color: #1a1a2e; line-height: 1.3; }
+    .insight-card .insight-item p  { font-size: 0.88rem; color: #444; line-height: 1.55; }
+    .insight-card .insight-item .insight-cta { align-self: flex-start; margin-top: 4px; }
+
+    /* Issue tag in audience header (chip on the right) */
+    .audience-header-text { flex: 1; }
+    .issue-tag {
+      background: rgba(255,255,255,0.18);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+      letter-spacing: 0.4px;
+    }
+
+    /* Audience-filter view (top tabs → filter to one audience across all weeks) */
+    body[data-filter="k12"]        .audience-section:not(.k12)        { display: none; }
+    body[data-filter="leaders"]    .audience-section:not(.leaders)    { display: none; }
+    body[data-filter="highered"]   .audience-section:not(.highered)   { display: none; }
+    body[data-filter="community"]  .audience-section:not(.community)  { display: none; }
+    body[data-filter] .week-entry + .week-entry { border-top: none; padding-top: 8px; }
+
+    /* Filter status bar shown only when filtered */
+    .filter-status {
+      display: none;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 20px 0;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    body[data-filter] .filter-status { display: flex; }
+    .filter-status .filter-message {
+      font-size: 0.92rem;
+      color: #1f5493;
+      font-weight: 600;
+    }
+    .filter-status .filter-message strong { color: #1a1a2e; }
+    .filter-reset {
+      background: #1f5493;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .filter-reset:hover { background: #143d70; }
+
     /* ── Extra links strip ────────────────────────────────────── */
     .extra-links {
       margin-top: 22px;
@@ -364,6 +430,8 @@
       .audience-body { padding: 20px 18px 24px; }
       .week-banner { flex-direction: column; align-items: flex-start; padding: 12px 18px; }
       .site-nav { padding: 12px 16px; }
+      .audience-header { flex-wrap: wrap; }
+      .issue-tag { order: 3; margin-left: 0; margin-top: 6px; }
     }
   </style>
 </head>
@@ -392,12 +460,18 @@
   <h1>🤖 AI Weekly</h1>
   <p>Every Monday — the freshest AI news, tools, videos, and insights curated for the people who shape learning.</p>
   <div class="audience-tabs">
-    <a href="#k12"       class="tab-k12">🎓 K-12 Educators</a>
-    <a href="#leaders"   class="tab-leaders">🏫 School Leaders</a>
-    <a href="#highered"  class="tab-highered">🏛️ Higher Education</a>
-    <a href="#community" class="tab-community">🌍 Community</a>
+    <a href="#k12"       class="tab-k12"       data-audience="k12">🎓 K-12 Educators</a>
+    <a href="#leaders"   class="tab-leaders"   data-audience="leaders">🏫 School Leaders</a>
+    <a href="#highered"  class="tab-highered"  data-audience="highered">🏛️ Higher Education &amp; Researchers</a>
+    <a href="#community" class="tab-community" data-audience="community">🌍 Community &amp; Parents</a>
   </div>
 </section>
+
+<!-- ═════════════════════ FILTER STATUS BAR ═════════════════════ -->
+<div class="filter-status" id="filter-status">
+  <div class="filter-message">Showing <strong id="filter-label">this audience</strong> from all weeks — newest first.</div>
+  <button class="filter-reset" id="filter-reset" type="button">Show all weeks →</button>
+</div>
 
 <!-- ════════════════════════ WEEK BANNER ════════════════════════ -->
 <div class="week-banner">
@@ -421,6 +495,7 @@
           <h2>K-12 Educators</h2>
           <p class="subtitle">AI as a teaching partner &amp; elevating educator skills</p>
         </div>
+        <div class="issue-tag">Issue #2 · Jun 29, 2026</div>
       </div>
       <div class="audience-body">
 
@@ -430,17 +505,26 @@
         </div>
 
         <div class="video-grid">
-          <div class="insight-card">
-            <span class="insight-label">▶️ Report Breakdown</span>
-            <h3>Microsoft AI in Education 2026 Report</h3>
-            <p>A deep dive into the newest data on educator AI adoption, the skills gap, and the push for pedagogical intent.</p>
-            <a class="insight-cta" href="https://news.microsoft.com/source/topics/ai/" target="_blank" rel="noopener">Read the source →</a>
+          <div class="insight-card combined">
+            <div class="insight-item">
+              <span class="insight-label">▶️ Report Breakdown</span>
+              <h4>Microsoft AI in Education 2026 Report</h4>
+              <p>A deep dive into the newest data on educator AI adoption, the skills gap, and the push for pedagogical intent.</p>
+              <a class="insight-cta" href="https://news.microsoft.com/source/topics/ai/" target="_blank" rel="noopener">Read the source →</a>
+            </div>
+            <div class="insight-item">
+              <span class="insight-label">▶️ Classroom Design</span>
+              <h4>Pedagogical Intent with GenAI</h4>
+              <p>How to design AI-integrated lessons that foster critical thinking and avoid metacognitive laziness in the classroom.</p>
+              <a class="insight-cta" href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">See ETHICS Framework →</a>
+            </div>
           </div>
-          <div class="insight-card">
-            <span class="insight-label">▶️ Classroom Design</span>
-            <h3>Pedagogical Intent with GenAI</h3>
-            <p>How to design AI-integrated lessons that foster critical thinking and avoid metacognitive laziness in the classroom.</p>
-            <a class="insight-cta" href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">See ETHICS Framework →</a>
+          <div class="video-card">
+            <p class="video-label">🎥 Featured Short</p>
+            <p class="video-caption">A quick K-12 AI insight from the AI Advocates channel — perfect for a staff meeting or professional learning warm-up.</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/5PPhBzUOLVw" title="K-12 AI Featured Short" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
           </div>
         </div>
 
@@ -462,6 +546,7 @@
           <h2>School Leaders</h2>
           <p class="subtitle">The policy window closes: Ohio's mandate &amp; data privacy</p>
         </div>
+        <div class="issue-tag">Issue #2 · Jun 29, 2026</div>
       </div>
       <div class="audience-body">
 
@@ -471,17 +556,26 @@
         </div>
 
         <div class="video-grid">
-          <div class="insight-card">
-            <span class="insight-label">▶️ Compliance Alert</span>
-            <h3>Ohio's HB 96 AI Mandate Explained</h3>
-            <p>What the July 1st deadline means for districts nationwide and how to move from baseline compliance to robust governance.</p>
-            <a class="insight-cta" href="https://www.legislature.ohio.gov/legislation/135/hb96" target="_blank" rel="noopener">Read HB 96 →</a>
+          <div class="insight-card combined">
+            <div class="insight-item">
+              <span class="insight-label">▶️ Compliance Alert</span>
+              <h4>Ohio's HB 96 AI Mandate Explained</h4>
+              <p>What the July 1st deadline means for districts nationwide and how to move from baseline compliance to robust governance.</p>
+              <a class="insight-cta" href="https://www.legislature.ohio.gov/legislation/135/hb96" target="_blank" rel="noopener">Read HB 96 →</a>
+            </div>
+            <div class="insight-item">
+              <span class="insight-label">▶️ Data Privacy</span>
+              <h4>Protecting Student Data in the AI Era</h4>
+              <p>A legal and practical guide to navigating vendor contracts, ensuring FERPA compliance, and selecting secure AI platforms.</p>
+              <a class="insight-cta" href="https://inspiredbi.org/safe-secure.html" target="_blank" rel="noopener">Safe &amp; Secure AI →</a>
+            </div>
           </div>
-          <div class="insight-card">
-            <span class="insight-label">▶️ Data Privacy</span>
-            <h3>Protecting Student Data in the AI Era</h3>
-            <p>A legal and practical guide to navigating vendor contracts, ensuring FERPA compliance, and selecting secure AI platforms.</p>
-            <a class="insight-cta" href="https://inspiredbi.org/safe-secure.html" target="_blank" rel="noopener">Safe &amp; Secure AI →</a>
+          <div class="video-card">
+            <p class="video-label">🎥 Featured Video</p>
+            <p class="video-caption">A leadership-focused walk-through of what the new AI policy landscape means for districts and how to align governance quickly.</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/J-wJQ74o_AU" title="School Leaders — AI Policy &amp; Governance" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
           </div>
         </div>
 
@@ -495,14 +589,15 @@
       </div>
     </section>
 
-    <!-- ── HIGHER EDUCATION ────────────────────────────────────── -->
+    <!-- ── HIGHER EDUCATION & RESEARCHERS ─────────────────────── -->
     <section class="audience-section highered">
       <div class="audience-header highered-header">
         <div class="audience-icon">🏛️</div>
         <div class="audience-header-text">
-          <h2>Higher Education</h2>
+          <h2>Higher Education &amp; Researchers</h2>
           <p class="subtitle">Economic returns, AI readiness &amp; institutional strategy</p>
         </div>
+        <div class="issue-tag">Issue #2 · Jun 29, 2026</div>
       </div>
       <div class="audience-body">
 
@@ -512,17 +607,26 @@
         </div>
 
         <div class="video-grid">
-          <div class="insight-card">
-            <span class="insight-label">▶️ Economic Outlook</span>
-            <h3>WEF: Education Readiness for the Age of AI</h3>
-            <p>Analyzing the World Economic Forum's June 2026 findings on higher education's economic return and the "great deskilling" debate.</p>
-            <a class="insight-cta" href="https://www.weforum.org/publications/" target="_blank" rel="noopener">Open WEF report →</a>
+          <div class="insight-card combined">
+            <div class="insight-item">
+              <span class="insight-label">▶️ Economic Outlook</span>
+              <h4>WEF: Education Readiness for the Age of AI</h4>
+              <p>Analyzing the World Economic Forum's June 2026 findings on higher education's economic return and the "great deskilling" debate.</p>
+              <a class="insight-cta" href="https://www.weforum.org/publications/" target="_blank" rel="noopener">Open WEF report →</a>
+            </div>
+            <div class="insight-item">
+              <span class="insight-label">▶️ Governance</span>
+              <h4>Institutional AI Governance in Research</h4>
+              <p>How top universities are balancing academic integrity with the need to build competitive AI fluency for graduates.</p>
+              <a class="insight-cta" href="https://education.ku.edu/curriculum-teaching" target="_blank" rel="noopener">KU Curriculum &amp; Teaching →</a>
+            </div>
           </div>
-          <div class="insight-card">
-            <span class="insight-label">▶️ Governance</span>
-            <h3>Institutional AI Governance in Research</h3>
-            <p>How top universities are balancing academic integrity with the need to build competitive AI fluency for graduates.</p>
-            <a class="insight-cta" href="https://education.ku.edu/curriculum-teaching" target="_blank" rel="noopener">KU Curriculum &amp; Teaching →</a>
+          <div class="video-card">
+            <p class="video-label">🎥 Featured Video</p>
+            <p class="video-caption">A higher-ed &amp; research-oriented walk-through of how universities can align AI fluency, integrity, and institutional strategy.</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/PY79xtd2FP8" title="Higher Education &amp; Researchers — AI Strategy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
           </div>
         </div>
 
@@ -536,14 +640,15 @@
       </div>
     </section>
 
-    <!-- ── COMMUNITY ───────────────────────────────────────────── -->
+    <!-- ── COMMUNITY & PARENTS ─────────────────────────────────── -->
     <section class="audience-section community">
       <div class="audience-header community-header">
         <div class="audience-icon">🌍</div>
         <div class="audience-header-text">
-          <h2>Community Members</h2>
+          <h2>Community &amp; Parents</h2>
           <p class="subtitle">Anthropic access restored &amp; the next wave of AI models</p>
         </div>
+        <div class="issue-tag">Issue #2 · Jun 29, 2026</div>
       </div>
       <div class="audience-body">
 
@@ -553,17 +658,26 @@
         </div>
 
         <div class="video-grid">
-          <div class="insight-card">
-            <span class="insight-label">▶️ Access Restored</span>
-            <h3>Claude Fable 5 &amp; Mythos 5 Access Restored</h3>
-            <p>Everything you need to know about Anthropic's latest unblocked models and what their advanced reasoning means for everyday use.</p>
-            <a class="insight-cta" href="https://www.anthropic.com/news" target="_blank" rel="noopener">Anthropic Newsroom →</a>
+          <div class="insight-card combined">
+            <div class="insight-item">
+              <span class="insight-label">▶️ Access Restored</span>
+              <h4>Claude Fable 5 &amp; Mythos 5 Access Restored</h4>
+              <p>Everything you need to know about Anthropic's latest unblocked models and what their advanced reasoning means for everyday use.</p>
+              <a class="insight-cta" href="https://www.anthropic.com/news" target="_blank" rel="noopener">Anthropic Newsroom →</a>
+            </div>
+            <div class="insight-item">
+              <span class="insight-label">▶️ Next Wave</span>
+              <h4>The GPT-5.6 Preview &amp; Narrative Intelligence</h4>
+              <p>A look at the capabilities of the newly announced GPT-5.6 and how new tools are fighting digital disinformation.</p>
+              <a class="insight-cta" href="https://openai.com/news/" target="_blank" rel="noopener">OpenAI news →</a>
+            </div>
           </div>
-          <div class="insight-card">
-            <span class="insight-label">▶️ Next Wave</span>
-            <h3>The GPT-5.6 Preview &amp; Narrative Intelligence</h3>
-            <p>A look at the capabilities of the newly announced GPT-5.6 and how new tools are fighting digital disinformation.</p>
-            <a class="insight-cta" href="https://openai.com/news/" target="_blank" rel="noopener">OpenAI news →</a>
+          <div class="video-card">
+            <p class="video-label">🎥 Featured Video</p>
+            <p class="video-caption">A community-friendly explainer for parents and everyday users — what the latest AI shifts mean and how to use these tools safely at home.</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/j1xcsDxSb_Y" title="Community &amp; Parents — Everyday AI Update" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
           </div>
         </div>
 
@@ -591,6 +705,7 @@
           <h2>K-12 Educators</h2>
           <p class="subtitle">Image generators, media literacy &amp; teaching discernment</p>
         </div>
+        <div class="issue-tag">Issue #1 · Jun 23, 2026</div>
       </div>
       <div class="audience-body">
 
@@ -633,6 +748,7 @@
           <h2>School Leaders</h2>
           <p class="subtitle">Policy, governance &amp; district AI strategy</p>
         </div>
+        <div class="issue-tag">Issue #1 · Jun 23, 2026</div>
       </div>
       <div class="audience-body">
 
@@ -667,14 +783,15 @@
       </div>
     </section>
 
-    <!-- ── HIGHER EDUCATION ────────────────────────────────────── -->
+    <!-- ── HIGHER EDUCATION & RESEARCHERS ─────────────────────── -->
     <section class="audience-section highered" id="highered">
       <div class="audience-header highered-header">
         <div class="audience-icon">🏛️</div>
         <div class="audience-header-text">
-          <h2>Higher Education</h2>
+          <h2>Higher Education &amp; Researchers</h2>
           <p class="subtitle">Research, governance &amp; institutional strategy</p>
         </div>
+        <div class="issue-tag">Issue #1 · Jun 23, 2026</div>
       </div>
       <div class="audience-body">
 
@@ -709,14 +826,15 @@
       </div>
     </section>
 
-    <!-- ── COMMUNITY ───────────────────────────────────────────── -->
+    <!-- ── COMMUNITY & PARENTS ─────────────────────────────────── -->
     <section class="audience-section community" id="community">
       <div class="audience-header community-header">
         <div class="audience-icon">🌍</div>
         <div class="audience-header-text">
-          <h2>Community Members</h2>
+          <h2>Community &amp; Parents</h2>
           <p class="subtitle">Claude updates, everyday AI &amp; what's new for everyone</p>
         </div>
+        <div class="issue-tag">Issue #1 · Jun 23, 2026</div>
       </div>
       <div class="audience-body">
 
@@ -779,10 +897,52 @@
 </footer>
 
 <script>
-  // Smooth scroll offset correction for sticky nav
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
+  const AUDIENCE_LABELS = {
+    k12:       '🎓 K-12 Educators',
+    leaders:   '🏫 School Leaders',
+    highered:  '🏛️ Higher Education & Researchers',
+    community: '🌍 Community & Parents'
+  };
+
+  function applyAudienceFilter(audience) {
+    document.body.setAttribute('data-filter', audience);
+    document.getElementById('filter-label').textContent = AUDIENCE_LABELS[audience] || audience;
+    // Scroll to the top of the weeks list so the filtered view is visible
+    const anchor = document.querySelector('.filter-status') || document.querySelector('.weeks-container');
+    if (anchor) {
+      window.scrollTo({ top: anchor.getBoundingClientRect().top + window.scrollY - 60, behavior: 'smooth' });
+    }
+  }
+
+  function clearAudienceFilter() {
+    document.body.removeAttribute('data-filter');
+  }
+
+  // Top audience tabs → apply filter (show that audience across ALL weeks, newest first)
+  document.querySelectorAll('.audience-tabs a[data-audience]').forEach(a => {
     a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
+      e.preventDefault();
+      applyAudienceFilter(a.getAttribute('data-audience'));
+    });
+  });
+
+  // Reset button
+  document.getElementById('filter-reset').addEventListener('click', clearAudienceFilter);
+
+  // Archive week links → clear filter so the selected week's full 4-audience view is shown
+  document.querySelectorAll('.archive-list a[href^="#week-"]').forEach(a => {
+    a.addEventListener('click', () => {
+      clearAudienceFilter();
+    });
+  });
+
+  // Smooth scroll offset correction for remaining in-page anchors
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    if (a.hasAttribute('data-audience')) return; // audience tabs handled above
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href === '#' || href.length < 2) return;
+      const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
         const offset = 70;
