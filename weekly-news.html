@@ -345,6 +345,35 @@
       .week-banner { flex-direction: column; align-items: flex-start; padding: 12px 18px; }
       .site-nav { padding: 12px 16px; }
     }
+
+    /* -- Audience filter (cross-week view) -- */
+    .audience-tabs a.active { outline: 3px solid #ffd54f; outline-offset: 2px; transform: translateY(-2px); }
+    .week-tag {
+      display: inline-block; font-size: 0.78rem; font-weight: 700; letter-spacing: .02em;
+      color: #1f5493; background: #eef3fb; border: 1px solid #d5e2f5;
+      padding: 3px 10px; border-radius: 999px; margin: 0 0 12px;
+    }
+    .filter-bar {
+      display: none; align-items: center; justify-content: space-between; gap: 12px;
+      max-width: 960px; margin: 0 auto 22px; padding: 12px 20px;
+      background: #fff8e1; border: 1px solid #ffe082; border-radius: 12px;
+      font-size: 0.95rem; color: #5d4037; font-weight: 600;
+    }
+    .filter-bar button {
+      cursor: pointer; border: none; background: #37474f; color: #fff;
+      font-weight: 700; font-size: 0.9rem; padding: 8px 16px; border-radius: 8px;
+    }
+    .filter-bar button:hover { background: #1f5493; }
+    body.filtering .filter-bar { display: flex; }
+    body.filtering .week-banner,
+    body.filtering .podcast-picks,
+    body.filtering .archive-section { display: none; }
+    body.filtering .audience-section { display: none; }
+    body.filter-k12       .audience-section.k12,
+    body.filter-leaders   .audience-section.leaders,
+    body.filter-highered  .audience-section.highered,
+    body.filter-community .audience-section.community { display: block; }
+    body.filtering .week-entry { margin-bottom: 0; }
   </style>
 </head>
 <body>
@@ -356,7 +385,7 @@
   </a>
   <ul>
     <li><a href="https://inspiredbi.org/#about">About</a></li>
-    <li><a href="https://inspiredbi.org/#services">Services</a></li>
+    <li><a href="https://inspiredbi.org/#services">Learn</a></li>
     <li><a href="https://inspiredbi.org/#impact">Impact</a></li>
     <li><a href="https://inspiredbi.org/free-tools.html">Free Tools</a></li>
     <li><a href="weekly-news.html" class="active">AI Weekly</a></li>
@@ -381,14 +410,18 @@
 <div class="week-banner">
   <span class="week-label">Latest Issue</span>
   <span class="week-date">📅 Week of July 28, 2026</span>
-  <span class="week-num">Issue #4 — Purpose-Built for the Classroom</span>
+  <span class="week-num">Issue #6 — Purpose-Built for the Classroom</span>
 </div>
 
 <!-- ════════════════════════ WEEKS CONTAINER ════════════════════ -->
 <!-- INSERT NEW WEEK HERE -->
+<div class="filter-bar" id="filter-bar">
+  <span id="filter-label">Showing all posts</span>
+  <button type="button" id="filter-reset">✕ Show all weeks</button>
+</div>
 <div class="weeks-container">
 
-  <!-- ══════════ WEEK #4 — July 28, 2026 ══════════ -->
+  <!-- ══════════ WEEK #6 — July 28, 2026 ══════════ -->
   <article class="week-entry" id="week-2026-07-28">
 
     <!-- ── PODCAST PICKS ─────────────────────────────────────── -->
@@ -499,7 +532,7 @@
 
         <div class="whats-new">
           <span class="badge">What's New · July 2026</span>
-          <p>The newest campus data lands with an uncomfortable message: students have moved on AI faster than their institutions can respond. Fresh 2026 surveys put <strong>student AI use at 88% and faculty use at 77% — up 16 points year over year</strong> — yet <strong>57% of students say their assessments come with inadequate AI guidance</strong>, only <strong>29% think their instructors are equipped to guide them</strong>, and just <strong>31% of faculty feel meaningfully involved in shaping AI policy</strong>. Strikingly, faculty <em>intent</em> to use AI actually <strong>fell 9 points in the U.S. and Canada (76% → 67%)</strong> — a sign some instructors are retreating rather than leaning in. Institutions are starting to answer structurally: <strong>Purdue is moving to make AI competency a graduation requirement</strong>, and Cornerstone University launched an <strong>AI advisory board</strong> to steer curriculum, ethics, and strategy toward "irreplaceable" graduates. For KU and its peers, the 2026 question is no longer adoption — it's closing the integration and trust gap between students and faculty.</p>
+          <p>The newest campus data lands with an uncomfortable message: students have moved on AI faster than their institutions can respond. Fresh 2026 surveys put <strong>student AI use at 88% and faculty use at 77% — up 16 points year over year</strong> — yet <strong>57% of students say their assessments come with inadequate AI guidance</strong>, only <strong>29% think their instructors are equipped to guide them</strong>, and just <strong>31% of faculty feel meaningfully involved in shaping AI policy</strong>. Strikingly, faculty <em>intent</em> to use AI actually <strong>fell 9 points in the U.S. and Canada (76% → 67%)</strong> — a sign some instructors are retreating rather than leaning in. Institutions are starting to answer structurally: <strong>Purdue is moving to make AI competency a graduation requirement</strong>, and Cornerstone University launched an <strong>AI advisory board</strong> to steer curriculum, ethics, and strategy toward "irreplaceable" graduates. For most universities, the 2026 question is no longer adoption — it's closing the integration and trust gap between students and faculty.</p>
         </div>
 
         <div class="video-grid">
@@ -557,6 +590,350 @@
           <a href="https://thursdai.news/releases/2026-07" target="_blank" rel="noopener">🗒️ ThursdAI: July 2026 AI Releases</a>
           <a href="https://updatedbulletins.com/ai-news-july-2026-openai-google-anthropic-updates/" target="_blank" rel="noopener">📡 The Biggest AI Announcements This Month</a>
           <a href="https://www.youtube.com/watch?v=BMcEz_SXBpM" target="_blank" rel="noopener">🎧 AI Daily: Anthropic Releases Claude Opus 5</a>
+        </div>
+      </div>
+    </section>
+
+  </article>
+  <!-- ══════════ END WEEK #6 ══════════ -->
+
+  <!-- ══════════ WEEK #5 — July 21, 2026 ══════════ -->
+  <article class="week-entry" id="week-2026-07-21">
+
+    <!-- ── PODCAST PICKS ─────────────────────────────────────── -->
+    <div class="podcast-picks">
+      <div class="podcast-picks-title">🎧 Podcast Picks — Which Episode Is Best for Your Role?</div>
+      <ol class="podcast-picks-list">
+        <li>
+          <strong>Teachers:</strong> <a href="https://podcasts.apple.com/us/podcast/chatedu-the-ai-education-podcast/id1728870840" target="_blank" rel="noopener">ChatEDU — The AI &amp; Education Podcast</a>
+          <span class="pick-desc">→ Back-to-school routines: which free AI tool to reach for, and when to keep it out of the assignment.</span>
+        </li>
+        <li>
+          <strong>Principals / Superintendents:</strong> <a href="https://aipodcast.education/" target="_blank" rel="noopener">AI in Education Podcast</a>
+          <span class="pick-desc">→ Turning a model AI policy into something teachers and families will actually follow this fall.</span>
+        </li>
+        <li>
+          <strong>University administrators / faculty:</strong> <a href="https://www.edsurge.com/podcasts" target="_blank" rel="noopener">EdSurge Podcast</a>
+          <span class="pick-desc">→ What should students still have to do for themselves? Designing assessments for an AI-saturated term.</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- ── K-12 EDUCATORS ─────────────────────────────────────── -->
+    <section class="audience-section k12" id="k12-2026-07-21">
+      <div class="audience-header k12-header">
+        <div class="audience-icon">🎓</div>
+        <div class="audience-header-text">
+          <h2>K-12 Educators</h2>
+          <p class="subtitle">Set your AI ground rules before day one</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · July 21, 2026</span>
+          <p>With free classroom AI now widely available, the smartest back-to-school move is deciding <strong>your</strong> ground rules before students walk in. The pattern in newly adopted district policies is consistent and worth mirroring at the classroom level: <strong>AI is a supplement, not a substitute</strong> for student effort or teacher judgment; <strong>teachers keep full discretion</strong> over whether AI may be used on any given assignment; <strong>no personally identifiable student data</strong> goes into AI tools; and <strong>disclosure is expected</strong> when AI is used. Pair that with a simple, visible "green light / yellow light / red light" chart for assignments and you remove most first-week confusion. If you verified for Claude for Teachers or grabbed MagicSchool last week, spend an hour now building a few standards-aligned lesson templates so the tool saves you time from day one instead of becoming one more thing to learn in September.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">🎬 A District Says Yes — With Guardrails</p>
+            <p class="video-caption">Columbus City Schools adopts a formal AI policy positioning AI as a learning supplement, with full teacher discretion. <a href="https://www.pursuit.us/news/ai-in-education-news-policies-innovations" target="_blank" rel="noopener">Read the roundup →</a></p>
+          </div>
+          <div class="video-card">
+            <p class="video-label">🪄 Set Up Your Free Toolkit</p>
+            <p class="video-caption">MagicSchool's free tier bundles 60+ teacher tools — lesson plans, rubrics, differentiation — with Google Classroom integration. <a href="https://www.magicschool.ai/" target="_blank" rel="noopener">Start free →</a></p>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.anthropic.com/news/claude-for-teachers" target="_blank" rel="noopener">✅ Claude for Teachers — Verify &amp; Sign Up Free</a>
+          <a href="https://www.khanmigo.ai/" target="_blank" rel="noopener">📘 Khanmigo for Teachers — Free</a>
+          <a href="https://edu.google.com/workspace-for-education/" target="_blank" rel="noopener">🔷 Google Gemini for Education — Free</a>
+          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools for Educators</a>
+          <a href="https://podcasts.apple.com/us/podcast/chatedu-the-ai-education-podcast/id1728870840" target="_blank" rel="noopener">🎧 ChatEDU — The AI &amp; Education Podcast</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SCHOOL LEADERS ──────────────────────────────────────── -->
+    <section class="audience-section leaders" id="leaders-2026-07-21">
+      <div class="audience-header leaders-header">
+        <div class="audience-icon">🏫</div>
+        <div class="audience-header-text">
+          <h2>School Leaders</h2>
+          <p class="subtitle">The back-to-school policy wave crests</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · July 21, 2026</span>
+          <p>Late July is deadline season. <strong>Ohio's mandate requiring every public district to adopt a formal AI policy took effect July 1</strong>, and districts from Columbus to Fairview Park spent the month getting language on the books; Columbus's policy frames AI as a supplement and preserves teacher discretion, while proposals like <strong>South Carolina's H.B. 5253</strong> add written parental opt-in, annual public disclosure of AI tools and data practices, and a ban on AI replacing licensed teachers in core instruction or grading. Nationally, <strong>FutureEd is tracking 77 AI-in-instruction bills across 27 states</strong>. If your policy is still in draft, you no longer have to start from scratch: dozens of adopted district policies and state model templates are now available to borrow from — and the recurring themes (academic integrity, disclosure, limits on AI-detection software, privacy by design, parent review rights, and AI literacy) give you a ready-made outline.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">📋 The 2026 Legislation Tracker</p>
+            <p class="video-caption">FutureEd's running list of every state AI-in-instruction bill — the fastest way to see what peers are adopting. <a href="https://www.future-ed.org/legislative-tracker-2026-state-ai-in-education-bills/" target="_blank" rel="noopener">Open the tracker →</a></p>
+          </div>
+          <div class="video-card">
+            <p class="video-label">🧭 How States Are Regulating AI</p>
+            <p class="video-caption">A clear overview of the guardrails moving through statehouses this session — opt-in consent, disclosure, human oversight. <a href="https://www.multistate.us/insider/2026/4/9/how-states-are-regulating-ai-in-education-this-legislative-session" target="_blank" rel="noopener">Read the summary →</a></p>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.pursuit.us/news/ai-in-education-news-policies-innovations" target="_blank" rel="noopener">🏫 Latest District AI Policies &amp; Innovations</a>
+          <a href="https://news.microsoft.com/source/2026/06/24/microsofts-new-ai-in-education-report-highlights-widespread-adoption-and-increasing-demand-for-support/" target="_blank" rel="noopener">📊 Microsoft: Adoption Is Up, Support Is the Gap</a>
+          <a href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">⚖️ InspiredBI ETHICS Framework</a>
+          <a href="https://inspiredbi.org/safe-secure.html" target="_blank" rel="noopener">🔒 Safe &amp; Secure AI — Leader's Guide</a>
+          <a href="https://aipodcast.education/" target="_blank" rel="noopener">🎧 AI in Education Podcast</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HIGHER EDUCATION ────────────────────────────────────── -->
+    <section class="audience-section highered" id="highered-2026-07-21">
+      <div class="audience-header highered-header">
+        <div class="audience-icon">🏛️</div>
+        <div class="audience-header-text">
+          <h2>Higher Education</h2>
+          <p class="subtitle">Rewrite the syllabus before the semester, not during it</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · July 21, 2026</span>
+          <p>With fall weeks away, the most valuable thing faculty can do now is settle their AI stance in writing. The 2026 data makes the case: <strong>88% of students already use AI</strong>, but <strong>57% report inadequate guidance</strong> on assessments and only <strong>29% feel their instructors can guide them</strong> — a gap that widens fastest in the first two weeks of a course. Practical moves getting traction this summer: a clear <strong>per-assignment AI statement</strong> (allowed / allowed-with-disclosure / not allowed), <strong>authentic assessments</strong> that ask students to show process and reasoning rather than only a final product, and <strong>required AI-literacy modules</strong> some institutions are now attaching to gateway courses. States are nudging supply too — <strong>New Jersey now requires public institutions to offer AI certificate and degree programs</strong> — so the credentialing side is catching up to demand.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">🎙️ What Should Students Still Do Themselves?</p>
+            <p class="video-caption">Two educators debate what AI changes about learning — and what shouldn't change — a useful frame for syllabus design. <a href="https://www.edsurge.com/news/what-should-students-still-have-to-do-for-themselves" target="_blank" rel="noopener">Read on EdSurge →</a></p>
+          </div>
+          <div class="video-card">
+            <p class="video-label">📈 The Student–Faculty Trust Gap</p>
+            <p class="video-caption">The 2026 global survey behind the 88%/77% split and why guidance, not access, is now the bottleneck. <a href="https://www.edtechinnovationhub.com/news/q6zw9wco2mttajdbd1jyeonjnpiovu" target="_blank" rel="noopener">See the data →</a></p>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.facultyfocus.com/articles/teaching-with-technology-articles/designing-the-2026-classroom-emerging-learning-trends-in-an-ai-powered-education-system/" target="_blank" rel="noopener">🏛️ Designing the 2026 Classroom</a>
+          <a href="https://www.insidehighered.com/news/tech-innovation/artificial-intelligence" target="_blank" rel="noopener">🔮 Inside Higher Ed: AI Coverage</a>
+          <a href="https://er.educause.edu/channels/educause-shop-talk" target="_blank" rel="noopener">🎧 EDUCAUSE Shop Talk Podcast</a>
+          <a href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">🧭 InspiredBI ETHICS Framework</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── COMMUNITY ───────────────────────────────────────────── -->
+    <section class="audience-section community" id="community-2026-07-21">
+      <div class="audience-header community-header">
+        <div class="audience-icon">🌍</div>
+        <div class="audience-header-text">
+          <h2>Community Members</h2>
+          <p class="subtitle">A parent's five-minute AI check-in</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · July 21, 2026</span>
+          <p>As schools finalize AI rules for the year, families have an easy on-ramp. Three quick moves before the first bell: <strong>ask the school</strong> what its AI policy says (most districts posted new ones this month — many require disclosure and forbid putting personal data into AI); <strong>talk with your student</strong> about using AI to understand a problem rather than skip it; and <strong>try a free tool together</strong> so it's a shared skill, not a mystery. Claude, Google's Gemini and NotebookLM, and Canva all have free tiers that are genuinely useful for summarizing reading, planning projects, and organizing a busy household. The through-line of the whole month: capable AI is increasingly free, and the families who talk about it early get the benefits without the surprises.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">🚀 Try Claude Free</p>
+            <p class="video-caption">No purchase needed to explore what these tools can do — start in your browser. <a href="https://claude.ai" target="_blank" rel="noopener">Open claude.ai →</a></p>
+          </div>
+          <div class="video-card">
+            <p class="video-label">📓 Organize What You Read</p>
+            <p class="video-caption">NotebookLM turns your own documents into summaries and Q&amp;A — handy for school forms and family planning. <a href="https://notebooklm.google.com/" target="_blank" rel="noopener">Try NotebookLM →</a></p>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://claude.ai" target="_blank" rel="noopener">🚀 Try Claude Free</a>
+          <a href="https://www.canva.com/" target="_blank" rel="noopener">🎨 Canva — Free AI Design</a>
+          <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">📰 Anthropic Newsroom</a>
+          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
+        </div>
+      </div>
+    </section>
+
+  </article>
+  <!-- ══════════ END WEEK #5 ══════════ -->
+
+  <!-- ══════════ WEEK #4 — July 14, 2026 ══════════ -->
+  <article class="week-entry" id="week-2026-07-14">
+
+    <!-- ── PODCAST PICKS ─────────────────────────────────────── -->
+    <div class="podcast-picks">
+      <div class="podcast-picks-title">🎧 Podcast Picks — Which Episode Is Best for Your Role?</div>
+      <ol class="podcast-picks-list">
+        <li>
+          <strong>Teachers:</strong> <a href="https://podcasts.apple.com/us/podcast/chatedu-the-ai-education-podcast/id1728870840" target="_blank" rel="noopener">ChatEDU — The AI &amp; Education Podcast</a>
+          <span class="pick-desc">→ Classroom-first walkthroughs of the new free AI teaching assistants and how to start using them tomorrow.</span>
+        </li>
+        <li>
+          <strong>Principals / Superintendents:</strong> <a href="https://aipodcast.education/" target="_blank" rel="noopener">AI in Education Podcast</a>
+          <span class="pick-desc">→ What a district needs to check — privacy, FERPA, verification — before rolling out a free teacher AI tool.</span>
+        </li>
+        <li>
+          <strong>University administrators / faculty:</strong> <a href="https://er.educause.edu/channels/educause-shop-talk" target="_blank" rel="noopener">EDUCAUSE Shop Talk</a>
+          <span class="pick-desc">→ Higher-ed leaders talk through what free classroom AI for K-12 signals for the students arriving on campus next.</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- ── K-12 EDUCATORS ─────────────────────────────────────── -->
+    <section class="audience-section k12" id="k12-2026-07-14">
+      <div class="audience-header k12-header">
+        <div class="audience-icon">🎓</div>
+        <div class="audience-header-text">
+          <h2>K-12 Educators</h2>
+          <p class="subtitle">Claude for Teachers launches — free for a full year</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · July 14, 2026</span>
+          <p>Big news for teachers this week: <strong>Anthropic launched Claude for Teachers on July 14 — free for verified U.S. K-12 educators</strong>. Verify with a school email and you get a <strong>full year of premium Claude access</strong> (sign-ups open through June 30, 2027), a growing <strong>library of teaching skills</strong>, and <strong>curricula mapped to academic standards in all 50 states</strong> through a Learning Commons connector. It's built for the grown-ups in the building — classroom teachers, instructional coaches, specialists, interventionists, librarians, and counselors — to plan lessons, differentiate materials, and analyze data. It is <strong>not a student-facing chatbot</strong> (under-18 limits apply), and your data <strong>isn't used to train models</strong>, with student information covered by a FERPA-aligned K-12 Data Processing Addendum. And Claude isn't the only free option worth grabbing before August — the roundup below has several more.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">🎬 Claude for Teachers, Explained</p>
+            <p class="video-caption">CBS News covers Anthropic's launch and the year of free premium access for verified educators. <a href="https://www.youtube.com/watch?v=OlHviXPU8pA" target="_blank" rel="noopener">Watch on YouTube →</a></p>
+          </div>
+          <div class="video-card">
+            <p class="video-label">🎙️ Why Free, and Why Teacher-Only?</p>
+            <p class="video-caption">Elizabeth Kelly, head of Beneficial Deployments at Anthropic, joins CBS News to explain the thinking behind the program and its classroom guardrails. <a href="https://www.cbsnews.com/live/" target="_blank" rel="noopener">Watch on CBS News →</a></p>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.anthropic.com/news/claude-for-teachers" target="_blank" rel="noopener">✅ Anthropic: Verify &amp; Sign Up Free (Claude for Teachers)</a>
+          <a href="https://9to5mac.com/2026/07/14/anthropic-is-giving-teachers-free-access-to-premium-claude-features-details-here/" target="_blank" rel="noopener">📰 9to5Mac: What Teachers Get, and How to Join</a>
+          <a href="https://www.magicschool.ai/" target="_blank" rel="noopener">🪄 MagicSchool AI — Free Tier (60+ teacher tools)</a>
+          <a href="https://www.khanmigo.ai/" target="_blank" rel="noopener">📘 Khanmigo for Teachers — Now Free</a>
+          <a href="https://edu.google.com/workspace-for-education/" target="_blank" rel="noopener">🔷 Google Gemini for Education — Free with Workspace</a>
+          <a href="https://www.canva.com/education/" target="_blank" rel="noopener">🎨 Canva for Education — Free AI Design Tools</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SCHOOL LEADERS ──────────────────────────────────────── -->
+    <section class="audience-section leaders" id="leaders-2026-07-14">
+      <div class="audience-header leaders-header">
+        <div class="audience-icon">🏫</div>
+        <div class="audience-header-text">
+          <h2>School Leaders</h2>
+          <p class="subtitle">A free teacher tool lands — what to check first</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · July 14, 2026</span>
+          <p>When a free AI tool arrives right before back-to-school, the questions land on leaders' desks fast. The good news with <strong>Claude for Teachers</strong>: it's <strong>educator-only, not student-facing</strong>, doesn't train on your data, and ships with a <strong>FERPA-aligned K-12 Data Processing Addendum</strong> plus an American Federation of Teachers partnership on privacy best practices — which is most of the checklist a district cares about. The work still on you: decide how staff <strong>verify eligibility</strong>, whether teachers may enter any student information (most new district policies say <strong>no personally identifiable data</strong> in AI tools without authorization), and how this fits an <strong>existing or pending AI policy</strong>. With states like Ohio requiring districts to adopt formal AI policies and <strong>FutureEd tracking 77 AI-in-instruction bills across 27 states</strong>, now is the moment to get language on the books before the tools are already in classrooms.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">📋 Build Your Policy from Real Templates</p>
+            <p class="video-caption">Track which states and districts have adopted AI-in-instruction rules — and borrow the language. <a href="https://www.future-ed.org/legislative-tracker-2026-state-ai-in-education-bills/" target="_blank" rel="noopener">Open the FutureEd tracker →</a></p>
+          </div>
+          <div class="video-card">
+            <p class="video-label">📊 Where Adoption Actually Stands</p>
+            <p class="video-caption">Microsoft's 2026 AI-in-Education report on widespread adoption and the rising demand for staff support and training. <a href="https://news.microsoft.com/source/2026/06/24/microsofts-new-ai-in-education-report-highlights-widespread-adoption-and-increasing-demand-for-support/" target="_blank" rel="noopener">Read the report →</a></p>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.ctschoollaw.com/2026/07/anthropic-launches-free-claude-for-teachers-ai-tool-what-connecticut-school-districts-should-know/" target="_blank" rel="noopener">⚖️ What Districts Should Know About Claude for Teachers</a>
+          <a href="https://www.multistate.us/insider/2026/4/9/how-states-are-regulating-ai-in-education-this-legislative-session" target="_blank" rel="noopener">🧭 How States Are Regulating AI in Education (2026)</a>
+          <a href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">⚖️ InspiredBI ETHICS Framework</a>
+          <a href="https://inspiredbi.org/safe-secure.html" target="_blank" rel="noopener">🔒 Safe &amp; Secure AI — Leader's Guide</a>
+          <a href="https://aipodcast.education/" target="_blank" rel="noopener">🎧 AI in Education Podcast</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HIGHER EDUCATION ────────────────────────────────────── -->
+    <section class="audience-section highered" id="highered-2026-07-14">
+      <div class="audience-header highered-header">
+        <div class="audience-icon">🏛️</div>
+        <div class="audience-header-text">
+          <h2>Higher Education</h2>
+          <p class="subtitle">The students arriving already have AI copilots</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · July 14, 2026</span>
+          <p>Free classroom AI for K-12 has a downstream effect faculty should plan for: the next cohort of first-years will arrive having used AI teaching tools all through high school. That collides with a sobering picture on campus — a 2026 Digital Education Council survey across 35 countries puts <strong>student AI use at 88% and faculty use at 77%</strong>, yet <strong>57% of students say assessments come with inadequate AI guidance</strong> and only <strong>29% think their instructors are equipped to guide them</strong>. The lesson from the K-12 launch is instructive for higher ed: pair the tool with <strong>explicit guidance, disclosure norms, and faculty development</strong> rather than leaving students to guess. Institutions moving early are making <strong>AI literacy a shared expectation</strong> — some, like Purdue, toward a graduation requirement — instead of a per-syllabus improvisation.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">📈 88% of Students, 77% of Faculty</p>
+            <p class="video-caption">The 2026 global survey on how far student AI use has outpaced institutional guidance. <a href="https://www.edtechinnovationhub.com/news/q6zw9wco2mttajdbd1jyeonjnpiovu" target="_blank" rel="noopener">See the data →</a></p>
+          </div>
+          <div class="video-card">
+            <p class="video-label">🏛️ Designing the 2026 Classroom</p>
+            <p class="video-caption">Faculty Focus on the emerging teaching-and-learning trends shaping an AI-powered course this fall. <a href="https://www.facultyfocus.com/articles/teaching-with-technology-articles/designing-the-2026-classroom-emerging-learning-trends-in-an-ai-powered-education-system/" target="_blank" rel="noopener">Read the article →</a></p>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.insidehighered.com/news/tech-innovation/artificial-intelligence" target="_blank" rel="noopener">🔮 Inside Higher Ed: AI Coverage</a>
+          <a href="https://er.educause.edu/channels/educause-shop-talk" target="_blank" rel="noopener">🎧 EDUCAUSE Shop Talk Podcast</a>
+          <a href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">🧭 InspiredBI ETHICS Framework</a>
+          <a href="https://www.anthropic.com/news/claude-for-teachers" target="_blank" rel="noopener">✅ Claude for Teachers (what your incoming students used)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── COMMUNITY ───────────────────────────────────────────── -->
+    <section class="audience-section community" id="community-2026-07-14">
+      <div class="audience-header community-header">
+        <div class="audience-icon">🌍</div>
+        <div class="audience-header-text">
+          <h2>Community Members</h2>
+          <p class="subtitle">Free, safe AI you can try this week</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · July 14, 2026</span>
+          <p>You don't need to be a teacher to benefit from the week's news. The same tools schools are adopting are <strong>free to try at home</strong>: <strong>Claude</strong> at claude.ai for writing, planning, and answering questions; <strong>Google Gemini</strong> and <strong>NotebookLM</strong> for organizing documents and summarizing what you read; and <strong>Canva</strong> for AI-assisted flyers and family projects. If you're a parent, the most useful move this week is a five-minute conversation about how your student's school plans to use AI this fall — most districts are posting new policies right now, and knowing the ground rules helps everyone. The theme across all of it: powerful AI is increasingly free, and the winners are the families and educators who learn to use it thoughtfully.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">🎬 Claude for Teachers on CBS News</p>
+            <p class="video-caption">A plain-English look at the launch and what "AI for educators" actually means for families. <a href="https://www.youtube.com/watch?v=OlHviXPU8pA" target="_blank" rel="noopener">Watch on YouTube →</a></p>
+          </div>
+          <div class="video-card">
+            <p class="video-label">🚀 Try It Yourself — Free</p>
+            <p class="video-caption">Claude is free to try in your browser; no purchase required to explore what these tools can do. <a href="https://claude.ai" target="_blank" rel="noopener">Open claude.ai →</a></p>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://claude.ai" target="_blank" rel="noopener">🚀 Try Claude Free</a>
+          <a href="https://notebooklm.google.com/" target="_blank" rel="noopener">📓 Google NotebookLM — Free</a>
+          <a href="https://www.canva.com/" target="_blank" rel="noopener">🎨 Canva — Free AI Design</a>
+          <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">📰 Anthropic Newsroom</a>
+          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -675,7 +1052,7 @@
 
         <div class="whats-new">
           <span class="badge">What's New · July 2026</span>
-          <p>The largest study of its kind confirms what campus leaders have suspected for a year: AI use in higher education is no longer emerging, it's default. The Digital Education Council's 2026 Global Survey drew <strong>45,398 responses — 27,284 students and 18,114 faculty — across 35 countries</strong>, the most geographically diverse dataset on AI adoption in higher ed ever assembled; a companion LATAM survey found <strong>92% of students and 79% of faculty actively engaging with AI</strong>. Institutional deployment is scaling to match: <strong>OpenAI and the California State University system announced access to ChatGPT Edu for 460,000+ students and 63,000+ faculty and staff</strong>, the largest organization-wide AI deployment to date. Gallup separately confirmed <strong>57% of U.S. college students use AI in coursework at least weekly</strong>. But gaps remain stark: only <strong>15% of students say AI is well-integrated into their courses</strong>, and just <strong>51% of graduates feel adequately AI-skilled for employment</strong> — while AI-linked academic misconduct keeps rising as legacy detection tools fall behind. For KU and peer institutions, the strategic question has shifted from "should we adopt AI" to "how do we close the integration gap."</p>
+          <p>The largest study of its kind confirms what campus leaders have suspected for a year: AI use in higher education is no longer emerging, it's default. The Digital Education Council's 2026 Global Survey drew <strong>45,398 responses — 27,284 students and 18,114 faculty — across 35 countries</strong>, the most geographically diverse dataset on AI adoption in higher ed ever assembled; a companion LATAM survey found <strong>92% of students and 79% of faculty actively engaging with AI</strong>. Institutional deployment is scaling to match: <strong>OpenAI and the California State University system announced access to ChatGPT Edu for 460,000+ students and 63,000+ faculty and staff</strong>, the largest organization-wide AI deployment to date. Gallup separately confirmed <strong>57% of U.S. college students use AI in coursework at least weekly</strong>. But gaps remain stark: only <strong>15% of students say AI is well-integrated into their courses</strong>, and just <strong>51% of graduates feel adequately AI-skilled for employment</strong> — while AI-linked academic misconduct keeps rising as legacy detection tools fall behind. For most institutions, the strategic question has shifted from "should we adopt AI" to "how do we close the integration gap."</p>
         </div>
 
         <div class="video-grid">
@@ -830,7 +1207,7 @@
 
         <div class="whats-new">
           <span class="badge">What's New · June 2026</span>
-          <p>Student AI use has become routine — and assessment must catch up. The <strong>Lumina Foundation–Gallup 2026 State of Higher Education study found more than half (57%) of U.S. college students use AI in their coursework at least weekly, with about 1 in 5 using it daily</strong>; business, technology, and engineering majors are the heaviest users. Stanford HAI's 2026 AI Index confirms AI use is now <strong>"near universal" among undergraduates</strong>. The pressure point is integrity: a global synthesis published in March 2026 found near-universal adoption alongside a sharp rise in misconduct, with <strong>AI-related violations at the University of Pennsylvania increasing sevenfold</strong> across consecutive years as legacy plagiarism detectors fail. Cornell researchers (May) argue plainly that <strong>widespread AI misuse means higher ed must rethink assessment</strong> itself. Forward-leaning institutions are responding: <strong>Washington State University moved away from "detect-and-punish" toward "AI-Positive" syllabus statements with three standardized tiers — AI-Required, AI-Assisted, and No-AI</strong>. EDUCAUSE and <em>Frontiers in Education</em> both identify integrated AI governance — faculty training, resourcing, and transparent guidelines — as the critical gap most institutions still must close. For KU, the message is clear: design assessments for an AI-fluent student body.</p>
+          <p>Student AI use has become routine — and assessment must catch up. The <strong>Lumina Foundation–Gallup 2026 State of Higher Education study found more than half (57%) of U.S. college students use AI in their coursework at least weekly, with about 1 in 5 using it daily</strong>; business, technology, and engineering majors are the heaviest users. Stanford HAI's 2026 AI Index confirms AI use is now <strong>"near universal" among undergraduates</strong>. The pressure point is integrity: a global synthesis published in March 2026 found near-universal adoption alongside a sharp rise in misconduct, with <strong>AI-related violations at the University of Pennsylvania increasing sevenfold</strong> across consecutive years as legacy plagiarism detectors fail. Cornell researchers (May) argue plainly that <strong>widespread AI misuse means higher ed must rethink assessment</strong> itself. Forward-leaning institutions are responding: <strong>Washington State University moved away from "detect-and-punish" toward "AI-Positive" syllabus statements with three standardized tiers — AI-Required, AI-Assisted, and No-AI</strong>. EDUCAUSE and <em>Frontiers in Education</em> both identify integrated AI governance — faculty training, resourcing, and transparent guidelines — as the critical gap most institutions still must close. For universities, the message is clear: design assessments for an AI-fluent student body.</p>
         </div>
 
         <div class="video-grid">
@@ -995,7 +1372,7 @@
 
         <div class="whats-new">
           <span class="badge">What's New · June 2026</span>
-          <p>EDUCAUSE's landmark 2026 report, <em>The Impact of AI on Work in Higher Education</em>, confirms what early adopters already know: institutions with proactive AI governance frameworks are pulling ahead on every measurable dimension — faculty productivity, research output quality, student satisfaction, and grant competitiveness. The landmark finding from Stanford HAI's 2026 AI Index: <strong>generative AI has moved from novelty to near universality among undergraduates in just three years</strong>, with the central question no longer being whether students use AI, but how well institutions are equipping them to use it responsibly. The University of Memphis, Arkansas, Mississippi, and UT Health Science Center launched the Mid-South AI Research Consortium this spring — a model for regional collaboration that research universities like KU should be watching closely. Meanwhile, a global synthesis published in March 2026 found a sharp rise in AI-related academic integrity incidents alongside near-universal student AI use, underscoring the urgency of institutional frameworks that address both ethics and authentic learning. The good news: Northwestern's Kellogg reports that 2,500+ business leaders enrolled in its AI strategy program in the past year — confirming strong market demand for graduates who can lead in AI-integrated organizations. KU graduates with AI fluency have a measurable career advantage.</p>
+          <p>EDUCAUSE's landmark 2026 report, <em>The Impact of AI on Work in Higher Education</em>, confirms what early adopters already know: institutions with proactive AI governance frameworks are pulling ahead on every measurable dimension — faculty productivity, research output quality, student satisfaction, and grant competitiveness. The landmark finding from Stanford HAI's 2026 AI Index: <strong>generative AI has moved from novelty to near universality among undergraduates in just three years</strong>, with the central question no longer being whether students use AI, but how well institutions are equipping them to use it responsibly. The University of Memphis, Arkansas, Mississippi, and UT Health Science Center launched the Mid-South AI Research Consortium this spring — a model for regional collaboration that research universities should be watching closely. Meanwhile, a global synthesis published in March 2026 found a sharp rise in AI-related academic integrity incidents alongside near-universal student AI use, underscoring the urgency of institutional frameworks that address both ethics and authentic learning. The good news: Northwestern's Kellogg reports that 2,500+ business leaders enrolled in its AI strategy program in the past year — confirming strong market demand for graduates who can lead in AI-integrated organizations. Graduates with AI fluency have a measurable career advantage.</p>
         </div>
 
         <div class="video-grid">
@@ -1075,7 +1452,9 @@
 <section class="archive-section">
   <h2>📂 Past Issues</h2>
   <ul class="archive-list" id="archive-list">
-    <li><a href="#week-2026-07-28">📅 Issue #4 — Week of July 28, 2026 <span style="margin-left:auto;font-size:.8rem;color:#aaa;">Purpose-Built for the Classroom</span></a></li>
+    <li><a href="#week-2026-07-28">📅 Issue #6 — Week of July 28, 2026 <span style="margin-left:auto;font-size:.8rem;color:#aaa;">Purpose-Built for the Classroom</span></a></li>
+    <li><a href="#week-2026-07-21">📅 Issue #5 — Week of July 21, 2026 <span style="margin-left:auto;font-size:.8rem;color:#aaa;">Back-to-School Guardrails</span></a></li>
+    <li><a href="#week-2026-07-14">📅 Issue #4 — Week of July 14, 2026 <span style="margin-left:auto;font-size:.8rem;color:#aaa;">Claude for Teachers Launches Free</span></a></li>
     <li><a href="#week-2026-07-07">📅 Issue #3 — Week of July 7, 2026 <span style="margin-left:auto;font-size:.8rem;color:#aaa;">Deadlines &amp; New Defaults</span></a></li>
     <li><a href="#week-2026-06-29">📅 Issue #2 — Week of June 29, 2026 <span style="margin-left:auto;font-size:.8rem;color:#aaa;">Policy Deadline Week</span></a></li>
     <li><a href="#week-2026-06-23">📅 Issue #1 — Week of June 23, 2026 <span style="margin-left:auto;font-size:.8rem;color:#aaa;">Inaugural Edition</span></a></li>
@@ -1096,14 +1475,73 @@
 </footer>
 
 <script>
-  // Smooth scroll offset correction for sticky nav
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
+  // Add a "Week of ..." date badge to every audience section
+  (function () {
+    var MONTHS = ['January','February','March','April','May','June',
+                  'July','August','September','October','November','December'];
+    function fmt(d) {
+      var m = /(\d{4})-(\d{2})-(\d{2})/.exec(d);
+      if (!m) return '';
+      return 'Week of ' + MONTHS[+m[2] - 1] + ' ' + (+m[3]) + ', ' + m[1];
+    }
+    document.querySelectorAll('.audience-section').forEach(function (sec) {
+      var wk = sec.closest('.week-entry');
+      var label = wk ? fmt(wk.id) : '';
+      if (!label) return;
+      var tag = document.createElement('div');
+      tag.className = 'week-tag';
+      tag.textContent = '\U0001F4C5 ' + label;
+      var body = sec.querySelector('.audience-body') || sec;
+      body.insertBefore(tag, body.firstChild);
+    });
+  })();
+
+  // Audience filter: show one audience across ALL weeks
+  (function () {
+    var AUD = { '#k12': 'k12', '#leaders': 'leaders',
+                '#highered': 'highered', '#community': 'community' };
+    var NAME = { k12: 'K-12 Educators', leaders: 'School Leaders',
+                 highered: 'Higher Education', community: 'Community' };
+    var body = document.body;
+    var tabs = document.querySelectorAll('.audience-tabs a');
+    var label = document.getElementById('filter-label');
+
+    function clearFilter() {
+      body.className = body.className
+        .replace(/\bfiltering\b/g, '')
+        .replace(/\bfilter-\w+\b/g, '').trim();
+      tabs.forEach(function (t) { t.classList.remove('active'); });
+    }
+    function applyFilter(aud, tab) {
+      clearFilter();
+      body.classList.add('filtering', 'filter-' + aud);
+      tab.classList.add('active');
+      if (label) label.textContent = 'Showing all ' + NAME[aud] + ' posts';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    tabs.forEach(function (a) {
+      var aud = AUD[a.getAttribute('href')];
+      if (!aud) return;
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (a.classList.contains('active')) { clearFilter(); }
+        else { applyFilter(aud, a); }
+      });
+    });
+
+    var reset = document.getElementById('filter-reset');
+    if (reset) reset.addEventListener('click', clearFilter);
+  })();
+
+  // Smooth scroll for archive / in-page anchors (non-tabs)
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    if (a.closest('.audience-tabs')) return;
+    a.addEventListener('click', function (e) {
+      var target = document.querySelector(a.getAttribute('href'));
       if (target) {
         e.preventDefault();
-        const offset = 70;
-        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' });
       }
     });
   });
