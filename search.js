@@ -7,7 +7,13 @@
       title: 'Home',
       url: 'index.html',
       desc: 'About InspiredBI, Dr. Maggie Mosher, top 12 AI tools, educator resources, podcast, book, and contact.',
-      keys: 'home inspiredbi maggie mosher educator ai tools contact empowered by ai podcast ai advocates ku university kansas johns hopkins xr voiss curriculum teaching goblin tools mizou playlab teachaid eduaide brisk magicschool notebooklm suno napkin canva adobe capcut inworld kapwing luma runway invideo ltx animoto skybox groovelit video media top 12 tools free tools tips chatbot agentic frameworks safe secure monitoring compare'
+      keys: 'home inspiredbi maggie mosher educator ai tools contact empowered by ai podcast ai advocates ku university kansas johns hopkins xr voiss curriculum teaching goblin tools mizou playlab teachaid eduaide brisk magicschool notebooklm suno napkin canva adobe capcut inworld kapwing luma runway invideo ltx animoto skybox groovelit video media top 12 tools free tools tips chatbot agentic frameworks safe secure monitoring compare building your ai co-creator co-creator cocreator ai4 2026 keynote conference presentation stress less reach every student every day'
+    },
+    {
+      title: 'Building Your AI Co-Creator — Ai4 2026 Keynote',
+      url: 'presentations/Building_Your_AI_CoCreator_Ai4_2026_Mosher.pdf',
+      desc: 'Dr. Mosher\'s Ai4 2026 conference presentation (PDF) — helping educators stress less and reach every student, every day.',
+      keys: 'building your ai co-creator co-creator co creator cocreator ai4 ai 4 2026 keynote conference presentation talk deck slides slide pdf stress less reach every student every day maggie mosher educator burnout differentiation personalized learning agentic generative ethics framework free tools tips las vegas venetian'
     },
     {
       title: 'Free Resources',
