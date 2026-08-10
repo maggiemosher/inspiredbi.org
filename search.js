@@ -10,6 +10,18 @@
       keys: 'home inspiredbi maggie mosher educator ai tools contact empowered by ai podcast ai advocates ku university kansas johns hopkins xr voiss curriculum teaching goblin tools mizou playlab teachaid eduaide brisk magicschool notebooklm suno napkin canva adobe capcut inworld kapwing luma runway invideo ltx animoto skybox groovelit video media top 12 tools free tools tips chatbot agentic frameworks safe secure monitoring compare building your ai co-creator co-creator cocreator ai4 2026 keynote conference presentation stress less reach every student every day'
     },
     {
+      title: 'Leadership — AI in Leadership Videos',
+      url: 'leadership.html',
+      desc: 'Recent YouTube videos on AI in leadership, curated for leaders driving process automation and autonomous operations.',
+      keys: 'leadership ai in leadership process automation autonomy digital transformation ceo executive school leaders operations videos youtube automation to autonomy change management workflow'
+    },
+    {
+      title: 'AI Weekly — News, Tools & Videos',
+      url: 'weekly-news.html',
+      desc: 'Every Monday: the freshest AI news, tools, and embedded videos for K-12, school leaders, higher ed, and community.',
+      keys: 'ai weekly news update videos podcast eu ai act models qwen deepseek siri gemini education policy k12 school leaders higher education community weekly latest issue'
+    },
+    {
       title: 'Building Your AI Co-Creator — Ai4 2026 Keynote',
       url: 'presentations/Building_Your_AI_CoCreator_Ai4_2026_Mosher.pdf',
       desc: 'Dr. Mosher\'s Ai4 2026 conference presentation (PDF) — helping educators stress less and reach every student, every day.',

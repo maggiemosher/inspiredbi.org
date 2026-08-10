@@ -1123,6 +1123,7 @@
         <li><a href="free-resources.html">Free Tools</a></li>
         <li><a href="safe-secure.html">Safe &amp; Secure AI</a></li>
         <li><a href="weekly-news.html">AI Weekly</a></li>
+        <li><a href="leadership.html">Leadership</a></li>
         <li><a href="#contact" class="nav__cta">Get In Touch</a></li>
       </ul>
       <div class="nav__search-wrap" id="search-wrap">
@@ -1141,6 +1142,7 @@
       <a href="free-resources.html" class="mobile-link">Free Tools</a>
       <a href="safe-secure.html" class="mobile-link">Safe &amp; Secure AI</a>
       <a href="weekly-news.html" class="mobile-link">AI Weekly</a>
+      <a href="leadership.html" class="mobile-link">Leadership</a>
       <a href="#contact" class="mobile-link">Get In Touch</a>
     </div>
   </nav>
@@ -1434,15 +1436,15 @@
               </tr>
 
               <tr>
-                <td><strong>Anthropic</strong><br/><span style="font-size:0.72rem;color:var(--ssai-muted);">Claude · Claude Code · Cowork</span></td>
-                <td>Claude.ai Free; Pro ($20/mo); Max ($100/mo); Team ($30/user/mo); Enterprise; API (direct developer access)</td>
+                <td><strong>Anthropic</strong><br/><span style="font-size:0.72rem;color:var(--ssai-muted);">Claude · Claude Code · Cowork · Claude for Teachers</span></td>
+                <td>Claude.ai Free; Pro ($20/mo); Max ($100/mo); Team ($30/user/mo); Enterprise; API (direct developer access); <strong>Claude for Teachers</strong> (FREE — full year of Pro-level access for verified U.S. K–12 educators, incl. Claude Code &amp; Cowork)</td>
                 <td>Conversations (free tier may be used to improve Claude; human safety reviewers may access); account info (email); IP address; browser/device metadata; usage patterns and feature engagement</td>
-                <td>Pro/Max/Team: conversations <em>NOT</em> used for training; usage analytics retained. Enterprise: DPA signed, full audit logs, SSO/MFA, conversations isolated to your tenant, admin controls, no training on org data</td>
-                <td style="text-align:center;"><span class="cross">✗</span><br/><small>Free/Pro</small><br/><span class="partial">⚠</span><br/><small>Enterprise + DPA</small></td>
-                <td style="text-align:center;"><span class="cross">✗</span><br/><small>Min age 13; no school exception on any standard plan</small></td>
-                <td style="text-align:center;"><span class="cross">✗</span><br/><small>Standard plans</small><br/><span class="partial">⚠</span><br/><small>Enterprise case-by-case BAA</small></td>
-                <td><strong>Frontier:</strong> Claude Opus 4 (reasoning/frontier); Claude 3.7 Sonnet (extended thinking + code); Claude 3.5 Haiku (fast/cheap). <strong>Free:</strong> Claude 3.5 Haiku limited. <strong>Pro/Max:</strong> Full access + Projects (persistent memory) + Artifacts. <strong>Enterprise:</strong> Claude Code (agentic coding), Cowork (file-system agent), API access</td>
-                <td><span class="risk-high">HIGH</span> Free tier for student data.<br/><span class="risk-med">MEDIUM</span> Pro acceptable for teacher productivity with zero student PII.<br/><span class="risk-low">LOW</span> Enterprise with DPA. No FedRAMP. Best reasoning models; strong safety focus. Claude Code &amp; Cowork require paid plan.</td>
+                <td>Pro/Max/Team: conversations <em>NOT</em> used for training; usage analytics retained. Enterprise: DPA signed, full audit logs, SSO/MFA, conversations isolated to your tenant, admin controls, no training on org data. <strong>Claude for Teachers:</strong> requires school-issued email + educator verification; conversations <em>NOT</em> used for training; K–12 Data Processing Addendum written to comply with FERPA.</td>
+                <td style="text-align:center;"><span class="check">✓</span><br/><small>Claude for Teachers (K–12 DPA)</small><br/><span class="partial">⚠</span><br/><small>Enterprise + DPA</small><br/><span class="cross">✗</span><br/><small>Free/Pro consumer</small></td>
+                <td style="text-align:center;"><span class="cross">✗</span><br/><small>Min age 13; educator-facing — not for under-13 student accounts</small></td>
+                <td style="text-align:center;"><span class="cross">✗</span><br/><small>Standard &amp; Teachers</small><br/><span class="partial">⚠</span><br/><small>Enterprise case-by-case BAA</small></td>
+                <td><strong>Frontier:</strong> Claude Opus 4 (reasoning/frontier); Claude 3.7 Sonnet (extended thinking + code); Claude 3.5 Haiku (fast/cheap). <strong>Free:</strong> Claude 3.5 Haiku limited. <strong>Pro/Max:</strong> Full access + Projects (persistent memory) + Artifacts. <strong>Claude for Teachers (FREE):</strong> year of Pro-level access + Claude Code + Cowork for verified educators. <strong>Enterprise:</strong> Claude Code (agentic coding), Cowork (file-system agent), API access</td>
+                <td><span class="risk-high">HIGH</span> Free/consumer tier for student data.<br/><span class="risk-med">MEDIUM</span> Pro acceptable for teacher productivity with zero student PII.<br/><span class="risk-low">LOW</span> <strong>Claude for Teachers</strong> — free educator tier with K–12 DPA; strong for teacher productivity with district approval.<br/><span class="risk-low">LOW</span> Enterprise with DPA. No FedRAMP. Best reasoning models; strong safety focus.</td>
               </tr>
 
               <tr>
@@ -1881,6 +1883,15 @@
       <p style="font-size:1.0625rem;line-height:1.75;color:var(--clr-gray-500);max-width:680px;margin-bottom:48px;">Click the images below to listen to a podcast or open full-size educator resources.</p>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+
+        <!-- Row 0, Col 0 — Leadership Video Hub (NEW) -->
+        <div>
+          <div style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--clr-teal);margin-bottom:12px;">AI in Leadership — Video Hub</div>
+          <a href="leadership.html" style="display:block;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-lg);border:1.5px solid var(--clr-gray-300);transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 16px 40px rgba(0,0,0,.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+            <img src="images/leadership-thumb.png" alt="Leadership — recent AI in Leadership videos curated for leaders driving process automation" style="width:100%;display:block;object-fit:cover;" />
+            <div style="background:var(--clr-navy);color:rgba(255,255,255,.85);padding:10px 16px;font-size:.8125rem;font-weight:600;">🎥 AI in Leadership Videos for Process-Automation Leaders →</div>
+          </a>
+        </div>
 
         <!-- Row 0, Col 1 — Global Educational Innovation PDF -->
         <div>
