@@ -1,4 +1,419 @@
-<!DOCTYPE html>
+Add Agentic AI learning path section to leadership page <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Leadership — InspiredBI</title>
+<meta name="description" content="The most recent YouTube videos on AI in leadership — curated for leaders driving process automation and operational transformation." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#0f2444;
+    --navy-2:#0c1c37;
+    --navy-3:#122a4f;
+    --slate:#334155;
+    --teal:#2dd4bf;
+    --gold:#e0b64d;
+    --orange:#f59e0b;
+    --line:rgba(255,255,255,.10);
+    --card:rgba(255,255,255,.045);
+    --muted:#9fb3d1;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',sans-serif;
+    color:#e8eefb;
+    background:
+      radial-gradient(1200px 700px at 80% -10%, rgba(45,212,191,.10), transparent 60%),
+      radial-gradient(1000px 600px at 0% 10%, rgba(224,182,77,.08), transparent 55%),
+      linear-gradient(180deg,#0f2444 0%, #0c1c37 55%, #0a1730 100%);
+    background-repeat:no-repeat;
+    min-height:100vh;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(12,24,48,.82);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;gap:26px;height:76px}
+  .logo{font-family:'Playfair Display',serif;font-weight:900;font-size:1.7rem;letter-spacing:-.5px}
+  .logo .b{background:linear-gradient(90deg,var(--teal),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav-links{display:flex;align-items:center;gap:22px;margin-left:8px;flex-wrap:wrap}
+  .nav-links a{font-size:.94rem;font-weight:500;color:#cdd9ee;transition:color .2s;white-space:nowrap}
+  .nav-links a:hover{color:#fff}
+  .nav-links a.active{color:#fff;font-weight:700}
+  .nav-links a.active::after{content:"";display:block;height:2px;border-radius:2px;margin-top:5px;background:linear-gradient(90deg,var(--teal),var(--gold))}
+  .cta{margin-left:auto}
+  .cta a{background:var(--orange);color:var(--navy);font-weight:700;padding:11px 20px;border-radius:999px;font-size:.9rem;white-space:nowrap;transition:transform .15s,box-shadow .2s;display:inline-block}
+  .cta a:hover{transform:translateY(-1px);box-shadow:0 10px 26px rgba(245,158,11,.28)}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:76px 0 34px;text-align:center}
+  .badge{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:9px 18px;border-radius:999px;
+    background:rgba(45,212,191,.10);border:1px solid rgba(45,212,191,.30);
+    color:#7fe9d8;font-weight:700;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  }
+  .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 12px var(--teal)}
+  .hero h1{
+    font-family:'Playfair Display',serif;font-weight:800;
+    font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.06;letter-spacing:-1px;
+    margin:26px auto 0;max-width:14ch;color:#fff;
+  }
+  .hero h1 .grad{background:linear-gradient(100deg,var(--teal) 10%,var(--gold) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{max-width:64ch;margin:22px auto 0;color:#c4d2ea;font-size:1.12rem}
+  .hero .meta{margin-top:18px;color:var(--muted);font-size:.88rem;font-weight:500}
+
+  /* ---------- FILTER STRIP ---------- */
+  .strip{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:30px 0 6px}
+  .chip{padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:#cfe0f7;font-size:.82rem;font-weight:600}
+
+  /* ---------- VIDEO GRID ---------- */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;padding:34px 0 10px}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;
+    display:flex;flex-direction:column;transition:transform .2s,border-color .2s,box-shadow .25s;
+  }
+  .card:hover{transform:translateY(-4px);border-color:rgba(45,212,191,.35);box-shadow:0 22px 48px rgba(0,0,0,.35)}
+  .video{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .card-body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:999px}
+  .tag.lead{background:rgba(45,212,191,.14);color:#7fe9d8}
+  .tag.auto{background:rgba(245,158,11,.15);color:#ffcf7a}
+  .card h3{font-family:'Playfair Display',serif;font-weight:800;font-size:1.28rem;line-height:1.25;color:#fff}
+  .channel{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.85rem;font-weight:600}
+  .channel svg{flex:none}
+  .card p{color:#c1d0e8;font-size:.95rem}
+  .why{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);font-size:.9rem;color:#a9c6e6}
+  .why b{color:#ffd68a;font-weight:700}
+  .watch{display:inline-flex;align-items:center;gap:8px;margin-top:12px;color:#ffcf7a;font-weight:700;font-size:.9rem}
+  .watch:hover{color:#fff}
+
+  /* ---------- FOOTER ---------- */
+  footer{margin-top:60px;border-top:1px solid var(--line);background:rgba(9,18,38,.6)}
+  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;padding:34px 0;color:var(--muted);font-size:.9rem}
+  .foot a{color:#cbd9ef}
+  .foot a:hover{color:#fff}
+  .note{max-width:1200px;margin:0 auto;padding:0 28px 40px;color:#7f93b4;font-size:.8rem}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">Inspired<span class="b">bi</span></div>
+    <nav class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#services">Learn</a>
+      <a href="index.html#impact">Impact</a>
+      <a href="free-resources.html">Free Tools</a>
+      <a href="safe-secure.html">Safe &amp; Secure AI</a>
+      <a href="weekly-news.html">AI Weekly</a>
+      <a href="leadership.html" class="active">Leadership</a>
+    </nav>
+    <div class="cta"><a href="index.html#contact">Get In Touch</a></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="badge"><span class="dot"></span> AI in Leadership</span>
+    <h1>Leading Through the Age of <span class="grad">Intelligent Automation</span></h1>
+    <p class="lead">A curated, continually refreshed collection of the most recent videos on AI in leadership — chosen for leaders who are automating processes, redesigning workflows, and moving their organizations from manual effort to intelligent, autonomous operations.</p>
+    <p class="meta">Curated August 2026 · Six hand-picked talks &amp; briefings · Updated regularly</p>
+  </div>
+</section>
+
+<!-- BEGIN: Agentic AI Learning Path -->
+<style>
+.iab-learning-path{
+  --iab-accent:#2dd4bf;
+  --iab-accent-soft:rgba(45,212,191,.12);
+  --iab-ink:#e8eefb;
+  --iab-muted:#9fb3d1;
+  --iab-line:rgba(255,255,255,.12);
+  --iab-card:rgba(255,255,255,.045);
+  --iab-chip:rgba(255,255,255,.06);
+  --iab-on-accent:#0f2444;
+  max-width:1200px;margin:3rem auto 1rem;padding:0 28px;
+  font-family:inherit;color:var(--iab-ink);line-height:1.55;
+}
+.iab-learning-path .iab-eyebrow{
+  display:inline-block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:700;color:var(--iab-accent);background:var(--iab-accent-soft);
+  padding:.35rem .7rem;border-radius:999px;margin-bottom:.9rem;
+}
+.iab-learning-path h2{font-size:1.9rem;line-height:1.25;margin:0 0 .6rem;font-weight:800;color:#fff;}
+.iab-learning-path .iab-lede{color:var(--iab-muted);margin:0 0 2rem;max-width:62ch;}
+.iab-learning-path ol.iab-courses{list-style:none;counter-reset:iab;margin:0;padding:0;}
+.iab-learning-path ol.iab-courses > li{
+  counter-increment:iab;position:relative;
+  background:var(--iab-card);border:1px solid var(--iab-line);border-radius:14px;
+  padding:1.35rem 1.5rem 1.35rem 4.25rem;margin-bottom:1rem;
+  transition:box-shadow .18s ease, transform .18s ease, border-color .18s ease;
+}
+.iab-learning-path ol.iab-courses > li:hover{
+  box-shadow:0 10px 30px rgba(0,0,0,.30);transform:translateY(-2px);
+  border-color:var(--iab-accent);
+}
+.iab-learning-path ol.iab-courses > li::before{
+  content:counter(iab);position:absolute;left:1.25rem;top:1.35rem;
+  width:2.1rem;height:2.1rem;border-radius:50%;
+  background:linear-gradient(135deg,var(--iab-accent),#e0b64d);color:var(--iab-on-accent);
+  font-size:.95rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+.iab-learning-path .iab-title{font-size:1.12rem;font-weight:700;margin:0 0 .5rem;}
+.iab-learning-path .iab-title a{color:#fff;text-decoration:none;border-bottom:2px solid var(--iab-accent-soft);transition:color .2s,border-color .2s;}
+.iab-learning-path .iab-title a:hover,
+.iab-learning-path .iab-title a:focus{color:var(--iab-accent);border-bottom-color:var(--iab-accent);}
+.iab-learning-path .iab-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 .7rem;padding:0;list-style:none;}
+.iab-learning-path .iab-meta li{
+  font-size:.75rem;font-weight:600;color:var(--iab-muted);
+  background:var(--iab-chip);border:1px solid var(--iab-line);
+  padding:.2rem .55rem;border-radius:6px;white-space:nowrap;
+}
+.iab-learning-path .iab-meta li.iab-rating{color:var(--iab-accent);background:var(--iab-accent-soft);border-color:transparent;}
+.iab-learning-path .iab-why{margin:0;color:var(--iab-muted);font-size:.94rem;}
+.iab-learning-path .iab-why b{color:#cdd9ee;}
+.iab-learning-path .iab-note{
+  margin-top:1.5rem;padding:1rem 1.15rem;border-left:3px solid var(--iab-accent);
+  background:var(--iab-accent-soft);border-radius:0 10px 10px 0;
+  font-size:.92rem;color:var(--iab-ink);
+}
+.iab-learning-path .iab-note strong{font-weight:700;color:#fff;}
+@media (max-width:560px){
+  .iab-learning-path{padding:0 20px;}
+  .iab-learning-path ol.iab-courses > li{padding:1.15rem 1.1rem;}
+  .iab-learning-path ol.iab-courses > li::before{position:static;margin-bottom:.7rem;}
+}
+</style>
+
+<section class="iab-learning-path" id="agentic-ai-learning-path" aria-labelledby="iab-lp-heading">
+  <span class="iab-eyebrow">Recommended Learning</span>
+  <h2 id="iab-lp-heading">Agentic AI: A Sequenced Learning Path for Leaders</h2>
+  <p class="iab-lede">
+    Three self-paced Coursera offerings, ordered from conceptual overview to hands-on
+    building. Start at the top and work down &mdash; each one assumes the vocabulary of the one before it.
+  </p>
+
+  <ol class="iab-courses">
+    <li>
+      <p class="iab-title">
+        <a href="https://www.coursera.org/learn/agentic-ai" target="_blank" rel="noopener noreferrer">
+          Agentic AI and AI Agents: A Primer for Leaders
+        </a>
+      </p>
+      <ul class="iab-meta">
+        <li>Vanderbilt University</li>
+        <li>Beginner</li>
+        <li>~6 hours</li>
+        <li class="iab-rating">4.7 &#9733;</li>
+      </ul>
+      <p class="iab-why">
+        The strongest starting point. Establishes what an agent actually is, how tool use works,
+        and where autonomy belongs in an organization &mdash; framed for decision-makers rather than developers.
+      </p>
+    </li>
+
+    <li>
+      <p class="iab-title">
+        <a href="https://www.coursera.org/learn/generative-and-agentic-ai" target="_blank" rel="noopener noreferrer">
+          Generative and Agentic AI
+        </a>
+      </p>
+      <ul class="iab-meta">
+        <li>Sa&iuml;d Business School, University of Oxford</li>
+        <li>Beginner</li>
+        <li>~10 hours</li>
+        <li class="iab-rating">4.8 &#9733;</li>
+      </ul>
+      <p class="iab-why">
+        One level deeper on the mechanics: large language models, prompting technique, and
+        retrieval-augmented generation (RAG). This is the bridge between understanding agents and building them.
+        Note that it runs in scheduled cohorts rather than fully on demand.
+      </p>
+    </li>
+
+    <li>
+      <p class="iab-title">
+        <a href="https://www.coursera.org/specializations/microsoft-generative-and-agentic-ai-basics" target="_blank" rel="noopener noreferrer">
+          Microsoft Generative and Agentic AI Basics
+        </a>
+      </p>
+      <ul class="iab-meta">
+        <li>Microsoft</li>
+        <li>4-course specialization</li>
+        <li>Intermediate</li>
+        <li>~64 hours</li>
+        <li class="iab-rating">3.7 &#9733;</li>
+      </ul>
+      <p class="iab-why">
+        The build path. Most directly aligned with the Microsoft 365 and Azure ecosystem,
+        including Azure AI Foundry and end-to-end agent development. Budget roughly two months at eight hours per week.
+      </p>
+    </li>
+  </ol>
+
+  <p class="iab-note">
+    <strong>Shortest useful route:</strong> items 1 and 2 together run about sixteen hours and are
+    enough to lead an informed conversation about agentic AI. Add item 3 only when the goal shifts
+    from evaluating agents to building them inside Microsoft tooling.
+  </p>
+</section>
+<!-- END: Agentic AI Learning Path -->
+
+
+<div class="wrap">
+  <div class="strip">
+    <span class="chip">🎯 Leadership Strategy</span>
+    <span class="chip">⚙️ Process Automation</span>
+    <span class="chip">🤖 Agentic &amp; Autonomous AI</span>
+    <span class="chip">📈 Digital Transformation</span>
+    <span class="chip">👥 Workforce &amp; Change</span>
+  </div>
+
+  <div class="grid">
+
+    <!-- 1 -->
+    <article class="card">
+      <div class="video">
+        <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/vwqSI7APFe8" title="How AI Is Driving the Shift From Automation to Autonomy | Phoenix Global Forum 2026" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <div class="card-body">
+        <div class="tags"><span class="tag lead">Leadership</span><span class="tag auto">Automation → Autonomy</span></div>
+        <h3>How AI Is Driving the Shift From Automation to Autonomy</h3>
+        <div class="channel">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff5a5f"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.4a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.4a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg>
+          IEFA TV · Phoenix Global Forum 2026
+        </div>
+        <p>A forum session on the leadership transition from rules-based automation to systems that decide and act on their own — and what that means for how leaders design, govern, and trust their operations.</p>
+        <div class="why"><b>Why it matters:</b> Frames the exact leap process-automation leaders are navigating right now — from automating steps to orchestrating autonomous workflows.</div>
+        <a class="watch" href="https://www.youtube.com/watch?v=vwqSI7APFe8" target="_blank" rel="noopener">Watch on YouTube →</a>
+      </div>
+    </article>
+
+    <!-- 2 -->
+    <article class="card">
+      <div class="video">
+        <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/bL7cuUwFOH0" title="AI Trends That EVERY Leader Needs to Know in 2026" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <div class="card-body">
+        <div class="tags"><span class="tag lead">Leadership</span><span class="tag auto">Digital Transformation</span></div>
+        <h3>AI Trends That EVERY Leader Needs to Know in 2026</h3>
+        <div class="channel">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff5a5f"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.4a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.4a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg>
+          Digital Transformation with Eric Kimberling
+        </div>
+        <p>A practitioner's breakdown of the AI and automation trends reshaping enterprise operations, from an advisor who guides organizations through ERP and digital-transformation programs.</p>
+        <div class="why"><b>Why it matters:</b> Grounded in real transformation programs — practical signal on where to place automation bets, told from an operations-leadership lens.</div>
+        <a class="watch" href="https://www.youtube.com/watch?v=bL7cuUwFOH0" target="_blank" rel="noopener">Watch on YouTube →</a>
+      </div>
+    </article>
+
+    <!-- 3 -->
+    <article class="card">
+      <div class="video">
+        <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/suMbnW1HP-A" title="How CEOs Are Using AI in 2026 (And Why Most Leaders Are Already Behind)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <div class="card-body">
+        <div class="tags"><span class="tag lead">Executive Leadership</span><span class="tag auto">Adoption</span></div>
+        <h3>How CEOs Are Using AI in 2026 (And Why Most Leaders Are Already Behind)</h3>
+        <div class="channel">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff5a5f"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.4a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.4a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg>
+          Oxygen Conservation
+        </div>
+        <p>A candid look at how top executives are embedding AI into decision-making and daily operations — and the widening gap between leaders who automate and those who don't.</p>
+        <div class="why"><b>Why it matters:</b> Sets the urgency and executive mindset needed to sponsor automation initiatives before competitors pull ahead.</div>
+        <a class="watch" href="https://www.youtube.com/watch?v=suMbnW1HP-A" target="_blank" rel="noopener">Watch on YouTube →</a>
+      </div>
+    </article>
+
+    <!-- 4 -->
+    <article class="card">
+      <div class="video">
+        <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/V54EFZG5z5c" title="The Future of ITSM: 5 AI & Automation Trends Defining 2026" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <div class="card-body">
+        <div class="tags"><span class="tag lead">Operations Leadership</span><span class="tag auto">Process Automation</span></div>
+        <h3>The Future of ITSM: 5 AI &amp; Automation Trends Defining 2026</h3>
+        <div class="channel">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff5a5f"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.4a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.4a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg>
+          TeamDynamix
+        </div>
+        <p>Five concrete AI-and-automation trends redefining service management — automated ticket handling, agentic workflows, and self-service operations at scale.</p>
+        <div class="why"><b>Why it matters:</b> The most hands-on entry here for leaders standing up automated, AI-assisted service and back-office processes.</div>
+        <a class="watch" href="https://www.youtube.com/watch?v=V54EFZG5z5c" target="_blank" rel="noopener">Watch on YouTube →</a>
+      </div>
+    </article>
+
+    <!-- 5 -->
+    <article class="card">
+      <div class="video">
+        <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Z_rZFx-rT0A" title="Best AI Automation Tools in 2026 You Need to Know" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <div class="card-body">
+        <div class="tags"><span class="tag lead">Enablement</span><span class="tag auto">Automation Tools</span></div>
+        <h3>Best AI Automation Tools in 2026 You Need to Know</h3>
+        <div class="channel">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff5a5f"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.4a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.4a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg>
+          IvyProSchool
+        </div>
+        <p>A practical tour of the leading AI automation platforms of 2026 — what each does well and where it fits in a modern automation stack.</p>
+        <div class="why"><b>Why it matters:</b> Helps leaders translate strategy into tooling decisions, mapping the automation platforms their teams should evaluate.</div>
+        <a class="watch" href="https://www.youtube.com/watch?v=Z_rZFx-rT0A" target="_blank" rel="noopener">Watch on YouTube →</a>
+      </div>
+    </article>
+
+    <!-- 6 -->
+    <article class="card">
+      <div class="video">
+        <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/aujObjUNiKM" title="The AI Shift Every HR Leader Needs to Prepare for in 2026" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <div class="card-body">
+        <div class="tags"><span class="tag lead">People Leadership</span><span class="tag auto">Workforce Automation</span></div>
+        <h3>The AI Shift Every HR Leader Needs to Prepare for in 2026</h3>
+        <div class="channel">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff5a5f"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.4a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.4a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg>
+          HR Leaders
+        </div>
+        <p>How AI and automation are reshaping the workforce, roles, and skills — and how people leaders should prepare their organizations for the transition.</p>
+        <div class="why"><b>Why it matters:</b> Automating processes changes jobs; this covers the change-management and workforce side every automation leader must own.</div>
+        <a class="watch" href="https://www.youtube.com/watch?v=aujObjUNiKM" target="_blank" rel="noopener">Watch on YouTube →</a>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <div>© 2026 InspiredBI.org — Education Meets Innovation</div>
+    <div>
+      <a href="/">Home</a> &nbsp;·&nbsp;
+      <a href="/#contact">Get In Touch</a> &nbsp;·&nbsp;
+      <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+  <div class="note">Videos are curated from publicly available YouTube content and are the property of their respective creators. Selection reflects relevance to AI in leadership and process automation as of August 2026; this page is refreshed periodically as newer material is published.</div>
+</footer>
+
+</body>
+</html><!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
