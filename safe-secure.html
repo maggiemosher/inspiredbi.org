@@ -165,14 +165,12 @@
     <a href="#cyber-security" class="jump-link">Cyber Security Domains</a>
   </div>
 </div>
-
 <!-- PRIVACY LAWS -->
 <section class="tutorial-section" id="privacy-laws">
   <div class="container">
     <div class="section-eyebrow">Legal Compliance</div>
     <h2 class="section-title">Privacy Laws Every Educator Must Know</h2>
-    <p class="section-intro">Before adopting any AI tool in an educational setting, educators must understand the three federal privacy laws that govern student and patient data. Violations can result in loss of federal funding, lawsuits, and serious harm to students.</p>
-
+    <p class="section-intro">Before adopting any AI tool in an educational setting, educators must understand the federal and state privacy laws that govern student, health, and biometric data. Violations can result in loss of federal funding, lawsuits, and serious harm to students.</p>
     <div class="law-card">
       <div class="law-card-header">
         <span class="law-badge">FERPA</span>
@@ -188,7 +186,20 @@
         <li>Parents have the right to review and challenge records — including AI-generated documents if they become part of the official record</li>
       </ul>
     </div>
-
+    <div class="law-card">
+      <div class="law-card-header">
+        <span class="law-badge">IDEA</span>
+        <h3>Individuals with Disabilities Education Act</h3>
+      </div>
+      <p>IDEA guarantees a free appropriate public education to students with disabilities and layers extra confidentiality protection onto FERPA for anything tied to a disability classification — IEP goals, behavior support plans, and evaluation data. Because this data identifies a student's disability status, mishandling it carries a discrimination risk on top of the ordinary privacy risk.</p>
+      <p><strong>Key rules for AI use:</strong></p>
+      <ul>
+        <li>Never paste IEP content, behavior support plans, disability classifications, or evaluation data into a public AI tool — this is more sensitive than ordinary education records and needs an explicit, documented basis for AI processing</li>
+        <li>Any AI tool touching special-education data needs the same FERPA-compliant agreement (BAA or School Official designation) <em>plus</em> sign-off from your special-education director confirming IDEA's confidentiality safeguards are met</li>
+        <li>AI-generated content that becomes part of a student's IEP or evaluation record is now part of the official special-education record — parents have the same right to review and challenge it that IDEA already guarantees</li>
+        <li>Any tool that scores or flags student behavior should be checked for bias against disabled and neurodivergent students before it's trusted as evidence for an IEP goal — models trained on typically-developing students can misread a disabled student's normal presentation as a deficit</li>
+      </ul>
+    </div>
     <div class="law-card">
       <div class="law-card-header">
         <span class="law-badge">HIPAA</span>
@@ -203,7 +214,6 @@
         <li>HIPAA and FERPA interact in complex ways for school health records — consult your district's legal counsel for school-specific guidance</li>
       </ul>
     </div>
-
     <div class="law-card">
       <div class="law-card-header">
         <span class="law-badge">COPPA</span>
@@ -217,6 +227,34 @@
         <li>The tool must not use student data for advertising, share it with third parties, or retain it longer than necessary</li>
         <li>Verified COPPA-compliant tools for K–8: Google Workspace for Education, Mizou, SchoolAI, Khanmigo, Diffit</li>
         <li>Always check the platform's current privacy policy — compliance status can change with product updates</li>
+      </ul>
+    </div>
+    <div class="law-card">
+      <div class="law-card-header">
+        <span class="law-badge">BIPA</span>
+        <h3>State Biometric Privacy Laws</h3>
+      </div>
+      <p>Several states — Illinois's Biometric Information Privacy Act (BIPA) is the strictest and most litigated — regulate biometric identifiers (fingerprints, voiceprints, retina/iris scans, and increasingly facial geometry or gait data from cameras) separately from, and in addition to, federal education law. These laws create a private right of action, meaning a family — not just a regulator — can sue directly over a violation.</p>
+      <p><strong>Key rules for AI use:</strong></p>
+      <ul>
+        <li>Before collecting any biometric data (facial recognition, voiceprint, gait/movement pattern, eye-tracking data) check your state's specific biometric privacy law — requirements vary and BIPA-style laws are spreading to new states</li>
+        <li>Written, signed consent is required <em>before</em> collection begins in BIPA-style states — after-the-fact consent or a general enrollment-packet clause does not satisfy this</li>
+        <li>A published retention schedule and a firm destruction date are legally required, not just best practice — data can't be kept indefinitely "in case it's useful later"</li>
+        <li>These laws typically apply regardless of federal funding status, so a private school or vendor FERPA doesn't reach can still be liable under a state biometric law</li>
+      </ul>
+    </div>
+    <div class="law-card">
+      <div class="law-card-header">
+        <span class="law-badge">CIPA</span>
+        <h3>Children's Internet Protection Act</h3>
+      </div>
+      <p>CIPA requires any school or library receiving E-Rate discounts to filter its network against obscene or harmful content for minors. That obligation now extends to harmful AI-generated content reachable over the school network — not just traditional web pages — so any AI tool a student can reach from a school device or school network falls under the same filtering requirement.</p>
+      <p><strong>Key rules for AI use:</strong></p>
+      <ul>
+        <li>Any AI tool accessible from a school network or school-issued device must sit behind the district's CIPA-compliant content filter, including the tool's own chat, image, or video outputs</li>
+        <li>A vendor's AI features (auto-generated summaries, chatbots, generative image tools) need their own review — filtering the underlying network doesn't automatically filter content an approved app generates on the fly</li>
+        <li>CIPA compliance is a condition of E-Rate funding, so a gap here isn't just a privacy risk — it can jeopardize the district's federal technology discounts</li>
+        <li>Filtering requirements apply to students; staff-only AI tools used for administrative work are typically governed by district IT policy rather than CIPA directly — check your district's specific E-Rate certification language</li>
       </ul>
     </div>
   </div>
