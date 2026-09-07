@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Weekly — InspiredBI</title>
-  <meta name="description" content="Your weekly guide to what's new in AI — curated for K-12 educators, school leaders, higher education, and communities." />
+  <meta name="description" content="Your weekly guide to what's new in AI — curated for K-12 educators, school leaders, higher education, operations & finance, ed tech engineers, and communities." />
   <link rel="icon" href="images/logo-banner.png" />
   <style>
     /* ── Reset & Base ─────────────────────────────────────────── */
@@ -101,6 +101,8 @@
     .tab-k12       { background: #1565c0; color: #fff; }
     .tab-leaders   { background: #2e7d32; color: #fff; }
     .tab-highered  { background: #6a1b9a; color: #fff; }
+    .tab-operations{ background: #37474f; color: #fff; }
+    .tab-edtech    { background: #00695c; color: #fff; }
     .tab-community { background: #bf360c; color: #fff; }
 
     /* ── Week banner ──────────────────────────────────────────── */
@@ -166,6 +168,8 @@
     .k12-header       { background: linear-gradient(90deg, #1565c0, #1e88e5); }
     .leaders-header   { background: linear-gradient(90deg, #2e7d32, #43a047); }
     .highered-header  { background: linear-gradient(90deg, #6a1b9a, #8e24aa); }
+    .operations-header{ background: linear-gradient(90deg, #37474f, #546e7a); }
+    .edtech-header    { background: linear-gradient(90deg, #00695c, #00897b); }
     .community-header { background: linear-gradient(90deg, #bf360c, #e64a19); }
 
     .audience-body { padding: 28px 30px 32px; }
@@ -183,7 +187,10 @@
     .k12 .whats-new         { border-color: #1565c0; background: #f0f4ff; }
     .leaders .whats-new     { border-color: #2e7d32; background: #f0fff2; }
     .highered .whats-new    { border-color: #6a1b9a; background: #f8f0ff; }
+    .operations .whats-new  { border-color: #37474f; background: #eceff1; }
+    .edtech .whats-new      { border-color: #00695c; background: #e0f2f1; }
     .community .whats-new   { border-color: #bf360c; background: #fff4f0; }
+    
     .whats-new .badge {
       display: inline-block;
       font-size: 0.7rem;
@@ -197,6 +204,8 @@
     .k12 .badge       { background: #1565c0; color: #fff; }
     .leaders .badge   { background: #2e7d32; color: #fff; }
     .highered .badge  { background: #6a1b9a; color: #fff; }
+    .operations .badge{ background: #37474f; color: #fff; }
+    .edtech .badge    { background: #00695c; color: #fff; }
     .community .badge { background: #bf360c; color: #fff; }
 
     /* ── Video grid ───────────────────────────────────────────── */
@@ -224,6 +233,8 @@
     .k12 .video-label       { color: #1565c0; }
     .leaders .video-label   { color: #2e7d32; }
     .highered .video-label  { color: #6a1b9a; }
+    .operations .video-label{ color: #37474f; }
+    .edtech .video-label    { color: #00695c; }
     .community .video-label { color: #bf360c; }
     .video-card p.video-caption {
       font-size: 0.88rem;
@@ -265,6 +276,8 @@
     .k12 .extra-links a       { background: #e3ecff; color: #1565c0; }
     .leaders .extra-links a   { background: #e6f4e6; color: #2e7d32; }
     .highered .extra-links a  { background: #f3e5ff; color: #6a1b9a; }
+    .operations .extra-links a{ background: #cfd8dc; color: #37474f; }
+    .edtech .extra-links a    { background: #b2dfdb; color: #00695c; }
     .community .extra-links a { background: #ffe9e4; color: #bf360c; }
 
     /* ── Podcast Picks panel ─────────────────────────────────── */
@@ -372,6 +385,8 @@
     body.filter-k12       .audience-section.k12,
     body.filter-leaders   .audience-section.leaders,
     body.filter-highered  .audience-section.highered,
+    body.filter-operations.audience-section.operations,
+    body.filter-edtech    .audience-section.edtech,
     body.filter-community .audience-section.community { display: block; }
     body.filtering .week-entry { margin-bottom: 0; }
   </style>
@@ -401,7 +416,9 @@
   <div class="audience-tabs">
     <a href="#k12"       class="tab-k12">🎓 K-12 Educators</a>
     <a href="#leaders"   class="tab-leaders">🏫 School Leaders</a>
-    <a href="#highered"  class="tab-highered">🏛️ Higher Education</a>
+    <a href="#highered"  class="tab-highered">🏛️ Higher Ed Faculty</a>
+    <a href="#operations"class="tab-operations">💼 Operations &amp; Finance</a>
+    <a href="#edtech"    class="tab-edtech">💻 Ed Tech Engineers</a>
     <a href="#community" class="tab-community">🌍 Community</a>
   </div>
 </section>
@@ -453,7 +470,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · September 2026</span>
           <p>The biggest classroom AI story of the year landed on September 2: <strong>New York City Public Schools imposed a one-year moratorium on all student-facing generative AI for 2-K through 8th grade</strong>, covering <strong>nearly 600,000 students</strong>, and banned companion chatbots in every grade. Teachers keep full access to AI for planning and operations, and exceptions remain for assistive tech, multilingual learners, and CS pathways. High schools get <strong>two 45-minute AI literacy modules per year</strong> plus supervised pilots of Quill, Edia, Brisk, Playlab, and Intel AI-Ready Schools, each capped at 10–20 minutes a week. The timing matters because <strong>Common Sense Media's August survey of 1,017 teens found 70% use AI for schoolwork, yet only 30% have ever had a teacher discuss safe use</strong>, and 28% say rules change from teacher to teacher. For teachers who are keeping AI, professional development is front-loaded this month: <strong>Google's free AI Educator Series now adds new ISTE-aligned modules the first Wednesday of every month</strong>, and a <strong>10-hour virtual Badge-a-thon runs September 19</strong> with live badging. Best move this week: whatever your district's stance, put your AI expectation in writing on every assignment sheet — it's the inconsistency, not the tool, that students say confuses them.</p>
@@ -496,7 +512,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · September 2026</span>
           <p>The same week produced two opposite models of district AI governance. <strong>New York City chose a moratorium</strong>: no student-facing generative AI through 8th grade, screen-time caps of <strong>30 minutes a day for grades 3–5 and 45 minutes for 6–8</strong>, a mandatory review of every tech tool for "mission-critical" learning value, and a <strong>Technology in Schools Coalition</strong> that will report recommendations after a year of study. Pilots reach at most <strong>50,000 high schoolers — about 5% of enrollment</strong>. <strong>Washington, D.C. chose a rulebook instead</strong>: on September 1, OSSE released a non-mandatory model policy built on a <strong>red-yellow-green "stoplight" framework</strong>. Green-lights lesson drafting, scheduling, and attendance analysis; yellow requires substantial human oversight for grading and reviewing student work; red bars AI outright from <strong>IEP determinations, student discipline, teacher evaluations, and physical surveillance</strong>. D.C. built it because its own February survey found <strong>only 45% of local districts had staff AI policies and 34% had student policies</strong>. Nationally, <strong>35 states have published K-12 AI guidance, nearly all nonbinding</strong>, and <strong>60% of educators still call their district's AI policy unclear</strong>. Your move: whichever direction your board leans, D.C.'s three-color list of prohibited high-stakes uses is a ready-made appendix for any existing policy.</p>
@@ -526,17 +541,16 @@
       </div>
     </section>
 
-    <!-- ── HIGHER EDUCATION ────────────────────────────────────── -->
+    <!-- ── HIGHER ED FACULTY ────────────────────────────────────── -->
     <section class="audience-section highered" id="highered-2026-09-07">
       <div class="audience-header highered-header">
         <div class="audience-icon">🏛️</div>
         <div class="audience-header-text">
-          <h2>Higher Education</h2>
+          <h2>Higher Ed Faculty</h2>
           <p class="subtitle">Campus-wide rollouts meet the policy gap</p>
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · September 2026</span>
           <p>Fall semester opened with institutions going all-in on access while students report the guidance still isn't there. <strong>The University of Leicester began full Microsoft 365 Copilot deployment this month to all 21,000 students and 4,000 staff</strong>, one of the first UK universities to do so, and <strong>SUNY's new systemwide policy embeds AI literacy into general education for every incoming undergraduate across 64 campuses starting this fall</strong>. UConn's provost-led <strong>"AI for ImpaCT"</strong> initiative is now live with its first "AI + X" graduate certificate. The demand side is unambiguous: <strong>Lumina-Gallup finds 57% of college students use AI for coursework at least weekly and one in five daily</strong>, yet <strong>53% say their school discourages (42%) or prohibits (11%) it</strong>. The Digital Education Council's 35-country survey adds that <strong>only 29% of students think instructors are equipped to guide AI use</strong>, and <strong>just 31% of faculty feel meaningfully involved in shaping policy</strong>. MIT's faculty committee is offering a <strong>four-option menu of acceptable-use syllabus policies</strong> rather than an institute-wide rule, a model many campuses are copying. On the AI-and-work front, <strong>47% of enrolled students have seriously considered switching majors over AI concerns</strong>. Your move: pick one of the four MIT-style options for each course and state it on the syllabus before week two.</p>
@@ -544,10 +558,10 @@
 
         <div class="video-grid">
           <div class="video-card">
-            <p class="video-label">🎬 AI Fluency in Highr Education in September 2026</p>
+            <p class="video-label">🎬 AI Fluency in Higher Education in September 2026</p>
             <p class="video-caption">A data-driven look at AI fluency within syllabi in 2026 as well as in conversations between and with students and faculty to determine what AI in classrooms will trend into this fall.</p>
             <div class="video-wrapper">
-              <iframe src="https://www.youtube.com/live/1qw47iIR6Bg?si=NCnCoVgCD8d5vSnw" title="The State of AI Fluency in Higher Education: 2026 Results" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              <iframe src="https://www.youtube.com/embed/1qw47iIR6Bg?si=NCnCoVgCD8d5vSnw" title="The State of AI Fluency in Higher Education: 2026 Results" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
             </div>
           </div>
           <div class="video-card">
@@ -566,6 +580,46 @@
       </div>
     </section>
 
+    <!-- ── OPERATIONS & FINANCE ──────────────────────────────────── -->
+    <section class="audience-section operations" id="operations-2026-09-07">
+      <div class="audience-header operations-header">
+        <div class="audience-icon">💼</div>
+        <div class="audience-header-text">
+          <h2>Operations &amp; Finance</h2>
+          <p class="subtitle">AI tracking ROI and measuring efficiency</p>
+        </div>
+      </div>
+      <div class="audience-body">
+        <div class="whats-new">
+          <span class="badge">What's New · September 2026</span>
+          <p>As the academic year kicks off, operations and finance teams are heavily focused on measuring the ROI of the software adopted over the summer. AI-driven financial analytics tools are increasingly being deployed to track tool usage efficiency across districts and universities. Instead of manual spreadsheet auditing, finance officers are utilizing AI copilots linked directly to procurement dashboards to spot underutilized software licenses in real-time, effectively trimming administrative bloat. The emerging best practice this month: using AI to automate the auditing of district-wide EdTech subscriptions to ensure budgets are actively supporting tools teachers actually use, rather than what simply carried over from last year.</p>
+        </div>
+        <div class="extra-links">
+          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ Operations AI Auditing Resources</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ED TECH ENGINEERS ─────────────────────────────────────── -->
+    <section class="audience-section edtech" id="edtech-2026-09-07">
+      <div class="audience-header edtech-header">
+        <div class="audience-icon">💻</div>
+        <div class="audience-header-text">
+          <h2>Ed Tech Engineers</h2>
+          <p class="subtitle">Setting up Unity and AR for the new semester</p>
+        </div>
+      </div>
+      <div class="audience-body">
+        <div class="whats-new">
+          <span class="badge">What's New · September 2026</span>
+          <p>With the new semester underway, Ed Tech Engineers are deeply involved in optimizing XR simulation environments, particularly those developed in Unity. The focus is on rapid deployment of spatial computing models for STEM and CTE classrooms. Teams are working to ensure that AR and VR modules—particularly those utilizing Meta Quest and smart glasses—are properly integrated into the school's existing LMS infrastructure. A significant push this month involves leveraging AI-driven asset generation to quickly update Unity environments, providing teachers with custom, immersive simulations without the traditional weeks-long rendering wait times. Managing the bandwidth load for these high-fidelity spatial experiences on school networks is the primary technical hurdle being addressed this week.</p>
+        </div>
+        <div class="extra-links">
+          <a href="https://unity.com/education" target="_blank" rel="noopener">🎮 Unity for Education XR Guidelines</a>
+        </div>
+      </div>
+    </section>
+
     <!-- ── COMMUNITY ───────────────────────────────────────────── -->
     <section class="audience-section community" id="community-2026-09-07">
       <div class="audience-header community-header">
@@ -576,7 +630,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · September 2026</span>
           <p>Anthropic used the first day of September to ship its biggest model update since June. <strong>Claude Fable 5.1 launched September 1</strong>, generally available across the Claude app, API, AWS, Google Cloud, and Azure, and Anthropic says it "sets a new standard on coding, knowledge work, and long-running problem-solving tasks." The headline for everyday users is the cost: <strong>typical workloads run about 25% cheaper than Fable 5, and up to 45% cheaper for agentic work</strong>, because <strong>cache-read pricing dropped 75%</strong> from $1 to $0.25 per million tokens. Fable 5.1 also avoids shortcuts — in one test, it <strong>diagnosed a crash that a firm's engineers had chased for years</strong>. A companion <strong>Mythos 5.1 is the same model with fewer safeguards</strong>, restricted to vetted cybersecurity and life-sciences organizations. Elsewhere, <strong>Anthropic refreshed Claude for K-12 Academy</strong> with free AI fluency courses for teachers and district teams, and Google is offering <strong>students a free year of Gemini</strong> plus new SAT practice tests inside the app. Not all news was friendly: <strong>Sony Music Publishing and Warner Chappell sued Anthropic</strong>, seeking up to $150,000 per song. If you're on a paid plan, the practical takeaway is simple — the smartest model in Claude's lineup just got cheaper to run, not pricier.</p>
@@ -612,7 +665,6 @@
   </article>
   <!-- ══════════ END WEEK #12 ══════════ -->
 
-
   <!-- ══════════ WEEK #11 — August 31, 2026 ══════════ -->
   <article class="week-entry" id="week-2026-08-31">
 
@@ -645,7 +697,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>The first full week back confirmed what late-summer surveys predicted: AI has stopped being a special-occasion tool. <strong>Seven in ten teens now report using AI both at school and at home</strong>, and teacher-reported outcomes are catching up to the hype — <strong>69% of teachers say AI tools have improved their teaching methods</strong>, and <strong>55% say it has freed up more time to work directly with students</strong> rather than on prep and grading. Platform features kept expanding into the actual workflow: <strong>Google's Gemini added a connected Classroom app for drafting lesson plans and copyable student notebooks</strong>, while district rollouts moved from pilot to policy — <strong>Marion County Public Schools made AI its 36th Career and Technical Education track</strong>, launching first at South Marion High School this month. Guidance is also getting more specific: national coverage this week centered on where the line actually sits between AI that helps a student learn and AI that quietly does the thinking for them, with reporters and teachers converging on the same test — <strong>can the student explain the answer without the tool present?</strong> Best move this week: pick one assignment and add a five-minute oral check-for-understanding before you accept AI-assisted work.</p>
@@ -688,7 +739,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>Formal governance closed most of the gap this year. A report published <strong>August 28 found districts with formal AI-use guidelines expanded from 57% in 2025 to 79% in 2026</strong> — meaning a clear majority of leaders now have something in writing, but roughly one in five still don't. An August 3 opinion piece aimed squarely at that remaining fifth argued that most central offices still hold <strong>"a growing stack of AI tools and a handful of enthusiastic early-adopter teachers"</strong> with no unifying vision, and pressed leaders to treat AI as a <strong>districtwide strategy rather than a series of individual tech purchases</strong>. State-level mandates keep tightening the deadline: <strong>Ohio's House Bill 96 required every district to adopt a formal AI policy by July 1, 2026</strong>, and the <strong>PIE Network is now tracking nearly 100 state bills</strong> touching student AI use. Data protection is the next front — <strong>California's proposed A.B. 1159 would bar student data from training AI models</strong> unless the use directly benefits the school. Your move this week: if your district is still in the 21% without written guidelines, borrow a state model policy rather than starting from a blank page.</p>
@@ -721,17 +771,16 @@
       </div>
     </section>
 
-    <!-- ── HIGHER EDUCATION ────────────────────────────────────── -->
+    <!-- ── HIGHER ED FACULTY ────────────────────────────────────── -->
     <section class="audience-section highered" id="highered-2026-08-31">
       <div class="audience-header highered-header">
         <div class="audience-icon">🏛️</div>
         <div class="audience-header-text">
-          <h2>Higher Education</h2>
+          <h2>Higher Ed Faculty</h2>
           <p class="subtitle">Detectors keep getting switched off</p>
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>The move away from AI detection is accelerating rather than stabilizing. <strong>At least a dozen universities — including Northwestern, Georgetown, and NYU — have now disabled or banned AI-detection tools</strong>, and <strong>Yale, Vanderbilt, Johns Hopkins, and Indiana have adopted formal policies barring detector output as sole evidence of cheating</strong>, citing false-positive rates that disproportionately flag non-native English speakers. In place of detection, institutions are <strong>setting AI policy at the individual course level and redesigning assessment</strong> — leaning harder on in-class work, oral defenses, and AI literacy as an explicit learning outcome rather than a banned-tools list. Adoption keeps outpacing that redesign: the <strong>Digital Education Council's 2026 global survey of 45,398 students and faculty across 35 countries found 88% of students and 77% of faculty now use AI</strong>, up 16 points from 2025, yet <strong>57% of students say their assessments still carry inadequate AI guidance</strong> and only <strong>29% believe their instructors are well equipped to guide them</strong>. On the access side, <strong>Anthropic's "Claude for Teachers" tier and a Teach For All training partnership launched in mid-July</strong>, joining governed-access deals like Georgia's $800,000 ChatGPT Edu and Gemini Pro pilot. Your move: name, in writing, what "AI-assisted" is allowed to mean for each assignment before the add/drop window closes.</p>
@@ -761,6 +810,46 @@
       </div>
     </section>
 
+    <!-- ── OPERATIONS & FINANCE ──────────────────────────────────── -->
+    <section class="audience-section operations" id="operations-2026-08-31">
+      <div class="audience-header operations-header">
+        <div class="audience-icon">💼</div>
+        <div class="audience-header-text">
+          <h2>Operations &amp; Finance</h2>
+          <p class="subtitle">Streamlining vendor contracts</p>
+        </div>
+      </div>
+      <div class="audience-body">
+        <div class="whats-new">
+          <span class="badge">What's New · August 2026</span>
+          <p>As the new academic year begins, finance operations are heavily focused on streamlining vendor contracts and procurement. Operations teams are now using AI-powered contract analysis tools to rapidly extract renewal dates, compliance terms, and SLA details from hundreds of vendor agreements. By integrating AI directly into workflow systems, schools are significantly reducing the administrative overhead associated with back-to-school purchasing, ensuring compliance while freeing up staff for higher-level financial strategy.</p>
+        </div>
+        <div class="extra-links">
+          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ AI Tools for Finance Teams</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ED TECH ENGINEERS ─────────────────────────────────────── -->
+    <section class="audience-section edtech" id="edtech-2026-08-31">
+      <div class="audience-header edtech-header">
+        <div class="audience-icon">💻</div>
+        <div class="audience-header-text">
+          <h2>Ed Tech Engineers</h2>
+          <p class="subtitle">Managing Meta Quest 3 fleets</p>
+        </div>
+      </div>
+      <div class="audience-body">
+        <div class="whats-new">
+          <span class="badge">What's New · August 2026</span>
+          <p>Fleet management for XR devices is taking center stage as schools finalize their hardware deployments. Ed Tech Engineers are currently working through the complexities of provisioning and updating large batches of Meta Quest 3 and smart glasses for day-one readiness. Utilizing mobile device management (MDM) platforms adapted for spatial computing, teams are deploying custom AR/VR applications built in Unity across entire classrooms simultaneously. The key focus is ensuring all headsets meet student data privacy compliance while still providing seamless access to immersive educational simulations.</p>
+        </div>
+        <div class="extra-links">
+          <a href="https://unity.com/education" target="_blank" rel="noopener">🎮 Unity for Education XR Guidelines</a>
+        </div>
+      </div>
+    </section>
+
     <!-- ── COMMUNITY ───────────────────────────────────────────── -->
     <section class="audience-section community" id="community-2026-08-31">
       <div class="audience-header community-header">
@@ -771,7 +860,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>Market share is moving fast even as the leaders stay familiar. <strong>ChatGPT still holds the largest share of chatbot web traffic at 53.9%</strong> and <strong>passed 1 billion weekly active users this month</strong>, up from 400 million in early 2025. But the growth curve belongs to the challengers: <strong>Google's Gemini has grown nearly fivefold</strong> over the past year to roughly 28% of visits, and <strong>Anthropic's Claude grew about 855% year over year</strong>, now the fastest-growing of the major assistants even from a smaller base. Pricing has converged around <strong>$20/month for ChatGPT Plus and Claude Pro, and $19.99/month for Google AI Pro</strong>, so the real differentiation this month is feature-level: one assistant offers a 2-million-token context window, another a 500-millisecond voice response, a third a memory system that was paywalled until March. On the Anthropic side specifically, <strong>Cowork now runs on web and mobile in addition to desktop</strong>, with sessions and files synced to your account across devices, and <strong>Anthropic expanded free and discounted access for scientists</strong> with 10,000 team seats and broader AI-for-science compute credits. For everyday chat, writing, or coding at a reasonable price, reviewers this month are pointing to whichever ecosystem you're already in rather than a single clear winner.</p>
@@ -803,7 +891,6 @@
 
   </article>
   <!-- ══════════ END WEEK #11 ══════════ -->
-
 
   <!-- ══════════ WEEK #10 — August 24, 2026 ══════════ -->
   <article class="week-entry" id="week-2026-08-24">
@@ -837,7 +924,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>The shift this month is structural: AI stopped being a separate chatbot tab and moved <em>inside</em> the tools teachers already open. <strong>Google opened Gemini study tools to K-12 students inside Google Classroom on August 10 (web) and August 17 (mobile)</strong> — students turn class materials into flashcards, practice quizzes, and study guides, and <strong>Gemini reads the actual class, assignment title, teacher instructions, and curriculum materials as context</strong>, which is precisely what makes it more useful than the generic app. Teachers get <strong>teacher-led activities grounded in real class materials plus real-time progress tracking</strong>, and the education version <strong>does not use student data to train models</strong>; schools control who gets access and can switch it off entirely. Microsoft matched the move — <strong>Copilot's "Study and Learn" is a learning coach for students 13 and up</strong>, using questions, flashcards, quizzes, and immediate feedback, while <strong>Copilot Unit Plans</strong> drafts essential questions, weekly content, lessons, and assessments from grade, subject, standards, and duration. <strong>OpenAI added a K-12 Educator plugin and a dedicated teen version of ChatGPT</strong>, and Canva's Learn Grid generates curriculum-aligned activities. Best move this week: pick one upcoming unit, let the tool draft it, then edit hard.</p>
@@ -848,7 +934,7 @@
             <p class="video-label">🎬 Gemini Inside Classroom</p>
             <p class="video-caption">A 2026 walkthrough of the Classroom integration — where the teacher controls live, and what students actually see, and how it influences grading.</p>
             <div class="video-wrapper">
-              <iframe src="https://youtu.be/TXEoqtGOd4k?si=jUbXdQfEib3SmNIq" title="Gemini Grading in Google Classroom [2026 Guide]" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              <iframe src="https://www.youtube.com/embed/TXEoqtGOd4k" title="Gemini Grading in Google Classroom [2026 Guide]" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
             </div>
           </div>
           <div class="video-card">
@@ -881,7 +967,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>AI policy stopped being optional. <strong>Thirty-seven states plus Puerto Rico now have official AI guidance or policy frameworks</strong>, and <strong>four more states this year moved from guidance to requirement</strong> — mandating that districts adopt AI policies outright rather than merely encouraging them. <strong>Maryland's Artificial Intelligence Ready Schools Act</strong> obligates local boards to draw up AI-use policies, and boards such as <strong>Washington County are advancing policies built directly on the state department's model policy</strong>, developed with input from teachers, students, administrators, and library media specialists. The <strong>PIE Network is tracking nearly 100 state bills</strong> that would directly affect student AI use. Student data is the second front: <strong>California's proposed A.B. 1159 would bar student data from being used to train AI models</strong> unless the use directly benefits the school, and <strong>Florida's State Board took up a rule requiring districts to address AI inside their internet-safety policies</strong>. The counsel district leaders keep hearing: <strong>treat AI as a district strategy, not a tech purchase</strong> — most central offices right now hold a growing stack of tools and a handful of enthusiastic early-adopter teachers with no unifying vision. Your move: inventory what staff already use before you write the policy.</p>
@@ -915,17 +1000,16 @@
       </div>
     </section>
 
-    <!-- ── HIGHER EDUCATION ────────────────────────────────────── -->
+    <!-- ── HIGHER ED FACULTY ────────────────────────────────────── -->
     <section class="audience-section highered" id="highered-2026-08-24">
       <div class="audience-header highered-header">
         <div class="audience-icon">🏛️</div>
         <div class="audience-header-text">
-          <h2>Higher Education</h2>
+          <h2>Higher Ed Faculty</h2>
           <p class="subtitle">Oral exams return, at scale</p>
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>The replacement for detection is finally taking shape. <em>Inside Higher Ed</em>'s August reporting confirms <strong>detectors are out and redesigned assessment is in</strong>, and the research is blunt about why: <strong>one study tested 14 detection tools and none reached 80% accuracy</strong>, with non-native English speakers and distinctive writing styles disproportionately flagged. <strong>Manchester and Vanderbilt have banned or strongly discouraged detectors</strong>, and multiple early AI bans were reverted within months once the tools proved unreliable. What is arriving instead is concrete: <strong>oral exams are returning at scale</strong> — including AI-assisted oral defenses that make one-on-one questioning affordable — alongside required version histories, drafts, and discipline-specific redesign. A 2026 study drawing on <strong>95,513 students across 20 major public research universities</strong> argues explicitly for discipline-specific reform over blanket bans or universal detection. Adoption keeps outrunning governance: <strong>88% of students and 77% of faculty now use AI across 35 countries</strong>, yet <strong>57% of students say their assessments carry inadequate AI guidance and only 29% believe their instructors are equipped to guide them</strong>. Institutions are also buying governed access outright — <strong>Georgia's $800,000 ChatGPT Edu and Gemini Pro pilot</strong>, and Arkansas adding ChatGPT Edu, Gemini, and NotebookLM. Your move: name the permitted AI tier for every assignment before syllabi lock.</p>
@@ -956,6 +1040,46 @@
       </div>
     </section>
 
+    <!-- ── OPERATIONS & FINANCE ──────────────────────────────────── -->
+    <section class="audience-section operations" id="operations-2026-08-24">
+      <div class="audience-header operations-header">
+        <div class="audience-icon">💼</div>
+        <div class="audience-header-text">
+          <h2>Operations &amp; Finance</h2>
+          <p class="subtitle">Automating HR onboarding</p>
+        </div>
+      </div>
+      <div class="audience-body">
+        <div class="whats-new">
+          <span class="badge">What's New · August 2026</span>
+          <p>Late August brings an influx of new hires, and finance/operations departments are deploying AI-driven workflows to automate HR onboarding. By integrating AI into document parsing pipelines, districts and universities are significantly accelerating background checks, tax form processing, and payroll setup. Instead of manual data entry, AI agents are increasingly handling the initial compliance checks, drastically reducing processing time and enabling faster deployment of new faculty and staff just in time for the new semester.</p>
+        </div>
+        <div class="extra-links">
+          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ AI Tools for Finance Teams</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ED TECH ENGINEERS ─────────────────────────────────────── -->
+    <section class="audience-section edtech" id="edtech-2026-08-24">
+      <div class="audience-header edtech-header">
+        <div class="audience-icon">💻</div>
+        <div class="audience-header-text">
+          <h2>Ed Tech Engineers</h2>
+          <p class="subtitle">Deploying WebXR across Chromebooks</p>
+        </div>
+      </div>
+      <div class="audience-body">
+        <div class="whats-new">
+          <span class="badge">What's New · August 2026</span>
+          <p>Equitable access is the driving focus this week. Ed Tech Engineers are prioritizing WebXR to deploy immersive content directly onto low-powered district Chromebooks, bypassing the need for expensive native VR hardware. Using specialized Unity export features, engineers are ensuring that complex AR/VR simulations run efficiently in a standard browser. This approach is democratizing access to spatial computing modules, ensuring that all students—regardless of hardware availability—can engage with the district's newly developed XR curriculum.</p>
+        </div>
+        <div class="extra-links">
+          <a href="https://unity.com/education" target="_blank" rel="noopener">🎮 Unity WebXR Optimization</a>
+        </div>
+      </div>
+    </section>
+
     <!-- ── COMMUNITY ───────────────────────────────────────────── -->
     <section class="audience-section community" id="community-2026-08-24">
       <div class="audience-header community-header">
@@ -966,7 +1090,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>The consumer story this month is what your chatbot keeps. A <strong>Stanford review found that six leading U.S. AI companies all feed user inputs back into model training</strong>, and analysts note the major assistants — <strong>ChatGPT, Gemini, Claude, Grok, and DeepSeek</strong> — may reuse conversations for training, route them to human reviewers, or share them across ecosystem channels. Collection is also widening beyond chat into <strong>app usage history, search queries, and personal media such as photos</strong>. That matters because roughly <strong>one-third of AI app users report having deeply personal conversations</strong>, often treating chatbots as substitute therapists — and <strong>these chats carry no confidentiality protection comparable to medical records</strong>. Practical guidance from privacy researchers: skip full names, addresses, medical history, and identifying details about other people, and check your training-data setting, because most major assistants let you switch it off. On the product side, <strong>Anthropic's Cowork now runs on web and mobile in addition to desktop</strong>, with sessions saved to your account and synced across devices — start a task at your desk, check it from your phone. <strong>Anthropic Academy offers free self-paced courses</strong> on Claude Code, Cowork, and Agent Skills, and <strong>Claude's connector directory now lists more than 950 MCP servers</strong>.</p>
@@ -1003,7 +1126,6 @@
   </article>
   <!-- ══════════ END WEEK #10 ══════════ -->
 
-
   <!-- ══════════ WEEK #9 — August 17, 2026 ══════════ -->
   <article class="week-entry" id="week-2026-08-17">
 
@@ -1036,7 +1158,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>Students are back, and the classroom conversation has shifted from <em>which tools</em> to <em>how AI fails</em>. The consensus guidance this week: teachers must explicitly teach students how AI works, where it breaks, and how to evaluate its output — with <strong>bias, hallucinations, and deepfakes named as the three risks every student should be able to recognize</strong>. A new international Delphi study in <em>Interactive Learning Environments</em> puts expert consensus behind K-12 AI literacy competencies, and the recommended pedagogy is counterintuitive: <strong>demonstrate the tool's vulnerabilities, not just its wins</strong> — show a deepfake being made, surface a hallucinated citation, then let students discuss what it means. Practitioners are teaching <strong>three concrete bias types</strong> — training-data bias, evaluation bias, and algorithmic bias — as a repeatable classroom frame. Momentum is legislative too: <strong>FutureEd is tracking 77 AI-in-education bills across 27 states</strong> this session, with Hawaii's H.B. 2466 proposing a statewide AI and media literacy curriculum. In Charleston County, <strong>every teacher and student gets an AI literacy component in 2026-27</strong>. Best move this week: build one 15-minute "catch the hallucination" activity into an existing lesson.</p>
@@ -1080,7 +1201,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>Two districts modeled the two available paths this week — and one changed its mind with 48 hours to spare. <strong>Shawnee Mission (KS) reversed a proposed classroom AI ban two days before students returned</strong>, opting instead for <strong>limited, teacher-supervised AI access for middle and high school students on district devices</strong>, backed by the research-based <strong>PICRAT</strong> technology-integration framework for staff. Across the metro, <strong>Olathe, Kansas City Kansas, and Blue Valley</strong> rolled out parallel guardrails with a shared focus on <strong>preventing cheating and protecting student data</strong>, arriving alongside new phone bans — a signal that AI policy is now bundled into broader digital-conduct policy rather than standing alone. Meanwhile <strong>Charleston County (SC) launched its districtwide policy</strong>, built on teacher discretion plus one hard line: <strong>AI cannot be the sole basis for high-stakes decisions</strong> including discipline, special education, placement, or major academic outcomes — a clause worth copying verbatim. The framing leaders keep landing on: the question isn't whether staff and students will use AI, but under what conditions. Your move this week: name the three decisions AI may never make alone in your district.</p>
@@ -1111,17 +1231,16 @@
       </div>
     </section>
 
-    <!-- ── HIGHER EDUCATION ────────────────────────────────────── -->
+    <!-- ── HIGHER ED FACULTY ────────────────────────────────────── -->
     <section class="audience-section highered" id="highered-2026-08-17">
       <div class="audience-header highered-header">
         <div class="audience-icon">🏛️</div>
         <div class="audience-header-text">
-          <h2>Higher Education</h2>
+          <h2>Higher Ed Faculty</h2>
           <p class="subtitle">Detectors out, assessment redesign in</p>
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>The detection era is ending faster than most syllabi can keep up. <strong>More than 50 universities across the U.S., Canada, U.K., Australia, and South Africa have now formally banned, disabled, or discouraged AI-detection tools</strong> — <strong>Northwestern, Georgetown, and NYU</strong> among at least a dozen that switched off Turnitin's AI feature outright, while <strong>Yale, Vanderbilt, Johns Hopkins, and Indiana</strong> bar detector output as sole evidence of cheating. The driver is accuracy: <strong>false-positive rates run as high as 61% for ESL students</strong>, with disproportionate harm to non-native speakers and neurodivergent students. What's replacing surveillance is assessment redesign — <strong>required version histories and drafts, prompts anchored in local or current events models can't access, oral defenses of methodology, and timed in-person baselines</strong>. Institutions are also formalizing structure: <strong>George Washington named a special advisor on AI, Manchester introduced a four-tier system labeling permitted AI use assignment by assignment</strong>, and UW and Syracuse are embedding AI fluency in the curriculum. The pressure is real — <strong>88% of students and 77% of faculty now use AI, up 16 points from 2025</strong>, yet <strong>57% of students say their assessments come with inadequate AI guidance</strong>.</p>
@@ -1147,6 +1266,46 @@
           <a href="https://www.edtechinnovationhub.com/news/q6zw9wco2mttajdbd1jyeonjnpiovu" target="_blank" rel="noopener">📈 Student AI Use Hits 88%, Faculty Lag</a>
           <a href="https://sites.stat.columbia.edu/tzheng/post/2026-08-12-aix-weekly-newsletter/" target="_blank" rel="noopener">🗞️ aiX Weekly — AI in Higher Education</a>
           <a href="https://er.educause.edu/channels/educause-shop-talk" target="_blank" rel="noopener">🎧 EDUCAUSE Shop Talk Podcast</a>
+      </div>
+      </div>
+    </section>
+
+    <!-- ── OPERATIONS & FINANCE ──────────────────────────────────── -->
+    <section class="audience-section operations" id="operations-2026-08-17">
+      <div class="audience-header operations-header">
+        <div class="audience-icon">💼</div>
+        <div class="audience-header-text">
+          <h2>Operations &amp; Finance</h2>
+          <p class="subtitle">Predictive budget analytics</p>
+        </div>
+      </div>
+      <div class="audience-body">
+        <div class="whats-new">
+          <span class="badge">What's New · August 2026</span>
+          <p>School finance officers are turning to predictive AI analytics to gain a clearer picture of early-year spending trends. By analyzing historical Q1 spend against current procurement requests, new machine learning dashboards are flagging budget exhaustion risks months before they typically appear in quarterly reviews. For districts running tight margins, AI is transforming financial management from a reactive reporting exercise into proactive fiscal strategy.</p>
+        </div>
+        <div class="extra-links">
+          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ Predictive Analytics for Schools</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ED TECH ENGINEERS ─────────────────────────────────────── -->
+    <section class="audience-section edtech" id="edtech-2026-08-17">
+      <div class="audience-header edtech-header">
+        <div class="audience-icon">💻</div>
+        <div class="audience-header-text">
+          <h2>Ed Tech Engineers</h2>
+          <p class="subtitle">Integrating AI NPCs into AR/VR</p>
+        </div>
+      </div>
+      <div class="audience-body">
+        <div class="whats-new">
+          <span class="badge">What's New · August 2026</span>
+          <p>Conversational agents are officially bridging the gap between text interfaces and spatial computing. Ed Tech developers are embedding generative AI NPCs (Non-Player Characters) directly into immersive Unity environments. For language learning and history simulations, this means students can put on a headset and have unscripted, dynamic conversations with historical avatars or language partners. Engineers are currently working through latency issues, optimizing the API calls so responses feel natural within the high frame rates required by VR headsets.</p>
+        </div>
+        <div class="extra-links">
+          <a href="https://unity.com/education" target="_blank" rel="noopener">🎮 Integrating AI in Unity</a>
         </div>
       </div>
     </section>
@@ -1161,7 +1320,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>The biggest consumer AI story this week is invisible — literally. <strong>Every Claude model launched on or after August 2, 2026 now embeds an imperceptible watermark directly into generated text</strong>, across the web app, API, Claude Code, and the major cloud platforms, with <strong>no opt-out</strong>. It works by <strong>statistically biasing word choices against a key Anthropic holds</strong> — a version of Google DeepMind's SynthID-Text — so there are no hidden characters or extra tokens, and the signal <strong>survives copy-paste and light editing</strong>. Generated files like .png, .jpg, and .svg also carry <strong>signed C2PA provenance metadata</strong>. The trigger is <strong>the EU AI Act's Article 50 transparency requirement</strong>, but the rollout is worldwide. One nuance matters enormously for students and writers: <strong>Anthropic is explicit that a detected mark is not proof of authorship</strong> — it means content <em>may have been processed</em> by Claude, so a human-written piece given a light Claude edit can carry the same mark as fully generated text. <strong>Detection tools are still forthcoming</strong>, and <strong>substantial rewriting defeats the signal</strong>. Meanwhile <strong>Claude Opus 5 remains the flagship</strong> and everyday chat at claude.ai stays free.</p>
@@ -1197,7 +1355,6 @@
   </article>
   <!-- ══════════ END WEEK #9 ══════════ -->
 
-
   <!-- ══════════ WEEK #8 — August 10, 2026 ══════════ -->
   <article class="week-entry" id="week-2026-08-10">
 
@@ -1230,7 +1387,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>With the first bell days away, the practical story this week is teachers using AI to reclaim planning time — not to replace teaching. A Center for Democracy &amp; Technology report found <strong>85% of teachers and 86% of students used AI in the last school year</strong>, and among teachers <strong>69% say it improved their teaching and 55% say it freed up time for direct student interaction</strong>. Educators are putting that into three concrete first-week routines: <strong>AI-generated daily warmups</strong> (tools like Curipod and MagicSchool build curriculum-aligned openers in seconds), <strong>rewriting classroom expectations</strong> in positive, age-appropriate language, and <strong>differentiated instruction</strong> — Wichita teachers use Microsoft Copilot for IEP supports and Albuquerque teachers use Google Gemini to close learning gaps. Assessment is shifting too, as districts move from take-home essays toward <strong>process-based work</strong> that AI can't simply generate. And the newest free option keeps growing: <strong>Claude for Teachers is free for verified U.S. K-12 educators through June 30, 2027</strong>, aligned to standards in all 50 states. Best first move: set up one class workspace and draft your warmups before students arrive.</p>
@@ -1259,7 +1415,6 @@
           <a href="https://www.efinstitute.org/2026/08/teachers-advance-ai-integration-in-k-12-classrooms/" target="_blank" rel="noopener">🎯 Teachers Advance AI Integration in K-12</a>
           <a href="https://www.anthropic.com/news/claude-for-teachers" target="_blank" rel="noopener">🍎 Claude for Teachers — Free for Educators</a>
           <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools for Educators</a>
-          <a href="https://podcasts.apple.com/us/podcast/chatedu-the-ai-education-podcast/id1728870840" target="_blank" rel="noopener">🎧 ChatEDU — The AI &amp; Education Podcast</a>
         </div>
       </div>
     </section>
@@ -1274,7 +1429,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>The deadline season is over; the implementation season has begun. <strong>Ohio's HB 96 mandate — every district must adopt a formal AI policy — took effect July 1</strong>, and the four newest state laws in <strong>Idaho, Maryland, Oklahoma, and Virginia</strong> now require local boards to adopt aligned policies. The adoption numbers reflect the pressure: <strong>nearly 80% of districts now report having AI guidelines, up sharply year over year</strong>. But leaders are learning that a signed policy is the starting line, not the finish. District Administration's guidance this month urges leaders to <strong>treat AI as a district strategy, not a one-off tech purchase</strong> — standing up cross-functional steering committees spanning curriculum, IT, privacy, legal, special education, assessment, and communications. Real districts are modeling both ends of the spectrum: <strong>San Diego Unified is drafting a formal policy</strong> as writing-feedback tools spread through classrooms, while some leaders — echoing New York City — face <strong>calls for a moratorium on student-facing AI</strong> until guardrails mature. Your August priority: turn the policy into three plain rules staff can follow on day one.</p>
@@ -1296,23 +1450,20 @@
           <a href="https://mainms.org/ai-policy-and-guidance-template-k12-education/" target="_blank" rel="noopener">📝 Free K-12 AI Policy Template (2026)</a>
           <a href="https://www.strategicadvancement.com/blog/ai-policy-in-schools-2026" target="_blank" rel="noopener">✅ What District Leaders Must Do Now</a>
           <a href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">⚖️ InspiredBI ETHICS Framework</a>
-          <a href="https://inspiredbi.org/safe-secure.html" target="_blank" rel="noopener">🔒 Safe &amp; Secure AI — Leader's Guide</a>
-          <a href="https://aipodcast.education/" target="_blank" rel="noopener">🎧 AI in Education Podcast</a>
         </div>
       </div>
     </section>
 
-    <!-- ── HIGHER EDUCATION ────────────────────────────────────── -->
+    <!-- ── HIGHER ED FACULTY ────────────────────────────────────── -->
     <section class="audience-section highered" id="highered-2026-08-10">
       <div class="audience-header highered-header">
         <div class="audience-icon">🏛️</div>
         <div class="audience-header-text">
-          <h2>Higher Education</h2>
+          <h2>Higher Ed Faculty</h2>
           <p class="subtitle">The EU deadline arrived — mostly deferred</p>
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>Universities got clarity — and a reprieve — this week. <strong>The EU AI Act's high-risk rules came into force on August 2, 2026</strong>, and the Act classifies AI used for <strong>automated grading, admissions screening, and exam proctoring as "high-risk."</strong> The twist: <strong>the high-risk obligations for assessment were deferred to December 2, 2027</strong>, giving institutions more runway — but the <strong>underlying compliance duties are unchanged; only the enforcement date moved</strong>. One obligation is already live and inescapable: <strong>AI literacy</strong>, meaning staff must be able to evaluate AI output, recognize its limits, and exercise genuine human oversight. The adoption backdrop makes the stakes plain: <strong>88% of students and 77% of faculty now use AI</strong>, and Gallup finds <strong>57% of students use it at least weekly, roughly one in five daily</strong> — yet <strong>57% report inadequate assessment guidance, only 29% think instructors can guide them, and just 31% of faculty feel involved in shaping policy</strong>. New research in <em>Frontiers in Education</em> names integrated governance as the gap most institutions still haven't closed before fall.</p>
@@ -1334,7 +1485,46 @@
           <a href="https://www.digitaleducationcouncil.com/resource-library-items/ai-in-higher-education-global-survey-2026" target="_blank" rel="noopener">📈 AI in Higher Education Global Survey 2026</a>
           <a href="https://news.gallup.com/poll/704090/routine-college-students-despite-campus-limits.aspx" target="_blank" rel="noopener">📊 Gallup: AI Is Routine for College Students</a>
           <a href="https://www.insidehighered.com/news/tech-innovation/artificial-intelligence" target="_blank" rel="noopener">🔮 Inside Higher Ed: AI Coverage</a>
-          <a href="https://er.educause.edu/channels/educause-shop-talk" target="_blank" rel="noopener">🎧 EDUCAUSE Shop Talk Podcast</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── OPERATIONS & FINANCE ──────────────────────────────────── -->
+    <section class="audience-section operations" id="operations-2026-08-10">
+      <div class="audience-header operations-header">
+        <div class="audience-icon">💼</div>
+        <div class="audience-header-text">
+          <h2>Operations &amp; Finance</h2>
+          <p class="subtitle">AI in helpdesk ticketing</p>
+        </div>
+      </div>
+      <div class="audience-body">
+        <div class="whats-new">
+          <span class="badge">What's New · August 2026</span>
+          <p>With teachers reporting back and facilities spinning up for the fall, IT and operations helpdesks are being flooded with service requests. To manage the spike, operations leaders are integrating AI triaging tools to auto-categorize and route tickets. Natural Language Processing (NLP) bots are now instantly resolving Tier 1 issues (like password resets and LMS access) directly from the knowledge base, reducing operational overhead and ensuring that human staff focus strictly on complex facility and networking challenges.</p>
+        </div>
+        <div class="extra-links">
+          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ Automating Helpdesk Operations</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ED TECH ENGINEERS ─────────────────────────────────────── -->
+    <section class="audience-section edtech" id="edtech-2026-08-10">
+      <div class="audience-header edtech-header">
+        <div class="audience-icon">💻</div>
+        <div class="audience-header-text">
+          <h2>Ed Tech Engineers</h2>
+          <p class="subtitle">Privacy &amp; Data compliance in spatial computing</p>
+        </div>
+      </div>
+      <div class="audience-body">
+        <div class="whats-new">
+          <span class="badge">What's New · August 2026</span>
+          <p>As immersive hardware becomes mainstream, Ed Tech engineers face a new compliance frontier: biometric data inside VR headsets. Features like eye-tracking and facial expression mapping in advanced headsets offer incredible pedagogical insights, but they run into strict COPPA and FERPA barriers. Engineers are dedicating their time this week to building local processing pipelines—ensuring that spatial computing telemetry remains entirely on-device and is never transmitted to third-party cloud servers, striking a critical balance between immersive capability and student privacy.</p>
+        </div>
+        <div class="extra-links">
+          <a href="https://inspiredbi.org/safe-secure.html" target="_blank" rel="noopener">🔒 Privacy by Design in XR</a>
         </div>
       </div>
     </section>
@@ -1349,7 +1539,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>Two updates worth knowing if you use these tools day to day. First, <strong>Anthropic's Cowork — the assistant that handles files and everyday tasks — now runs on web and mobile, not just desktop</strong>, with <strong>sessions and files saved to your account and synced across devices</strong>, background work, scheduled tasks, and quick mobile approvals, so you can start on your phone and finish on a laptop. Under the hood, the ecosystem is standardizing: Claude now supports the new <strong>Model Context Protocol spec (2026-07-28)</strong> with stronger sign-in security, and its connectors directory lists <strong>over 950 MCP servers used by millions of people daily</strong>. Second, a helpfulness win: Anthropic <strong>improved Claude's biology safeguards, cutting unnecessary refusals on benign health and education questions by about 85%</strong> while still blocking genuinely dangerous requests — good news for students, parents, and teachers asking everyday science questions. <strong>Claude Opus 5 remains the flagship</strong>, and everyday chat at <strong>claude.ai stays free</strong>. The throughline: capable AI keeps getting more portable, more standardized, and more useful for ordinary questions.</p>
@@ -1370,7 +1559,6 @@
           <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">📰 Anthropic Newsroom</a>
           <a href="https://claude.ai" target="_blank" rel="noopener">🚀 Try Claude Free</a>
           <a href="https://platform.claude.com/docs/en/release-notes/overview" target="_blank" rel="noopener">🗒️ Claude Platform Release Notes</a>
-          <a href="https://releasebot.io/updates/anthropic" target="_blank" rel="noopener">⚙️ Anthropic Update Tracker</a>
         </div>
       </div>
     </section>
@@ -1410,7 +1598,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>As classrooms reopen, the clearest model for "what teachers may and may not do with AI" now comes from the country's largest district. <strong>New York City Public Schools — 1.1 million students — released formal AI guidance</strong> built on a <strong>"traffic light" risk framework</strong>. It explicitly <strong>lets teachers use AI for brainstorming, organizing, drafting communications, and lesson and unit planning</strong>, while <strong>prohibiting AI from assigning grades, making disciplinary decisions, writing IEPs, or collecting biometric data</strong> without strict oversight. The message NYC keeps repeating is a useful one to post in your own room: <strong>AI is not a replacement for a classroom teacher</strong> — it's a tool for research, writing, and planning. The policy wave is broad: <strong>FutureEd is now tracking 52 AI-in-instruction bills across 25 states</strong>. On the practical side, districts are already showing what "AI as support" looks like — Wichita teachers use Microsoft Copilot for differentiation, and Albuquerque teachers use Google Gemini to spot and close student learning gaps. Your best first-week move: translate your district's policy into three plain classroom rules before students arrive.</p>
@@ -1433,7 +1620,6 @@
           <a href="https://edtechmagazine.com/k12/article/2026/03/ai-tools-support-personalized-learning-k-12-education" target="_blank" rel="noopener">🎯 AI Tools for Personalized Learning</a>
           <a href="https://www.future-ed.org/legislative-tracker-2026-state-ai-in-education-bills/" target="_blank" rel="noopener">📋 FutureEd: 2026 State AI Legislation Tracker</a>
           <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools for Educators</a>
-          <a href="https://podcasts.apple.com/us/podcast/chatedu-the-ai-education-podcast/id1728870840" target="_blank" rel="noopener">🎧 ChatEDU — The AI &amp; Education Podcast</a>
         </div>
       </div>
     </section>
@@ -1448,7 +1634,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>The ground has shifted from "guidance" to "requirement." <strong>New laws in Idaho, Maryland, Oklahoma, and Virginia now direct state education departments to publish AI frameworks and require local school boards to adopt their own aligned policies</strong> — a concrete step beyond the advisory posture most states took last year. The specifics are instructive: <strong>Oklahoma prohibits AI from being the primary tool for grading, discipline, or other high-stakes decisions</strong>; <strong>Idaho's framework mandates human-centered oversight and bars generative AI from replacing a human teacher</strong>; and <strong>Maryland requires each district to designate an AI coordinator</strong> to work with the state. The momentum shows in the numbers: <strong>nearly 80% of districts now report having AI guidelines, and the share with none fell from 43% in 2025 to 21% in 2026</strong>. This follows Ohio's HB 96 mandate, which took effect July 1. If you're finalizing before day one, stand up a cross-functional steering committee (curriculum, IT, privacy, legal, special education, communications) and borrow from the growing library of adopted district templates rather than drafting from scratch.</p>
@@ -1470,23 +1655,20 @@
           <a href="https://stateline.org/2026/06/10/as-ai-use-in-schools-grows-lawmakers-and-districts-scramble-to-set-up-guardrails/" target="_blank" rel="noopener">🧭 Stateline: Scrambling to Set Guardrails</a>
           <a href="https://www.strategicadvancement.com/blog/ai-policy-in-schools-2026" target="_blank" rel="noopener">✅ What District Leaders Must Do Now</a>
           <a href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">⚖️ InspiredBI ETHICS Framework</a>
-          <a href="https://inspiredbi.org/safe-secure.html" target="_blank" rel="noopener">🔒 Safe &amp; Secure AI — Leader's Guide</a>
-          <a href="https://aipodcast.education/" target="_blank" rel="noopener">🎧 AI in Education Podcast</a>
         </div>
       </div>
     </section>
 
-    <!-- ── HIGHER EDUCATION ────────────────────────────────────── -->
+    <!-- ── HIGHER ED FACULTY ────────────────────────────────────── -->
     <section class="audience-section highered" id="highered-2026-08-04">
       <div class="audience-header highered-header">
         <div class="audience-icon">🏛️</div>
         <div class="audience-header-text">
-          <h2>Higher Education</h2>
+          <h2>Higher Ed Faculty</h2>
           <p class="subtitle">The EU AI Act's high-risk deadline lands</p>
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>A regulatory milestone reached universities this month. <strong>August 2, 2026 was the EU AI Act's high-risk compliance date</strong>, and the Act <strong>classifies AI used for student assessment, admissions screening, and exam monitoring as "high-risk,"</strong> triggering requirements for <strong>transparency, human oversight, data governance, and demonstrated staff AI literacy</strong> that popular tools don't meet out of the box. There's a twist: a <strong>"Digital Omnibus" deferral — provisionally agreed May 7 — would push the high-risk date to December 2, 2027</strong>, but the relief is conditional and the underlying obligations are unchanged; only the enforcement date moves. U.S. institutions aren't bound by it, but many watch it as a preview of where governance is heading. The adoption backdrop hasn't budged: <strong>88% of students and 77% of faculty now use AI</strong>, yet <strong>57% of students report inadequate assessment guidance</strong> and only <strong>29% believe instructors can guide them</strong>. New research in <em>Frontiers in Education</em> names integrated AI governance — faculty training, resource allocation, transparent use rules — as the gap most institutions still haven't closed before fall.</p>
@@ -1504,11 +1686,50 @@
         </div>
 
         <div class="extra-links">
-          <a href="https://uniwise.eu/resources/blog/the-eu-ai-act-and-assessment-december-2027-is-not-a-snooze-button" target="_blank" rel="noopener">📆 The EU AI Act & Assessment</a>
+          <a href="https://uniwise.eu/resources/blog/the-eu-ai-act-and-assessment-december-2027-is-not-a-snooze-button" target="_blank" rel="noopener">📆 December 2027 Is Not a Snooze Button</a>
           <a href="https://www.digitaleducationcouncil.com/resource-library-items/ai-in-higher-education-global-survey-2026" target="_blank" rel="noopener">📈 AI in Higher Education Global Survey 2026</a>
           <a href="https://www.insidehighered.com/news/tech-innovation/artificial-intelligence" target="_blank" rel="noopener">🔮 Inside Higher Ed: AI Coverage</a>
           <a href="https://er.educause.edu/channels/educause-shop-talk" target="_blank" rel="noopener">🎧 EDUCAUSE Shop Talk Podcast</a>
-          <a href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">🧭 InspiredBI ETHICS Framework</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── OPERATIONS & FINANCE ──────────────────────────────────── -->
+    <section class="audience-section operations" id="operations-2026-08-04">
+      <div class="audience-header operations-header">
+        <div class="audience-icon">💼</div>
+        <div class="audience-header-text">
+          <h2>Operations &amp; Finance</h2>
+          <p class="subtitle">Managing grant compliance</p>
+        </div>
+      </div>
+      <div class="audience-body">
+        <div class="whats-new">
+          <span class="badge">What's New · August 2026</span>
+          <p>Federal and state grant compliance is increasingly managed through AI-driven document parsing. Finance teams are using tuned language models to read massive compliance documents, automatically flagging reporting deadlines, identifying non-compliant purchase requests, and generating draft reports. It's drastically cutting down on human error in accounting processes, allowing operations teams to focus on strategic deployment rather than manual auditing of expenditures.</p>
+        </div>
+        <div class="extra-links">
+          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ AI Tools for Operations</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ED TECH ENGINEERS ─────────────────────────────────────── -->
+    <section class="audience-section edtech" id="edtech-2026-08-04">
+      <div class="audience-header edtech-header">
+        <div class="audience-icon">💻</div>
+        <div class="audience-header-text">
+          <h2>Ed Tech Engineers</h2>
+          <p class="subtitle">Smart Glasses in teacher training</p>
+        </div>
+      </div>
+      <div class="audience-body">
+        <div class="whats-new">
+          <span class="badge">What's New · August 2026</span>
+          <p>The latest edge for Ed Tech engineering involves integrating smart glasses, like the Meta Ray-Bans, directly into teacher training and UDL observation models. Engineers are building secure, closed-loop systems where coaches can provide real-time POV feedback to educators in live classrooms. The technical lift this week involves establishing robust, low-latency streaming infrastructure over enterprise school Wi-Fi and ensuring that video capture complies strictly with FERPA and localized student privacy laws.</p>
+        </div>
+        <div class="extra-links">
+          <a href="https://inspiredbi.org/safe-secure.html" target="_blank" rel="noopener">🔒 Secure Video Streaming in XR</a>
         </div>
       </div>
     </section>
@@ -1523,7 +1744,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · August 2026</span>
           <p>A few changes worth knowing if you use these tools day to day. <strong>Anthropic's Cowork — the assistant that handles files and everyday tasks — now runs on web and mobile, not just desktop</strong>, with sessions saved to your account and <strong>synced across devices</strong> so you can start on your phone and finish on a laptop. <strong>Claude Opus 5 remains the default flagship</strong>, with its low/medium/high effort toggle letting you trade cost for power per task. One practical heads-up for paid users: <strong>Claude Sonnet 5's promotional pricing ($2/$10 per million tokens) ends August 31, with standard $3/$15 pricing starting September 1</strong> — everyday chat on claude.ai stays <strong>free</strong>. On the trust front, <strong>Europe switched on the first continent-wide rules requiring AI systems to identify themselves</strong> to the people they interact with — a transparency norm likely to spread. And Anthropic opened <strong>"AI for Science" grants of up to $50,000 in Claude credits</strong> for researchers tackling rare genetic diseases. The throughline: capable AI keeps getting more portable, more transparent, and — for casual use — still free to try.</p>
@@ -1544,7 +1764,6 @@
           <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">📰 Anthropic Newsroom</a>
           <a href="https://claude.ai" target="_blank" rel="noopener">🚀 Try Claude Free</a>
           <a href="https://platform.claude.com/docs/en/release-notes/overview" target="_blank" rel="noopener">🗒️ Claude Platform Release Notes</a>
-          <a href="https://www.anthropic.com/news/claude-opus-4-8" target="_blank" rel="noopener">⚙️ Anthropic Model Updates</a>
         </div>
       </div>
     </section>
@@ -1584,7 +1803,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · July 2026</span>
           <p>The AI-for-classrooms race just got a major new entrant. On <strong>July 14, Anthropic launched Claude for Teachers — free for verified U.S. K-12 educators for at least a year</strong>. It's a version of Claude Pro built specifically for teaching: it <strong>aligns lessons to academic standards in all 50 states</strong> through a Learning Commons integration, ships with nine ed-tech connectors, and comes with FERPA-aligned data terms plus a partnership with the American Federation of Teachers to set privacy "best practices." Notably, it is <strong>not a student-facing tool</strong> — it's restricted to educators because of under-18 age limits — so teachers use it to build lesson plans, personalize materials, and analyze data, not to hand students a chatbot. The launch lands amid a crowded field (Google and OpenAI are courting the same classrooms) and a busy policy season: <strong>FutureEd is now tracking 77 AI-in-instruction bills across 27 states</strong> in the 2026 session. The takeaway: purpose-built classroom AI is here, but training and guardrails still have to catch up to the tools.</p>
@@ -1593,11 +1811,17 @@
         <div class="video-grid">
           <div class="video-card">
             <p class="video-label">🎬 Claude for Teachers, Explained</p>
-            <p class="video-caption">CBS News covers Anthropic's launch of Claude for Teachers and the year of free access for educators. <a href="https://www.youtube.com/watch?v=OlHviXPU8pA" target="_blank" rel="noopener">Watch on YouTube →</a></p>
+            <p class="video-caption">CBS News covers Anthropic's launch of Claude for Teachers and the year of free access for educators.</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/OlHviXPU8pA" title="Claude for Teachers on CBS News" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
           </div>
           <div class="video-card">
             <p class="video-label">🎙️ Why a Full Year Free?</p>
-            <p class="video-caption">An Anthropic executive explains the thinking behind giving teachers free access and how the tool stays classroom-safe. <a href="https://www.youtube.com/watch?v=QPacQgegVG8" target="_blank" rel="noopener">Watch the interview →</a></p>
+            <p class="video-caption">An Anthropic executive explains the thinking behind giving teachers free access and how the tool stays classroom-safe.</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/QPacQgegVG8" title="Anthropic exec on free teacher access" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
           </div>
         </div>
 
@@ -1605,9 +1829,7 @@
           <a href="https://www.anthropic.com/news/claude-for-teachers" target="_blank" rel="noopener">📰 Anthropic: Introducing Claude for Teachers</a>
           <a href="https://www.chalkbeat.org/2026/07/14/anthropic-launches-claude-for-teachers-as-ai-companies-battle-for-classrooms/" target="_blank" rel="noopener">🏫 Chalkbeat: The Battle for America's Classrooms</a>
           <a href="https://www.edweek.org/technology/anthropic-launches-claude-for-teachers-why-some-critics-are-concerned/2026/07" target="_blank" rel="noopener">⚖️ EdWeek: Why Some Critics Are Concerned</a>
-          <a href="https://www.future-ed.org/legislative-tracker-2026-state-ai-in-education-bills/" target="_blank" rel="noopener">📋 FutureEd: 2026 State AI Legislation Tracker</a>
           <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
-          <a href="https://podcasts.apple.com/us/podcast/chatedu-the-ai-education-podcast/id1728870840" target="_blank" rel="noopener">🎧 ChatEDU — The AI &amp; Education Podcast</a>
         </div>
       </div>
     </section>
@@ -1622,7 +1844,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · July 2026</span>
           <p>With the new school year weeks away, districts spent late July racing to get AI policies on the books. <strong>Orange County Public Schools (FL) passed its first-ever AI policy for classroom instruction on July 29</strong>, and the <strong>Wakulla County School Board approved its own on July 28</strong> — allowing AI use but <strong>prohibiting uploading personally identifiable information into AI tools</strong> without district authorization. Nevada's Eureka County formalized Microsoft Copilot Education into its technology plan. The state level is pushing too: <strong>California released its Model Policy on AI in Education</strong> (developed by the state's AI in Education Working Group under SB 1288, posted June 25), and <strong>Maryland districts now face a fall deadline to adopt AI policies</strong> against new state guidance. Across these documents the same themes keep surfacing: academic integrity and disclosure, <strong>limits on AI-detection software</strong>, privacy by design, educator discretion, parent review rights, and AI literacy as a core competency. For leaders still drafting: there are now dozens of adopted district policies to borrow from.</p>
@@ -1642,25 +1863,21 @@
         <div class="extra-links">
           <a href="https://marylandmatters.org/2026/07/06/maryland-school-districts-face-fall-deadline-to-set-ai-policies/" target="_blank" rel="noopener">🗓️ Maryland Districts Face a Fall AI-Policy Deadline</a>
           <a href="https://stateline.org/2026/06/10/as-ai-use-in-schools-grows-lawmakers-and-districts-scramble-to-set-up-guardrails/" target="_blank" rel="noopener">🧭 Stateline: Scrambling to Set Guardrails</a>
-          <a href="https://www.edsurge.com/news/study-the-national-ai-policy-landscape-in-k-12-education" target="_blank" rel="noopener">📊 The National AI Policy Landscape in K-12</a>
           <a href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">⚖️ InspiredBI ETHICS Framework</a>
-          <a href="https://aipodcast.education/" target="_blank" rel="noopener">🎧 AI in Education Podcast</a>
-          <a href="https://www.npr.org/2026/07/30/nx-s1-5853571/students-set-ai-policy" target="_blank" rel="noopener">🎙️ NPR: The Students Who Wrote Their Own AI Rules</a>
         </div>
       </div>
     </section>
 
-    <!-- ── HIGHER EDUCATION ────────────────────────────────────── -->
+    <!-- ── HIGHER ED FACULTY ────────────────────────────────────── -->
     <section class="audience-section highered" id="highered-2026-07-28">
       <div class="audience-header highered-header">
         <div class="audience-icon">🏛️</div>
         <div class="audience-header-text">
-          <h2>Higher Education</h2>
+          <h2>Higher Ed Faculty</h2>
           <p class="subtitle">Adoption is outrunning the institutions</p>
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · July 2026</span>
           <p>The newest campus data lands with an uncomfortable message: students have moved on AI faster than their institutions can respond. Fresh 2026 surveys put <strong>student AI use at 88% and faculty use at 77% — up 16 points year over year</strong> — yet <strong>57% of students say their assessments come with inadequate AI guidance</strong>, only <strong>29% think their instructors are equipped to guide them</strong>, and just <strong>31% of faculty feel meaningfully involved in shaping AI policy</strong>. Strikingly, faculty <em>intent</em> to use AI actually <strong>fell 9 points in the U.S. and Canada (76% → 67%)</strong> — a sign some instructors are retreating rather than leaning in. Institutions are starting to answer structurally: <strong>Purdue is moving to make AI competency a graduation requirement</strong>, and Cornerstone University launched an <strong>AI advisory board</strong> to steer curriculum, ethics, and strategy toward "irreplaceable" graduates. For most universities, the 2026 question is no longer adoption — it's closing the integration and trust gap between students and faculty.</p>
@@ -1679,11 +1896,48 @@
 
         <div class="extra-links">
           <a href="https://www.insidehighered.com/news/tech-innovation/artificial-intelligence/2026/01/05/5-predictions-how-ai-will-shape-higher-ed" target="_blank" rel="noopener">🔮 Inside Higher Ed: How AI Will Shape 2026</a>
-          <a href="https://www.edtechinnovationhub.com/news/q6zw9wco2mttajdbd1jyeonjnpiovu" target="_blank" rel="noopener">📊 Student AI Use Hits 88%, Faculty Lag</a>
           <a href="https://www.foxnews.com/culture/christian-university-aims-produce-irreplaceable-graduates-ai-reshapes-higher-education" target="_blank" rel="noopener">🎓 Producing "Irreplaceable" Graduates</a>
           <a href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">🧭 InspiredBI ETHICS Framework</a>
-          <a href="https://er.educause.edu/channels/educause-shop-talk" target="_blank" rel="noopener">🎧 EDUCAUSE Shop Talk Podcast</a>
-          <a href="https://www.edsurge.com/news/what-should-students-still-have-to-do-for-themselves" target="_blank" rel="noopener">🎙️ EdSurge: What Should Students Still Do Themselves?</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── OPERATIONS & FINANCE ──────────────────────────────────── -->
+    <section class="audience-section operations" id="operations-2026-07-28">
+      <div class="audience-header operations-header">
+        <div class="audience-icon">💼</div>
+        <div class="audience-header-text">
+          <h2>Operations &amp; Finance</h2>
+          <p class="subtitle">Automating expense reporting</p>
+        </div>
+      </div>
+      <div class="audience-body">
+        <div class="whats-new">
+          <span class="badge">What's New · July 2026</span>
+          <p>Expense reporting and anomaly detection are seeing massive time savings. As end-of-summer fiscal wrap-ups take place, financial controllers are relying on specialized LLMs integrated into their accounting stacks to automatically cross-reference receipts against district policy. Instead of a manual desk review of every staff development expense, the AI flags only policy violations or statistical anomalies for human review, dramatically speeding up reimbursement cycles.</p>
+        </div>
+        <div class="extra-links">
+          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ AI Financial Optimization</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ED TECH ENGINEERS ─────────────────────────────────────── -->
+    <section class="audience-section edtech" id="edtech-2026-07-28">
+      <div class="audience-header edtech-header">
+        <div class="audience-icon">💻</div>
+        <div class="audience-header-text">
+          <h2>Ed Tech Engineers</h2>
+          <p class="subtitle">Building Digital Twins of the Campus</p>
+        </div>
+      </div>
+      <div class="audience-body">
+        <div class="whats-new">
+          <span class="badge">What's New · July 2026</span>
+          <p>Summer campus downtime has given Ed Tech engineers the bandwidth to deploy LiDAR scanning and photogrammetry to create "digital twins" of their school environments. These 1:1 Unity-based 3D models are being finalized for dual purposes: immersive virtual tours for prospective students and hyper-realistic safety and emergency response simulations for staff training. The intersection of generative AI and spatial computing means these environments can be populated with simulated crowds to test crowd-flow dynamics.</p>
+        </div>
+        <div class="extra-links">
+          <a href="https://unity.com/education" target="_blank" rel="noopener">🎮 Unity Digital Twin Resources</a>
         </div>
       </div>
     </section>
@@ -1698,7 +1952,6 @@
         </div>
       </div>
       <div class="audience-body">
-
         <div class="whats-new">
           <span class="badge">What's New · July 2026</span>
           <p>The frontier models kept moving this month. On <strong>July 24, Anthropic released Claude Opus 5</strong>, its new flagship, featuring a <strong>1-million-token context window</strong> and — the headline feature — a <strong>low / medium / high effort toggle that lets you trade cost for capability on a per-task basis</strong>, all at the same $5/$25-per-million-token pricing as the previous Opus. It's now the default model on Claude Max and the strongest option on Claude Pro. Rivals matched the pace: <strong>OpenAI launched GPT-5.6</strong>, the first frontier model to clear a customer-by-customer U.S. government review before public release. Under the hood, the ecosystem standardized too, with a new <strong>Model Context Protocol spec (2026-07-28)</strong> bringing stronger OAuth/OIDC authorization and connector improvements, alongside Anthropic infrastructure partnerships with AMD and Cognizant. For everyday users, the practical upshot is more control: you can now dial a model up for hard problems and down to save money on simple ones. Claude remains free to try at claude.ai.</p>
@@ -1707,7 +1960,10 @@
         <div class="video-grid">
           <div class="video-card">
             <p class="video-label">🎬 Opus 5 Lands</p>
-            <p class="video-caption">A daily AI briefing walks through Anthropic's Claude Opus 5 release and what the new effort toggle means. <a href="https://www.youtube.com/watch?v=BMcEz_SXBpM" target="_blank" rel="noopener">Watch on YouTube →</a></p>
+            <p class="video-caption">A daily AI briefing walks through Anthropic's Claude Opus 5 release and what the new effort toggle means.</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/BMcEz_SXBpM" title="Anthropic Releases Claude Opus 5" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
           </div>
           <div class="video-card">
             <p class="video-label">⚙️ Cost vs. Capability</p>
@@ -1719,8 +1975,6 @@
           <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">📰 Anthropic Newsroom</a>
           <a href="https://claude.ai" target="_blank" rel="noopener">🚀 Try Claude Free</a>
           <a href="https://thursdai.news/releases/2026-07" target="_blank" rel="noopener">🗒️ ThursdAI: July 2026 AI Releases</a>
-          <a href="https://updatedbulletins.com/ai-news-july-2026-openai-google-anthropic-updates/" target="_blank" rel="noopener">📡 The Biggest AI Announcements This Month</a>
-          <a href="https://www.youtube.com/watch?v=BMcEz_SXBpM" target="_blank" rel="noopener">🎧 AI Daily: Anthropic Releases Claude Opus 5</a>
         </div>
       </div>
     </section>
