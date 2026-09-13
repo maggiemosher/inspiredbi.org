@@ -1,0 +1,1232 @@
+<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex, nofollow"><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>The Review Auditor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+
+<style>
+:root{
+  --paper:#EFF0F4;
+  --surface:#FFFFFF;
+  --surface-2:#F7F7FA;
+  --ink:#1A1D2E;
+  --ink-2:#4A4E63;
+  --ink-3:#7A7E92;
+  --line:#DBDCE4;
+  --line-2:#C7C8D4;
+  --accent:#3B3F72;
+  --accent-2:#5A5F9B;
+  --accent-wash:#E7E8F2;
+  --on-accent:#FFFFFF;
+  --good:#256B4E;
+  --good-wash:#DFEDE6;
+  --warn:#9C6407;
+  --warn-wash:#F5E9D5;
+  --bad:#A6302A;
+  --bad-wash:#F5E0DE;
+  --na:#75798C;
+  --na-wash:#E6E7EC;
+  --shadow:0 1px 2px rgba(26,29,46,.05), 0 8px 24px -12px rgba(26,29,46,.18);
+  --radius:6px;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#14151C;
+    --surface:#1C1E28;
+    --surface-2:#22242F;
+    --ink:#E7E8EF;
+    --ink-2:#A9ACBC;
+    --ink-3:#7E8294;
+    --line:#2E3040;
+    --line-2:#3C3F52;
+    --accent:#A2A8E4;
+    --accent-2:#8A90D0;
+    --accent-wash:#262941;
+    --on-accent:#14151C;
+    --good:#6FC49B;
+    --good-wash:#1B3830;
+    --warn:#D9A34E;
+    --warn-wash:#3A2E19;
+    --bad:#E4837C;
+    --bad-wash:#3B2222;
+    --na:#8E92A6;
+    --na-wash:#292B37;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#14151C;
+  --surface:#1C1E28;
+  --surface-2:#22242F;
+  --ink:#E7E8EF;
+  --ink-2:#A9ACBC;
+  --ink-3:#7E8294;
+  --line:#2E3040;
+  --line-2:#3C3F52;
+  --accent:#A2A8E4;
+  --accent-2:#8A90D0;
+  --accent-wash:#262941;
+  --on-accent:#14151C;
+  --good:#6FC49B;
+  --good-wash:#1B3830;
+  --warn:#D9A34E;
+  --warn-wash:#3A2E19;
+  --bad:#E4837C;
+  --bad-wash:#3B2222;
+  --na:#8E92A6;
+  --na-wash:#292B37;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+
+/* ---------- masthead ---------- */
+.masthead{
+  border-bottom:1px solid var(--line);
+  background:var(--surface);
+  position:sticky;top:0;z-index:60;
+}
+.masthead-in{
+  max-width:1380px;margin:0 auto;padding:14px 24px;
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+}
+.wordmark{display:flex;align-items:baseline;gap:10px;margin-right:auto}
+.wordmark h1{
+  font-family:var(--serif);font-weight:500;font-size:23px;letter-spacing:-.01em;line-height:1;
+}
+.wordmark .sub{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);
+}
+.tabs{display:flex;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);padding:2px;gap:2px}
+.tabs button{
+  border:0;background:transparent;padding:5px 14px;border-radius:4px;
+  font-size:13px;font-weight:500;color:var(--ink-2);
+}
+.tabs button[aria-selected="true"]{background:var(--accent);color:var(--on-accent)}
+.mhbtns{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  border:1px solid var(--line-2);background:var(--surface);border-radius:var(--radius);
+  padding:6px 12px;font-size:13px;font-weight:500;color:var(--ink-2);
+  transition:border-color .12s,color .12s,background .12s;
+}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.primary:hover{opacity:.88;border-color:var(--accent);color:var(--on-accent)}
+
+/* ---------- shell ---------- */
+.shell{max-width:1380px;margin:0 auto;padding:24px;display:grid;grid-template-columns:minmax(0,1fr) 336px;gap:24px;align-items:start}
+@media (max-width:1080px){.shell{grid-template-columns:minmax(0,1fr)}}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow)}
+
+/* ---------- setup ---------- */
+.setup{padding:18px 20px;margin-bottom:20px}
+.setup h2{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;margin-bottom:14px;
+}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px 16px}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field label{font-size:11.5px;font-weight:600;color:var(--ink-2);letter-spacing:.01em}
+.field input,.field select{
+  border:1px solid var(--line-2);background:var(--surface-2);border-radius:5px;
+  padding:7px 9px;font-size:13.5px;width:100%;
+}
+.field.wide{grid-column:1/-1}
+
+/* ---------- domain ---------- */
+.domain{margin-bottom:16px;overflow:hidden}
+.dhead{
+  display:flex;align-items:center;gap:14px;padding:13px 18px;
+  background:var(--surface-2);border-bottom:1px solid var(--line);cursor:pointer;
+  user-select:none;
+}
+.dhead .idx{
+  font-family:var(--mono);font-size:12px;font-weight:600;color:var(--accent);
+  width:20px;flex:none;
+}
+.dhead h3{font-family:var(--serif);font-size:19px;font-weight:500;flex:1;min-width:0;letter-spacing:-.005em}
+.dhead .axis-tag{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);white-space:nowrap;
+}
+.matrix{display:flex;gap:3px;flex:none}
+.cell{width:11px;height:16px;border-radius:2px;background:transparent;border:1px solid var(--line-2)}
+.cell.yes{background:var(--good);border-color:var(--good)}
+.cell.partial{background:var(--warn);border-color:var(--warn)}
+.cell.no{background:var(--bad);border-color:var(--bad)}
+.cell.na{background:var(--na-wash);border-color:var(--line-2)}
+.chev{color:var(--ink-3);flex:none;transition:transform .18s;font-size:12px}
+.domain.collapsed .chev{transform:rotate(-90deg)}
+.domain.collapsed .dbody{display:none}
+.dbody{padding:4px 0}
+
+/* ---------- item ---------- */
+.item{padding:16px 18px;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.item.isna{opacity:.5}
+.item-top{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.item-q{flex:1;min-width:260px}
+.codes{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;align-items:center}
+.code{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;
+  color:var(--ink-3);background:var(--surface-2);border:1px solid var(--line);
+  padding:1.5px 5px;border-radius:3px;white-space:nowrap;
+}
+.code.crit{color:var(--bad);border-color:var(--bad);background:var(--bad-wash);font-weight:600}
+.qtext{font-size:14.5px;line-height:1.45;font-weight:500}
+.why{font-size:12.5px;color:var(--ink-2);margin-top:6px;line-height:1.5;max-width:66ch}
+.judge{display:flex;gap:4px;flex:none;align-self:flex-start;padding-top:2px}
+.judge button{
+  border:1px solid var(--line-2);background:var(--surface);border-radius:5px;
+  padding:5px 10px;font-size:11.5px;font-weight:600;color:var(--ink-3);letter-spacing:.02em;
+  transition:all .12s;min-width:44px;
+}
+.judge button:hover{border-color:var(--ink-3);color:var(--ink-2)}
+.judge button[data-on="1"][data-v="yes"]{background:var(--good-wash);border-color:var(--good);color:var(--good)}
+.judge button[data-on="1"][data-v="partial"]{background:var(--warn-wash);border-color:var(--warn);color:var(--warn)}
+.judge button[data-on="1"][data-v="no"]{background:var(--bad-wash);border-color:var(--bad);color:var(--bad)}
+.judge button[data-on="1"][data-v="na"]{background:var(--na-wash);border-color:var(--na);color:var(--na)}
+.note{
+  margin-top:10px;width:100%;border:1px solid var(--line);background:var(--surface-2);
+  border-radius:5px;padding:7px 9px;font-size:12.5px;resize:vertical;min-height:34px;line-height:1.45;
+}
+.note::placeholder{color:var(--ink-3)}
+
+/* ---------- rail ---------- */
+.rail{position:sticky;top:82px;display:flex;flex-direction:column;gap:16px}
+@media (max-width:1080px){.rail{position:static}}
+.verdict{padding:0;overflow:hidden}
+.verdict-band{padding:18px 20px 16px;border-bottom:1px solid var(--line)}
+.verdict-label{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);
+}
+.verdict-name{font-family:var(--serif);font-size:27px;font-weight:500;line-height:1.12;margin-top:7px;letter-spacing:-.015em}
+.verdict-note{font-size:12.5px;color:var(--ink-2);margin-top:8px;line-height:1.45}
+.provisional{
+  display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--warn-wash);color:var(--warn);border:1px solid var(--warn);
+  padding:1.5px 6px;border-radius:3px;margin-top:9px;
+}
+.v-good .verdict-name{color:var(--good)}
+.v-warn .verdict-name{color:var(--warn)}
+.v-bad .verdict-name{color:var(--bad)}
+
+.meters{padding:16px 20px;display:flex;flex-direction:column;gap:14px;border-bottom:1px solid var(--line)}
+.meter-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.meter-name{font-size:12.5px;font-weight:600}
+.meter-val{font-family:var(--mono);font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.track{height:6px;background:var(--surface-2);border:1px solid var(--line);border-radius:3px;margin-top:6px;position:relative;overflow:hidden}
+.fill{height:100%;border-radius:2px;transition:width .28s ease}
+.f-good{background:var(--good)}.f-warn{background:var(--warn)}.f-bad{background:var(--bad)}
+.meter-desc{font-size:11.5px;color:var(--ink-3);margin-top:5px;line-height:1.4}
+
+.railsec{padding:16px 20px;border-bottom:1px solid var(--line)}
+.railsec:last-child{border-bottom:0}
+.railsec h4{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;margin-bottom:10px;
+}
+.amstar-chip{
+  display:inline-block;font-family:var(--serif);font-size:17px;font-weight:500;
+  padding:4px 12px;border-radius:5px;border:1px solid;
+}
+.a-high{background:var(--good-wash);border-color:var(--good);color:var(--good)}
+.a-mod{background:var(--accent-wash);border-color:var(--accent);color:var(--accent)}
+.a-low{background:var(--warn-wash);border-color:var(--warn);color:var(--warn)}
+.a-crit{background:var(--bad-wash);border-color:var(--bad);color:var(--bad)}
+.amstar-detail{font-size:11.5px;color:var(--ink-2);margin-top:9px;line-height:1.45}
+
+.flags{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.flags li{
+  font-size:12px;line-height:1.4;padding-left:16px;position:relative;color:var(--ink-2);
+}
+.flags li::before{
+  content:"";position:absolute;left:0;top:5px;width:8px;height:8px;border-radius:2px;
+}
+.flags li.f-crit::before{background:var(--bad)}
+.flags li.f-weak::before{background:var(--warn)}
+.flags li b{color:var(--ink);font-weight:600}
+.clean{font-size:12.5px;color:var(--good)}
+
+.progress-line{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-2);margin-bottom:7px}
+.progress-line b{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink)}
+
+.advisory{
+  padding:14px 16px;background:var(--accent-wash);border:1px solid var(--accent);
+  border-radius:8px;font-size:12.5px;line-height:1.5;color:var(--ink);
+}
+.advisory b{font-weight:600}
+
+/* ---------- report ---------- */
+.report{max-width:900px;margin:0 auto;padding:0}
+.rp{padding:36px 44px}
+@media (max-width:640px){.rp{padding:24px 20px}}
+.rp h2{font-family:var(--serif);font-size:25px;font-weight:500;letter-spacing:-.015em;line-height:1.28}
+.rp .meta{font-size:13px;color:var(--ink-2);margin-top:8px;line-height:1.6}
+.rp .meta b{color:var(--ink);font-weight:600}
+.rule{height:1px;background:var(--line);margin:26px 0}
+.rp h3{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;margin:26px 0 12px;
+}
+.scoregrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px}
+.scorebox{border:1px solid var(--line);border-radius:6px;padding:12px 14px;background:var(--surface-2)}
+.scorebox .n{font-family:var(--serif);font-size:31px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums}
+.scorebox .l{font-size:11.5px;color:var(--ink-2);margin-top:5px;font-weight:500}
+.rtable{width:100%;border-collapse:collapse;font-size:12.5px}
+.rtable th{
+  text-align:left;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;padding:0 10px 7px 0;border-bottom:1px solid var(--line);
+}
+.rtable td{padding:9px 10px 9px 0;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}
+.rtable td.j{white-space:nowrap;font-family:var(--mono);font-size:11px;font-weight:600}
+.j-yes{color:var(--good)}.j-partial{color:var(--warn)}.j-no{color:var(--bad)}.j-na,.j-none{color:var(--na)}
+.rtable td.c{font-family:var(--mono);font-size:10px;color:var(--ink-3);white-space:nowrap}
+.rnote{color:var(--ink-2);font-style:italic;display:block;margin-top:3px}
+.tablewrap{overflow-x:auto}
+.rp p{margin:0 0 12px;line-height:1.6;font-size:14px;max-width:68ch}
+.rp ul{margin:0 0 12px;padding-left:20px;line-height:1.6;font-size:14px;max-width:68ch}
+.rp li{margin-bottom:5px}
+
+/* ---------- misc ---------- */
+.io{padding:16px 20px;display:none;flex-direction:column;gap:10px}
+.io.open{display:flex}
+.io textarea{
+  width:100%;min-height:110px;border:1px solid var(--line-2);background:var(--surface-2);
+  border-radius:5px;padding:8px;font-family:var(--mono);font-size:11px;resize:vertical;
+}
+.io-row{display:flex;gap:8px;flex-wrap:wrap}
+.toast{
+  position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(14px);
+  background:var(--ink);color:var(--paper);padding:9px 18px;border-radius:6px;font-size:13px;
+  opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:200;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.footnote{
+  max-width:1380px;margin:0 auto;padding:8px 24px 44px;font-size:11.5px;color:var(--ink-3);line-height:1.6;
+}
+.footnote a{color:var(--accent-2)}
+.hidden{display:none !important}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
+@media print{
+  .masthead,.rail,.footnote{display:none !important}
+  body{background:#fff}
+  .shell{display:block;padding:0;max-width:none}
+  .card{border:0;box-shadow:none}
+}
+</style>
+
+<div class="masthead">
+  <div class="masthead-in">
+    <div class="wordmark">
+      <h1>The Review Auditor</h1>
+      <span class="sub">PRISMA · AMSTAR 2 · ROBIS</span>
+    </div>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-appraise" aria-selected="true">Appraisal</button>
+      <button role="tab" id="tab-report" aria-selected="false">Report</button>
+    </div>
+    <div class="mhbtns">
+      <button class="btn" id="btn-mode">Rapid screen</button>
+      <button class="btn" id="btn-example">Load worked example</button>
+      <button class="btn" id="btn-io">Save / load</button>
+      <button class="btn" id="btn-reset">Clear</button>
+    </div>
+  </div>
+</div>
+
+<div class="shell" id="view-appraise">
+  <main>
+    <section class="card setup">
+      <h2>The review under appraisal</h2>
+      <div class="fields">
+        <div class="field wide">
+          <label for="f-cite">Review (citation or title)</label>
+          <input id="f-cite" data-meta="cite" placeholder="Author(s), year, title, journal">
+        </div>
+        <div class="field">
+          <label for="f-appraiser">Appraiser</label>
+          <input id="f-appraiser" data-meta="appraiser" placeholder="Your name">
+        </div>
+        <div class="field">
+          <label for="f-date">Date of appraisal</label>
+          <input id="f-date" data-meta="date" type="date">
+        </div>
+        <div class="field">
+          <label for="f-type">Synthesis type</label>
+          <select id="f-type" data-meta="type">
+            <option value="meta">Systematic review with meta-analysis</option>
+            <option value="narrative">Systematic review, narrative / vote-count synthesis</option>
+            <option value="qual">Qualitative evidence synthesis / meta-synthesis</option>
+            <option value="mixed">Mixed-methods systematic review</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-framework">Question framework</label>
+          <select id="f-framework" data-meta="framework">
+            <option value="PICO">PICO — population, intervention, comparator, outcome</option>
+            <option value="PICOT">PICO(T) — with timeframe</option>
+            <option value="PEO">PEO — population, exposure, outcome</option>
+            <option value="SPIDER">SPIDER — sample, phenomenon, design, evaluation, research type</option>
+            <option value="SPICE">SPICE — setting, perspective, intervention, comparison, evaluation</option>
+            <option value="ECLIPSE">ECLIPSE — policy / service reviews</option>
+            <option value="none">No framework stated</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-field">Discipline</label>
+          <select id="f-field" data-meta="field">
+            <option value="health">Health / clinical</option>
+            <option value="social">Education / social science</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <div id="domains"></div>
+  </main>
+
+  <aside class="rail">
+    <section class="card verdict" id="verdict-card">
+      <div class="verdict-band" id="verdict-band">
+        <div class="verdict-label">Overall verdict</div>
+        <div class="verdict-name" id="verdict-name">Not yet judged</div>
+        <div class="verdict-note" id="verdict-note">Work through the domains below. The verdict is the more conservative of the weighted score and the AMSTAR 2–style flaw count.</div>
+      </div>
+      <div class="meters" id="meters"></div>
+      <div class="railsec">
+        <h4>AMSTAR 2–style confidence</h4>
+        <span class="amstar-chip a-mod" id="amstar-chip">Pending</span>
+        <div class="amstar-detail" id="amstar-detail">Driven by the seven critical domains.</div>
+      </div>
+      <div class="railsec" id="advisory-slot"></div>
+      <div class="railsec">
+        <h4>Flags</h4>
+        <ul class="flags" id="flags"></ul>
+      </div>
+      <div class="railsec">
+        <div class="progress-line"><span>Items judged</span><b id="prog-text">0 / 0</b></div>
+        <div class="track"><div class="fill f-good" id="prog-fill" style="width:0%"></div></div>
+      </div>
+      <div class="io" id="io-panel">
+        <textarea id="io-text" spellcheck="false" placeholder="Appraisal data appears here."></textarea>
+        <div class="io-row">
+          <button class="btn" id="btn-copy-json">Copy data</button>
+          <button class="btn" id="btn-load-json">Restore from pasted data</button>
+        </div>
+      </div>
+    </section>
+  </aside>
+</div>
+
+<div class="shell hidden" id="view-report" style="grid-template-columns:minmax(0,1fr)">
+  <div class="report card"><div class="rp" id="report-body"></div></div>
+</div>
+
+<div class="footnote">
+  Built on the <b>PRISMA 2020</b> reporting checklist (Page et al., <i>BMJ</i> 2021;372:n71), <b>AMSTAR 2</b> (Shea et al., <i>BMJ</i> 2017;358:j4008), <b>ROBIS</b> (Whiting et al., <i>J Clin Epidemiol</i> 2016;69:225–34), and question-framing guidance from <a href="https://www.cochranelibrary.com/about-pico">Cochrane</a> and <a href="https://guides.mclibrary.duke.edu/sysreview/question">Duke Medical Center Library</a>. The confidence rating is an <i>adaptation</i> of AMSTAR 2 — it applies AMSTAR's critical-domain algorithm across a broader item set, so it is not interchangeable with a formal AMSTAR 2 rating. Judgements are yours; this tool arithmetic, not authority. Companions: <a href="tool-auditor-app.html" target="_blank" rel="noopener">The Tool Auditor</a> scores which AI tools are fit for which stage of a review; <a href="where-does-it-come-from-app.html" target="_blank" rel="noopener">Where Does It Come From</a> traces who built any AI tool and where your input goes.
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ===================== INSTRUMENT ===================== */
+/* axes: V = validity (is the answer likely true), R = reliability (could another
+   team reproduce it), T = transparency (is it reported completely).
+   crit = one of the seven AMSTAR 2 critical domains.
+   req: 'meta' -> auto N/A unless meta-analysis; 'nonmeta' -> auto N/A when meta-analysis. */
+
+var DOMAINS = [
+  {id:"A", name:"Question and scope", axis:"Validity · Reliability", items:[
+    {id:"A1", codes:["PRISMA 4","AMSTAR Q1"], w:2, axes:["V","R"], rapid:false,
+     q:"Is there an explicit, answerable review question — not just a topic?",
+     why:"A topic (“AI in STEM education”) cannot be answered; a question can. Without one, inclusion decisions have nothing to be tested against and the review drifts."},
+    {id:"A2", codes:["Cochrane PICO","AMSTAR Q1"], w:2, axes:["V","R"], rapid:false,
+     q:"Does the question specify every component of a recognised framework?",
+     why:"PICO for interventions; PEO for exposures; SPIDER or SPICE for qualitative and service questions. Missing components are where scope quietly expands mid-review."},
+    {id:"A3", codes:["PRISMA 5","ROBIS 1.3"], w:3, axes:["R"], rapid:true,
+     q:"Are inclusion and exclusion criteria stated precisely enough that a second reviewer would apply them the same way?",
+     why:"This is the single largest source of irreproducibility. “High-quality studies” is not a criterion; “empirical studies reporting a measured learning outcome” is."},
+    {id:"A4", codes:["ROBIS 1.4","ROBIS 1.5"], w:2, axes:["V"], rapid:false,
+     q:"Is every restriction — design, date, language, setting, publication type — justified rather than assumed?",
+     why:"Unjustified restrictions are silent exclusion criteria. English-only and journal-only limits both import known biases into the evidence base."},
+    {id:"A5", codes:["PRISMA 3"], w:1, axes:["T"], rapid:false,
+     q:"Does the rationale establish that this review is needed and does not duplicate an existing one?",
+     why:"Reviews that do not check for prior reviews often reproduce them, and readers cannot tell what the new one adds."},
+    {id:"A6", codes:["AMSTAR Q3"], w:1, axes:["V"], rapid:false,
+     q:"Do the authors explain which study designs were eligible, and why?",
+     why:"Pooling designs with different bias profiles without saying so makes the synthesis uninterpretable."}
+  ]},
+
+  {id:"B", name:"Protocol and pre-specification", axis:"Reliability", items:[
+    {id:"B1", codes:["AMSTAR Q2","PRISMA 24a"], w:3, axes:["R","V"], crit:true, rapid:true,
+     q:"Was the review registered — PROSPERO, OSF, INPLASY or equivalent — before the search was run?",
+     why:"The only defence against outcome-switching and post-hoc criteria. A registration timestamp that predates the search is what separates a test from a story."},
+    {id:"B2", codes:["PRISMA 24b","AMSTAR Q2"], w:2, axes:["R"], rapid:false,
+     q:"Is a written protocol accessible, covering question, search strategy, eligibility, and appraisal method?",
+     why:"Registration without a protocol records the intent but not the method. AMSTAR 2 requires all four elements for even a partial credit."},
+    {id:"B3", codes:["PRISMA 24c"], w:2, axes:["R","V"], rapid:false,
+     q:"Are all departures from the protocol reported and justified?",
+     why:"Deviations are normal and acceptable. Undisclosed deviations are not — they convert a pre-specified analysis into an exploratory one without telling the reader."},
+    {id:"B4", codes:["ROBIS 1.1"], w:2, axes:["V"], rapid:false,
+     q:"Did the review actually adhere to its stated objectives and criteria throughout?",
+     why:"Check the methods against the results: studies that appear in the synthesis but fail the stated criteria are the tell."}
+  ]},
+
+  {id:"C", name:"Search comprehensiveness", axis:"Validity", items:[
+    {id:"C1", codes:["AMSTAR Q4","PRISMA 6"], w:3, axes:["V"], crit:true, rapid:true,
+     q:"Were at least two subject-appropriate databases searched?",
+     why:"No single database indexes a field completely. Note that three databases behind one platform is a weaker search than three independent platforms."},
+    {id:"C2", codes:["PRISMA 7"], w:3, axes:["R"], rapid:true,
+     q:"Is at least one full search strategy reproduced verbatim, including every filter, limit and field tag?",
+     why:"Listing keyword pairs is not a search strategy. Without the executable string, nobody can rerun, update, or audit the search — the review is unreproducible by construction."},
+    {id:"C3", codes:["PRISMA 6"], w:2, axes:["R"], rapid:false,
+     q:"Is the date each source was last searched reported?",
+     why:"Determines what the review could have found and when it goes stale. Its absence makes an update impossible to scope."},
+    {id:"C4", codes:["AMSTAR Q4","ROBIS 2.2"], w:2, axes:["V"], rapid:false,
+     q:"Were supplementary methods used — reference-list and citation chasing, hand-searching key journals, contacting experts?",
+     why:"Database searching alone typically misses a meaningful slice of eligible studies, especially where terminology is unsettled."},
+    {id:"C5", codes:["AMSTAR Q4","ROBIS 2.1"], w:2, axes:["V"], rapid:true,
+     q:"Was grey literature sought — theses, reports, conference papers, preprints, trial or study registries?",
+     why:"Published work skews positive. A journals-only review inherits publication bias and usually cannot detect it."},
+    {id:"C6", codes:["AMSTAR Q4","ROBIS 2.4"], w:1, axes:["V"], rapid:false,
+     q:"Are language, date, and publication-format restrictions justified?",
+     why:"Convenience limits are defensible when named and their likely effect discussed; they are a bias when left implicit."},
+    {id:"C7", codes:["AMSTAR Q4"], w:1, axes:["V"], rapid:false,
+     q:"Was the search run — or updated — within roughly 24 months of publication?",
+     why:"AMSTAR 2's threshold. In fast-moving fields a three-year-old search describes a literature that no longer exists."}
+  ]},
+
+  {id:"D", name:"Screening and selection", axis:"Reliability", items:[
+    {id:"D1", codes:["PRISMA 16a"], w:2, axes:["T"], rapid:false,
+     q:"Is a PRISMA-style flow diagram present, with counts at identification, screening, eligibility and inclusion?",
+     why:"The flow diagram is the audit trail of attrition. Without it, the gap between records found and studies included is unaccountable."},
+    {id:"D2", codes:["AMSTAR Q5","PRISMA 8"], w:3, axes:["R"], rapid:true,
+     q:"Were records screened independently by two or more reviewers — or a dual-screened sample of at least 80%?",
+     why:"Single-reviewer screening is the classic reliability failure: error rates are substantial and, crucially, unmeasurable. “The authors discussed disagreements” does not establish independence."},
+    {id:"D3", codes:["ROBIS 2.5"], w:2, axes:["R"], rapid:false,
+     q:"Is screening agreement quantified — kappa or percentage agreement — with the disagreement procedure described?",
+     why:"“Consensus was reached through discussion” reports the outcome, not the reliability. A statistic is what makes the claim checkable."},
+    {id:"D4", codes:["AMSTAR Q7","PRISMA 16b"], w:3, axes:["R","V"], crit:true, rapid:true,
+     q:"Is a list of studies excluded at full text provided, with a reason for each one?",
+     why:"An AMSTAR 2 critical domain. Category counts in a flow diagram are only partial credit — without the study-level list, no reader can check whether an inconvenient study was excluded."},
+    {id:"D5", codes:["ROBIS 2.5"], w:1, axes:["V"], rapid:false,
+     q:"Do the reported numbers reconcile across every stage of the flow?",
+     why:"Arithmetic that does not close usually signals undocumented decisions rather than a typo. Add them up."}
+  ]},
+
+  {id:"E", name:"Extraction and coding reliability", axis:"Reliability", items:[
+    {id:"E1", codes:["AMSTAR Q6","PRISMA 9"], w:3, axes:["R"], rapid:true,
+     q:"Were data extracted in duplicate by independent reviewers — or a dual-extracted sample of at least 80%?",
+     why:"Single-extractor error rates are high enough to change pooled estimates and coding frequencies. A 30% overlap sample is partial credit, not full."},
+    {id:"E2", codes:["PRISMA 9","PRISMA 27"], w:2, axes:["R"], rapid:false,
+     q:"Is the extraction form or coding scheme reported, with each code defined?",
+     why:"In coding-based reviews the scheme <i>is</i> the instrument. An undefined code cannot be applied consistently by anyone else."},
+    {id:"E3", codes:["ROBIS 3.1"], w:3, axes:["R"], rapid:true,
+     q:"Is inter-rater reliability for extraction or coding reported as a statistic?",
+     why:"The most commonly skipped item in education and social-science reviews. Cohen's or Fleiss's kappa, Krippendorff's alpha, or percentage agreement — reaching agreement by discussion is a resolution procedure, not evidence of reliability."},
+    {id:"E4", codes:["PRISMA 10a","PRISMA 10b"], w:2, axes:["R","V"], rapid:false,
+     q:"Are all outcomes and variables sought defined in advance, including how missing or ambiguous data were handled?",
+     why:"Selecting which of several reported results to extract, after seeing them, is outcome-switching at the review level."},
+    {id:"E5", codes:["AMSTAR Q8","PRISMA 17"], w:2, axes:["T"], rapid:false,
+     q:"Are included studies described in adequate detail — population, intervention or exposure, comparator, outcomes, design, setting?",
+     why:"Readers must be able to judge whether the studies apply to their own context. A table of citations is not a description."}
+  ]},
+
+  {id:"F", name:"Appraisal of the included studies", axis:"Validity", items:[
+    {id:"F1", codes:["AMSTAR Q9","PRISMA 11"], w:3, axes:["V"], crit:true, rapid:true,
+     q:"Was risk of bias in each included study assessed using a named, appropriate instrument?",
+     why:"An AMSTAR 2 critical domain, and the most common failure in non-clinical reviews. RoB 2, ROBINS-I, MMAT, CASP, or a documented instrument with stated criteria — an ad hoc “quality check” with unweighted questions is partial credit at best."},
+    {id:"F2", codes:["PRISMA 18"], w:2, axes:["T","V"], rapid:false,
+     q:"Are per-study risk-of-bias judgements presented, rather than a summary assertion that quality was adequate?",
+     why:"Only study-level judgements let a reader see whether the conclusion rests on the strong studies or the weak ones."},
+    {id:"F3", codes:["ROBIS 3.5","AMSTAR Q9"], w:2, axes:["R"], rapid:false,
+     q:"Was risk of bias assessed independently by two reviewers?",
+     why:"Bias judgement is more subjective than screening, so it needs duplication at least as much."},
+    {id:"F4", codes:["AMSTAR Q10"], w:1, axes:["T"], rapid:false,
+     q:"Are the funding sources of the included studies reported?",
+     why:"Industry or vendor funding predicts effect direction, particularly in technology-intervention research. Recording that authors looked and found nothing also counts."}
+  ]},
+
+  {id:"G", name:"Synthesis", axis:"Validity", items:[
+    {id:"G1", codes:["PRISMA 13d","ROBIS 4.3"], w:3, axes:["V"], rapid:true,
+     q:"Is the synthesis method appropriate to the heterogeneity of the questions, designs and outcomes — and is that choice justified?",
+     why:"Pooling incommensurable studies manufactures precision; refusing to pool commensurable ones discards it. Either way the reader needs the reasoning, not just the result."},
+    {id:"G2", codes:["AMSTAR Q11","PRISMA 13d"], w:3, axes:["V"], crit:true, rapid:true, req:"meta",
+     q:"Were the statistical combination methods appropriate — pooling justified, weighting suitable, heterogeneity model stated?",
+     why:"An AMSTAR 2 critical domain. Fixed versus random effects, the handling of dependent effect sizes, and adjustment for confounding in non-randomised studies all change the answer."},
+    {id:"G3", codes:["AMSTAR Q14","PRISMA 13e"], w:2, axes:["V"], rapid:false,
+     q:"Was heterogeneity investigated and explained, rather than merely reported?",
+     why:"A high I² that goes unexplained is an unanswered question sitting inside the headline estimate. In narrative syntheses, the equivalent is unexplained inconsistency between studies."},
+    {id:"G4", codes:["AMSTAR Q12","PRISMA 13f"], w:2, axes:["V"], rapid:false, req:"meta",
+     q:"Were sensitivity analyses run to test whether conclusions survive removing high-risk-of-bias or influential studies?",
+     why:"A conclusion that depends on one weak study is a finding about that study."},
+    {id:"G5", codes:["PRISMA 13a","ROBIS 4.1"], w:2, axes:["V"], rapid:false,
+     q:"Did the synthesis include every study it should have, with any omissions from synthesis explained?",
+     why:"Studies that are included in the review but quietly absent from the synthesis are a well-documented route to selective reporting."},
+    {id:"G6", codes:["PRISMA 13c","PRISMA 20a"], w:2, axes:["T"], rapid:false,
+     q:"Are individual study results displayed — table, forest plot, or harvest plot — so the synthesis can be checked against the data?",
+     why:"A synthesis the reader cannot audit against its inputs has to be taken on trust."}
+  ]},
+
+  {id:"H", name:"Bias in the evidence base", axis:"Validity", items:[
+    {id:"H1", codes:["AMSTAR Q15","PRISMA 14"], w:3, axes:["V"], crit:true, rapid:true, req:"meta",
+     q:"Was publication or small-study bias assessed graphically or statistically, and its likely impact discussed?",
+     why:"An AMSTAR 2 critical domain. Funnel plot asymmetry, Egger's test, or trim-and-fill — and then a discussion of magnitude, not just a p-value."},
+    {id:"H2", codes:["PRISMA 14","ROBIS 4.5"], w:2, axes:["V"], rapid:false, req:"nonmeta",
+     q:"Without a meta-analysis, was the risk of missing results still considered — unpublished, null, dissertation, or non-English work?",
+     why:"Publication bias does not disappear when the synthesis is narrative; it just becomes harder to see. It should still be reasoned about explicitly."},
+    {id:"H3", codes:["PRISMA 15","PRISMA 22"], w:2, axes:["V"], rapid:true,
+     q:"Was certainty in the body of evidence assessed with a formal system — GRADE, GRADE-CERQual — or an equivalent explicit rationale?",
+     why:"Separates “we found a consistent effect across strong studies” from “we found four weak studies pointing the same way.” Both are results; only one supports a recommendation."}
+  ]},
+
+  {id:"I", name:"Interpretation and transparency", axis:"Validity · Transparency", items:[
+    {id:"I1", codes:["AMSTAR Q13"], w:3, axes:["V"], crit:true, rapid:true,
+     q:"Are the study-level risk-of-bias findings actually carried into the interpretation and conclusions?",
+     why:"An AMSTAR 2 critical domain, and the one most often failed by reviews that did assess quality. Appraising bias in a table and then ignoring it in the discussion is the same as not appraising it."},
+    {id:"I2", codes:["ROBIS Phase 3"], w:3, axes:["V"], rapid:true,
+     q:"Do the conclusions follow from the evidence presented, without over-claiming or leaning on statistical significance alone?",
+     why:"Compare the abstract's claims against the results section. Recommendations for practice drawn from a handful of small, high-risk studies are the standard overreach."},
+    {id:"I3", codes:["PRISMA 23b","PRISMA 23c"], w:2, axes:["V","T"], rapid:false,
+     q:"Are limitations of both the evidence and the review process discussed candidly?",
+     why:"Two distinct items in PRISMA 2020. Most reviews discuss the first and skip the second — the review's own methodological shortcomings."},
+    {id:"I4", codes:["PRISMA 23d"], w:1, axes:["T"], rapid:false,
+     q:"Are implications for practice, policy and future research stated?",
+     why:"The point of synthesising. Vague calls for “more research” without specifying which question is unanswered do not qualify."},
+    {id:"I5", codes:["AMSTAR Q16","PRISMA 25","PRISMA 26"], w:2, axes:["T"], rapid:false,
+     q:"Are the review's own funding sources and competing interests declared?",
+     why:"Includes the reviewers' intellectual stake — authors synthesising a literature they substantially wrote have a conflict worth naming."},
+    {id:"I6", codes:["PRISMA 27"], w:2, axes:["R"], rapid:false,
+     q:"Are the data, extraction files, analytic code, or search outputs publicly available?",
+     why:"The difference between a review a reader can verify and one they can only believe. A list of the included studies is the minimum."}
+  ]}
+];
+
+var ALL = [];
+DOMAINS.forEach(function(d){ d.items.forEach(function(it){ it.domain = d.id; it.domainName = d.name; ALL.push(it); }); });
+
+var JUDGE = [["yes","Yes"],["partial","Partial"],["no","No"],["na","N/A"]];
+var VAL = {yes:1, partial:0.5, no:0};
+
+/* ===================== STATE ===================== */
+var state = {
+  meta:{cite:"", appraiser:"", date:"", type:"meta", framework:"PICO", field:"health"},
+  ans:{}, notes:{}, mode:"full", collapsed:{}
+};
+var KEY = "review-auditor-v1";
+
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+}
+function load(){
+  try{
+    var raw = localStorage.getItem(KEY);
+    if(!raw) return;
+    var o = JSON.parse(raw);
+    if(o && typeof o === "object"){
+      state.meta = Object.assign(state.meta, o.meta||{});
+      state.ans = o.ans||{}; state.notes = o.notes||{};
+      state.mode = o.mode||"full"; state.collapsed = o.collapsed||{};
+    }
+  }catch(e){}
+}
+
+/* auto-N/A: an item whose precondition the review does not meet */
+function autoNA(it){
+  var t = state.meta.type;
+  if(it.req === "meta" && t !== "meta") return true;
+  if(it.req === "nonmeta" && t === "meta") return true;
+  return false;
+}
+function visible(it){
+  if(state.mode === "rapid" && !it.rapid) return false;
+  return true;
+}
+function answerOf(it){
+  if(autoNA(it)) return "na";
+  return state.ans[it.id] || null;
+}
+
+/* ===================== SCORING ===================== */
+function compute(){
+  var axes = {V:{e:0,p:0}, R:{e:0,p:0}, T:{e:0,p:0}};
+  var flaws = [], weaks = [], judged = 0, total = 0;
+
+  ALL.forEach(function(it){
+    if(!visible(it)) return;
+    var a = answerOf(it);
+    var isAuto = autoNA(it);
+    if(!isAuto) total++;
+    if(a && !isAuto) judged++;
+    if(!a || a === "na") return;
+
+    it.axes.forEach(function(ax){
+      axes[ax].p += it.w;
+      axes[ax].e += it.w * VAL[a];
+    });
+
+    if(it.crit){
+      if(a === "no") flaws.push(it);
+      else if(a === "partial") weaks.push(it);
+    }else{
+      if(a === "no" || a === "partial") weaks.push(it);
+    }
+  });
+
+  function pct(o){ return o.p > 0 ? Math.round(100 * o.e / o.p) : null; }
+  var V = pct(axes.V), R = pct(axes.R), T = pct(axes.T);
+
+  var parts = [], wts = [];
+  if(V !== null){ parts.push(V*0.45); wts.push(0.45); }
+  if(R !== null){ parts.push(R*0.35); wts.push(0.35); }
+  if(T !== null){ parts.push(T*0.20); wts.push(0.20); }
+  var wsum = wts.reduce(function(a,b){return a+b;},0);
+  var composite = wsum > 0 ? Math.round(parts.reduce(function(a,b){return a+b;},0)/wsum) : null;
+
+  var amstar;
+  if(judged === 0) amstar = {key:"pending", label:"Pending", cls:"a-mod"};
+  else if(flaws.length >= 2) amstar = {key:"crit", label:"Critically low", cls:"a-crit"};
+  else if(flaws.length === 1) amstar = {key:"low", label:"Low", cls:"a-low"};
+  else if(weaks.length > 1) amstar = {key:"mod", label:"Moderate", cls:"a-mod"};
+  else amstar = {key:"high", label:"High", cls:"a-high"};
+
+  /* verdict = more conservative of composite band and AMSTAR-style cap */
+  var rank = ["Not a safe basis","Weak","Limited","Sound with gaps","Strong"];
+  var band = 0;
+  if(composite !== null){
+    if(composite >= 82) band = 4;
+    else if(composite >= 68) band = 3;
+    else if(composite >= 52) band = 2;
+    else if(composite >= 35) band = 1;
+    else band = 0;
+  }
+  var cap = 4;
+  if(amstar.key === "crit") cap = 0;
+  else if(amstar.key === "low") cap = 2;
+  else if(amstar.key === "mod") cap = 3;
+  var finalBand = judged === 0 ? null : Math.min(band, cap);
+
+  return {V:V, R:R, T:T, composite:composite, amstar:amstar, flaws:flaws, weaks:weaks,
+          judged:judged, total:total, band:finalBand, bandName: finalBand===null?null:rank[finalBand],
+          cappedByAmstar: finalBand !== null && cap < band};
+}
+
+function bandClass(n){
+  if(n === null) return "";
+  return n >= 3 ? "v-good" : n >= 2 ? "v-warn" : "v-bad";
+}
+function fillClass(v){ return v >= 80 ? "f-good" : v >= 60 ? "f-warn" : "f-bad"; }
+
+/* ===================== RENDER: INSTRUMENT ===================== */
+function el(tag, cls, txt){
+  var n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(txt !== undefined) n.textContent = txt;
+  return n;
+}
+
+function renderDomains(){
+  var wrap = document.getElementById("domains");
+  wrap.innerHTML = "";
+  DOMAINS.forEach(function(d, di){
+    var items = d.items.filter(visible);
+    if(!items.length) return;
+
+    var sec = el("section","card domain");
+    if(state.collapsed[d.id]) sec.classList.add("collapsed");
+
+    var head = el("div","dhead");
+    head.setAttribute("tabindex","0");
+    head.setAttribute("role","button");
+    head.appendChild(el("span","idx", d.id));
+    head.appendChild(el("h3","", d.name));
+    var mx = el("div","matrix");
+    items.forEach(function(it){
+      var a = answerOf(it);
+      mx.appendChild(el("span","cell" + (a ? " " + a : "")));
+    });
+    head.appendChild(mx);
+    head.appendChild(el("span","axis-tag", d.axis));
+    head.appendChild(el("span","chev","▼"));
+    head.addEventListener("click", function(){
+      state.collapsed[d.id] = !state.collapsed[d.id];
+      sec.classList.toggle("collapsed");
+      save();
+    });
+    head.addEventListener("keydown", function(e){
+      if(e.key === "Enter" || e.key === " "){ e.preventDefault(); head.click(); }
+    });
+    sec.appendChild(head);
+
+    var body = el("div","dbody");
+    items.forEach(function(it){
+      body.appendChild(renderItem(it));
+    });
+    sec.appendChild(body);
+    wrap.appendChild(sec);
+  });
+}
+
+function renderItem(it){
+  var node = el("div","item");
+  node.dataset.id = it.id;
+  if(autoNA(it)) node.classList.add("isna");
+
+  var top = el("div","item-top");
+  var qcol = el("div","item-q");
+
+  var codes = el("div","codes");
+  codes.appendChild(el("span","code", it.id));
+  it.codes.forEach(function(c){
+    codes.appendChild(el("span","code", c));
+  });
+  if(it.crit) codes.appendChild(el("span","code crit","CRITICAL DOMAIN"));
+  qcol.appendChild(codes);
+
+  qcol.appendChild(el("div","qtext", it.q));
+  var why = el("div","why");
+  why.innerHTML = it.why;
+  qcol.appendChild(why);
+  top.appendChild(qcol);
+
+  var judge = el("div","judge");
+  JUDGE.forEach(function(pair){
+    var b = el("button","", pair[1]);
+    b.dataset.v = pair[0];
+    b.type = "button";
+    if(answerOf(it) === pair[0]) b.dataset.on = "1";
+    if(autoNA(it)) b.disabled = true;
+    b.addEventListener("click", function(){
+      if(state.ans[it.id] === pair[0]) delete state.ans[it.id];
+      else state.ans[it.id] = pair[0];
+      save(); refresh();
+    });
+    judge.appendChild(b);
+  });
+  top.appendChild(judge);
+  node.appendChild(top);
+
+  var ta = el("textarea","note");
+  ta.placeholder = autoNA(it)
+    ? "Not applicable given the synthesis type selected above."
+    : "Evidence — page, table, or quotation supporting this judgement";
+  ta.value = state.notes[it.id] || "";
+  ta.rows = 1;
+  ta.addEventListener("input", function(){
+    state.notes[it.id] = ta.value;
+    ta.style.height = "auto";
+    ta.style.height = Math.max(34, ta.scrollHeight) + "px";
+    save();
+  });
+  node.appendChild(ta);
+  return node;
+}
+
+/* ===================== RENDER: RAIL ===================== */
+var METERS = [
+  {k:"V", name:"Validity", desc:"Whether the review's answer is likely to be true — search coverage, selection bias, appraisal, synthesis, interpretation."},
+  {k:"R", name:"Reliability", desc:"Whether another team following the same method would land in the same place — protocol, explicit criteria, duplication, agreement statistics."},
+  {k:"T", name:"Transparency", desc:"Whether the review is reported completely enough to be checked, against PRISMA 2020."}
+];
+
+function renderRail(s){
+  var band = document.getElementById("verdict-band");
+  var name = document.getElementById("verdict-name");
+  var note = document.getElementById("verdict-note");
+  band.className = "verdict-band " + bandClass(s.band);
+
+  if(s.band === null){
+    name.textContent = "Not yet judged";
+    note.textContent = "Work through the domains. The verdict takes the more conservative of the weighted score and the AMSTAR 2–style flaw count.";
+  }else{
+    name.textContent = s.bandName;
+    var txt = "Weighted score " + s.composite + " / 100.";
+    if(s.cappedByAmstar){
+      txt += " Capped by " + s.flaws.length + " critical flaw" + (s.flaws.length === 1 ? "" : "s") +
+             " — the score alone would have read “" + ["Not a safe basis","Weak","Limited","Sound with gaps","Strong"][
+               s.composite >= 82 ? 4 : s.composite >= 68 ? 3 : s.composite >= 52 ? 2 : s.composite >= 35 ? 1 : 0] + ".”";
+    }
+    note.textContent = txt;
+    if(s.judged < s.total){
+      var p = el("span","provisional","Provisional — " + (s.total - s.judged) + " unjudged");
+      note.appendChild(document.createElement("br"));
+      note.appendChild(p);
+    }
+  }
+
+  var m = document.getElementById("meters");
+  m.innerHTML = "";
+  METERS.forEach(function(def){
+    var v = s[def.k];
+    var box = el("div","meter");
+    var head = el("div","meter-head");
+    head.appendChild(el("span","meter-name", def.name));
+    head.appendChild(el("span","meter-val", v === null ? "—" : v + "%"));
+    box.appendChild(head);
+    var track = el("div","track");
+    var fill = el("div","fill " + (v === null ? "f-bad" : fillClass(v)));
+    fill.style.width = (v === null ? 0 : v) + "%";
+    track.appendChild(fill);
+    box.appendChild(track);
+    box.appendChild(el("div","meter-desc", def.desc));
+    m.appendChild(box);
+  });
+
+  var chip = document.getElementById("amstar-chip");
+  chip.className = "amstar-chip " + s.amstar.cls;
+  chip.textContent = s.amstar.label;
+  document.getElementById("amstar-detail").textContent =
+    s.judged === 0 ? "Driven by the seven critical domains: B1, C1, D4, F1, G2, H1, I1."
+    : s.flaws.length + " critical flaw" + (s.flaws.length === 1 ? "" : "s") + ", " +
+      s.weaks.length + " other weakness" + (s.weaks.length === 1 ? "" : "es") + ".";
+
+  var adv = document.getElementById("advisory-slot");
+  adv.innerHTML = "";
+  if(state.meta.field === "social" && (s.amstar.key === "crit" || s.amstar.key === "low")){
+    var a = el("div","advisory");
+    a.innerHTML = "<b>Calibration note.</b> AMSTAR 2 was built for reviews of health interventions. Education and social-science reviews rate <i>low</i> or <i>critically low</i> at very high rates, largely on protocol registration, formal risk-of-bias tools, and study-level exclusion lists. Read the domain profile and the flags rather than the single label, and say so explicitly if you cite this rating.";
+    adv.appendChild(a);
+  }else{ adv.style.display = "none"; }
+  if(adv.innerHTML) adv.style.display = "";
+
+  var ul = document.getElementById("flags");
+  ul.innerHTML = "";
+  if(!s.flaws.length && !s.weaks.length){
+    ul.appendChild(el("li","clean", s.judged === 0 ? "Nothing judged yet." : "No flaws or weaknesses recorded."));
+  }else{
+    s.flaws.forEach(function(it){
+      var li = el("li","f-crit");
+      li.innerHTML = "<b>" + it.id + " — critical flaw.</b> " + shortLabel(it);
+      ul.appendChild(li);
+    });
+    s.weaks.slice(0,8).forEach(function(it){
+      var li = el("li","f-weak");
+      li.innerHTML = "<b>" + it.id + ".</b> " + shortLabel(it);
+      ul.appendChild(li);
+    });
+    if(s.weaks.length > 8){
+      var li = el("li","f-weak");
+      li.innerHTML = "<b>+" + (s.weaks.length - 8) + " more</b> in the full report.";
+      ul.appendChild(li);
+    }
+  }
+
+  document.getElementById("prog-text").textContent = s.judged + " / " + s.total;
+  var pf = document.getElementById("prog-fill");
+  pf.style.width = (s.total ? Math.round(100*s.judged/s.total) : 0) + "%";
+}
+
+function shortLabel(it){
+  var t = it.q.replace(/\?$/,"");
+  if(t.length > 88) t = t.slice(0,86).replace(/[\s,—-]+$/,"") + "…";
+  return t;
+}
+
+/* ===================== RENDER: REPORT ===================== */
+var JLAB = {yes:"Yes", partial:"Partial", no:"No", na:"N/A"};
+var TYPELAB = {meta:"Systematic review with meta-analysis", narrative:"Systematic review, narrative synthesis",
+               qual:"Qualitative evidence synthesis", mixed:"Mixed-methods systematic review"};
+
+function renderReport(s){
+  var b = document.getElementById("report-body");
+  var m = state.meta;
+  var html = "";
+
+  html += '<h2>' + esc(m.cite || "Untitled review") + '</h2>';
+  html += '<div class="meta">Appraised by <b>' + esc(m.appraiser || "—") + '</b>' +
+          (m.date ? " on <b>" + esc(m.date) + "</b>" : "") + '<br>' +
+          esc(TYPELAB[m.type]) + " · question framework: <b>" + esc(m.framework) + "</b> · " +
+          (m.field === "social" ? "education / social science" : "health / clinical") + '<br>' +
+          'Instrument: PRISMA 2020, AMSTAR 2 (adapted), ROBIS · ' +
+          (state.mode === "rapid" ? "rapid screen" : "full appraisal") + ", " + s.judged + " of " + s.total + " items judged.</div>";
+
+  html += '<div class="rule"></div>';
+  html += '<h3>Verdict</h3>';
+  html += '<div class="scoregrid">';
+  html += box(s.bandName || "—", "Overall", bandColor(s.band));
+  html += box(s.composite === null ? "—" : s.composite, "Weighted score / 100", "");
+  html += box(s.amstar.label, "AMSTAR 2–style confidence", amColor(s.amstar.key));
+  html += '</div>';
+
+  html += '<div class="scoregrid" style="margin-top:14px">';
+  html += box(s.V === null ? "—" : s.V + "%", "Validity", scoreColor(s.V));
+  html += box(s.R === null ? "—" : s.R + "%", "Reliability", scoreColor(s.R));
+  html += box(s.T === null ? "—" : s.T + "%", "Transparency", scoreColor(s.T));
+  html += '</div>';
+
+  html += '<h3>Summary judgement</h3>';
+  html += '<p>' + esc(narrative(s)) + '</p>';
+
+  if(s.flaws.length){
+    html += '<h3>Critical flaws</h3><ul>';
+    s.flaws.forEach(function(it){
+      html += '<li><b>' + it.id + " — " + esc(it.domainName) + '.</b> ' + esc(it.q) +
+              (state.notes[it.id] ? ' <i>' + esc(state.notes[it.id]) + '</i>' : "") + '</li>';
+    });
+    html += '</ul>';
+  }
+  if(s.weaks.length){
+    html += '<h3>Other weaknesses</h3><ul>';
+    s.weaks.forEach(function(it){
+      var a = answerOf(it);
+      html += '<li><b>' + it.id + '</b> (' + JLAB[a] + ') — ' + esc(shortLabel(it)) + '.</li>';
+    });
+    html += '</ul>';
+  }
+
+  html += '<h3>Item-by-item record</h3><div class="tablewrap"><table class="rtable"><thead><tr>' +
+          '<th style="width:44px">Item</th><th>Question</th><th style="width:130px">Standard</th><th style="width:64px">Judgement</th>' +
+          '</tr></thead><tbody>';
+  DOMAINS.forEach(function(d){
+    var items = d.items.filter(visible);
+    if(!items.length) return;
+    html += '<tr><td colspan="4" style="padding-top:16px"><b>' + d.id + ". " + esc(d.name) + '</b></td></tr>';
+    items.forEach(function(it){
+      var a = answerOf(it);
+      html += '<tr><td class="c">' + it.id + (it.crit ? " ★" : "") + '</td>' +
+              '<td>' + esc(it.q) + (state.notes[it.id] ? '<span class="rnote">' + esc(state.notes[it.id]) + '</span>' : "") + '</td>' +
+              '<td class="c">' + it.codes.join("<br>") + '</td>' +
+              '<td class="j j-' + (a || "none") + '">' + (a ? JLAB[a] : "—") + '</td></tr>';
+    });
+  });
+  html += '</tbody></table></div>';
+  html += '<div class="rule"></div>';
+  html += '<p style="font-size:12px;color:var(--ink-3)">★ marks the seven AMSTAR 2 critical domains. The confidence rating applies AMSTAR 2\'s critical-domain algorithm across this broader item set and is therefore an adaptation, not a formal AMSTAR 2 rating.</p>';
+
+  b.innerHTML = html;
+}
+
+function box(n, l, color){
+  return '<div class="scorebox"><div class="n"' + (color ? ' style="color:' + color + '"' : "") + '>' + esc(String(n)) +
+         '</div><div class="l">' + esc(l) + '</div></div>';
+}
+function bandColor(n){
+  if(n === null) return "";
+  return n >= 3 ? "var(--good)" : n >= 2 ? "var(--warn)" : "var(--bad)";
+}
+function amColor(k){
+  return k === "high" ? "var(--good)" : k === "mod" ? "var(--accent)" : k === "low" ? "var(--warn)" : k === "crit" ? "var(--bad)" : "";
+}
+function scoreColor(v){
+  if(v === null) return "";
+  return v >= 80 ? "var(--good)" : v >= 60 ? "var(--warn)" : "var(--bad)";
+}
+
+function narrative(s){
+  if(s.judged === 0) return "No items have been judged yet.";
+  var out = [];
+  out.push("Across " + s.judged + " judged items this review scores " + s.V + "% on validity, " +
+           s.R + "% on reliability, and " + s.T + "% on transparency, for a weighted " + s.composite + " out of 100.");
+  if(s.flaws.length === 0){
+    out.push("No critical domain was failed outright.");
+  }else{
+    out.push("It fails " + s.flaws.length + " of the seven critical domains (" +
+             s.flaws.map(function(i){return i.id;}).join(", ") + "), which caps confidence at “" + s.amstar.label.toLowerCase() + "” under the AMSTAR 2 algorithm regardless of how it performs elsewhere.");
+  }
+  var weakest = [["validity", s.V], ["reliability", s.R], ["transparency", s.T]]
+    .filter(function(p){ return p[1] !== null; })
+    .sort(function(a,b){ return a[1]-b[1]; })[0];
+  if(weakest) out.push("The weakest axis is " + weakest[0] + " at " + weakest[1] + "%.");
+  if(s.judged < s.total) out.push("Note that " + (s.total - s.judged) + " applicable items remain unjudged, so these figures are provisional.");
+  return out.join(" ");
+}
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+  });
+}
+
+/* ===================== WIRING ===================== */
+function refresh(){
+  var s = compute();
+  renderDomains();
+  renderRail(s);
+  renderReport(s);
+  document.querySelectorAll("textarea.note").forEach(function(ta){
+    ta.style.height = "auto";
+    ta.style.height = Math.max(34, ta.scrollHeight) + "px";
+  });
+}
+
+function syncMeta(){
+  document.querySelectorAll("[data-meta]").forEach(function(inp){
+    inp.value = state.meta[inp.dataset.meta] || "";
+    inp.addEventListener("change", function(){
+      state.meta[inp.dataset.meta] = inp.value;
+      save(); refresh();
+    });
+    inp.addEventListener("input", function(){
+      state.meta[inp.dataset.meta] = inp.value;
+      save();
+    });
+  });
+}
+
+var toastTimer;
+function toast(msg){
+  var t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 2200);
+}
+
+document.getElementById("tab-appraise").addEventListener("click", function(){ setTab("appraise"); });
+document.getElementById("tab-report").addEventListener("click", function(){ setTab("report"); });
+function setTab(which){
+  var a = which === "appraise";
+  document.getElementById("tab-appraise").setAttribute("aria-selected", a ? "true" : "false");
+  document.getElementById("tab-report").setAttribute("aria-selected", a ? "false" : "true");
+  document.getElementById("view-appraise").classList.toggle("hidden", !a);
+  document.getElementById("view-report").classList.toggle("hidden", a);
+  window.scrollTo({top:0, behavior:"instant"});
+}
+
+document.getElementById("btn-mode").addEventListener("click", function(){
+  state.mode = state.mode === "full" ? "rapid" : "full";
+  this.textContent = state.mode === "full" ? "Rapid screen" : "Full appraisal";
+  save(); refresh();
+  toast(state.mode === "rapid" ? "Rapid screen — critical items only" : "Full appraisal — all 46 items");
+});
+
+document.getElementById("btn-reset").addEventListener("click", function(){
+  state.ans = {}; state.notes = {}; state.collapsed = {};
+  state.meta = {cite:"", appraiser:"", date:"", type:"meta", framework:"PICO", field:"health"};
+  save(); syncMeta(); refresh();
+  toast("Cleared");
+});
+
+document.getElementById("btn-io").addEventListener("click", function(){
+  var p = document.getElementById("io-panel");
+  p.classList.toggle("open");
+  if(p.classList.contains("open")) document.getElementById("io-text").value = JSON.stringify(state, null, 1);
+});
+document.getElementById("btn-copy-json").addEventListener("click", function(){
+  var t = document.getElementById("io-text");
+  t.value = JSON.stringify(state, null, 1);
+  t.select();
+  navigator.clipboard.writeText(t.value).then(function(){ toast("Appraisal data copied"); },
+    function(){ toast("Select the text and copy it manually"); });
+});
+document.getElementById("btn-load-json").addEventListener("click", function(){
+  try{
+    var o = JSON.parse(document.getElementById("io-text").value);
+    state.meta = Object.assign({cite:"",appraiser:"",date:"",type:"meta",framework:"PICO",field:"health"}, o.meta||{});
+    state.ans = o.ans||{}; state.notes = o.notes||{}; state.mode = o.mode||"full"; state.collapsed = o.collapsed||{};
+    document.getElementById("btn-mode").textContent = state.mode === "full" ? "Rapid screen" : "Full appraisal";
+    save(); syncMeta(); refresh();
+    toast("Appraisal restored");
+  }catch(e){
+    toast("That is not valid appraisal data — paste the whole block");
+  }
+});
+
+/* ===================== WORKED EXAMPLE ===================== */
+var EXAMPLE = {
+  meta:{
+    cite:"Chng, E., Tan, A. L., & Tan, S. C. (2023). Examining the Use of Emerging Technologies in Schools: a Review of Artificial Intelligence and Immersive Technologies in STEM Education. Journal for STEM Education Research, 6, 385–407.",
+    appraiser:"Worked example", date:"2026-08-25", type:"narrative", framework:"PEO", field:"social"
+  },
+  ans:{
+    A1:"yes", A2:"partial", A3:"partial", A4:"partial", A5:"yes", A6:"yes",
+    B1:"no", B2:"no", B3:"na", B4:"yes",
+    C1:"partial", C2:"partial", C3:"no", C4:"no", C5:"no", C6:"partial", C7:"yes",
+    D1:"yes", D2:"no", D3:"no", D4:"partial", D5:"yes",
+    E1:"partial", E2:"yes", E3:"no", E4:"partial", E5:"partial",
+    F1:"partial", F2:"no", F3:"no", F4:"no",
+    G1:"yes", G3:"partial", G5:"yes", G6:"partial",
+    H2:"partial", H3:"no",
+    I1:"no", I2:"partial", I3:"yes", I4:"yes", I5:"partial", I6:"yes"
+  },
+  notes:{
+    A1:"Two research questions stated explicitly at the end of the Introduction: which AI and immersive technologies have been used, and where their implementation value lies.",
+    A2:"Population (K–12 and higher-education STEM learners) and exposure (AI and immersive technologies) are clear; outcomes are framed as science-education goals and implementation value, which are analytic categories rather than pre-specified outcomes. No comparator — appropriate for a mapping review, but it means the question is PEO-shaped rather than PICO-shaped and should be labelled as such.",
+    A3:"Three inclusion criteria given: empirical work; used for student education or teacher professional development; passes a quality check. The first two are applicable by a second coder; the third is not — see F1.",
+    A4:"Journals-only and academic-papers-only restrictions are applied (n=47 excluded on this basis) and acknowledged in Limitations, but not justified at the point of application.",
+    A5:"Rationale is well developed — identifies the roadmap gap and positions against Xu & Ouyang (2022).",
+    A6:"Empirical-only inclusion is explained: the interest is in practical implementation, so reviews, commentaries and opinion pieces are excluded (n=96).",
+    B1:"No registration mentioned. PROSPERO does not accept most education reviews, but OSF Registries does — this is one of two critical flaws.",
+    B2:"No protocol referenced or deposited. PRISMA is cited as the reporting framework, which is not the same as a pre-specified protocol.",
+    B3:"Not applicable — no protocol exists to deviate from.",
+    B4:"The stated criteria appear to be applied consistently: the flow diagram exclusion categories map directly onto the three inclusion criteria.",
+    C1:"Three databases — Academic Search Premier, Education Source, ERIC — but all via a single EBSCOhost platform, which the authors themselves flag in Limitations. Partial rather than full credit: Scopus, Web of Science and IEEE Xplore index much of this literature and were not searched.",
+    C2:"Seven dual-keyword combinations are listed (“STEM Education AND Artificial Intelligence” and so on), which is more than most education reviews report, but no executable string, field tags, filters or limits are given. Nobody could rerun this search and reproduce n=383.",
+    C3:"No search date reported. The paper was accepted February 2023; a reader cannot tell whether the search predates that by three months or two years.",
+    C4:"No reference-list chasing, citation searching or hand-searching described.",
+    C5:"None. Books are explicitly excluded and acknowledged in Limitations; no theses, conference proceedings or reports. In a field where much AI-in-education work appears at AIED, EDM and LAK conferences, this is a substantive coverage gap.",
+    C6:"The journal-only limit is discussed in Limitations. No language restriction is stated — though searching only English keyword strings imposes one implicitly.",
+    C7:"No year limit was applied by design, and the sample runs to 2022 against a 2023 acceptance, so recency is not a concern here.",
+    D1:"Figure 1 is a proper PRISMA flow diagram with counts at every stage.",
+    D2:"No mention of independent double screening at title/abstract or full text. The coding process describes the first author working through the corpus with partial checking — that is a single-screener design.",
+    D3:"No kappa or percentage agreement for screening.",
+    D4:"The flow diagram gives exclusion reasons by category with counts (non-empirical n=96; not used for student education or teacher PD n=67; failed quality check n=23), which earns partial credit. No study-level list of the 186 excluded full texts, so the 23 quality-check exclusions in particular cannot be audited. AMSTAR 2 critical domain.",
+    D5:"The arithmetic closes: 383 − 68 = 315; 315 − 47 = 268; 268 − 96 − 67 − 23 = 82.",
+    E1:"The first author coded all 82 papers; the other authors coded a 30% subset. AMSTAR 2's threshold for full credit is 80% dual-coded, so this is partial — though it is more than many education reviews report.",
+    E2:"Table 1 sets out the finalised codes and their represented meanings, and the derivation from Kelly & Licona (2015) and Kirkwood & Price (2016) is explained. This is a genuine strength.",
+    E3:"The paper states that discussions continued until there was “agreement on all the codes”. That is a resolution procedure, not a reliability statistic. No kappa, no alpha, no percentage agreement — so the reproducibility of the central analytic act is unevidenced. This is the most consequential reliability gap in the review.",
+    E4:"The three analytic aspects (technology type, science education goal, implementation value) are set out in advance and grounded in theory. Handling of papers with missing or ambiguous information is not described — two papers reporting no education level are noted but the rule applied is not stated.",
+    E5:"Grade level, publication year, technology type and education goal are reported across the corpus, and the Appendix lists all 82 papers. Sample sizes, settings and study designs of the included studies are not tabulated.",
+    F1:"A quality check was performed and its criteria are stated — are methods described in sufficient detail, are data adequate to support the claims, with sample size used for quantitative work and coding process for qualitative. That is more than nothing, but it is an ad hoc instrument rather than a named tool (MMAT, CASP, or a documented rubric), the thresholds are not operationalised, and 23 papers were excluded on it without a list. Partial credit. AMSTAR 2 critical domain.",
+    F2:"No per-study quality judgements are reported for the 82 included papers — only that all passed the check.",
+    F3:"No indication that the quality check was done in duplicate.",
+    F4:"Funding of the included studies is not reported. In technology-intervention research, vendor involvement is a live concern.",
+    G1:"Descriptive frequency synthesis across three coded dimensions is the right choice for a corpus this heterogeneous, and the paper is clear that it is mapping the field rather than estimating an effect. No pooling is attempted, correctly.",
+    G3:"Variation across the corpus is described (by technology, grade level, period) but not treated as something to explain — for instance, why computer vision is rare is discussed speculatively rather than analytically.",
+    G5:"All 82 included papers appear in the analysis and in the Appendix.",
+    G6:"Aggregate frequencies are presented in figures; individual study-level results are not tabulated, so a reader cannot check the coding of any particular paper against its source.",
+    H2:"Limitations acknowledge that the STEM acronym as a search term will have missed papers and that books were excluded, which is adjacent to the point. The risk that null or unfavourable technology findings are underpublished is not raised — a real concern in this literature.",
+    H3:"No GRADE, GRADE-CERQual or equivalent. The 58.9% figure for transformational applications is reported without any statement of confidence in it.",
+    I1:"The quality check functions as a gate, not as an interpretive lens: once papers pass, their methodological strength plays no part in the discussion or in the three research agendas derived from it. AMSTAR 2 critical domain, and the most common failure mode in education reviews.",
+    I2:"The three research agendas follow reasonably from the descriptive findings and the authors are appropriately tentative about mechanisms. The abstract's 58.9% figure is stated flatly, without the coding-reliability caveat it needs.",
+    I3:"A substantial Limitations section covering the search term, the single platform, and the journals-only scope. Candid about the review's own process, which is more than most manage.",
+    I4:"Three research agendas plus four practitioner considerations — resources, purpose, learning outcomes, pedagogical implications.",
+    I5:"A data availability statement is present and supplementary material is deposited. Verify the competing-interests declaration in the published version before citing this line — it was not located in the pages appraised here.",
+    I6:"The Appendix lists all 82 reviewed papers and supplementary information is available, so the corpus itself is inspectable even though the coding decisions are not."
+  },
+  mode:"full", collapsed:{}
+};
+
+document.getElementById("btn-example").addEventListener("click", function(){
+  state.meta = Object.assign({}, EXAMPLE.meta);
+  state.ans = Object.assign({}, EXAMPLE.ans);
+  state.notes = Object.assign({}, EXAMPLE.notes);
+  state.mode = "full";
+  state.collapsed = {};
+  document.getElementById("btn-mode").textContent = "Rapid screen";
+  save(); syncMeta(); refresh();
+  toast("Worked example loaded — Chng et al. (2023)");
+});
+
+/* ===================== BOOT ===================== */
+load();
+document.getElementById("btn-mode").textContent = state.mode === "full" ? "Rapid screen" : "Full appraisal";
+syncMeta();
+refresh();
+
+})();
+</script>
+
+</body></html>
