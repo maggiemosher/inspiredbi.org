@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 101 for Educators: Interactive Crash Course</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        },
+                        amberBrand: {
+                            50: '#fffbeed',
+                            100: '#fef3c7',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-slate-800 font-sans antialiased selection:bg-amber-200 selection:text-amber-900">
+
+<!-- Chosen Palette: Warm Editorial & Educational Clarity (Background: bg-stone-50, Primary: Slate-800/900, Accents: Warm Amber-500, Indigo-600, Emerald-600) -->
+
+<!-- Application Structure Plan:
+    Designed as a modular, non-linear interactive learning experience for new educators. Instead of a passive document layout, the SPA organizes the report's pedagogical core into 6 active modules:
+    1. Hero & Mindset Setup: Introduces Adaptive Expertise vs. Tool Hoarding.
+    2. Module 1 - What IS AI?: Dynamic visual taxonomy of AI, 5-step machine learning pipeline, and interactive Chart.js Benefits vs. Limitations diagnostic. Includes YouTube video modal integration.
+    3. Module 2 - Adaptive Expertise vs AI Workslop: Interactive scenario matrix contrasting Routine vs. Adaptive practice, supported by Cult of Pedagogy podcast listening hub.
+    4. Module 3 - Intelligent-TPACK Self-Assessment: Interactive 5-domain rubric with live Chart.js Radar visualization and tailored UNESCO level advice.
+    5. Module 4 - Prompt Studio & Roleplay Simulator: Hands-on prompt generator for teachers and live AI parent-teacher conference rehearsal sandbox. Includes Edutopia video guide.
+    6. Module 5 - Classroom Ethics & Agreement Generator: Interactive Traffic Light (Red/Yellow/Green) classroom policy generator and Hallucination Detective critical thinking exercise.
+    7. Module 6 - Educator PD & Research Toolkit: Curation of agentic research tools, frameworks (UNESCO, OECD), and Substack/LinkedIn networking links.
+    Why: Keeps cognitive load balanced, promotes active learning, and provides immediately actionable tools for new teachers.
+-->
+
+<!-- Visualization & Content Choices:
+    1. AI Taxonomy & Family Tree: Interactive HTML/CSS Card Tabs (AI -> ML -> Deep Learning -> GenAI -> LLMs). Goal: Organize. Interaction: Click tab to update focus block. Justification: Avoids dense text clutter.
+    2. AI Benefits vs Limitations: Dynamic Chart.js Horizontal Bar Chart with Category Filter. Goal: Compare. Interaction: Toggle filter between Productivity, Pedagogy, Ethics, Student Impact. Justification: Balanced representation without SVG graphics.
+    3. Routine vs Adaptive Expertise Matrix: Dynamic HTML Split View with Scenario Dropdown. Goal: Change/Compare. Interaction: Select real classroom dilemmas to see contrasting responses. Justification: High cognitive impact for teachers.
+    4. Intelligent-TPACK Radar Assessment: Chart.js Radar Chart connected to 5 interactive range sliders. Goal: Assess/Inform. Interaction: Drag sliders to see real-time skill profile. Justification: Gives personalized feedback.
+    5. Classroom Traffic Light Agreement Generator: HTML Interactive Form yielding formatted printable table. Goal: Create/Organize. Interaction: Toggle green/yellow/red rules. Justification: Provides direct classroom output.
+    6. Critical AI Literacy Questions Explorer: Filterable accordion by 6 domains (Output Evaluation, Bias, Thinking Ownership, System Understanding, Ethics, Strategic Use). Goal: Inform.
+    7. Video & Podcast Cards: Styled HTML cards with embedded audio player preview UI and links/modal launchers. Goal: Inform/Engage.
+    NO SVG graphics used. NO Mermaid JS used. All visual icons utilize standard UTF-8 Unicode characters and CSS design patterns.
+-->
+
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <span class="text-2xl" role="img" aria-label="Rocket">🚀</span>
+                    <div>
+                        <span class="font-extrabold text-lg text-slate-900 tracking-tight">AI 101</span>
+                        <span class="text-xs px-2 py-0.5 ml-2 bg-amber-100 text-amber-800 font-semibold rounded-full">For Educators</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Nav -->
+                <nav class="hidden lg:flex items-center space-x-1 text-sm font-medium text-slate-600">
+                    <a href="#mindset" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition">Mindset</a>
+                    <a href="#module1" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition">1. What is AI?</a>
+                    <a href="#module2" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition">2. Adaptive Expertise</a>
+                    <a href="#module3" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition">3. Intelligent-TPACK</a>
+                    <a href="#module4" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition">4. Prompt & Practice</a>
+                    <a href="#module5" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition">5. Classroom Ethics</a>
+                    <a href="#module6" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition">6. PD Toolkit</a>
+                </nav>
+
+                <div class="flex items-center space-x-3">
+                    <a href="#tpack-tool" class="hidden sm:inline-flex items-center px-4 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm transition">
+                        🎯 Assess Skill Profile
+                    </a>
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 focus:outline-none">
+                        <span class="text-xl">☰</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-1 text-sm font-medium text-slate-700">
+            <a href="#mindset" class="block px-3 py-2 rounded-md hover:bg-slate-100">🧠 Mindset & Adaptive Expertise</a>
+            <a href="#module1" class="block px-3 py-2 rounded-md hover:bg-slate-100">📺 Module 1: What Exactly Is AI?</a>
+            <a href="#module2" class="block px-3 py-2 rounded-md hover:bg-slate-100">⚡ Module 2: Adaptive Expertise vs. Workslop</a>
+            <a href="#module3" class="block px-3 py-2 rounded-md hover:bg-slate-100">📊 Module 3: Intelligent-TPACK Diagnostic</a>
+            <a href="#module4" class="block px-3 py-2 rounded-md hover:bg-slate-100">🛠️ Module 4: Prompt Engineering & Practice</a>
+            <a href="#module5" class="block px-3 py-2 rounded-md hover:bg-slate-100">🛡️ Module 5: Classroom Ethics & Policy</a>
+            <a href="#module6" class="block px-3 py-2 rounded-md hover:bg-slate-100">🎧 Module 6: Multimedia PD & Research Hub</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-b from-amber-50/70 via-stone-50 to-stone-50 pt-12 pb-16 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-200 text-amber-900 text-xs font-semibold">
+                        <span>🎓 Masterclass for New Teachers</span>
+                        <span>•</span>
+                        <span>2026 Pedagogy Framework Edition</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                        AI 101 for Educators: <br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-amber-600 to-amber-700">From AI-Curious to Adaptive Expert</span>
+                    </h1>
+                    <p class="text-lg text-slate-600 leading-relaxed max-w-2xl">
+                        Welcome! If you feel overwhelmed by the constant noise of new AI tools, you are in the right place. This interactive crash course translates research from UNESCO, OECD, and leading educational scientists into practical classroom strategies, video guides, podcast hubs, and interactive planning tools.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a href="#module1" class="px-6 py-3 rounded-xl bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 shadow-md transition flex items-center space-x-2">
+                            <span>🚀 Start Course</span>
+                            <span>→</span>
+                        </a>
+                        <a href="#tpack-tool" class="px-6 py-3 rounded-xl bg-white border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50 shadow-sm transition flex items-center space-x-2">
+                            <span>📊 Interactive Diagnostic</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Stats / Highlights Box -->
+                <div class="lg:col-span-5">
+                    <div class="bg-white rounded-2xl p-6 shadow-xl border border-slate-200/80 space-y-4">
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                            <h3 class="font-bold text-slate-900 text-base">Course Learning Map</h3>
+                            <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-full">5 Modules</span>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-start space-x-3 p-2.5 rounded-xl hover:bg-slate-50 transition">
+                                <span class="text-xl">📺</span>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-900">1. Demystify the Foundations</h4>
+                                    <p class="text-xs text-slate-500">AI Family Tree, LLMs, Machine Learning, Benefits & Limits</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3 p-2.5 rounded-xl hover:bg-slate-50 transition">
+                                <span class="text-xl">⚡</span>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-900">2. Adaptive Expertise Mindset</h4>
+                                    <p class="text-xs text-slate-500">Avoid "AI Workslop" & tool hoards; focus on deep pedagogy</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3 p-2.5 rounded-xl hover:bg-slate-50 transition">
+                                <span class="text-xl">🎯</span>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-900">3. Intelligent-TPACK Rubric</h4>
+                                    <p class="text-xs text-slate-500">Evaluate Technical, Pedagogical, Content & Ethical knowledge</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3 p-2.5 rounded-xl hover:bg-slate-50 transition">
+                                <span class="text-xl">🛠️</span>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-900">4. Interactive Prompt & Practice Studio</h4>
+                                    <p class="text-xs text-slate-500">Build context-rich prompts & role-play parent/student scenarios</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3 p-2.5 rounded-xl hover:bg-slate-50 transition">
+                                <span class="text-xl">🛡️</span>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-900">5. Ethics & Classroom Policy</h4>
+                                    <p class="text-xs text-slate-500">Generate your Traffic Light AI Agreement & Hallucination Detective</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mindset Callout Section -->
+    <section id="mindset" class="py-12 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-r from-amber-500 to-amber-600 rounded-3xl p-8 sm:p-10 text-white shadow-xl relative overflow-hidden">
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-8 space-y-4">
+                        <div class="inline-flex items-center space-x-2 bg-amber-400/40 text-amber-950 font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+                            <span>🧠 Set Your Mindset</span>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+                            The Goal is Adaptive Expertise, Not Tool Hoarding
+                        </h2>
+                        <p class="text-amber-50 text-sm sm:text-base leading-relaxed">
+                            As emphasized in <em>What is Adaptive Expertise in Education</em> (Med Kharbach, PhD), the biggest mistake new educators make is trying to collect hundreds of shiny AI tools. This leads to surface-level integration known as <strong>"AI Workslop"</strong>. Instead, true mastery lies in combining deep pedagogical intent with critical human evaluation.
+                        </p>
+                        <blockquote class="italic text-xs sm:text-sm text-amber-100 border-l-2 border-amber-300 pl-3">
+                            "AI becomes a powerful cognitive enhancement tool only when we know how to use it in ways that foreground our original thinking, amplify our voice, and free up cognitive space for deeper human engagement." — Dr. Med Kharbach
+                        </blockquote>
+                    </div>
+                    <div class="lg:col-span-4 bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 space-y-3">
+                        <h4 class="font-bold text-sm text-white flex items-center space-x-2">
+                            <span>🎧 Recommended Podcast</span>
+                        </h4>
+                        <p class="text-xs text-amber-100">
+                            <strong>The Cult of Pedagogy (Ep. 205):</strong> <em>How to Use AI to Do Stuff</em> with Jennifer Gonzalez & AI experts.
+                        </p>
+                        <a href="https://www.cultofpedagogy.com/ai-stuff/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full px-4 py-2 bg-white text-amber-900 font-bold text-xs rounded-xl shadow hover:bg-amber-50 transition">
+                            <span>Listen on Cult of Pedagogy</span>
+                            <span class="ml-1">↗</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULE 1: What Exactly IS AI? -->
+    <section id="module1" class="py-16 bg-stone-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <!-- Section Intro -->
+            <div class="max-w-3xl space-y-3">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-lg bg-indigo-100 text-indigo-800 text-xs font-bold uppercase tracking-wider">
+                    <span>Module 1</span>
+                    <span>•</span>
+                    <span>Foundational Knowledge</span>
+                </div>
+                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">What Exactly *Is* Artificial Intelligence?</h2>
+                <p class="text-slate-600 text-base leading-relaxed">
+                    This section demystifies core technical buzzwords. You do not need a computer science degree to understand AI. In plain terms, AI refers to machine systems designed to make predictions, recommendations, or decisions to achieve human-defined goals (McCarthy, 2007; OECD, 2025). Explore the AI family tree below to understand how Large Language Models like ChatGPT fit into the broader tech ecosystem.
+                </p>
+            </div>
+
+            <!-- Visual Component 1: Interactive AI Family Tree -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">The AI Family Tree & Hierarchy</h3>
+                        <p class="text-xs text-slate-500">Click each tier to see how specialized technologies build upon one another.</p>
+                    </div>
+                    <span class="text-xs font-semibold bg-slate-100 text-slate-700 px-3 py-1 rounded-full">Interactive Taxonomy</span>
+                </div>
+
+                <!-- Tabs -->
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-2" id="family-tree-tabs">
+                    <button onclick="selectFamilyTab('ai')" id="tab-ai" class="p-3 text-xs font-bold rounded-xl border border-indigo-600 bg-indigo-50 text-indigo-900 shadow-sm transition text-center">
+                        1. Artificial Intelligence
+                    </button>
+                    <button onclick="selectFamilyTab('ml')" id="tab-ml" class="p-3 text-xs font-bold rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition text-center">
+                        2. Machine Learning
+                    </button>
+                    <button onclick="selectFamilyTab('dl')" id="tab-dl" class="p-3 text-xs font-bold rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition text-center">
+                        3. Deep Learning
+                    </button>
+                    <button onclick="selectFamilyTab('genai')" id="tab-genai" class="p-3 text-xs font-bold rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition text-center">
+                        4. Generative AI
+                    </button>
+                    <button onclick="selectFamilyTab('llm')" id="tab-llm" class="p-3 text-xs font-bold rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition text-center">
+                        5. LLMs (e.g. ChatGPT)
+                    </button>
+                </div>
+
+                <!-- Display Box -->
+                <div id="family-tree-display" class="bg-indigo-50/50 rounded-xl p-6 border border-indigo-100 space-y-3">
+                    <!-- Dynamic JS content rendered here -->
+                </div>
+            </div>
+
+            <!-- Video Integration Block & 5-Step Pipeline -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Video Card -->
+                <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                    <div class="flex items-center space-x-2 text-rose-600 font-bold text-xs uppercase tracking-wider">
+                        <span>🎥 Recommended Video (4 mins)</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">Code.org: How AI Works - Machine Learning</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        A short, highly accessible video created for educators and students demystifying how algorithms learn patterns from training data.
+                    </p>
+                    <div class="relative bg-slate-900 rounded-xl overflow-hidden shadow border border-slate-800 aspect-video flex flex-col items-center justify-center text-center p-4">
+                        <span class="text-4xl mb-2" role="img" aria-label="Play">▶️</span>
+                        <p class="text-xs text-white font-semibold">Code.org: What is Machine Learning?</p>
+                        <p class="text-[10px] text-slate-400 mt-1">Official YouTube Video Resource</p>
+                        <a href="https://www.youtube.com/watch?v=OeU5m6vRyCk" target="_blank" rel="noopener noreferrer" class="mt-3 px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-lg transition">
+                            Watch Video on YouTube ↗
+                        </a>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs text-slate-600 space-y-1">
+                        <span class="font-bold text-slate-800">Key takeaway for teachers:</span>
+                        <p>AI models rely on <em>probability patterns</em> from historical data, not human reasoning or truth-checking capabilities.</p>
+                    </div>
+                </div>
+
+                <!-- 5-Step AI Pipeline Interactive Stepper -->
+                <div class="lg:col-span-7 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">How AI Works: The 5-Step Pipeline</h3>
+                        <p class="text-xs text-slate-500">Click any step to explore how input data turns into an automated prediction.</p>
+                    </div>
+
+                    <div class="grid grid-cols-5 gap-2" id="pipeline-stepper">
+                        <!-- JS generated steps -->
+                    </div>
+
+                    <div id="pipeline-detail" class="bg-amber-50/60 rounded-xl p-5 border border-amber-200/80 space-y-2">
+                        <!-- JS generated content -->
+                    </div>
+
+                    <!-- 5 Critical Questions Box (Source: AI for Teachers PDF) -->
+                    <div class="bg-slate-900 text-white p-5 rounded-xl space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-amber-400">🛡️ The 5 Questions Every Teacher Must Ask About AI Output</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300">
+                            <div><strong class="text-white">1. Goal:</strong> Who set the objectives?</div>
+                            <div><strong class="text-white">2. Data:</strong> Whose examples shaped it?</div>
+                            <div><strong class="text-white">3. Evidence:</strong> How accurate is it?</div>
+                            <div><strong class="text-white">4. Impact:</strong> Who benefits/is disadvantaged?</div>
+                            <div class="sm:col-span-2"><strong class="text-white">5. Responsibility:</strong> Who corrects the errors?</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visualization Component 2: Chart.js Benefits vs Limitations Radar/Bar -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Balancing Act: Benefits vs. Limitations of AI in Education</h3>
+                        <p class="text-xs text-slate-500">Based on research syntheses in <em>AI Simply Explained for Teachers</em> (Med Kharbach, PhD).</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="updateBenefitsChart('all')" class="px-3 py-1 text-xs font-bold rounded-lg border border-slate-300 bg-slate-100 text-slate-700 hover:bg-slate-200">Show All</button>
+                        <button onclick="updateBenefitsChart('benefits')" class="px-3 py-1 text-xs font-bold rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-800 hover:bg-emerald-100">Benefits Only</button>
+                        <button onclick="updateBenefitsChart('limits')" class="px-3 py-1 text-xs font-bold rounded-lg border border-rose-300 bg-rose-50 text-rose-800 hover:bg-rose-100">Limitations Only</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <div class="lg:col-span-7">
+                        <div class="chart-container">
+                            <canvas id="benefitsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
+                            <h4 class="text-xs font-bold text-emerald-900 uppercase tracking-wide mb-1">💡 Top Educator Benefits</h4>
+                            <ul class="text-xs text-emerald-800 space-y-1 list-disc list-inside">
+                                <li>Instant differentiation & scaffolding</li>
+                                <li>Time-saving routine task automation</li>
+                                <li>Personalized practice & 24/7 learning support</li>
+                                <li>Accessibility & translation capabilities</li>
+                            </ul>
+                        </div>
+                        <div class="bg-rose-50 p-4 rounded-xl border border-rose-200">
+                            <h4 class="text-xs font-bold text-rose-900 uppercase tracking-wide mb-1">⚠️ Crucial Educator Limitations</h4>
+                            <ul class="text-xs text-rose-800 space-y-1 list-disc list-inside">
+                                <li>Confident false information ("Hallucinations")</li>
+                                <li>Algorithmic bias from training datasets</li>
+                                <li>Lack of emotional nuance & pedagogical context</li>
+                                <li>Risk of student over-reliance ("Metacognitive laziness")</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MODULE 2: Adaptive Expertise vs AI Workslop -->
+    <section id="module2" class="py-16 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <div class="max-w-3xl space-y-3">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider">
+                    <span>Module 2</span>
+                    <span>•</span>
+                    <span>Pedagogical Mindset</span>
+                </div>
+                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Routine Expertise vs. Adaptive Expertise</h2>
+                <p class="text-slate-600 text-base leading-relaxed">
+                    Classrooms are dilemma-ridden and unpredictable. Standard <em>routine experts</em> perform well in stable conditions but stall when novel challenges appear. <em>Adaptive experts</em> use deep conceptual principles to continuously question, innovate, and adjust instruction on the fly (Hatano & Inagaki, 1984; Bohle Carbonell et al., 2014). Select scenarios below to see how these two teacher profiles handle real-world AI dilemmas.
+                </p>
+            </div>
+
+            <!-- Interactive Matrix Switcher -->
+            <div class="bg-stone-50 rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Classroom Dilemma Scenario Matrix</h3>
+                        <p class="text-xs text-slate-500">Choose a common scenario to contrast Routine vs. Adaptive Teacher responses.</p>
+                    </div>
+                    <select id="scenario-select" onchange="renderScenario()" class="px-4 py-2 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        <option value="hallucination">Scenario A: AI Generates Factually Wrong History Lesson</option>
+                        <option value="cheating">Scenario B: Student Submits Entirely AI-Written Essay</option>
+                        <option value="differentiation">Scenario C: Planning Differentiation for Diverse Reading Levels</option>
+                        <option value="parent">Scenario D: Parent Concerned AI Reduces Student Thinking</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="scenario-cards-container">
+                    <!-- JS injects Routine vs Adaptive cards here -->
+                </div>
+            </div>
+
+            <!-- Podcast Spotlight Banner -->
+            <div class="bg-indigo-900 text-white rounded-2xl p-6 sm:p-8 shadow-lg grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-8 space-y-3">
+                    <span class="px-3 py-1 bg-indigo-700 text-indigo-200 rounded-full text-xs font-bold uppercase tracking-wider">🎧 Podcast Deep Dive</span>
+                    <h3 class="text-xl sm:text-2xl font-bold text-white">Cult of Pedagogy: Grounded AI Strategies for Teachers</h3>
+                    <p class="text-xs sm:text-sm text-indigo-100 leading-relaxed">
+                        Host Jennifer Gonzalez unpacks practical AI applications without falling into hyper-optimism or panic. Learn how to automate administrative burdens while keeping human relationships at the center of your teaching.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a href="https://www.cultofpedagogy.com/ai-stuff/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold text-xs rounded-xl transition flex items-center space-x-2">
+                            <span>Listen to Ep 205</span>
+                            <span>↗</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:col-span-4 bg-indigo-950/70 p-5 rounded-xl border border-indigo-800 text-xs space-y-2">
+                    <div class="font-bold text-amber-400">Key Episode Takeaways:</div>
+                    <ul class="space-y-1 text-indigo-200 list-disc list-inside">
+                        <li>Start with 1 tool & 1 energy-draining task</li>
+                        <li>Never feed student personal data into tools</li>
+                        <li>Maintain active human oversight on all outputs</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MODULE 3: Intelligent-TPACK Framework & Self-Assessment -->
+    <section id="module3" class="py-16 bg-stone-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <div class="max-w-3xl space-y-3">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-lg bg-indigo-100 text-indigo-800 text-xs font-bold uppercase tracking-wider">
+                    <span>Module 3</span>
+                    <span>•</span>
+                    <span>Framework & Assessment</span>
+                </div>
+                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">The Intelligent-TPACK Framework</h2>
+                <p class="text-slate-600 text-base leading-relaxed">
+                    Building on Koehler & Mishra's classic TPACK framework, Dr. Ismail Celik (2023) introduced <strong>Intelligent-TPACK</strong> to capture the specific professional knowledge educators need in the age of generative AI. It combines Technological, Pedagogical, and Content Knowledge with a vital fifth strand: <strong>Ethical Knowledge</strong>.
+                </p>
+            </div>
+
+            <!-- Assessment Component: Live Radar & Sliders -->
+            <div id="tpack-tool" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-8">
+                <div class="border-b border-slate-100 pb-4">
+                    <h3 class="text-xl font-bold text-slate-900">Interactive Educator Self-Assessment Diagnostic</h3>
+                    <p class="text-xs text-slate-500">Adjust the sliders below based on your current confidence level (1 = Novice, 5 = Master) to generate your live radar profile and targeted UNESCO progression advice.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Sliders Column -->
+                    <div class="lg:col-span-6 space-y-5">
+                        
+                        <!-- Slider 1 -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-bold">
+                                <label for="slide-itk" class="text-slate-800">1. Intelligent Technological Knowledge (ITK)</label>
+                                <span id="val-itk" class="text-indigo-600">3 / 5</span>
+                            </div>
+                            <input type="range" id="slide-itk" min="1" max="5" value="3" oninput="updateTpackChart()" class="w-full accent-indigo-600 cursor-pointer">
+                            <p class="text-[11px] text-slate-500">Understanding how LLMs generate text, prompt settings, and technical limitations.</p>
+                        </div>
+
+                        <!-- Slider 2 -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-bold">
+                                <label for="slide-itpk" class="text-slate-800">2. Intelligent Pedagogical Knowledge (ITPK)</label>
+                                <span id="val-itpk" class="text-indigo-600">3 / 5</span>
+                            </div>
+                            <input type="range" id="slide-itpk" min="1" max="5" value="3" oninput="updateTpackChart()" class="w-full accent-indigo-600 cursor-pointer">
+                            <p class="text-[11px] text-slate-500">Using AI for personalized feedback, Bloom's taxonomy prompts, and differentiation.</p>
+                        </div>
+
+                        <!-- Slider 3 -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-bold">
+                                <label for="slide-itck" class="text-slate-800">3. Intelligent Content Knowledge (ITCK)</label>
+                                <span id="val-itck" class="text-indigo-600">2 / 5</span>
+                            </div>
+                            <input type="range" id="slide-itck" min="1" max="5" value="2" oninput="updateTpackChart()" class="w-full accent-indigo-600 cursor-pointer">
+                            <p class="text-[11px] text-slate-500">Evaluating discipline-specific AI tools (e.g. math simulations, reading tools).</p>
+                        </div>
+
+                        <!-- Slider 4 -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-bold">
+                                <label for="slide-itpack" class="text-slate-800">4. Integrated Intelligent-TPACK</label>
+                                <span id="val-itpack" class="text-indigo-600">3 / 5</span>
+                            </div>
+                            <input type="range" id="slide-itpack" min="1" max="5" value="3" oninput="updateTpackChart()" class="w-full accent-indigo-600 cursor-pointer">
+                            <p class="text-[11px] text-slate-500">Designing seamless lesson cycles where human pedagogy and AI complement each other.</p>
+                        </div>
+
+                        <!-- Slider 5 -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-xs font-bold">
+                                <label for="slide-ethic" class="text-slate-800">5. Ethical Knowledge</label>
+                                <span id="val-ethic" class="text-indigo-600">4 / 5</span>
+                            </div>
+                            <input type="range" id="slide-ethic" min="1" max="5" value="4" oninput="updateTpackChart()" class="w-full accent-indigo-600 cursor-pointer">
+                            <p class="text-[11px] text-slate-500">Assessing algorithmic bias, data privacy protection, academic integrity, and equity.</p>
+                        </div>
+
+                    </div>
+
+                    <!-- Radar Chart & Result Box Column -->
+                    <div class="lg:col-span-6 space-y-4">
+                        <div class="chart-container">
+                            <canvas id="tpackChart"></canvas>
+                        </div>
+
+                        <div id="tpack-feedback" class="bg-indigo-50 p-5 rounded-xl border border-indigo-200 text-xs space-y-2">
+                            <!-- JS dynamic recommendation based on score -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MODULE 4: Practical Skills – Prompting Studio & Practice Partner -->
+    <section id="module4" class="py-16 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <div class="max-w-3xl space-y-3">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider">
+                    <span>Module 4</span>
+                    <span>•</span>
+                    <span>Hands-On Skills</span>
+                </div>
+                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Prompt Engineering Studio & Practice Partner</h2>
+                <p class="text-slate-600 text-base leading-relaxed">
+                    The quality of AI output depends almost entirely on how you frame your request. Effective educator prompting involves specifying <strong>Role Persona</strong>, <strong>Target Audience</strong>, <strong>Context</strong>, <strong>Format Constraints</strong>, and <strong>Pedagogical Tone</strong> (Kharbach, 2026). Use the generator below to build structured prompts or test AI role-playing.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Interactive Prompt Builder -->
+                <div class="lg:col-span-7 bg-stone-50 rounded-2xl p-6 sm:p-8 border border-slate-200 space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <h3 class="text-lg font-bold text-slate-900">🛠️ Educator Prompt Generator</h3>
+                        <span class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full">Iterative Prompting</span>
+                    </div>
+
+                    <div class="space-y-4 text-xs">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Select Persona Role:</label>
+                            <select id="prompt-role" onchange="generateTeacherPrompt()" class="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 font-medium">
+                                <option value="coach">Experienced Instructional Coach & Mentor</option>
+                                <option value="behavior">Behavior Specialist & Student Counselor</option>
+                                <option value="differentiator">Special Education & Reading Differentiation Specialist</option>
+                                <option value="parent-sim">Frustrated Parent (for Practice Roleplay)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Task Goal:</label>
+                            <input type="text" id="prompt-goal" value="Draft a 3-tier reading passage on Photosynthesis" oninput="generateTeacherPrompt()" class="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 font-medium">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1">Target Audience:</label>
+                                <input type="text" id="prompt-audience" value="7th Grade Science Students (mixed abilities)" oninput="generateTeacherPrompt()" class="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 font-medium">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1">Desired Format:</label>
+                                <select id="prompt-format" onchange="generateTeacherPrompt()" class="w-full p-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 font-medium">
+                                    <option value="table">Bulleted List with Key Vocabulary Table</option>
+                                    <option value="rubric">Structured 4-Level Evaluation Rubric</option>
+                                    <option value="roleplay">Interactive Back-and-Forth Dialogue</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Result Display Box -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <label class="font-bold text-slate-800">Generated Master Prompt:</label>
+                                <button onclick="copyPromptText()" id="copy-btn" class="text-xs bg-slate-900 text-white px-3 py-1 rounded-lg font-bold hover:bg-slate-800 transition">
+                                    📋 Copy Prompt
+                                </button>
+                            </div>
+                            <textarea id="prompt-output" rows="5" readonly class="w-full p-3 bg-white font-mono text-[11px] text-slate-800 border border-slate-300 rounded-xl custom-scrollbar"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Card & Practice Partner Sandbox -->
+                <div class="lg:col-span-5 space-y-6">
+                    
+                    <!-- Edutopia Video Card -->
+                    <div class="bg-stone-50 rounded-2xl p-6 border border-slate-200 space-y-3">
+                        <span class="text-rose-600 font-bold text-xs uppercase tracking-wider">🎥 Edutopia Video Guide (6 mins)</span>
+                        <h4 class="text-base font-bold text-slate-900">6 Ways to Use ChatGPT to Save Time</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Practical walkthrough demonstrating teacher time-savers: drafting sub plans, constructing rubrics, and simplifying complex text.
+                        </p>
+                        <a href="https://www.youtube.com/watch?v=8qEA3-tA8mQ" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl shadow transition">
+                            <span>Watch Edutopia Guide on YouTube</span>
+                            <span>↗</span>
+                        </a>
+                    </div>
+
+                    <!-- Role-Playing Simulator Box (From AI for Teachers PD) -->
+                    <div class="bg-indigo-900 text-white rounded-2xl p-6 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-sm text-amber-400">🤝 Role-Play Practice Sandbox</h4>
+                            <span class="text-[10px] bg-indigo-800 text-indigo-200 px-2 py-0.5 rounded-full font-bold">Low-Stakes Microteaching</span>
+                        </div>
+                        <p class="text-xs text-indigo-100">
+                            Use AI as a patient practice partner before real-world parent conferences or student behavior interventions.
+                        </p>
+                        
+                        <!-- Interactive Simulation Chat Preview -->
+                        <div class="bg-indigo-950 p-4 rounded-xl space-y-3 text-xs border border-indigo-800">
+                            <div class="p-2.5 bg-indigo-900 rounded-lg text-indigo-200">
+                                <strong class="text-amber-300">AI (Frustrated Parent):</strong> "I don't understand why Alex got a C on this essay. He spent hours on it!"
+                            </div>
+                            <div id="sim-response-box" class="p-2.5 bg-indigo-850 rounded-lg text-white font-medium border border-indigo-700">
+                                Click a button below to select your response strategy:
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <button onclick="simChoice('defensive')" class="p-2 bg-indigo-800 hover:bg-indigo-700 rounded-lg font-medium text-indigo-100 transition text-left">
+                                Option A: Explain the rubric rules strictly
+                            </button>
+                            <button onclick="simChoice('empathetic')" class="p-2 bg-amber-500 hover:bg-amber-600 rounded-lg font-bold text-slate-900 transition text-left">
+                                Option B: Validate concern & invite joint review
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MODULE 5: Classroom Guidelines, Ethics & Traffic Light Agreement -->
+    <section id="module5" class="py-16 bg-stone-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <div class="max-w-3xl space-y-3">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-lg bg-rose-100 text-rose-800 text-xs font-bold uppercase tracking-wider">
+                    <span>Module 5</span>
+                    <span>•</span>
+                    <span>Ethics & Classroom Policy</span>
+                </div>
+                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Guiding Students & Setting Classroom Boundaries</h2>
+                <p class="text-slate-600 text-base leading-relaxed">
+                    Without explicit guidelines, student anxiety and misuse increase. As outlined in <em>How to Become an AI-Literate Teacher</em>, educators should co-create an <strong>"AI Classroom Agreement"</strong> using a clear Red, Yellow, Green Light policy.
+                </p>
+            </div>
+
+            <!-- Interactive Component 1: AI Classroom Agreement Generator -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">🚦 Interactive Classroom AI Agreement Builder</h3>
+                        <p class="text-xs text-slate-500">Customize your classroom expectations below to generate a copyable agreement document.</p>
+                    </div>
+                    <button onclick="copyAgreementText()" class="px-4 py-2 bg-slate-900 text-white font-bold text-xs rounded-xl hover:bg-slate-800 transition">
+                        📋 Copy Formatted Agreement
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <!-- Green Light Box -->
+                    <div class="bg-emerald-50 rounded-2xl p-5 border border-emerald-200 space-y-3">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 inline-block"></span>
+                            <h4 class="font-bold text-emerald-900 text-sm">🟢 Green Light (Allowed Freely)</h4>
+                        </div>
+                        <p class="text-[11px] text-emerald-800">Tasks where AI acts as a brainstorming assistant or clarifying partner.</p>
+                        <div class="space-y-1 text-xs text-emerald-900" id="green-list">
+                            <label class="flex items-center space-x-2"><input type="checkbox" checked onchange="buildAgreement()" class="accent-emerald-600"> <span>Idea brainstorming & topic narrowing</span></label>
+                            <label class="flex items-center space-x-2"><input type="checkbox" checked onchange="buildAgreement()" class="accent-emerald-600"> <span>Grammar & spell checking</span></label>
+                            <label class="flex items-center space-x-2"><input type="checkbox" checked onchange="buildAgreement()" class="accent-emerald-600"> <span>Generating visual analogies</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Yellow Light Box -->
+                    <div class="bg-amber-50 rounded-2xl p-5 border border-amber-200 space-y-3">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3.5 h-3.5 rounded-full bg-amber-500 inline-block"></span>
+                            <h4 class="font-bold text-amber-900 text-sm">🟡 Yellow Light (With Citation)</h4>
+                        </div>
+                        <p class="text-[11px] text-amber-800">Tasks requiring teacher permission and formal AI disclosure statements.</p>
+                        <div class="space-y-1 text-xs text-amber-900" id="yellow-list">
+                            <label class="flex items-center space-x-2"><input type="checkbox" checked onchange="buildAgreement()" class="accent-amber-600"> <span>Summarizing background readings</span></label>
+                            <label class="flex items-center space-x-2"><input type="checkbox" checked onchange="buildAgreement()" class="accent-amber-600"> <span>Outlining essay structures</span></label>
+                            <label class="flex items-center space-x-2"><input type="checkbox" checked onchange="buildAgreement()" class="accent-amber-600"> <span>Debugging computer code snippets</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Red Light Box -->
+                    <div class="bg-rose-50 rounded-2xl p-5 border border-rose-200 space-y-3">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3.5 h-3.5 rounded-full bg-rose-500 inline-block"></span>
+                            <h4 class="font-bold text-rose-900 text-sm">🔴 Red Light (Strictly Human)</h4>
+                        </div>
+                        <p class="text-[11px] text-rose-800">Core thinking and assessment moments where AI is completely off-limits.</p>
+                        <div class="space-y-1 text-xs text-rose-900" id="red-list">
+                            <label class="flex items-center space-x-2"><input type="checkbox" checked onchange="buildAgreement()" class="accent-rose-600"> <span>Writing full essay text or thesis</span></label>
+                            <label class="flex items-center space-x-2"><input type="checkbox" checked onchange="buildAgreement()" class="accent-rose-600"> <span>In-class assessments & reflections</span></label>
+                            <label class="flex items-center space-x-2"><input type="checkbox" checked onchange="buildAgreement()" class="accent-rose-600"> <span>Inputting peer personal information</span></label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Formatted Agreement Document View -->
+                <div class="bg-slate-900 text-slate-100 p-6 rounded-xl space-y-3 font-mono text-xs">
+                    <div class="text-amber-400 font-bold uppercase tracking-wider">📄 Generated Agreement Output Preview:</div>
+                    <pre id="agreement-preview-text" class="whitespace-pre-wrap font-sans leading-relaxed"></pre>
+                </div>
+            </div>
+
+            <!-- Critical AI Literacy Questions Explorer (Source: Critical-AI-Literacy PDF) -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900">24 Critical AI Literacy Questions for the Classroom</h3>
+                    <p class="text-xs text-slate-500">Filter by domain to view discussion prompts for students (Med Kharbach, PhD, 2026).</p>
+                </div>
+
+                <div class="flex flex-wrap gap-2" id="question-domain-filters">
+                    <!-- JS buttons -->
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="questions-display-grid">
+                    <!-- JS cards injected here -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MODULE 6: Multimedia Educator PD & Research Toolkit -->
+    <section id="module6" class="py-16 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <div class="max-w-3xl space-y-3">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-lg bg-indigo-100 text-indigo-800 text-xs font-bold uppercase tracking-wider">
+                    <span>Module 6</span>
+                    <span>•</span>
+                    <span>Professional Development</span>
+                </div>
+                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Your Continuous AI Growth Ecosystem</h2>
+                <p class="text-slate-600 text-base leading-relaxed">
+                    AI in education changes weekly. As detailed in <em>AI for Teacher Professional Development</em>, sustainable learning relies on building a personal knowledge management system, using AI research assistants (e.g., NotebookLM, Scite), and engaging with global frameworks.
+                </p>
+            </div>
+
+            <!-- Research Tools Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="bg-stone-50 rounded-2xl p-6 border border-slate-200 space-y-3 hover:shadow-md transition">
+                    <div class="text-3xl" role="img" aria-label="Notebook">📓</div>
+                    <h3 class="font-bold text-slate-900 text-base">Google NotebookLM</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Upload educational research PDFs or curriculum standards and generate grounded summaries, Q&As, and audio overviews.
+                    </p>
+                    <span class="inline-block text-[10px] font-bold bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-full">PDF Research Assistant</span>
+                </div>
+
+                <div class="bg-stone-50 rounded-2xl p-6 border border-slate-200 space-y-3 hover:shadow-md transition">
+                    <div class="text-3xl" role="img" aria-label="Books">📚</div>
+                    <h3 class="font-bold text-slate-900 text-base">Zotero & Tagging</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Free reference manager to archive educational policy papers, capture web articles, and organize personal PD tags.
+                    </p>
+                    <span class="inline-block text-[10px] font-bold bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full">Knowledge Management</span>
+                </div>
+
+                <div class="bg-stone-50 rounded-2xl p-6 border border-slate-200 space-y-3 hover:shadow-md transition">
+                    <div class="text-3xl" role="img" aria-label="Magnifying glass">🔍</div>
+                    <h3 class="font-bold text-slate-900 text-base">Scite & Consensus</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        AI research search engines that synthesize findings across thousands of peer-reviewed studies to verify claims.
+                    </p>
+                    <span class="inline-block text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full">Evidence Synthesis</span>
+                </div>
+
+                <div class="bg-stone-50 rounded-2xl p-6 border border-slate-200 space-y-3 hover:shadow-md transition">
+                    <div class="text-3xl" role="img" aria-label="Globe">🌐</div>
+                    <h3 class="font-bold text-slate-900 text-base">Common Sense Media</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Free K-12 AI literacy lessons covering deepfakes, algorithmic bias, privacy, and digital citizenship.
+                    </p>
+                    <a href="https://www.commonsense.org/education/digital-citizenship/lesson/ai-literacy" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-bold text-indigo-600 hover:underline">
+                        Explore Lessons ↗
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Frameworks Curation Archive -->
+            <div class="bg-slate-900 text-white rounded-2xl p-8 space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-white">Global Policy Frameworks & Free Educator Courses</h3>
+                    <p class="text-xs text-slate-400">Essential references published by global educational leadership bodies.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+                    <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-2">
+                        <div class="font-bold text-amber-400">UNESCO Frameworks</div>
+                        <p class="text-slate-300">AI Competency Framework for Teachers (2024). Outlines the 3-level progression: Acquire, Deepen, Create.</p>
+                    </div>
+                    <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-2">
+                        <div class="font-bold text-amber-400">OECD AILit (2025)</div>
+                        <p class="text-slate-300">Organizes teacher AI literacy into technical knowledge, durable skills, and future-ready mindsets.</p>
+                    </div>
+                    <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-2">
+                        <div class="font-bold text-amber-400">ISTE & Google Modules</div>
+                        <p class="text-slate-300">Free structured self-paced training courses for educators covering classroom integration and ethics.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-800 pb-6">
+                <div class="flex items-center space-x-2">
+                    <span class="text-xl" role="img" aria-label="Graduation cap">🎓</span>
+                    <span class="font-bold text-white text-sm">AI 101 for Educators Masterclass</span>
+                </div>
+                <div class="text-slate-400 text-center sm:text-right">
+                    Based on research by Med Kharbach, PhD & Global Educational Frameworks (UNESCO, OECD)
+                </div>
+            </div>
+            <div class="text-center text-slate-400 space-y-2">
+                <p>Designed for teacher professional development & self-guided learning.</p>
+                <p class="italic text-[11px]">"Start small, stay curious, and always keep your human judgment at the center of your classroom."</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- 1. Family Tree Data & Logic ---
+        const familyData = {
+            ai: {
+                title: "1. Artificial Intelligence (AI)",
+                badge: "Broadest Category",
+                desc: "The overall field of computer science dedicated to making machines perform tasks that typically require human intelligence, such as decision-making, pattern recognition, or language comprehension.",
+                example: "Ex: Automated chess players, spam filters, recommendation algorithms."
+            },
+            ml: {
+                title: "2. Machine Learning (ML)",
+                badge: "Subset of AI",
+                desc: "Systems that learn patterns directly from massive datasets rather than being programmed with step-by-step human rules.",
+                example: "Ex: Email filters identifying spam based on historical user clicks."
+            },
+            dl: {
+                title: "3. Deep Learning (DL)",
+                badge: "Subset of Machine Learning",
+                desc: "Advanced ML utilizing artificial neural networks with multiple layers, enabling computers to process complex un-structured data like images and voice.",
+                example: "Ex: Facial recognition, real-time speech translation."
+            },
+            genai: {
+                title: "4. Generative AI",
+                badge: "Branch of Deep Learning",
+                desc: "AI systems specifically designed to produce NEW content—including fluent text, realistic images, synthetic audio, or programming code.",
+                example: "Ex: Canva Magic Studio, Midjourney, ElevenLabs."
+            },
+            llm: {
+                title: "5. Large Language Models (LLMs)",
+                badge: "Specific GenAI Sub-category",
+                desc: "Generative AI models trained on vast text corpora that generate responses by predicting the statistical next word in a sequence.",
+                example: "Ex: ChatGPT, Claude, Google Gemini."
+            }
+        };
+
+        function selectFamilyTab(key) {
+            const tabs = ['ai', 'ml', 'dl', 'genai', 'llm'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === key) {
+                    btn.className = "p-3 text-xs font-bold rounded-xl border border-indigo-600 bg-indigo-50 text-indigo-900 shadow-sm transition text-center";
+                } else {
+                    btn.className = "p-3 text-xs font-bold rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition text-center";
+                }
+            });
+
+            const data = familyData[key];
+            const display = document.getElementById('family-tree-display');
+            display.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <h4 class="font-extrabold text-slate-900 text-sm sm:text-base">${data.title}</h4>
+                    <span class="text-[10px] font-bold bg-indigo-200 text-indigo-900 px-2.5 py-0.5 rounded-full">${data.badge}</span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">${data.desc}</p>
+                <div class="text-xs font-bold text-indigo-700 bg-white p-2.5 rounded-lg border border-indigo-100">${data.example}</div>
+            `;
+        }
+
+        // --- 2. 5-Step Pipeline Data & Logic ---
+        const pipelineSteps = [
+            { num: 1, name: "Data Input", desc: "The system collects diverse data inputs (text, images, audio) provided by human developers or internet scrapes." },
+            { num: 2, name: "Learning Patterns", desc: "Algorithms search for mathematical correlations and patterns across the training dataset." },
+            { num: 3, name: "Training", desc: "The model improves incrementally through millions of repeated pattern-matching examples." },
+            { num: 4, name: "Model Building", desc: "A statistical system (neural network) is constructed to predict future inputs." },
+            { num: 5, name: "Prediction / Output", desc: "When prompted by a user, the AI applies its statistical probabilities to generate an answer." }
+        ];
+
+        let activeStep = 0;
+
+        function renderPipelineStepper() {
+            const container = document.getElementById('pipeline-stepper');
+            container.innerHTML = pipelineSteps.map((step, idx) => `
+                <button onclick="setPipelineStep(${idx})" class="p-2 text-center rounded-xl border transition ${idx === activeStep ? 'border-amber-500 bg-amber-500 text-slate-900 font-bold' : 'border-slate-200 bg-stone-50 text-slate-600 hover:bg-slate-100'}">
+                    <div class="text-[10px] uppercase font-semibold">Step ${step.num}</div>
+                    <div class="text-[11px] truncate font-bold">${step.name}</div>
+                </button>
+            `).join('');
+
+            const detail = document.getElementById('pipeline-detail');
+            const step = pipelineSteps[activeStep];
+            detail.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <span class="bg-amber-500 text-slate-900 text-xs font-extrabold px-2 py-0.5 rounded-full">Step ${step.num} of 5</span>
+                    <h4 class="font-bold text-slate-900 text-sm">${step.name}</h4>
+                </div>
+                <p class="text-xs text-slate-700 leading-relaxed">${step.desc}</p>
+            `;
+        }
+
+        function setPipelineStep(idx) {
+            activeStep = idx;
+            renderPipelineStepper();
+        }
+
+        // --- 3. Routine vs Adaptive Scenarios ---
+        const scenarios = {
+            hallucination: {
+                title: "Scenario A: AI Generates Factually Wrong History Lesson",
+                routine: {
+                    heading: "Routine Expert Response (Failure to Adapt)",
+                    points: [
+                        "Bans AI entirely from class after seeing the error.",
+                        "Assumes the tool is broken or useless.",
+                        "Default: 'Never use AI because it lies.'"
+                    ]
+                },
+                adaptive: {
+                    heading: "Adaptive Expert Response (Pedagogical Turn)",
+                    points: [
+                        "Turns the error into a 'Hallucination Detective' critical thinking activity.",
+                        "Has students fact-check the output against primary source databases.",
+                        "Teaches students how LLM probability causes confident inaccuracies."
+                    ]
+                }
+            },
+            cheating: {
+                title: "Scenario B: Student Submits Entirely AI-Written Essay",
+                routine: {
+                    heading: "Routine Expert Response (Punitive Focus)",
+                    points: [
+                        "Runs essay through unreliable AI detectors.",
+                        "Focuses solely on catching cheat software.",
+                        "Issues zero score without reflective dialogue."
+                    ]
+                },
+                adaptive: {
+                    heading: "Adaptive Expert Response (Learning Focus)",
+                    points: [
+                        "Engages student with the 'Thinking Ownership Protocol'.",
+                        "Asks: 'If I remove the AI output, what do you still know?'",
+                        "Refreshes the Classroom AI Agreement (Red/Yellow/Green light boundaries)."
+                    ]
+                }
+            },
+            differentiation: {
+                title: "Scenario C: Planning Differentiation for Diverse Reading Levels",
+                routine: {
+                    heading: "Routine Expert Response (Tool Stockpiling)",
+                    points: [
+                        "Downloads 10 different AI differentiation apps.",
+                        "Spends hours testing tools instead of focusing on student needs.",
+                        "Outputs generic 'AI Workslop' without editing."
+                    ]
+                },
+                adaptive: {
+                    heading: "Adaptive Expert Response (Principle First)",
+                    points: [
+                        "Uses 1 familiar LLM assistant with precise persona prompts.",
+                        "Generates 3 reading tier drafts, then reviews for pedagogical tone.",
+                        "Ensures core vocabulary and conceptual depth are preserved."
+                    ]
+                }
+            },
+            parent: {
+                title: "Scenario D: Parent Concerned AI Reduces Student Thinking",
+                routine: {
+                    heading: "Routine Expert Response (Defensive / Vague)",
+                    points: [
+                        "Defends tech use vaguely: 'We must prepare kids for the future.'",
+                        "Fails to explain pedagogical boundaries.",
+                        "Increases parent anxiety."
+                    ]
+                },
+                adaptive: {
+                    heading: "Adaptive Expert Response (Transparent Partnership)",
+                    points: [
+                        "Shares the 2-Layered Reading & Writing Approach.",
+                        "Explains: Layer 1 is AI-free close struggle; Layer 2 is AI extension.",
+                        "Demonstrates how AI is used as a scaffolding coach, not a surrogate thinker."
+                    ]
+                }
+            }
+        };
+
+        function renderScenario() {
+            const val = document.getElementById('scenario-select').value;
+            const data = scenarios[val];
+            const container = document.getElementById('scenario-cards-container');
+
+            container.innerHTML = `
+                <div class="bg-rose-50 p-6 rounded-2xl border border-rose-200 space-y-3">
+                    <div class="flex items-center space-x-2 text-rose-900 font-extrabold text-xs uppercase tracking-wider">
+                        <span>❌ ${data.routine.heading}</span>
+                    </div>
+                    <ul class="text-xs text-rose-800 space-y-2 list-disc list-inside">
+                        ${data.routine.points.map(p => `<li>${p}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="bg-emerald-50 p-6 rounded-2xl border border-emerald-200 space-y-3">
+                    <div class="flex items-center space-x-2 text-emerald-900 font-extrabold text-xs uppercase tracking-wider">
+                        <span>✅ ${data.adaptive.heading}</span>
+                    </div>
+                    <ul class="text-xs text-emerald-800 space-y-2 list-disc list-inside">
+                        ${data.adaptive.points.map(p => `<li>${p}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        // --- 4. Chart.js Implementation ---
+        let benefitsChart, tpackChart;
+
+        function initCharts() {
+            // Chart 1: Benefits vs Limitations Horizontal Bar
+            const ctx1 = document.getElementById('benefitsChart').getContext('2d');
+            benefitsChart = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        'Time Saving (Tasks)',
+                        'Differentiation',
+                        '24/7 Student Support',
+                        'Hallucinations (Risk)',
+                        'Algorithmic Bias (Risk)',
+                        'Privacy Risks'
+                    ],
+                    datasets: [{
+                        label: 'Impact / Frequency Score (1-10)',
+                        data: [9, 8.5, 8, 8.5, 7.5, 8],
+                        backgroundColor: [
+                            'rgba(16, 185, 129, 0.75)',
+                            'rgba(16, 185, 129, 0.75)',
+                            'rgba(16, 185, 129, 0.75)',
+                            'rgba(244, 63, 94, 0.75)',
+                            'rgba(244, 63, 94, 0.75)',
+                            'rgba(244, 63, 94, 0.75)'
+                        ],
+                        borderColor: [
+                            '#059669',
+                            '#059669',
+                            '#059669',
+                            '#e11d48',
+                            '#e11d48',
+                            '#e11d48'
+                        ],
+                        borderWidth: 1.5,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` Relevance Score: ${context.raw} / 10`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            min: 0,
+                            max: 10,
+                            grid: { color: '#f1f5f9' },
+                            ticks: { font: { family: 'Plus Jakarta Sans', size: 10 } }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' } }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Intelligent-TPACK Radar Chart
+            const ctx2 = document.getElementById('tpackChart').getContext('2d');
+            tpackChart = new Chart(ctx2, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        ['Intelligent Tech', '(ITK)'],
+                        ['Intelligent Pedagogy', '(ITPK)'],
+                        ['Intelligent Content', '(ITCK)'],
+                        ['Integrated Practice', '(TPACK)'],
+                        ['Ethical Knowledge', '(Ethics)']
+                    ],
+                    datasets: [{
+                        label: 'Your Self-Assessment Confidence',
+                        data: [3, 3, 2, 3, 4],
+                        backgroundColor: 'rgba(99, 102, 241, 0.25)',
+                        borderColor: '#4f46e5',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#4f46e5',
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            min: 0,
+                            max: 5,
+                            ticks: { stepSize: 1, display: false },
+                            pointLabels: {
+                                font: { family: 'Plus Jakarta Sans', size: 10, weight: '700' },
+                                color: '#1e293b'
+                            },
+                            grid: { color: '#e2e8f0' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+
+            updateTpackChart();
+        }
+
+        function updateBenefitsChart(filter) {
+            if (filter === 'benefits') {
+                benefitsChart.data.labels = ['Time Saving (Tasks)', 'Differentiation', '24/7 Student Support'];
+                benefitsChart.data.datasets[0].data = [9, 8.5, 8];
+                benefitsChart.data.datasets[0].backgroundColor = Array(3).fill('rgba(16, 185, 129, 0.75)');
+                benefitsChart.data.datasets[0].borderColor = Array(3).fill('#059669');
+            } else if (filter === 'limits') {
+                benefitsChart.data.labels = ['Hallucinations (Risk)', 'Algorithmic Bias (Risk)', 'Privacy Risks'];
+                benefitsChart.data.datasets[0].data = [8.5, 7.5, 8];
+                benefitsChart.data.datasets[0].backgroundColor = Array(3).fill('rgba(244, 63, 94, 0.75)');
+                benefitsChart.data.datasets[0].borderColor = Array(3).fill('#e11d48');
+            } else {
+                benefitsChart.data.labels = ['Time Saving (Tasks)', 'Differentiation', '24/7 Student Support', 'Hallucinations (Risk)', 'Algorithmic Bias (Risk)', 'Privacy Risks'];
+                benefitsChart.data.datasets[0].data = [9, 8.5, 8, 8.5, 7.5, 8];
+                benefitsChart.data.datasets[0].backgroundColor = [
+                    'rgba(16, 185, 129, 0.75)', 'rgba(16, 185, 129, 0.75)', 'rgba(16, 185, 129, 0.75)',
+                    'rgba(244, 63, 94, 0.75)', 'rgba(244, 63, 94, 0.75)', 'rgba(244, 63, 94, 0.75)'
+                ];
+                benefitsChart.data.datasets[0].borderColor = [
+                    '#059669', '#059669', '#059669', '#e11d48', '#e11d48', '#e11d48'
+                ];
+            }
+            benefitsChart.update();
+        }
+
+        function updateTpackChart() {
+            const itk = parseInt(document.getElementById('slide-itk').value);
+            const itpk = parseInt(document.getElementById('slide-itpk').value);
+            const itck = parseInt(document.getElementById('slide-itck').value);
+            const itpack = parseInt(document.getElementById('slide-itpack').value);
+            const ethic = parseInt(document.getElementById('slide-ethic').value);
+
+            document.getElementById('val-itk').innerText = `${itk} / 5`;
+            document.getElementById('val-itpk').innerText = `${itpk} / 5`;
+            document.getElementById('val-itck').innerText = `${itck} / 5`;
+            document.getElementById('val-itpack').innerText = `${itpack} / 5`;
+            document.getElementById('val-ethic').innerText = `${ethic} / 5`;
+
+            if (tpackChart) {
+                tpackChart.data.datasets[0].data = [itk, itpk, itck, itpack, ethic];
+                tpackChart.update();
+            }
+
+            // Calculate UNESCO Level Advice
+            const avg = (itk + itpk + itck + itpack + ethic) / 5;
+            const minDomain = Math.min(itk, itpk, itck, itpack, ethic);
+            const feedbackBox = document.getElementById('tpack-feedback');
+
+            let unescoLevel = "";
+            let recommendation = "";
+
+            if (avg < 2.5) {
+                unescoLevel = "UNESCO Level 1: ACQUIRE (Foundational Fluency)";
+                recommendation = "Focus on building core understanding of how LLMs process data. Experiment with 1 tool (like ChatGPT or MagicSchool) for administrative drafting before classroom integration.";
+            } else if (avg < 4.0) {
+                unescoLevel = "UNESCO Level 2: DEEPEN (Pedagogical Application)";
+                recommendation = "Great progress! Start embedding AI directly into lesson cycles. Focus on prompt refinement, persona roleplaying, and teaching students critical hallucination checking.";
+            } else {
+                unescoLevel = "UNESCO Level 3: CREATE (Innovating & Modeling)";
+                recommendation = "Exemplary! You are ready to mentor colleagues, co-create classroom agreements with students, and lead school-wide ethical AI policies.";
+            }
+
+            feedbackBox.innerHTML = `
+                <div class="font-bold text-indigo-900 flex justify-between items-center">
+                    <span>${unescoLevel}</span>
+                    <span class="bg-indigo-600 text-white px-2 py-0.5 rounded text-[10px]">Avg: ${avg.toFixed(1)} / 5</span>
+                </div>
+                <p class="text-slate-700 text-xs">${recommendation}</p>
+            `;
+        }
+
+        // --- 5. Prompt Engineering Studio Logic ---
+        function generateTeacherPrompt() {
+            const role = document.getElementById('prompt-role').value;
+            const goal = document.getElementById('prompt-goal').value;
+            const audience = document.getElementById('prompt-audience').value;
+            const format = document.getElementById('prompt-format').value;
+
+            let roleStr = "";
+            if (role === 'coach') roleStr = "Act as an experienced K-12 Instructional Coach and Curriculum Specialist.";
+            if (role === 'behavior') roleStr = "Act as a Student Behavior Interventionist and Counselor.";
+            if (role === 'differentiator') roleStr = "Act as a Reading Differentiation Specialist.";
+            if (role === 'parent-sim') roleStr = "Act as a frustrated parent concerned about homework workload in a parent-teacher conference.";
+
+            const promptText = `${roleStr}
+
+TASK OBJECTIVE: ${goal}
+TARGET AUDIENCE: ${audience}
+FORMAT REQUIREMENT: Deliver the output as a ${format}.
+
+PEDAGOGICAL CONSTRAINTS:
+1. Maintain an encouraging, evidence-based tone.
+2. Ensure vocabulary is age-appropriate for ${audience}.
+3. Point out potential student confusion points or misconceptions.
+4. Do NOT make up fake statistical claims or fake citations. If uncertain, state limitations clearly.`;
+
+            document.getElementById('prompt-output').value = promptText;
+        }
+
+        function copyPromptText() {
+            const copyText = document.getElementById('prompt-output');
+            copyText.select();
+            document.execCommand('copy');
+            const btn = document.getElementById('copy-btn');
+            btn.innerText = "✓ Copied!";
+            setTimeout(() => { btn.innerText = "📋 Copy Prompt"; }, 2000);
+        }
+
+        // --- 6. Roleplay Sandbox Simulator Logic ---
+        function simChoice(type) {
+            const box = document.getElementById('sim-response-box');
+            if (type === 'defensive') {
+                box.innerHTML = `
+                    <div class="text-rose-300 font-bold mb-1">Teacher Response (Defensive):</div>
+                    <p>"The grading criteria were posted online weeks ago. If he followed the rubric, he would have received an A."</p>
+                    <div class="mt-2 text-[11px] text-indigo-200 border-t border-indigo-800 pt-1">
+                        <strong class="text-amber-400">AI Parent Reaction:</strong> "That feels dismissive. I still don't understand what specific skills he missed!"
+                    </div>
+                `;
+            } else {
+                box.innerHTML = `
+                    <div class="text-emerald-300 font-bold mb-1">Teacher Response (Empathetic & Adaptive):</div>
+                    <p>"I completely appreciate how hard Alex worked on this piece. Let's look at the essay together so I can show you where his thesis strong points were and how we can support his revision."</p>
+                    <div class="mt-2 text-[11px] text-indigo-200 border-t border-indigo-800 pt-1">
+                        <strong class="text-amber-400">AI Parent Reaction:</strong> "Thank you. I appreciate you taking time to walk me through it constructively."
+                    </div>
+                `;
+            }
+        }
+
+        // --- 7. Classroom Agreement Builder Logic ---
+        function buildAgreement() {
+            const greenChecks = Array.from(document.querySelectorAll('#green-list input:checked')).map(el => el.parentElement.innerText.trim());
+            const yellowChecks = Array.from(document.querySelectorAll('#yellow-list input:checked')).map(el => el.parentElement.innerText.trim());
+            const redChecks = Array.from(document.querySelectorAll('#red-list input:checked')).map(el => el.parentElement.innerText.trim());
+
+            const agreementText = `OUR CLASSROOM AI AGREEMENT
+A shared guide for responsible AI integration
+
+🟢 GREEN LIGHT (Allowed Freely):
+${greenChecks.map(c => ` - ${c}`).join('\n')}
+
+🟡 YELLOW LIGHT (Allowed With Citation & Teacher Guidance):
+${yellowChecks.map(c => ` - ${c}`).join('\n')}
+
+🔴 RED LIGHT (Strictly Human Effort - No AI Allowed):
+${redChecks.map(c => ` - ${c}`).join('\n')}
+
+STUDENT ACKNOWLEDGMENT:
+"We use AI tools to support and extend our original thinking—never to replace our voice, critical reasoning, or authentic effort."`;
+
+            document.getElementById('agreement-preview-text').innerText = agreementText;
+        }
+
+        function copyAgreementText() {
+            const text = document.getElementById('agreement-preview-text').innerText;
+            navigator.clipboard.writeText(text);
+            alert("Classroom Agreement copied to clipboard!");
+        }
+
+        // --- 8. Critical AI Questions Data & Logic ---
+        const questionsData = [
+            { domain: "Output Evaluation", q: "1. How do you know this answer is accurate?", sub: "What sources can confirm or contradict this?" },
+            { domain: "Output Evaluation", q: "2. Does this response sound confident but say very little?", sub: "Check for generic AI fluff." },
+            { domain: "Bias Awareness", q: "3. Whose perspective is missing from this AI output?", sub: "Consider language, culture, and training data origins." },
+            { domain: "Bias Awareness", q: "4. Would the answer change in a different language?", sub: "Test cross-cultural AI assumptions." },
+            { domain: "Thinking Ownership", q: "5. If I removed the AI output, what do you still know?", sub: "Ensure student retains conceptual understanding." },
+            { domain: "Thinking Ownership", q: "6. Did you use AI to help you think, or to think FOR you?", sub: "Promote active agency." },
+            { domain: "System Understanding", q: "7. Why does AI produce confident-sounding wrong answers?", sub: "Explain probability predictions vs truth verification." },
+            { domain: "Ethical Awareness", q: "8. Whose work was used to train this model?", sub: "Discuss fair use, copyright, and creator credit." }
+        ];
+
+        let activeDomainFilter = 'All';
+
+        function renderQuestions() {
+            const domains = ['All', 'Output Evaluation', 'Bias Awareness', 'Thinking Ownership', 'System Understanding', 'Ethical Awareness'];
+            const filterContainer = document.getElementById('question-domain-filters');
+
+            filterContainer.innerHTML = domains.map(d => `
+                <button onclick="filterQuestions('${d}')" class="px-3 py-1 rounded-full text-xs font-bold transition ${activeDomainFilter === d ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">
+                    ${d}
+                </button>
+            `).join('');
+
+            const grid = document.getElementById('questions-display-grid');
+            const filtered = activeDomainFilter === 'All' ? questionsData : questionsData.filter(q => q.domain === activeDomainFilter);
+
+            grid.innerHTML = filtered.map(item => `
+                <div class="bg-stone-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                    <span class="text-[10px] font-extrabold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full">${item.domain}</span>
+                    <h4 class="font-bold text-slate-900 text-xs mt-1">${item.q}</h4>
+                    <p class="text-[11px] text-slate-500">${item.sub}</p>
+                </div>
+            `).join('');
+        }
+
+        function filterQuestions(domain) {
+            activeDomainFilter = domain;
+            renderQuestions();
+        }
+
+        // Mobile Menu Toggle Logic
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Initialize Application
+        window.addEventListener('DOMContentLoaded', () => {
+            selectFamilyTab('ai');
+            renderPipelineStepper();
+            renderScenario();
+            initCharts();
+            generateTeacherPrompt();
+            buildAgreement();
+            renderQuestions();
+        });
+    </script>
+</body>
+</html>
