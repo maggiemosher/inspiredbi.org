@@ -1,0 +1,2066 @@
+<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex, nofollow"><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Faculty Activity Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f1e8;
+    --surface:#ffffff;
+    --surface-2:#eee8d8;
+    --border:#ddd3ba;
+    --ink:#20242c;
+    --ink-soft:#5b5748;
+    --muted:#8a8472;
+    --accent:#1f3a5f;
+    --accent-ink:#ffffff;
+    --accent-soft:#e4ecf3;
+    --gold:#9c6b1f;
+    --gold-soft:#f3e7cf;
+    --good:#2b7a4b;
+    --good-soft:#e2f1e6;
+    --warn:#a5680f;
+    --warn-soft:#f7ecd9;
+    --bad:#a13d3d;
+    --bad-soft:#f6e4e2;
+    --shadow: 0 1px 2px rgba(32,26,10,0.06), 0 6px 20px -8px rgba(32,26,10,0.18);
+    --radius: 10px;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14171d;
+      --surface:#1b2028;
+      --surface-2:#242a34;
+      --border:#333b47;
+      --ink:#eef0f3;
+      --ink-soft:#b7bec9;
+      --muted:#7d8894;
+      --accent:#7ea3cc;
+      --accent-ink:#0f1721;
+      --accent-soft:#233144;
+      --gold:#dcac5c;
+      --gold-soft:#3a301c;
+      --good:#6cc191;
+      --good-soft:#1c3226;
+      --warn:#e0b25e;
+      --warn-soft:#3a2f18;
+      --bad:#e39494;
+      --bad-soft:#3a2222;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 30px -10px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14171d;
+    --surface:#1b2028;
+    --surface-2:#242a34;
+    --border:#333b47;
+    --ink:#eef0f3;
+    --ink-soft:#b7bec9;
+    --muted:#7d8894;
+    --accent:#7ea3cc;
+    --accent-ink:#0f1721;
+    --accent-soft:#233144;
+    --gold:#dcac5c;
+    --gold-soft:#3a301c;
+    --good:#6cc191;
+    --good-soft:#1c3226;
+    --warn:#e0b25e;
+    --warn-soft:#3a2f18;
+    --bad:#e39494;
+    --bad-soft:#3a2222;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 30px -10px rgba(0,0,0,0.6);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size:15px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:"Source Serif 4", Georgia, serif;
+    font-weight:600;
+    margin:0 0 .3em;
+    text-wrap:balance;
+    color:var(--ink);
+  }
+  a{color:var(--accent);}
+  .tabular{font-variant-numeric:tabular-nums;}
+  .mono{font-family:"IBM Plex Mono", ui-monospace, monospace;}
+  button{font-family:inherit;}
+  ::selection{background:var(--accent-soft);}
+
+  #app{display:flex; min-height:100vh; max-width:1440px; margin:0 auto;}
+
+  /* ---- Side rail ---- */
+  #rail{
+    width:220px; flex:0 0 220px;
+    border-right:1px solid var(--border);
+    padding:20px 14px;
+    display:flex; flex-direction:column; gap:18px;
+    position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto;
+  }
+  .brand{padding:2px 6px 10px;}
+  .brand .kicker{
+    font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--gold); font-weight:600;
+  }
+  .brand h1{font-size:19px; line-height:1.2; margin-top:2px;}
+  .brand .who{font-size:12.5px; color:var(--ink-soft); margin-top:4px;}
+
+  nav.views{display:flex; flex-direction:column; gap:2px;}
+  nav.views button{
+    all:unset; cursor:pointer; padding:9px 10px; border-radius:8px;
+    font-size:13.5px; font-weight:500; color:var(--ink-soft);
+    display:flex; align-items:center; gap:9px;
+  }
+  nav.views button .dot{width:7px;height:7px;border-radius:50%;background:var(--border); flex:0 0 auto;}
+  nav.views button:hover{background:var(--surface-2); color:var(--ink);}
+  nav.views button.active{background:var(--accent-soft); color:var(--accent); font-weight:600;}
+  nav.views button.active .dot{background:var(--accent);}
+
+  .rail-stats{
+    margin-top:auto; padding-top:14px; border-top:1px solid var(--border);
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .rail-stat{display:flex; justify-content:space-between; font-size:12.5px; color:var(--ink-soft);}
+  .rail-stat b{color:var(--ink); font-family:"IBM Plex Mono", monospace;}
+
+  #rail-toggle{display:none;}
+
+  /* ---- Main ---- */
+  #main{flex:1; min-width:0; display:flex; flex-direction:column;}
+  #topbar{
+    position:sticky; top:0; z-index:5; background:var(--bg);
+    border-bottom:1px solid var(--border);
+    padding:14px 26px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  }
+  #topbar .spacer{flex:1;}
+  .search-wrap{
+    display:flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--border);
+    border-radius:8px; padding:7px 11px; min-width:220px; flex:1; max-width:380px;
+  }
+  .search-wrap svg{flex:0 0 auto; opacity:.55;}
+  .search-wrap input{
+    all:unset; flex:1; font-size:13.5px; color:var(--ink);
+  }
+  .search-wrap input::placeholder{color:var(--muted);}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:7px; border-radius:8px; border:1px solid var(--border);
+    background:var(--surface); color:var(--ink); font-size:13.5px; font-weight:500; padding:8px 13px; cursor:pointer;
+    white-space:nowrap;
+  }
+  .btn:hover{border-color:var(--ink-soft);}
+  .btn.primary{background:var(--accent); color:var(--accent-ink); border-color:var(--accent);}
+  .btn.primary:hover{filter:brightness(1.06);}
+  .btn.subtle{border-color:transparent; background:transparent;}
+  .btn.subtle:hover{background:var(--surface-2);}
+  .btn.danger{color:var(--bad);}
+  .btn:disabled{opacity:.5; cursor:default;}
+  .btn svg{flex:0 0 auto;}
+
+  .deadline-chip{
+    display:flex; align-items:center; gap:8px; padding:7px 12px; border-radius:999px;
+    background:var(--gold-soft); color:var(--gold); font-size:12.5px; font-weight:600; white-space:nowrap;
+  }
+  .deadline-chip b{font-family:"IBM Plex Mono", monospace; font-weight:600;}
+
+  #content{padding:22px 26px 60px; flex:1;}
+  .view{display:none;}
+  .view.active{display:block;}
+
+  /* ---- Overview ---- */
+  .stat-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:22px;
+  }
+  .stat-tile{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:14px 16px; box-shadow:var(--shadow);
+  }
+  .stat-tile .n{font-family:"IBM Plex Mono", monospace; font-size:26px; font-weight:500; color:var(--ink);}
+  .stat-tile .lbl{font-size:12px; color:var(--ink-soft); margin-top:2px;}
+
+  .panel{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:20px 22px; margin-bottom:18px; box-shadow:var(--shadow);
+  }
+  .panel h2{font-size:16px;}
+  .panel .sub{font-size:13px; color:var(--ink-soft); margin-bottom:14px;}
+
+  .fi-banner{
+    display:flex; gap:20px; align-items:center; flex-wrap:wrap;
+    background:linear-gradient(135deg,var(--accent-soft), var(--surface)); border:1px solid var(--border);
+    border-radius:var(--radius); padding:18px 22px; margin-bottom:18px;
+  }
+  .fi-banner .big{font-family:"IBM Plex Mono",monospace; font-size:30px; color:var(--accent); font-weight:500;}
+  .fi-banner .txt{flex:1; min-width:220px;}
+  .fi-banner .txt h2{font-size:16px; margin-bottom:4px;}
+  .fi-banner .txt p{margin:0; font-size:13px; color:var(--ink-soft);}
+  .progress-bar{height:8px; border-radius:999px; background:var(--surface-2); overflow:hidden; margin-top:8px; width:100%;}
+  .progress-bar > div{height:100%; background:var(--accent); border-radius:999px;}
+
+  .fi-note{
+    border:1px solid var(--border); border-radius:10px; padding:12px 14px; font-size:13px; line-height:1.55;
+    background:var(--surface-2); color:var(--ink-soft);
+  }
+  .fi-note.warn{background:var(--warn-soft); border-color:var(--warn); color:var(--ink);}
+  .fi-note b{color:var(--ink);}
+  .linklike{
+    background:none; border:none; padding:0; margin:0; color:var(--accent); text-decoration:underline;
+    cursor:pointer; font:inherit; font-size:inherit;
+  }
+  .fi-section-panel{margin-bottom:18px;}
+  .fi-section-panel > .fi-section-head{
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:6px;
+  }
+  .fi-section-head h2{margin:0; flex:1;}
+  .fi-sub{border-top:1px solid var(--border); padding-top:12px; margin-top:12px;}
+  .fi-sub:first-of-type{border-top:none; margin-top:0; padding-top:0;}
+  .fi-sub-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:6px;}
+  .fi-sub-head h3{font-size:13.5px; margin:0; flex:1; color:var(--ink);}
+  .fi-sub-count{font-size:11.5px; color:var(--ink-soft); font-family:"IBM Plex Mono",monospace;}
+  .fi-pre{
+    white-space:pre-wrap; font-family:"IBM Plex Mono",monospace; font-size:12px; line-height:1.6;
+    background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:10px 12px;
+    max-height:260px; overflow-y:auto; color:var(--ink); overflow-wrap:anywhere;
+  }
+  .fi-pre.empty{color:var(--ink-soft); font-style:italic;}
+  .fi-flag{color:var(--warn); font-weight:600;}
+
+  .cat-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:10px;}
+  .cat-card{
+    border:1px solid var(--border); border-radius:9px; padding:12px 14px; cursor:pointer;
+    background:var(--surface); display:flex; flex-direction:column; gap:2px;
+  }
+  .cat-card:hover{border-color:var(--accent);}
+  .cat-card .n{font-family:"IBM Plex Mono",monospace; font-size:19px;}
+  .cat-card .l{font-size:12.5px; color:var(--ink-soft);}
+
+  /* ---- Activity list ---- */
+  .filter-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; align-items:center;}
+  select, .yr-input{
+    background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:7px 10px;
+    font-size:13px; color:var(--ink); font-family:inherit;
+  }
+  .chip-toggle{
+    display:inline-flex; align-items:center; gap:6px; border:1px solid var(--border); background:var(--surface);
+    border-radius:999px; padding:6px 12px; font-size:12.5px; cursor:pointer; color:var(--ink-soft);
+  }
+  .chip-toggle.on{background:var(--accent-soft); border-color:var(--accent); color:var(--accent); font-weight:600;}
+
+  .group-heading{
+    font-size:11.5px; text-transform:uppercase; letter-spacing:.07em; color:var(--gold); font-weight:600;
+    margin:22px 0 8px; padding-bottom:6px; border-bottom:1px solid var(--border);
+  }
+  .group-heading:first-child{margin-top:0;}
+
+  .entry-row{
+    display:flex; gap:14px; padding:13px 4px; border-bottom:1px solid var(--border); align-items:flex-start;
+  }
+  .entry-row:hover{background:var(--surface-2);}
+  .entry-year{
+    flex:0 0 56px; font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--ink-soft); padding-top:2px;
+  }
+  .entry-body{flex:1; min-width:0;}
+  .entry-title{font-size:13.8px; color:var(--ink); line-height:1.5; overflow-wrap:anywhere;}
+  .entry-meta{display:flex; gap:8px; margin-top:6px; flex-wrap:wrap; align-items:center;}
+  .badge{
+    font-size:11px; font-weight:600; padding:2px 8px; border-radius:999px; display:inline-flex; align-items:center; gap:4px;
+  }
+  .badge.cat{background:var(--surface-2); color:var(--ink-soft);}
+  .badge.status-funded{background:var(--good-soft); color:var(--good);}
+  .badge.status-underreview,.badge.status-inprogress{background:var(--warn-soft); color:var(--warn);}
+  .badge.status-notfunded{background:var(--bad-soft); color:var(--bad);}
+  .badge.fi-yes{background:var(--good-soft); color:var(--good);}
+  .badge.fi-no{background:var(--warn-soft); color:var(--warn);}
+  .entry-actions{flex:0 0 auto; display:flex; gap:4px; opacity:0; transition:opacity .1s;}
+  .entry-row:hover .entry-actions{opacity:1;}
+  .icon-btn{
+    all:unset; cursor:pointer; width:28px; height:28px; display:flex; align-items:center; justify-content:center;
+    border-radius:6px; color:var(--ink-soft);
+  }
+  .icon-btn:hover{background:var(--surface); color:var(--ink); border:1px solid var(--border);}
+
+  .empty-state{padding:40px 10px; text-align:center; color:var(--ink-soft);}
+  .empty-state svg{opacity:.4; margin-bottom:10px;}
+
+  /* ---- Modal ---- */
+  .modal-veil{
+    position:fixed; inset:0; background:rgba(20,20,15,.45); display:flex; align-items:flex-start; justify-content:center;
+    padding:5vh 16px; overflow-y:auto; z-index:50;
+  }
+  .modal{
+    background:var(--surface); border-radius:12px; width:100%; max-width:560px; padding:24px 26px 22px;
+    box-shadow:var(--shadow); border:1px solid var(--border);
+  }
+  .modal h3{font-size:17px; margin-bottom:16px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block; font-size:12.5px; font-weight:600; color:var(--ink-soft); margin-bottom:5px;}
+  .field input[type=text], .field input[type=number], .field textarea, .field select{
+    width:100%; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:9px 11px;
+    font-size:13.5px; color:var(--ink); font-family:inherit; resize:vertical;
+  }
+  .field textarea{min-height:90px; line-height:1.5;}
+  .field-row{display:flex; gap:10px;}
+  .field-row > .field{flex:1;}
+  .checkbox-field{display:flex; align-items:center; gap:8px;}
+  .checkbox-field input{width:16px; height:16px;}
+  .modal-actions{display:flex; justify-content:space-between; gap:10px; margin-top:20px; align-items:center;}
+  .modal-actions .right{display:flex; gap:8px;}
+
+  /* ---- CV Builder ---- */
+  .cv-toolbar{display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;}
+  #cv-render{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow);
+    padding:46px 54px; font-family:"Source Serif 4", Georgia, serif; max-width:800px; margin:0 auto;
+  }
+  #cv-render h1{font-size:23px; text-align:center; margin-bottom:2px;}
+  #cv-render .cv-role{text-align:center; font-size:14px; color:var(--ink-soft); font-family:"IBM Plex Sans",sans-serif;}
+  #cv-render .cv-contact{
+    text-align:center; font-size:12px; color:var(--ink-soft); margin-top:6px; font-family:"IBM Plex Sans",sans-serif;
+  }
+  #cv-render .cv-section{margin-top:26px;}
+  #cv-render .cv-section h2{
+    font-size:13px; text-transform:uppercase; letter-spacing:.08em; border-bottom:1.5px solid var(--ink);
+    padding-bottom:4px; margin-bottom:10px; font-family:"IBM Plex Sans",sans-serif; font-weight:600;
+  }
+  #cv-render .cv-group{font-size:12px; font-style:italic; color:var(--ink-soft); margin:10px 0 4px; font-family:"IBM Plex Sans",sans-serif;}
+  #cv-render .cv-item{font-size:13.5px; margin-bottom:8px; line-height:1.55; overflow-wrap:anywhere;}
+  #cv-render .cv-item .yr{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-soft); margin-right:8px;}
+
+  /* ---- misc ---- */
+  .toast{
+    position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:var(--ink); color:var(--bg);
+    padding:10px 18px; border-radius:8px; font-size:13px; z-index:99; box-shadow:var(--shadow);
+    opacity:0; pointer-events:none; transition:opacity .15s, transform .15s;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(-4px);}
+
+  #seed-overlay{
+    position:fixed; inset:0; background:var(--bg); z-index:100; align-items:center; justify-content:center;
+    flex-direction:column; gap:12px;
+  }
+  #seed-overlay:not([hidden]){display:flex;}
+  #seed-overlay .spin{
+    width:26px;height:26px;border-radius:50%;border:3px solid var(--border); border-top-color:var(--accent);
+    animation:spin 0.8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  #seed-overlay p{color:var(--ink-soft); font-size:13.5px;}
+
+  @media print{
+    #rail, #topbar, .cv-toolbar{display:none !important;}
+    #content{padding:0;}
+    #cv-render{box-shadow:none; border:none; padding:0; max-width:100%;}
+    body{background:#fff;}
+  }
+
+  @media (max-width: 860px){
+    #app{display:block;}
+    #rail{
+      position:sticky; top:0; width:100%; height:auto; flex-direction:row; align-items:center;
+      padding:12px 16px; border-right:none; border-bottom:1px solid var(--border); z-index:6; background:var(--bg);
+      overflow-x:auto;
+    }
+    .brand{padding:0; flex:0 0 auto; margin-right:10px;}
+    .brand h1{font-size:15px;}
+    .brand .who{display:none;}
+    nav.views{flex-direction:row; gap:4px;}
+    nav.views button{padding:7px 9px; font-size:12.5px; white-space:nowrap;}
+    .rail-stats{display:none;}
+    #content{padding:16px 16px 60px;}
+    #cv-render{padding:26px 20px;}
+    .modal{padding:18px;}
+  }
+</style>
+
+<div id="seed-overlay" hidden>
+  <div class="spin"></div>
+  <p id="seed-status">Loading your CV into the tracker…</p>
+</div>
+
+<div id="app">
+  <aside id="rail">
+    <div class="brand">
+      <div class="kicker">Faculty Activity</div>
+      <h1>CV Tracker</h1>
+      <div class="who" id="who-line">Dr. Margaret A. Mosher</div>
+    </div>
+    <nav class="views">
+      <button data-view="overview" class="active"><span class="dot"></span>Overview</button>
+      <button data-view="activity"><span class="dot"></span>Activity Log</button>
+      <button data-view="prep"><span class="dot"></span>Faculty Insight Prep</button>
+      <button data-view="fi"><span class="dot"></span>Faculty Insight Import</button>
+      <button data-view="cv"><span class="dot"></span>CV Builder</button>
+    </nav>
+    <div class="rail-stats">
+      <div class="rail-stat"><span>Total entries</span><b id="stat-total">0</b></div>
+      <div class="rail-stat"><span>In 2025–2026 window</span><b id="stat-window">0</b></div>
+      <div class="rail-stat"><span>Synced</span><b id="stat-sync">—</b></div>
+    </div>
+  </aside>
+
+  <main id="main">
+    <div id="topbar">
+      <div class="search-wrap">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search-input" type="text" placeholder="Search your CV…">
+      </div>
+      <div class="deadline-chip" id="deadline-chip">Loading deadline…</div>
+      <div class="spacer"></div>
+      <button class="btn primary" id="add-entry-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+        Add activity
+      </button>
+    </div>
+
+    <div id="content">
+
+      <!-- OVERVIEW -->
+      <section class="view active" id="view-overview">
+        <div class="fi-banner">
+          <div class="big tabular" id="fi-days">—</div>
+          <div class="txt">
+            <h2>KBOR reporting deadline</h2>
+            <p id="fi-banner-text">Your first KU Faculty Insight report must cover Jan 2025 – Dec 2026, due 5:00 PM Monday, March 1, 2027.</p>
+            <div class="progress-bar"><div id="fi-progress-fill" style="width:0%"></div></div>
+          </div>
+          <button class="btn" data-goto="prep">Open Faculty Insight prep →</button>
+        </div>
+
+        <div class="stat-grid" id="stat-grid"></div>
+
+        <div class="panel">
+          <h2>Activity by category</h2>
+          <div class="sub">Click a category to jump to your full activity log, filtered.</div>
+          <div class="cat-grid" id="cat-grid"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Recently added</h2>
+          <div class="sub">The last few things you've logged here.</div>
+          <div id="recent-list"></div>
+        </div>
+      </section>
+
+      <!-- ACTIVITY LOG -->
+      <section class="view" id="view-activity">
+        <div class="filter-row">
+          <select id="filter-category"><option value="">All categories</option></select>
+          <input class="yr-input tabular" type="number" id="filter-year-min" placeholder="From year" style="width:100px;">
+          <input class="yr-input tabular" type="number" id="filter-year-max" placeholder="To year" style="width:100px;">
+          <button class="chip-toggle" id="filter-window-toggle">2025–2026 window only</button>
+          <div class="spacer" style="flex:1"></div>
+          <span class="sub" id="activity-count" style="color:var(--ink-soft); font-size:12.5px;"></span>
+        </div>
+        <div id="activity-list"></div>
+      </section>
+
+      <!-- FACULTY INSIGHT PREP -->
+      <section class="view" id="view-prep">
+        <div class="panel">
+          <h2>Why this view exists</h2>
+          <div class="sub">
+            KBOR now requires KU to report faculty activity annually. Your first report must include everything from
+            <b>January 2025 through December 2026</b>, entered into <b>KU Faculty Insight</b> by
+            <b>5:00 PM, Monday, March 1, 2027</b>. This tracker can't submit to Faculty Insight for you (it requires your KU
+            SSO login), but it keeps one running list you can copy into it, and lets you check off what's already entered
+            there so nothing gets missed or duplicated.
+          </div>
+          <div class="fi-banner" style="margin-bottom:0;">
+            <div class="big tabular" id="prep-remaining">—</div>
+            <div class="txt">
+              <h2 style="font-size:14px;">Window entries not yet marked "entered in Faculty Insight"</h2>
+              <p>Toggle each one off as you paste it in — your progress is saved here automatically.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Upcoming workshops (Faculty Affairs &amp; AIRE)</h2>
+          <div class="sub" id="workshop-list"></div>
+        </div>
+
+        <div class="panel" style="padding-bottom:6px;">
+          <h2>Window activity (Jan 2025 – Dec 2026)</h2>
+          <div class="filter-row">
+            <button class="chip-toggle" id="prep-hide-done">Hide already-entered</button>
+          </div>
+          <div id="prep-list"></div>
+        </div>
+      </section>
+
+      <!-- FACULTY INSIGHT IMPORT -->
+      <section class="view" id="view-fi">
+        <div class="panel">
+          <h2>Paste-ready import, mapped to Faculty Insight's exact categories</h2>
+          <div class="sub">
+            This reorganizes everything in your tracker into KU Faculty Insight's own Career / Creative Works /
+            Scholarship / Service / Teaching &amp; Mentoring / Awards &amp; Honors structure, with the same sub-sections
+            you see under "Smart Import." It regenerates live from your Activity Log, so edit an entry there and this
+            view updates automatically. Skim each block before pasting — a couple of sections use a best-guess placement
+            (flagged below) that's worth a quick sanity check.
+          </div>
+          <div class="fi-note warn" style="margin-top:10px;">
+            <b>Already synced automatically — check for duplicates before pasting:</b> Grants-Funded, Grants-Proposal,
+            Journal Articles, and Reviews pull in on their own via Academic Analytics / Streamlyne (you mentioned 2, 13,
+            14, and 31 records respectively are already there). The lists below still include everything from your CV so
+            you can compare and add anything missing, but paste those four sections carefully to avoid duplicates.
+          </div>
+          <div class="fi-note warn" style="margin-top:8px;">
+            <b>Student Mentoring &amp; Student Achievements — I couldn't do the research part of this one:</b> I'm not
+            able to search online for information about your students, and I won't compile or store health details
+            (like a diagnosis) about a named student — that's not something I can look up or keep on file. Below I've
+            included only the students and details you told me directly, formatted into Faculty Insight's table
+            columns, with blank fields for you to fill in. You'll need to add the rest of your ~30 mentees yourself —
+            you can do that any time from <button class="linklike" data-goto="activity">Activity Log → Add activity</button>
+            using the new "Student Mentoring" / "Student Achievements" categories, and this page will pick them up
+            automatically.
+          </div>
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
+            <button class="btn primary" id="fi-copy-all-btn">Copy everything (one paste, all sections)</button>
+            <button class="btn" id="fi-download-btn">Save as text file</button>
+          </div>
+        </div>
+        <div id="fi-sections"></div>
+      </section>
+
+      <!-- CV BUILDER -->
+      <section class="view" id="view-cv">
+        <div class="cv-toolbar">
+          <button class="btn subtle" id="edit-profile-btn">Edit header details</button>
+          <div class="spacer"></div>
+          <button class="btn" id="cv-copy-btn">Copy as text</button>
+          <button class="btn" id="cv-download-btn">Save as Markdown</button>
+          <button class="btn primary" id="cv-print-btn">Print / Save as PDF</button>
+        </div>
+        <div id="cv-render"></div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============== Category config ============== */
+var CATEGORIES = [
+  {key:"publication", label:"Scholarship & Publications", cv:"Scholarship & Creative Works"},
+  {key:"presentation", label:"Presentations", cv:"Presentations"},
+  {key:"grant", label:"Grants & Contracts", cv:"Grants & Contracts"},
+  {key:"teaching", label:"Teaching", cv:"Higher Education Teaching Experience"},
+  {key:"service_university", label:"University Service", cv:"University Service"},
+  {key:"service_scholarly", label:"Scholarly Service", cv:"Scholarly Service"},
+  {key:"service_community", label:"Community Service", cv:"Community Service"},
+  {key:"award", label:"Awards & Honors", cv:"Awards & Honors"},
+  {key:"certification", label:"Certifications & Licensure", cv:"Certification"},
+  {key:"position", label:"Professional Positions", cv:"Professional Experience"},
+  {key:"education", label:"Education", cv:"Education"},
+  {key:"media", label:"Podcast & Media", cv:"Podcast & Media"},
+  {key:"student_mentoring", label:"Student Mentoring", cv:"Student Mentoring"},
+  {key:"student_achievement", label:"Student Achievements", cv:"Student Achievements"}
+];
+var CAT_ORDER = CATEGORIES.map(function(c){return c.key;});
+var CAT_BY_KEY = {};
+CATEGORIES.forEach(function(c){ CAT_BY_KEY[c.key] = c; });
+
+var WINDOW_START_YEAR = 2025, WINDOW_END_YEAR = 2026;
+var DEADLINE = new Date("2027-03-01T17:00:00-06:00");
+
+var DEFAULT_PROFILE = {
+  name: "Margaret A. Mosher, Ph.D.",
+  role: "Assistant Research Professor",
+  org: "Achievement & Assessment Institute, University of Kansas",
+  contact: "mosherku@ku.edu  |  816-824-5864  |  inspiredbi.org  |  orcid.org/0000-0001-9079-231X"
+};
+
+/* ============== State ============== */
+var state = {
+  entries: [],
+  profile: null,
+  view: "overview",
+  filter: { category:"", yearMin:"", yearMax:"", windowOnly:false, query:"" },
+  prepHideDone: false
+};
+
+var db = null, dbAvailable = false;
+var dataReady = false; // true once we've received a real (even if empty) answer for state.entries
+var storageKey = "faculty-tracker-fallback-v1";
+
+/* ============== Utilities ============== */
+function $(sel, root){ return (root||document).querySelector(sel); }
+function $all(sel, root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); }
+function esc(s){
+  return String(s==null?"":s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+  });
+}
+function uid(){ return "e-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2,8); }
+function showToast(msg){
+  var t = $("#toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(function(){ t.classList.remove("show"); }, 2400);
+}
+function statusClass(s){
+  if(!s) return "";
+  var k = s.toLowerCase().replace(/\s+/g,"");
+  if(k==="funded") return "status-funded";
+  if(k==="notfunded") return "status-notfunded";
+  if(k==="underreview") return "status-underreview";
+  if(k==="inprogress") return "status-inprogress";
+  return "";
+}
+function inWindow(e){ return e.year >= WINDOW_START_YEAR && e.year <= WINDOW_END_YEAR; }
+
+/* ============== Persistence layer (db capability with localStorage fallback) ============== */
+function loadFallback(){
+  try{
+    var raw = localStorage.getItem(storageKey);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return null;
+}
+function saveFallback(){
+  try{
+    localStorage.setItem(storageKey, JSON.stringify({entries: state.entries, profile: state.profile}));
+  }catch(e){}
+}
+
+function setSyncStatus(txt){ var el = $("#stat-sync"); if(el) el.textContent = txt; }
+
+function initPersistence(){
+  if(!window.claude || typeof window.claude.use !== "function"){
+    startFallback();
+    scheduleHardFallback();
+    return;
+  }
+  window.claude.use("db").then(function(d){
+    if(!d){ startFallback(); return; }
+    db = d; dbAvailable = true;
+    setSyncStatus("Live");
+    subscribeEntries();
+    subscribeProfile();
+  }).catch(function(){ startFallback(); });
+
+  scheduleHardFallback();
+}
+
+// Guarantees the app can never get permanently stuck showing nothing, no matter which
+// step silently hangs (the capability bridge, a live db connection that never actually
+// delivers a snapshot, a network blip fetching seed.json, etc). Bases everything on
+// `dataReady` rather than `dbAvailable` — a "connected but never delivered" db is exactly
+// the failure mode a check on dbAvailable alone would miss.
+function scheduleHardFallback(){
+  setTimeout(function(){
+    if(!dataReady && !fallbackStarted){ startFallback(); }
+  }, 4000);
+  setTimeout(function(){
+    if(dataReady) return;
+    fetchSeed(true).then(function(seed){
+      if(dataReady) return;
+      state.entries = seed;
+      state.profile = state.profile || DEFAULT_PROFILE;
+      dataReady = true;
+      hideSeedOverlay();
+      renderAll();
+      showToast("Loaded your CV from backup — live sync wasn't responding");
+    }).catch(function(){
+      if(dataReady) return;
+      dataReady = true;
+      hideSeedOverlay();
+      renderAll();
+      showToast("Couldn't load your data — please reload the page");
+    });
+  }, 9000);
+}
+
+var fallbackStarted = false;
+function startFallback(){
+  if(fallbackStarted) return;
+  fallbackStarted = true;
+  setSyncStatus("This device only");
+  var saved = loadFallback();
+  if(saved && saved.entries && saved.entries.length){
+    state.entries = saved.entries;
+    state.profile = saved.profile || DEFAULT_PROFILE;
+    dataReady = true;
+    hideSeedOverlay();
+    renderAll();
+    // Merge in any newly-added seed rows (e.g. new categories) that predate this save.
+    fetchSeed(true).then(function(seed){
+      var existingIds = {}; state.entries.forEach(function(e){ existingIds[e.id]=true; });
+      var extra = seed.filter(function(s){ return !existingIds[s.id]; });
+      if(extra.length){ state.entries = state.entries.concat(extra); saveFallback(); renderAll(); }
+    }).catch(function(){});
+  } else {
+    fetchSeed(true).then(function(seed){
+      state.entries = seed;
+      state.profile = DEFAULT_PROFILE;
+      saveFallback();
+      dataReady = true;
+      hideSeedOverlay();
+      renderAll();
+    }).catch(function(){
+      state.entries = [];
+      state.profile = DEFAULT_PROFILE;
+      dataReady = true;
+      hideSeedOverlay();
+      renderAll();
+      showToast("Couldn't load your activity data — try reloading the page");
+    });
+  }
+}
+
+function fetchSeed(retryOnFail){
+  return fetch("seed.json").then(function(r){
+    if(!r.ok) throw new Error("no seed");
+    return r.json();
+  }).then(function(rows){
+    return rows.map(function(r){
+      return {
+        id: r.id, category: r.category, group: r.group || "", year: r.year,
+        title: r.title, status: r.status || "", notes: "", enteredFI: false,
+        updatedAt: new Date().toISOString()
+      };
+    });
+  }).catch(function(err){
+    if(retryOnFail){
+      // one retry after a short pause — covers a transient network blip fetching seed.json
+      return new Promise(function(resolve){ setTimeout(resolve, 1200); }).then(function(){ return fetchSeed(false); });
+    }
+    throw err;
+  });
+}
+
+function subscribeEntries(){
+  db.collection("entries").onSnapshot(function(snap){
+    var rows = snap.docs.map(function(d){ var v = d.data() || {}; v.id = d.id; return v; });
+    state.entries = rows;
+    dataReady = true;
+    hideSeedOverlay();
+    renderAll();
+    maybeSeed();
+  }, function(err){
+    console.error("entries snapshot error", err);
+    showToast("Trouble syncing your activity data — try reloading the page");
+  });
+}
+
+function subscribeProfile(){
+  db.doc("meta/profile").onSnapshot(function(snap){
+    state.profile = (snap.exists && snap.data()) ? snap.data() : DEFAULT_PROFILE;
+    renderProfileLine();
+    if(state.view === "cv") renderCVView();
+  }, function(err){ console.error("profile snapshot error", err); });
+}
+
+var seedAttempted = false;
+function maybeSeed(){
+  if(seedAttempted) return;
+  seedAttempted = true;
+  // Always diff against seed.json (not just a one-time "seeded" flag) so that if the
+  // underlying CV seed data is ever refreshed/extended, new rows still land for
+  // people who already seeded once — runSeed() below is a no-op when nothing is new.
+  runSeed();
+}
+
+function runSeed(){
+  fetchSeed(true).then(function(seed){
+    var existingIds = {};
+    state.entries.forEach(function(e){ existingIds[e.id] = true; });
+    var todo = seed.filter(function(s){ return !existingIds[s.id]; });
+    if(todo.length === 0){
+      db.doc("meta/status").set({seeded:true, count: seed.length, seededAt: new Date().toISOString()});
+      hideSeedOverlay();
+      return;
+    }
+    showSeedOverlay();
+    var i = 0;
+    function next(){
+      if(i >= todo.length){
+        db.doc("meta/status").set({seeded:true, count: seed.length, seededAt: new Date().toISOString()});
+        hideSeedOverlay();
+        return;
+      }
+      var row = todo[i];
+      $("#seed-status") && ($("#seed-status").textContent = "Loading your CV into the tracker… (" + (i+1) + " / " + todo.length + ")");
+      db.collection("entries").doc(row.id).set({
+        category: row.category, group: row.group || "", year: row.year, title: row.title,
+        status: row.status || "", notes: "", enteredFI: false, updatedAt: new Date().toISOString()
+      }).then(function(){ i++; next(); }).catch(function(){ i++; next(); });
+    }
+    next();
+  }).catch(function(){ hideSeedOverlay(); });
+}
+
+function showSeedOverlay(){ var o = $("#seed-overlay"); if(o) o.hidden = false; }
+function hideSeedOverlay(){ var o = $("#seed-overlay"); if(o) o.hidden = true; }
+
+/* ============== CRUD ============== */
+function upsertEntry(data, id){
+  var isNew = !id;
+  var payload = {
+    category: data.category, group: data.group || "", year: Number(data.year),
+    title: data.title, status: data.status || "", notes: data.notes || "",
+    enteredFI: !!data.enteredFI, updatedAt: new Date().toISOString()
+  };
+  if(dbAvailable){
+    var ref = id ? db.collection("entries").doc(id) : db.collection("entries").doc(uid());
+    return ref.set(payload).then(function(){ showToast(isNew ? "Added to your CV" : "Saved"); });
+  } else {
+    if(id){
+      var idx = state.entries.findIndex(function(e){ return e.id === id; });
+      if(idx >= 0) state.entries[idx] = Object.assign({id:id}, payload);
+    } else {
+      payload.id = uid();
+      state.entries.push(payload);
+    }
+    saveFallback(); renderAll();
+    showToast(isNew ? "Added to your CV" : "Saved");
+    return Promise.resolve();
+  }
+}
+
+function deleteEntry(id){
+  if(dbAvailable){
+    return db.collection("entries").doc(id).delete().then(function(){ showToast("Deleted"); });
+  } else {
+    state.entries = state.entries.filter(function(e){ return e.id !== id; });
+    saveFallback(); renderAll();
+    showToast("Deleted");
+    return Promise.resolve();
+  }
+}
+
+function toggleFI(id, val){
+  if(dbAvailable){
+    db.collection("entries").doc(id).update({enteredFI: val, updatedAt: new Date().toISOString()}).catch(function(e){
+      console.error(e);
+    });
+  } else {
+    var e = state.entries.find(function(x){ return x.id === id; });
+    if(e){ e.enteredFI = val; saveFallback(); }
+    renderAll();
+  }
+}
+
+function saveProfile(p){
+  state.profile = p;
+  if(dbAvailable){
+    db.doc("meta/profile").set(p).then(function(){ showToast("Header updated"); });
+  } else {
+    saveFallback();
+    showToast("Header updated");
+    renderProfileLine(); renderCVView();
+  }
+}
+
+/* ============== Rendering: shell ============== */
+function switchView(view){
+  state.view = view;
+  $all("nav.views button").forEach(function(b){ b.classList.toggle("active", b.dataset.view === view); });
+  $all(".view").forEach(function(v){ v.classList.remove("active"); });
+  $("#view-" + view).classList.add("active");
+  window.scrollTo(0,0);
+  if(view === "cv") renderCVView();
+  if(view === "activity") renderActivityView();
+  if(view === "prep") renderPrepView();
+  if(view === "fi") renderFIView();
+  if(view === "overview") renderOverview();
+}
+
+function renderProfileLine(){
+  var p = state.profile || DEFAULT_PROFILE;
+  $("#who-line").textContent = p.name || DEFAULT_PROFILE.name;
+}
+
+function renderDeadlineChip(){
+  var now = new Date();
+  var ms = DEADLINE - now;
+  var days = Math.ceil(ms / 86400000);
+  var txt;
+  if(days > 0) txt = days + " day" + (days===1?"":"s") + " to KBOR deadline";
+  else txt = "KBOR deadline has passed";
+  $("#deadline-chip").innerHTML = "<svg width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><circle cx='12' cy='12' r='9'/><path d='M12 7v5l3 3'/></svg> <b class='tabular'>" + txt + "</b>";
+  $("#fi-days").textContent = days > 0 ? days : "0";
+  var totalWindowDays = Math.round((DEADLINE - new Date("2026-01-01T00:00:00-06:00"))/86400000);
+  var elapsed = totalWindowDays - days;
+  var pct = Math.max(2, Math.min(100, Math.round(100 * elapsed / totalWindowDays)));
+}
+
+function renderAll(){
+  renderProfileLine();
+  renderDeadlineChip();
+  renderOverview();
+  renderActivityView();
+  renderPrepView();
+  if(state.view === "cv") renderCVView();
+  if(state.view === "fi") renderFIView();
+  $("#stat-total").textContent = state.entries.length;
+  $("#stat-window").textContent = state.entries.filter(inWindow).length;
+}
+
+/* ============== Overview ============== */
+function renderOverview(){
+  var entries = state.entries;
+  var winEntries = entries.filter(inWindow);
+  var notEntered = winEntries.filter(function(e){ return !e.enteredFI; });
+
+  $("#fi-progress-fill").style.width = winEntries.length ? Math.round(100*(winEntries.length-notEntered.length)/winEntries.length) + "%" : "0%";
+  $("#fi-banner-text").innerHTML = winEntries.length
+    ? (winEntries.length - notEntered.length) + " of " + winEntries.length + " window activities marked as entered in Faculty Insight."
+    : "Your first KU Faculty Insight report must cover Jan 2025 – Dec 2026, due 5:00 PM Monday, March 1, 2027.";
+
+  var grid = $("#stat-grid");
+  var tiles = [
+    {n: entries.length, l:"Total activities logged"},
+    {n: winEntries.length, l:"In the 2025–2026 window"},
+    {n: entries.filter(function(e){return e.category==="publication";}).length, l:"Publications"},
+    {n: entries.filter(function(e){return e.category==="presentation";}).length, l:"Presentations"},
+    {n: entries.filter(function(e){return e.category==="grant";}).length, l:"Grants & contracts"},
+    {n: notEntered.length, l:"Not yet in Faculty Insight"}
+  ];
+  grid.innerHTML = tiles.map(function(t){
+    return '<div class="stat-tile"><div class="n tabular">'+t.n+'</div><div class="lbl">'+t.l+'</div></div>';
+  }).join("");
+
+  var catGrid = $("#cat-grid");
+  catGrid.innerHTML = CATEGORIES.map(function(c){
+    var n = entries.filter(function(e){ return e.category === c.key; }).length;
+    return '<div class="cat-card" data-cat="'+c.key+'"><div class="n tabular">'+n+'</div><div class="l">'+esc(c.label)+'</div></div>';
+  }).join("");
+  $all(".cat-card", catGrid).forEach(function(el){
+    el.addEventListener("click", function(){
+      state.filter.category = el.dataset.cat;
+      $("#filter-category").value = el.dataset.cat;
+      switchView("activity");
+      renderActivityView();
+    });
+  });
+
+  var recent = entries.slice().sort(function(a,b){ return (b.updatedAt||"").localeCompare(a.updatedAt||""); }).slice(0,6);
+  $("#recent-list").innerHTML = recent.length ? recent.map(rowHTML).join("") : '<div class="empty-state">Nothing logged yet — click "Add activity" to get started.</div>';
+  bindRowActions($("#recent-list"));
+}
+
+/* ============== Activity list ============== */
+function populateCategoryFilter(){
+  var sel = $("#filter-category");
+  if(sel.options.length > 1) return;
+  CATEGORIES.forEach(function(c){
+    var o = document.createElement("option"); o.value = c.key; o.textContent = c.label; sel.appendChild(o);
+  });
+}
+
+function filteredEntries(){
+  var f = state.filter;
+  return state.entries.filter(function(e){
+    if(f.category && e.category !== f.category) return false;
+    if(f.windowOnly && !inWindow(e)) return false;
+    if(f.yearMin && e.year < Number(f.yearMin)) return false;
+    if(f.yearMax && e.year > Number(f.yearMax)) return false;
+    if(f.query){
+      var q = f.query.toLowerCase();
+      var hay = (e.title + " " + (e.group||"") + " " + (e.notes||"")).toLowerCase();
+      if(hay.indexOf(q) === -1) return false;
+    }
+    return true;
+  });
+}
+
+function rowHTML(e){
+  var cat = CAT_BY_KEY[e.category] || {label:e.category};
+  var badges = '<span class="badge cat">'+esc(cat.label)+'</span>';
+  if(e.status) badges += '<span class="badge '+statusClass(e.status)+'">'+esc(e.status)+'</span>';
+  if(inWindow(e)){
+    badges += e.enteredFI ? '<span class="badge fi-yes">✓ In Faculty Insight</span>' : '<span class="badge fi-no">Not yet in FI</span>';
+  }
+  return '<div class="entry-row" data-id="'+e.id+'">' +
+    '<div class="entry-year tabular">'+(e.year||"")+'</div>' +
+    '<div class="entry-body">' +
+      (e.group ? '<div style="font-size:11.5px;color:var(--muted);margin-bottom:3px;">'+esc(e.group)+'</div>' : '') +
+      '<div class="entry-title">'+esc(e.title)+(e.notes ? ' <span style="color:var(--muted);font-size:12px;">— '+esc(e.notes)+'</span>' : '')+'</div>' +
+      '<div class="entry-meta">'+badges+'</div>' +
+    '</div>' +
+    '<div class="entry-actions">' +
+      '<button class="icon-btn" data-act="edit" title="Edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>' +
+      '<button class="icon-btn" data-act="delete" title="Delete"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>' +
+    '</div>' +
+  '</div>';
+}
+
+function bindRowActions(root){
+  $all(".entry-row", root).forEach(function(row){
+    var id = row.dataset.id;
+    var editBtn = row.querySelector('[data-act="edit"]');
+    var delBtn = row.querySelector('[data-act="delete"]');
+    if(editBtn) editBtn.addEventListener("click", function(){ openEntryModal(state.entries.find(function(e){return e.id===id;})); });
+    if(delBtn) delBtn.addEventListener("click", function(){
+      if(confirm("Delete this activity from your tracker? This won't affect anything already submitted to Faculty Insight.")){
+        deleteEntry(id);
+      }
+    });
+    row.addEventListener("click", function(ev){
+      if(ev.target.closest(".entry-actions")) return;
+      openEntryModal(state.entries.find(function(e){return e.id===id;}));
+    });
+  });
+}
+
+function renderActivityView(){
+  populateCategoryFilter();
+  var list = filteredEntries();
+  $("#activity-count").textContent = list.length + " of " + state.entries.length + " activities";
+
+  var groups = {};
+  CAT_ORDER.forEach(function(k){ groups[k] = []; });
+  list.forEach(function(e){ (groups[e.category] = groups[e.category] || []).push(e); });
+
+  var html = "";
+  var catsToShow = state.filter.category ? [state.filter.category] : CAT_ORDER;
+  catsToShow.forEach(function(catKey){
+    var rows = (groups[catKey]||[]).slice().sort(function(a,b){ return (b.year||0)-(a.year||0); });
+    if(!rows.length) return;
+    html += '<div class="group-heading">'+esc((CAT_BY_KEY[catKey]||{}).label||catKey)+' · '+rows.length+'</div>';
+    html += rows.map(rowHTML).join("");
+  });
+  $("#activity-list").innerHTML = html || '<div class="empty-state">No activities match these filters.</div>';
+  bindRowActions($("#activity-list"));
+}
+
+/* ============== Faculty Insight prep ============== */
+var WORKSHOPS = [
+  {label:"Activity Entry & Reporting (in-person, Lawrence)", date:new Date("2026-10-07T14:30:00-05:00"), note:"Oct 7, 2:30–3:30pm — or Oct 8, 9–10am"},
+  {label:"Faculty Insight Walkthrough (online)", date:new Date("2026-10-13T15:30:00-05:00"), note:"Oct 13, 3:30–4:30pm"},
+  {label:"Faculty Insight Walkthrough (online)", date:new Date("2026-12-08T15:30:00-06:00"), note:"Dec 8, 3:30–4:30pm"},
+  {label:"Faculty Insight Walkthrough (online)", date:new Date("2027-01-26T15:30:00-06:00"), note:"Jan 26, 3:30–4:30pm"}
+];
+function renderWorkshops(){
+  var now = new Date();
+  $("#workshop-list").innerHTML = WORKSHOPS.map(function(w){
+    var past = w.date < now;
+    return '<div style="display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);'+(past?'opacity:.45;':'')+'">' +
+      '<span>'+esc(w.label)+'</span><span class="mono" style="color:var(--ink-soft);font-size:12px;">'+esc(w.note)+'</span></div>';
+  }).join("") + '<div style="padding-top:8px;font-size:12px;color:var(--ink-soft);">Or request a unit-level walkthrough from Faculty Affairs.</div>';
+}
+
+function renderPrepView(){
+  renderWorkshops();
+  var winEntries = state.entries.filter(inWindow);
+  var notEntered = winEntries.filter(function(e){ return !e.enteredFI; });
+  $("#prep-remaining").textContent = notEntered.length;
+
+  var list = state.prepHideDone ? notEntered : winEntries;
+  list = list.slice().sort(function(a,b){ return (b.year||0)-(a.year||0); });
+  $("#prep-list").innerHTML = list.length ? list.map(function(e){
+    var cat = CAT_BY_KEY[e.category] || {label:e.category};
+    return '<div class="entry-row" data-id="'+e.id+'">' +
+      '<div class="entry-year tabular">'+(e.year||"")+'</div>' +
+      '<div class="entry-body">' +
+        '<div class="entry-title">'+esc(e.title)+'</div>' +
+        '<div class="entry-meta"><span class="badge cat">'+esc(cat.label)+'</span></div>' +
+      '</div>' +
+      '<div class="entry-actions" style="opacity:1;">' +
+        '<button class="btn subtle" data-copy="'+e.id+'" style="font-size:12px;padding:5px 9px;">Copy</button>' +
+        '<label class="checkbox-field" style="font-size:12px;"><input type="checkbox" data-fi="'+e.id+'" '+(e.enteredFI?"checked":"")+'> In FI</label>' +
+      '</div>' +
+    '</div>';
+  }).join("") : '<div class="empty-state">Nothing left to mark — you\'re all caught up for this window.</div>';
+
+  $all("[data-fi]", $("#prep-list")).forEach(function(cb){
+    cb.addEventListener("change", function(){ toggleFI(cb.dataset.fi, cb.checked); });
+  });
+  $all("[data-copy]", $("#prep-list")).forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var e = state.entries.find(function(x){ return x.id === btn.dataset.copy; });
+      if(e) copyText(e.title);
+    });
+  });
+}
+
+/* ============== Faculty Insight Import (KU Activity Manager taxonomy) ============== */
+
+// --- classifiers: map this tracker's categories onto Faculty Insight's exact sub-sections,
+// using only signals already present in the CV text (group labels, status, keywords). Nothing here
+// is invented — ambiguous cases are routed to a reasonable default and flagged for a quick check.
+
+function fiClassifyPublication(e){
+  var t = e.title || "", g = e.group || "";
+  if(/proceedings/i.test(t)) return "conference_proceedings";
+  if(/foldable|infographic|toolkit|handout|guide(?!\w)/i.test(t) && /National Professional Resources|CIDDL|Center for/i.test(t)) return "educational_materials";
+  if(/books and book chapters/i.test(g)) return "book_chapters";
+  if(/other publications/i.test(g)) return "other_publications";
+  if(/manuscripts? (under review|in preparation)/i.test(g)) return "other_publications";
+  return "journal_articles";
+}
+function fiClassifyGrant(e){
+  var t = e.title || "";
+  if(e.status === "Funded") return "grants_funded";
+  if(/\bawarded\b/i.test(t) && e.status !== "Not Funded") return "grants_funded";
+  return "grants_proposal"; // includes "Not Funded" and unspecified-status proposals
+}
+function fiClassifyServiceScholarly(e){
+  var t = e.title || "", g = e.group || "";
+  if(/^memberships$/i.test(g) || /\bmember\b|\bvice president\b|\bpresident\b/i.test(t)) return "professional_membership";
+  return "professional_service";
+}
+
+// entry -> plain text line for pasting (each entry's own CV phrasing already carries its date)
+function fiLine(e){ return (e.title || "").trim(); }
+
+function fiCourseCode(title){
+  var m = (title||"").match(/^([^:]{2,40}):/);
+  return m ? m[1].replace(/[†‡]/g,"").trim() : (title||"").slice(0,40);
+}
+
+// Awards & Honors: break each CV award line into Faculty Insight's 6 fields using only what the
+// line itself says. Anything not stated in the CV is left as an explicit placeholder rather than guessed.
+var AWARD_ORG_HINTS = ["University of Kansas","Baker University","Franciscan University","Missouri","Kansas","Ohio",
+  "Department of Education","OSEP","Foundation","Association","Council","Community Foundation","L'Oréal","UNESCO",
+  "Society","Institute","College","School District","District"];
+var RECOGNITION_RULES = [
+  [/fellowship/i, "Fellowship"],
+  [/scholarship/i, "Scholarship"],
+  [/\bgrant\b/i, "Research Grant/Award"],
+  [/cum laude|summa|magna/i, "Academic Distinction"],
+  [/dissertation/i, "Research/Dissertation Award"],
+  [/recognition of excellence|leader award|educator award|horizon award|specialist of the year/i, "Professional Recognition Award"]
+];
+function fiParseAward(e){
+  var raw = (e.title || "").trim();
+  var yearMatch = raw.match(/^(\d{4}(?:\s*&\s*\d{4})?)\s+/);
+  var receivedDate = yearMatch ? yearMatch[1] : (e.year || "");
+  var rest = yearMatch ? raw.slice(yearMatch[0].length) : raw;
+
+  var org = "", titlePart = rest;
+  var parts = rest.split(",");
+  if(parts.length > 1){
+    var last = parts[parts.length-1].trim();
+    var hinted = AWARD_ORG_HINTS.some(function(h){ return last.toLowerCase().indexOf(h.toLowerCase()) > -1; });
+    if(hinted){ org = last; titlePart = parts.slice(0,-1).join(",").trim(); }
+  }
+  if(!org){
+    var hit = AWARD_ORG_HINTS.find(function(h){ return rest.toLowerCase().indexOf(h.toLowerCase()) > -1; });
+    if(hit) org = hit;
+  }
+
+  var recognition = "";
+  for(var i=0;i<RECOGNITION_RULES.length;i++){ if(RECOGNITION_RULES[i][0].test(raw)){ recognition = RECOGNITION_RULES[i][1]; break; } }
+  if(!recognition) recognition = "Award";
+
+  return {
+    title: titlePart || raw,
+    receivedDate: receivedDate,
+    org: org,
+    recognition: recognition,
+    description: raw
+  };
+}
+function fiAwardCategory(e){
+  var t = (e.title||"").toLowerCase();
+  if(/teach|instruct(?!ional design)|educator award|leader award/.test(t)) return "Teaching";
+  if(/service|leadership award|community/.test(t)) return "Service";
+  return "Research";
+}
+function fiAwardBlock(e){
+  var a = fiParseAward(e);
+  return [
+    "Title: " + a.title,
+    "Received Date: " + a.receivedDate,
+    "Awarding Organization/Sponsor: " + (a.org || "[Not stated in CV — please add]"),
+    "Scope/Impact: [Not stated in CV — please specify, e.g., institutional / state / national / international]",
+    "Description: " + a.description,
+    "Type of Recognition: [Suggested: " + a.recognition + " — please verify]",
+    "Type of Award: " + fiAwardCategory(e) + " [Best guess — Research/Teaching/Service — please verify]"
+  ].join("\n");
+}
+
+function fiEmpty(label){ return "[No items found in your CV for " + label + ". Add these directly in Faculty Insight, or log them in the Activity Log here first.]"; }
+
+function fiEntriesFor(catKey){ return state.entries.filter(function(e){ return e.category === catKey; }); }
+
+// --- Degrees: Terminal Degree in Discipline / Highest Degree Earned, from CV text + rank comparison.
+function fiParseDegree(e){
+  var t = (e.title||"").trim();
+  var m = t.match(/^(\d{4})\s+(Doctor of [A-Za-z]+|Master of [A-Za-z]+(?:\s+[A-Za-z]+)?|Bachelor of [A-Za-z]+(?:\s+[A-Za-z]+)?)\s+in\s+([^;]+);\s*([^.]+)\.?\s*$/);
+  if(!m) return {year: e.year, degree: t, major: "", institution: "[Not stated in CV — please add]"};
+  return {year: m[1], degree: m[2].trim(), major: m[3].trim(), institution: m[4].trim()};
+}
+function fiDegreeRank(degree){
+  if(/^Doctor/i.test(degree)) return 3;
+  if(/^Master/i.test(degree)) return 2;
+  if(/^Bachelor/i.test(degree)) return 1;
+  return 0;
+}
+
+// --- Professional Membership: best-guess Scope/Impact from the organization's own name.
+function fiMembershipOrg(title){
+  var t = (title||"").replace(/^\d{4}(?:\s*-\s*(?:\d{4}|present))?\s*/i, "").trim();
+  t = t.replace(/^(Vice President|President|Board Member|Steering Committee|Member)\s+/i, "");
+  return t.trim();
+}
+function fiMembershipDates(title){
+  var m = (title||"").match(/^(\d{4})\s*-\s*(present|\d{4})/i);
+  if(!m) return {start:"", end:""};
+  return {start: m[1], end: /present/i.test(m[2]) ? "Present" : m[2]};
+}
+var MEMBERSHIP_SCOPE_KNOWN = {
+  "council for exceptional children": "National/Federal",
+  "association for supervision and curriculum development": "National/Federal",
+  "learning disabilities association": "National/Federal",
+  "national education association": "National/Federal",
+  "national catholic education association": "National/Federal"
+};
+function fiMembershipScope(org){
+  var lo = org.toLowerCase();
+  if(/international/.test(lo)) return "International";
+  if(/\bnational\b/.test(lo)) return "National/Federal";
+  if(/\bamerican\b/.test(lo)) return "National/Federal";
+  if(/\bkansas\b|\bmissouri\b|\bstate of\b/.test(lo)) return "State";
+  if(/\bregional\b/.test(lo)) return "Regional";
+  if(/\buniversity\b|\bcampus\b/.test(lo)) return "University";
+  for(var k in MEMBERSHIP_SCOPE_KNOWN){ if(lo.indexOf(k) > -1) return MEMBERSHIP_SCOPE_KNOWN[k]; }
+  return "Unknown";
+}
+
+// --- Professional Development: pull conference/venue names out of Presentations as a starting list.
+function fiExtractVenue(title){
+  var m = (title||"").match(/\]\.\s*(.+)$/);
+  if(!m) return null;
+  var rest = m[1].replace(/\.\s*$/, "");
+  rest = rest.replace(/,\s*Online\s*$/i, "");
+  rest = rest.replace(/,\s*[A-Za-z.\-' ]+,\s*[A-Z]{2},\s*(United States|Canada)\s*$/, "");
+  rest = rest.replace(/,\s*[A-Za-z.\-' ]+,\s*(United States|Canada|[A-Za-z]+)\s*$/, "");
+  rest = rest.replace(/,\s*[A-Za-z.\-' ]+\s*$/, "");
+  rest = rest.replace(/^\d{4}\s+/, ""); // drop a leading year so the same venue in different years dedupes
+  return rest.trim();
+}
+
+// --- Career / Professional Experience: flag consulting roles as Academic vs. Nonprofit.
+function fiConsultingType(e){
+  if(!/consult/i.test(e.title || "")) return null;
+  if(/nonprofit|501\(c\)3|foundation|embrace/i.test(e.title)) return "Nonprofit";
+  return "Academic";
+}
+
+// --- Journal Articles / Other Publications: Work Status.
+function fiWorkStatus(e){
+  var g = e.group || "";
+  if(/manuscripts? under review/i.test(g)) return "In Submission";
+  if(/manuscripts? in preparation/i.test(g)) return "In Preparation";
+  return "Published";
+}
+
+// --- Grants: full Faculty Insight field order, best-guessed from free-text CV lines.
+function fiGrantAmount(title){
+  var m = (title||"").match(/^\$([\d,]+)/);
+  return m ? "$" + m[1] : "[Not stated in CV — please add]";
+}
+function fiGrantDates(title){
+  var t = title || "";
+  var all = t.match(/\((\d{1,2}\/\d{1,2}\/\d{4})\s*-\s*(\d{1,2}\/\d{1,2}\/\d{4})\)/g);
+  if(all && all.length){
+    var mm = all[all.length-1].match(/\((\d{1,2}\/\d{1,2}\/\d{4})\s*-\s*(\d{1,2}\/\d{1,2}\/\d{4})\)/);
+    return {start: mm[1], end: mm[2]};
+  }
+  all = t.match(/\((\d{4})\s*-\s*(\d{4})\)/g);
+  if(all && all.length){
+    var my = all[all.length-1].match(/\((\d{4})\s*-\s*(\d{4})\)/);
+    return {start: my[1], end: my[2]};
+  }
+  all = t.match(/\((\d{4})\)/g);
+  if(all && all.length){
+    var ly = all[all.length-1].match(/\((\d{4})\)/);
+    return {start: ly[1], end: ly[1]};
+  }
+  return {start: "[Not stated — please add]", end: "[Not stated — please add]"};
+}
+// Sponsor names as literally written in the CV, matched by substring (longest/most-specific first) —
+// nothing here is invented, only detected among your own wording.
+var GRANT_SPONSOR_HINTS = [
+  ["U.S. Department of Education, Office of Special Education Programs (OSEP)", "U.S. Department of Education, Office of Special Education Programs (OSEP)"],
+  ["U.S. Department of Education Office of Elementary and Secondary Education, Education and Innovation Research (EIR) Program", "U.S. Department of Education, Office of Elementary and Secondary Education, Education Innovation and Research (EIR) Program"],
+  ["OESE Competitive Grants for State Assessments", "U.S. Department of Education, Office of Elementary and Secondary Education (OESE) — in collaboration with the Kansas State Department of Education"],
+  ["Institute of Education Sciences", "Institute of Education Sciences (IES)"],
+  ["National Science Foundation", "National Science Foundation (NSF)"],
+  ["Google AI Accelerator", "Google"],
+  ["OSEP", "U.S. Department of Education, Office of Special Education Programs (OSEP)"],
+  ["Dunn Family Foundation", "Dunn Family Foundation"],
+  ["Laughlin Foundation", "Laughlin Foundation"],
+  ["Royal's Charities", "Royal's Charities"],
+  ["Variety Children's Charity of Greater Kansas City", "Variety Children's Charity of Greater Kansas City"],
+  ["Greater Kansas City Community Foundation", "Greater Kansas City Community Foundation"],
+  ["Greater Kansas City Fund", "Greater Kansas City Fund"],
+  ["Mimio Interactive Teaching Technology", "Mimio Interactive Teaching Technology"],
+  ["Sherman Family Foundation", "Sherman Family Foundation"],
+  ["New Schools Grant Project", "[Program name only in CV — sponsor/funder not clearly stated; please add]"]
+];
+function fiGrantSponsor(e){
+  var t = e.title || "";
+  for(var i=0;i<GRANT_SPONSOR_HINTS.length;i++){
+    if(t.indexOf(GRANT_SPONSOR_HINTS[i][0]) > -1) return GRANT_SPONSOR_HINTS[i][1];
+  }
+  var m = t.match(/Awarded\s+(?:by|from)\s+([^.]+?)(?:\s+to\s+[^.]+)?\.?\s*$/i);
+  if(m) return m[1].trim();
+  m = t.match(/\b(?:by|from)\s+([A-Z][^.]+?)\.?\s*$/);
+  if(m) return m[1].trim();
+  return "[Not clearly stated in CV — please verify sponsor]";
+}
+function fiGrantTitleGoodMatch(text){
+  var re = /([A-Z][A-Za-z0-9,:\-\s']{4,90}\s\(([A-Z][A-Za-z0-9\-:]{1,24})\))/g;
+  var m;
+  while((m = re.exec(text))){
+    if(/^(Co-)?Principals?$|^Mentors?$|^Investigators?$|^Under$|^Review$/i.test(m[2])) continue;
+    var overlapsSponsor = GRANT_SPONSOR_HINTS.some(function(h){ return m[1].indexOf(h[0]) > -1 || (m[2].length > 1 && h[0].indexOf(m[2]) > -1); });
+    if(overlapsSponsor) continue;
+    return m[1].trim();
+  }
+  return null;
+}
+function fiGrantTitleGuess(e){
+  var t = e.title || "";
+  var authors = fiGrantAuthors(e);
+  if(authors){
+    var idx = t.indexOf(authors);
+    if(idx > -1){
+      var after = fiGrantTitleGoodMatch(t.slice(idx + authors.length));
+      if(after) return after;
+      var before = fiGrantTitleGoodMatch(t.slice(0, idx));
+      if(before) return before;
+    }
+  }
+  var whole = fiGrantTitleGoodMatch(t);
+  if(whole) return whole;
+  var m2 = t.match(/\bProject\s+[A-Z][A-Za-z\-]{1,20}(?::\s*[^.(]{3,80})?/);
+  if(m2) return m2[0].trim();
+  return null;
+}
+function fiGrantAuthors(e){
+  var t = e.title || "";
+  var m = t.match(/([A-Z][a-zA-Z\-]+,\s*[A-Z]\.(?:\s*[A-Z]\.)?(?:\s*\([^)]+\))?(?:,\s*[A-Z][a-zA-Z\-]+,\s*[A-Z]\.(?:\s*[A-Z]\.)?(?:\s*\([^)]+\))?)*(?:,?\s*&\s*[A-Z][a-zA-Z\-]+,\s*[A-Z]\.(?:\s*[A-Z]\.)?(?:\s*\([^)]+\))?)?)/);
+  return m ? m[1] : "";
+}
+function fiGrantAuthorOrder(authorsStr){
+  if(!authorsStr) return "";
+  var idx = authorsStr.toLowerCase().indexOf("mosher");
+  if(idx === -1) return "";
+  var before = authorsStr.slice(0, idx);
+  var count = (before.match(/[A-Z][a-zA-Z\-]+,\s*[A-Z]\./g) || []).length;
+  return String(count + 1);
+}
+function fiGrantRole(e){
+  var t = e.title || "";
+  if(/Mosher,?\s*M\.?\s*\(Principal\)/i.test(t)) return "Principal Investigator";
+  if(/Mosher,?\s*M\.?\s*\(Co-\s*Principal\)/i.test(t)) return "Co-Principal Investigator";
+  return "Co-Investigator [best guess — please verify role]";
+}
+function fiGrantScope(sponsor){
+  var lo = sponsor.toLowerCase();
+  if(/u\.s\. department|national science foundation|\bosep\b|\bfederal\b|\bnsf\b|institute of education sciences/.test(lo)) return "National/Federal";
+  if(/foundation|charities|charity/.test(lo)) return "Regional";
+  if(/university of kansas|internal/.test(lo)) return "Institutional";
+  return "Unknown";
+}
+function fiGrantFundingSource(sponsor){
+  var lo = sponsor.toLowerCase();
+  if(/u\.s\. department|national science foundation|\bosep\b|\bfederal\b|\bnsf\b|institute of education sciences/.test(lo)) return "Federal";
+  if(/foundation|charities|charity/.test(lo)) return "Private/Foundation";
+  if(/university of kansas/.test(lo)) return "Institutional";
+  if(/google|corporate|\binc\b|\bllc\b/.test(lo)) return "Industry";
+  return "[Best guess unavailable — please select]";
+}
+function fiGrantTypeOfFunding(e){
+  return /Funded Contracts/i.test(e.group || "") ? "Contract" : "Grant";
+}
+function fiGrantCommunityEngaged(title){
+  return /communit(y|ies)|district|families|outreach|schools?\b/i.test(title) ? "Yes [best guess]" : "No [best guess]";
+}
+function fiGrantRefereed(title){
+  return /invited/i.test(title) ? "Invited" : "Competitive [best guess — most federal/foundation grants are competitive]";
+}
+function fiAffiliationForYear(year){
+  if(!year) return "University of Kansas [best guess]";
+  if(year >= 2019) return "University of Kansas";
+  if(year >= 2017) return "EMBRACE";
+  if(year >= 2013) return "Baker University";
+  if(year >= 2012) return "Curé of Ars";
+  if(year >= 2007) return "St. Agnes";
+  if(year >= 2005) return "Madison Elementary / USD 231";
+  return "Steubenville City Schools";
+}
+function fiGrantCFDA(title){
+  var m = (title||"").match(/CFDA[#\s]*([\d.]+[A-Z]?)/i);
+  return m ? m[1] : "";
+}
+function fiGrantOtherCollaborators(authorsStr){
+  if(!authorsStr) return "[Not stated in CV — add via Faculty Insight's collaborator search]";
+  var names = authorsStr.split(/,\s*&\s*|\s*&\s*|,\s*(?=[A-Z][a-zA-Z\-]+,\s*[A-Z]\.)/).map(function(s){ return s.trim(); }).filter(Boolean);
+  var others = names.filter(function(n){ return n.toLowerCase().indexOf("mosher") === -1; });
+  return others.length ? others.join("; ") : "[None besides you listed in the CV text]";
+}
+function fiGrantBlock(e){
+  var dates = fiGrantDates(e.title);
+  var sponsor = fiGrantSponsor(e);
+  var authors = fiGrantAuthors(e);
+  var cfda = fiGrantCFDA(e.title);
+  var fundingStatus = e.status === "Funded" ? "Funded"
+    : e.status === "Not Funded" ? "Submitted, Not Funded"
+    : /Prior Funded|Funded Contracts/i.test(e.group||"") ? "Funded"
+    : "Submitted";
+  var titleGuess = fiGrantTitleGuess(e);
+  var titleOut = titleGuess || (e.title.length > 160 ? e.title.slice(0,160) + "… [Full CV text is long — shorten to a project title]" : e.title + " [Shorten to a project title if needed]");
+  return [
+    "Start Date: " + dates.start,
+    "End Date: " + dates.end,
+    "Ongoing: No",
+    "Title: " + titleOut,
+    "Sponsor: " + sponsor,
+    "Dollar Amount: " + fiGrantAmount(e.title),
+    "Scope/Impact: " + fiGrantScope(sponsor) + " [best guess]",
+    "Funding Status: " + fundingStatus,
+    "Proposal/Award/Contract ID: " + (cfda ? ("CFDA " + cfda) : "[Not stated in CV — please add]"),
+    "University Grant ID: [Not tracked in CV — add from KU Office of Research records if available]",
+    "URL/Link: [Not stated in CV]",
+    "Abstract: " + e.title,
+    "Add to KU Web Profile?: Yes [default — change if you'd rather not publish this one]",
+    "Community-engaged activity?: " + fiGrantCommunityEngaged(e.title),
+    "Funding Source: " + fiGrantFundingSource(sponsor),
+    "Type of Funding: " + fiGrantTypeOfFunding(e),
+    "Submitted Date: " + dates.start + " [best guess — actual submission date may be earlier]",
+    "Refereed/Competitive or Invited: " + fiGrantRefereed(e.title),
+    "Affiliation at Time of Submittal: " + fiAffiliationForYear(e.year) + " [best guess from your CV timeline — please verify]",
+    "Description: " + e.title,
+    "— Add Collaborators —",
+    "Your Information — First Name: Maggie | Middle Name: Anne | Last Name: Mosher | Affiliation: University of Kansas, The | Author Order: " + (fiGrantAuthorOrder(authors) || "[check CV author order]") + " | Role(s): " + fiGrantRole(e) + " | Student?: No",
+    "Other Collaborators: " + fiGrantOtherCollaborators(authors)
+  ].join("\n");
+}
+
+// --- Reviews: your exact ORCID peer-review record (31 reviews, 8 journals), pre-formatted to Faculty Insight's fields.
+var REVIEWS_DATA = [
+  {journal:"Behaviour & Information Technology", issn:"1362-3001", source:"Web of Science Researcher Profile Sync", years:[2025,2025,2024]},
+  {journal:"Focus on Autism and Other Developmental Disabilities", issn:"1088-3576", source:"Web of Science Researcher Profile Sync", years:[2023]},
+  {journal:"International Journal of Developmental Disabilities", issn:"2047-3877", source:"Web of Science Researcher Profile Sync", years:[2022,2022,2022]},
+  {journal:"Journal of Autism and Developmental Disorders", issn:"0162-3257", source:"Springer Nature @ Editorial Manager", years:[2025,2024,2024,2024,2024,2023,2023,2022,2021,2021,2021,2021,2020]},
+  {journal:"Journal of Autism and Developmental Disorders", issn:"1573-3432", source:"Web of Science Researcher Profile Sync", years:[2023,2022,2022,2021,2021,2021]},
+  {journal:"Journal of Intellectual Disability Research", issn:"0964-2633", source:"Web of Science Researcher Profile Sync", years:[2024]},
+  {journal:"Journal of Research on Technology in Education", issn:"1945-0818", source:"Web of Science Researcher Profile Sync", years:[2026,2025,2024]},
+  {journal:"Review Journal of Autism and Developmental Disorders", issn:"2195-7177", source:"Springer Nature @ Editorial Manager", years:[2025]}
+];
+function fiReviewsBlocks(){
+  var out = [];
+  REVIEWS_DATA.forEach(function(g){
+    g.years.forEach(function(y){
+      out.push([
+        "Review Date: " + y,
+        "Journal/Publication: " + g.journal,
+        "ISSN: " + g.issn,
+        "Article Title: Peer Reviews are Anonymized, Contact Journal for Article Title",
+        "Type: Review",
+        "Role: Reviewer",
+        "Source: " + g.source,
+        "Link: [See your ORCID record for this review's link]"
+      ].join("\n"));
+    });
+  });
+  return out;
+}
+
+// --- Service (Professional / Public / University): split each CV line into Start/End/Role/Org/Location/Description.
+function fiExtractLocation(text){
+  var m = text.match(/\b([A-Za-z][a-zA-Z]+(?:\s[A-Za-z]+)?),\s*(KS|MO|OH|NM|PA|AZ|MD|UT|FL|WV|IL|TX|CA|NY)\b/);
+  if(m) return m[1] + ", " + m[2];
+  var m2 = text.match(/\b(KS|MO|OH|NM|PA|AZ|MD|UT|FL|WV|IL|TX|CA|NY)\b/);
+  if(m2) return "State of " + m2[1];
+  return "[Not stated in CV — please verify]";
+}
+function fiSplitRoleOrg(rest){
+  var m = rest.match(/^([A-Z][^,]*?)\s+(providing|aiding|creating|founding|organizing|coaching|instructing|teaching|managing|training|collaborating|assisting|writing|working|fundraising)\b/);
+  if(m) return {role: m[1].trim(), org: rest.trim()};
+  var m2 = rest.match(/^([^,]{3,60}),\s*(.+)$/);
+  if(m2) return {role: m2[1].trim(), org: m2[2].trim()};
+  var words = rest.split(/\s+/);
+  return {role: words.slice(0, Math.min(8, words.length)).join(" ").replace(/[.,]$/,""), org: rest};
+}
+function fiParseServiceEntry(e, opts){
+  opts = opts || {};
+  var t = (e.title||"").trim();
+  var start = "", end = "", rest = t;
+  var m = t.match(/^([A-Za-z]+\.?\s*\d{4})\s*-\s*(Current|Present|[A-Za-z]+\.?\s*\d{4})/);
+  if(m){ start = m[1]; end = /current|present/i.test(m[2]) ? "Present" : m[2]; rest = t.slice(m[0].length).replace(/^[,\s]+/,""); }
+  else {
+    m = t.match(/\((?:[A-Za-z]+,\s*)?(\d{4})\s*-\s*(\d{4})\)\s*$/);
+    if(m){ start = m[1]; end = m[2]; rest = t.slice(0, t.length - m[0].length).trim(); }
+    else {
+      m = t.match(/^(\d{4})\s*-\s*(present|\d{4})/i);
+      if(m){ start = m[1]; end = /present/i.test(m[2]) ? "Present" : m[2]; rest = t.slice(m[0].length).replace(/^[,\s]+/,""); }
+      else {
+        m = t.match(/^([A-Za-z]+\.?\s*\d{4})\b/);
+        if(m){ start = m[1]; end = "[Not stated in CV — please add]"; rest = t.slice(m[0].length).replace(/^[,\s]+/,""); }
+      }
+    }
+  }
+  var role, org;
+  if(opts.org){ role = rest; org = opts.org; }
+  else { var split = fiSplitRoleOrg(rest); role = split.role; org = split.org; }
+  var location = opts.location || fiExtractLocation(t);
+  return {
+    start: start || "[Not stated in CV — please add]",
+    end: end || "[Not stated in CV — please add]",
+    role: role || rest,
+    org: org || rest,
+    location: location,
+    description: t
+  };
+}
+function fiServiceBlock(e, opts){
+  var p = fiParseServiceEntry(e, opts);
+  return [
+    "Start Date: " + p.start,
+    "End Date: " + p.end,
+    "Position/Role: " + p.role,
+    "Organization/Publication/Activity: " + p.org,
+    "Location (City, State/Country): " + p.location,
+    "Description: " + p.description
+  ].join("\n");
+}
+
+// --- Courses Taught Summary: one row per course code, combining every section/year in the CV.
+var FI_KNOWN_ORGS = ["University of Kansas", "Baker University", "Johns Hopkins University"];
+function fiCourseOrg(group){
+  var g = group || "";
+  for(var i=0;i<FI_KNOWN_ORGS.length;i++){ if(g.indexOf(FI_KNOWN_ORGS[i]) > -1) return FI_KNOWN_ORGS[i]; }
+  var cut = g.split(/\s+(Professor|Adjunct|Course)/)[0].trim();
+  return cut || "[Not stated in CV — please add]";
+}
+function fiCourseFullTitle(title){
+  var m = (title||"").match(/^(.*?)\s*\([^)]*\d{4}[^)]*\)/);
+  return (m ? m[1] : (title||"")).replace(/[†‡]/g,"").trim();
+}
+function fiCourseYears(title){
+  // years only from the first parenthetical that contains one (the term/session note) — a course
+  // CODE like "EDU 5323" can itself contain a 4-digit number, which must not be read as a year.
+  var m = (title||"").match(/\(([^)]*\d{4}[^)]*)\)/);
+  if(!m) return {start:null, end:null};
+  var years = (m[1].match(/\d{4}/g) || []).map(Number);
+  if(!years.length) return {start:null, end:null};
+  return {start: Math.min.apply(null, years), end: Math.max.apply(null, years)};
+}
+
+// --- Student Mentoring: named students + every co-author found in Publications/Presentations.
+function fiExtractCoauthors(){
+  var re = /([A-Z][a-zA-Z\-]+),\s*([A-Z]\.(?:\s*[A-Z]\.)?)/g;
+  var counts = {};
+  fiEntriesFor("publication").concat(fiEntriesFor("presentation")).forEach(function(e){
+    var t = e.title || "", m;
+    re.lastIndex = 0;
+    while((m = re.exec(t))){
+      if(/^Mosher/i.test(m[1])) continue;
+      var name = m[1] + ", " + m[2];
+      counts[name] = (counts[name]||0) + 1;
+    }
+  });
+  return Object.keys(counts).sort(function(a,b){ return counts[b]-counts[a]; });
+}
+
+// --- Section/subsection tree. Each `gen` returns {lines:[...]} or {note:"..."} for an empty/synced block.
+function buildFISections(){
+  var pubs = fiEntriesFor("publication");
+  var grants = fiEntriesFor("grant");
+  var svcScholarly = fiEntriesFor("service_scholarly");
+
+  var byPub = {journal_articles:[], book_chapters:[], conference_proceedings:[], other_publications:[], educational_materials:[]};
+  pubs.forEach(function(e){ (byPub[fiClassifyPublication(e)] = byPub[fiClassifyPublication(e)]||[]).push(e); });
+
+  var byGrant = {grants_funded:[], grants_proposal:[]};
+  grants.forEach(function(e){ byGrant[fiClassifyGrant(e)].push(e); });
+
+  var bySvc = {professional_membership:[], professional_service:[]};
+  svcScholarly.forEach(function(e){ bySvc[fiClassifyServiceScholarly(e)].push(e); });
+
+  function sortYr(arr){ return arr.slice().sort(function(a,b){ return (b.year||0)-(a.year||0); }); }
+  function linesOf(arr){ return sortYr(arr).map(fiLine); }
+
+  return [
+    {key:"career", label:"Career", subs:[
+      {key:"degrees", label:"Degrees", warn:"Terminal Degree in Discipline and Highest Degree Earned are best-guessed by comparing your degrees (Doctorate > Master's > Bachelor's) — please verify against Faculty Insight's dropdowns.", gen:function(){
+        var rows = sortYr(fiEntriesFor("education"));
+        if(!rows.length) return {note:fiEmpty("Degrees")};
+        var parsed = rows.map(fiParseDegree);
+        var maxRank = Math.max.apply(null, parsed.map(function(p){ return fiDegreeRank(p.degree); }));
+        var blocks = rows.map(function(e,i){
+          var p = parsed[i];
+          var isHighest = fiDegreeRank(p.degree) === maxRank;
+          return [
+            "Degree: " + p.degree,
+            "Awarded Date: " + p.year,
+            "Institution: " + p.institution,
+            "Major: " + (p.major || "[Not stated in CV — please add]"),
+            "Terminal Degree in Discipline: " + (isHighest ? "Yes" : "No") + " [Best guess — please verify]",
+            "Highest Degree Earned: " + (isHighest ? "Yes" : "No") + " [Best guess — please verify]"
+          ].join("\n");
+        });
+        return {lines: blocks, blockSep:true};
+      }},
+      {key:"licenses", label:"Licenses & Certifications", gen:function(){ var l=linesOf(fiEntriesFor("certification")); return l.length?{lines:l}:{note:fiEmpty("Licenses & Certifications")}; }},
+      {key:"prof_dev", label:"Professional Development", warn:"These are the conference/event names pulled from your Presentations — add the specific PD session or credential title for each; the venue is a starting point, not the final entry.", gen:function(){
+        var venues = {};
+        fiEntriesFor("presentation").forEach(function(e){
+          var v = fiExtractVenue(e.title);
+          if(v && v.length > 3 && v.length < 140) venues[v] = true;
+        });
+        var names = Object.keys(venues).sort();
+        if(!names.length) return {note:fiEmpty("Professional Development")};
+        var lines = names.map(function(v){ return "Conference/Venue: " + v + "\nTitle of PD: [Add the specific session/credential title you completed]"; });
+        return {lines:lines, blockSep:true};
+      }},
+      {key:"prof_exp", label:"Professional Experience", gen:function(){
+        var rows = sortYr(fiEntriesFor("position"));
+        if(!rows.length) return {note:fiEmpty("Professional Experience")};
+        var lines = rows.map(function(e){
+          var ct = fiConsultingType(e);
+          return fiLine(e) + (ct ? "\nType of Consulting: " + ct + " [Best guess — please verify]" : "");
+        });
+        return {lines:lines, blockSep:true};
+      }},
+      {key:"prof_membership", label:"Professional Membership", warn:"Scope/Impact is best-guessed from each organization's own name (e.g. \"National\" → National/Federal, \"International\" → International); set to Unknown where I couldn't tell.", gen:function(){
+        var rows = sortYr(bySvc.professional_membership);
+        if(!rows.length) return {note:fiEmpty("Professional Membership")};
+        var blocks = rows.map(function(e){
+          var org = fiMembershipOrg(e.title);
+          var d = fiMembershipDates(e.title);
+          return [
+            "Organization: " + org,
+            "Start Date: " + (d.start || "[Not stated — please add]"),
+            "End Date: " + (d.end || "[Not stated — please add]"),
+            "Scope/Impact: " + fiMembershipScope(org) + " [Best guess — please verify, or change to Unknown]"
+          ].join("\n");
+        });
+        return {lines: blocks, blockSep:true};
+      }},
+      {key:"refs_interviews", label:"References to My Work-Interviews", warn:"I tried to pull \"cited by\" data from ResearchGate for you, but ResearchGate's site blocked the automated request (a rate-limit error, on the exact link you gave me and again on a search). I wasn't able to retrieve a reliable citation list this way, and I didn't want to guess at citations for an official workload report. ResearchGate shows a Citations tab on each of your publication pages when you're logged in — that's the accurate source. Please check that tab per publication and paste anything relevant here.", gen:function(){
+        return {note:"[Not retrievable via automated ResearchGate access — see the note above. Check the \"Cited by\"/Citations tab on each publication's ResearchGate page yourself and paste interview references here.]"};
+      }}
+    ]},
+    {key:"creative", label:"Creative Works", subs:[
+      {key:"exhibits", label:"Exhibits & Installations", gen:function(){ return {note:fiEmpty("Exhibits & Installations")}; }},
+      {key:"literary", label:"Literary & Critical Works", gen:function(){ return {note:fiEmpty("Literary & Critical Works")}; }},
+      {key:"other_creative", label:"Other Creative Works", gen:function(){ return {note:fiEmpty("Other Creative Works")}; }},
+      {key:"performances", label:"Performances", gen:function(){ return {note:fiEmpty("Performances")}; }},
+      {key:"productions", label:"Productions", gen:function(){ return {note:fiEmpty("Productions")}; }}
+    ]},
+    {key:"scholarship", label:"Scholarship", subs:[
+      {key:"book_chapters", label:"Book Chapters", gen:function(){ var l=linesOf(byPub.book_chapters); return l.length?{lines:l}:{note:fiEmpty("Book Chapters")}; }},
+      {key:"books", label:"Books", gen:function(){ return {note:fiEmpty("Books")}; }},
+      {key:"clinical_trials", label:"Clinical Trials", gen:function(){ return {note:fiEmpty("Clinical Trials")}; }},
+      {key:"conf_proceedings", label:"Conference Proceedings", gen:function(){ var l=linesOf(byPub.conference_proceedings); return l.length?{lines:l}:{note:fiEmpty("Conference Proceedings")}; }},
+      {key:"educational_materials", label:"Educational Materials", gen:function(){ var l=linesOf(byPub.educational_materials); return l.length?{lines:l}:{note:fiEmpty("Educational Materials")}; }},
+      {key:"grants_funded", label:"Grants-Funded", warn:"Faculty Insight already lists funded-grant records here (auto-synced) — compare before pasting to avoid duplicates. Every field is filled from your CV; anything marked '[best guess]' or '[please add]' should be double-checked before you submit.", gen:function(){
+        var rows = sortYr(byGrant.grants_funded);
+        if(!rows.length) return {note:fiEmpty("Grants-Funded")};
+        return {lines: rows.map(fiGrantBlock), blockSep:true};
+      }},
+      {key:"grants_proposal", label:"Grants-Proposal", warn:"Faculty Insight already lists proposal records here (auto-synced) — compare before pasting to avoid duplicates. Same best-guess/flag approach as Grants-Funded above.", gen:function(){
+        var rows = sortYr(byGrant.grants_proposal);
+        if(!rows.length) return {note:fiEmpty("Grants-Proposal")};
+        return {lines: rows.map(fiGrantBlock), blockSep:true};
+      }},
+      {key:"journal_articles", label:"Journal Articles", warn:"Faculty Insight already lists records here, synced via Web of Science. Compare before pasting to avoid duplicates. Work Status is filled per entry — unpublished ones say to pick \"no release date\" for the first drop-down.", gen:function(){
+        var rows = sortYr(byPub.journal_articles);
+        if(!rows.length) return {note:fiEmpty("Journal Articles")};
+        var lines = rows.map(function(e){
+          var status = fiWorkStatus(e);
+          var extra = "\nWork Status: " + status;
+          if(status !== "Published") extra += "\nRelease Date: [Select \"no release date\" for the first drop-down since this is unpublished]";
+          return fiLine(e) + extra;
+        });
+        return {lines:lines, blockSep:true};
+      }},
+      {key:"other_pubs", label:"Other Publications", gen:function(){
+        var rows = sortYr(byPub.other_publications);
+        if(!rows.length) return {note:fiEmpty("Other Publications")};
+        var lines = rows.map(function(e){ return fiLine(e) + "\nWork Status: " + fiWorkStatus(e); });
+        return {lines:lines, blockSep:true};
+      }},
+      {key:"patents", label:"Patents & Copyrights", gen:function(){ return {note:fiEmpty("Patents & Copyrights")}; }},
+      {key:"presentations", label:"Presentations", gen:function(){ var l=linesOf(fiEntriesFor("presentation")); return l.length?{lines:l}:{note:fiEmpty("Presentations")}; }},
+      {key:"reviews", label:"Reviews", warn:"Faculty Insight already auto-syncs some reviews via Web of Science/Springer Nature — compare before pasting to avoid duplicates. Built from your ORCID record's 31 reviews across 8 journals; Article Title is anonymized per journal peer-review policy, exactly as you described.", gen:function(){
+        return {lines: fiReviewsBlocks(), blockSep:true};
+      }},
+      {key:"software", label:"Software & Digital Media", gen:function(){ var l=linesOf(fiEntriesFor("media")); return l.length?{lines:l}:{note:fiEmpty("Software & Digital Media")}; }}
+    ]},
+    {key:"service", label:"Service", subs:[
+      {key:"prof_service", label:"Professional Service", warn:"Start/End dates, Position/Role, and Location are best-guess parses of free-text CV lines — please double check each before pasting.", gen:function(){
+        var rows = sortYr(bySvc.professional_service);
+        if(!rows.length) return {note:fiEmpty("Professional Service")};
+        return {lines: rows.map(function(e){ return fiServiceBlock(e); }), blockSep:true};
+      }},
+      {key:"public_service", label:"Public Service", warn:"Start/End dates, Position/Role, and Location are best-guess parses of free-text CV lines — please double check each before pasting.", gen:function(){
+        var rows = sortYr(fiEntriesFor("service_community"));
+        if(!rows.length) return {note:fiEmpty("Public Service")};
+        return {lines: rows.map(function(e){ return fiServiceBlock(e); }), blockSep:true};
+      }},
+      {key:"university_service", label:"University Service", warn:"Organization is set to University of Kansas and Location to Lawrence, KS for all of these — please verify Start/End dates before pasting.", gen:function(){
+        var rows = sortYr(fiEntriesFor("service_university"));
+        if(!rows.length) return {note:fiEmpty("University Service")};
+        return {lines: rows.map(function(e){ return fiServiceBlock(e, {org:"University of Kansas", location:"Lawrence, KS"}); }), blockSep:true};
+      }}
+    ]},
+    {key:"teaching", label:"Teaching & Mentoring", subs:[
+      {key:"courses_taught", label:"Courses Taught", gen:function(){ var l=linesOf(fiEntriesFor("teaching")); return l.length?{lines:l}:{note:fiEmpty("Courses Taught")}; }},
+      {key:"courses_summary", label:"Courses Taught Summary", warn:"One row per course code, combining every section/year found in your CV. Please verify organization names and date ranges before pasting.", gen:function(){
+        var rows = fiEntriesFor("teaching");
+        if(!rows.length) return {note:fiEmpty("Courses Taught Summary")};
+        var byCode = {};
+        rows.forEach(function(e){
+          var code = fiCourseCode(e.title);
+          var yrs = fiCourseYears(e.title);
+          if(!byCode[code]) byCode[code] = {org: fiCourseOrg(e.group), full: fiCourseFullTitle(e.title), starts: [], ends: []};
+          if(yrs.start) byCode[code].starts.push(yrs.start);
+          if(yrs.end) byCode[code].ends.push(yrs.end);
+        });
+        var blocks = Object.keys(byCode).sort().map(function(code){
+          var c = byCode[code];
+          var start = c.starts.length ? Math.min.apply(null, c.starts) : "[Not stated — please add]";
+          var end = c.ends.length ? Math.max.apply(null, c.ends) : "[Not stated — please add]";
+          return [
+            "Start Date: " + start,
+            "End Date: " + end,
+            "Name of Organization: " + c.org,
+            "Course or List of Courses: " + code + " — " + c.full
+          ].join("\n");
+        });
+        return {lines: blocks, blockSep:true};
+      }},
+      {key:"directed_learning", label:"Directed Student Learning", gen:function(){ return {note:fiEmpty("Directed Student Learning (e.g., dissertation/thesis committees)")}; }},
+      {key:"student_achievements", label:"Student Achievements", warn:"I didn't research or add anything beyond what you told me — see the note above.", gen:function(){
+        var l = linesOf(fiEntriesFor("student_achievement"));
+        return l.length ? {lines:l} : {note:fiEmpty("Student Achievements")};
+      }},
+      {key:"student_mentoring", label:"Student Mentoring", warn:"This combines the students you named directly with every co-author name found in your Publications and Presentations, most-frequent first, exactly as you asked. Some of these names are almost certainly colleagues, not mentees (e.g., long-time research partners you've published with many times) — please delete any name that isn't actually a student/mentee before pasting. Mentoring Activity, Program/Major, and Year are left blank for you to fill in.", gen:function(){
+        var named = linesOf(fiEntriesFor("student_mentoring"));
+        var coauthors = fiExtractCoauthors().map(function(n){ return n + " — Mentoring Activity: [add] | Program/Major: [add] | Year: [add]"; });
+        var lines = named.concat(coauthors);
+        return lines.length ? {lines:lines} : {note:fiEmpty("Student Mentoring")};
+      }}
+    ]},
+    {key:"awards", label:"Awards & Honors", subs:[
+      {key:"awards_all", label:"Each award, broken into Faculty Insight's 7 fields", gen:function(){
+        var rows = sortYr(fiEntriesFor("award"));
+        if(!rows.length) return {note:fiEmpty("Awards & Honors")};
+        return {lines: rows.map(fiAwardBlock), blockSep:true};
+      }}
+    ]}
+  ];
+}
+
+function fiSubsectionText(sub){
+  var out = sub.gen();
+  if(out.note) return out.note;
+  return out.lines.join(out.blockSep ? "\n\n" : "\n\n");
+}
+function fiSectionText(section){
+  var parts = [section.label.toUpperCase(), "=".repeat(section.label.length)];
+  section.subs.forEach(function(sub){
+    parts.push("\n" + sub.label);
+    parts.push(fiSubsectionText(sub));
+  });
+  return parts.join("\n");
+}
+function fiFullText(){
+  return buildFISections().map(fiSectionText).join("\n\n\n");
+}
+
+function renderFIView(){
+  if(state.entries.length === 0){
+    $("#fi-sections").innerHTML = dataReady
+      ? '<div class="panel"><h2>Nothing loaded yet</h2><div class="sub">' +
+          'Your activity data didn\'t come through on this load — this is a loading hiccup, not lost data ' +
+          '(everything you\'ve entered is safely stored). Try reloading this page. If it keeps happening, let me know.' +
+        '</div><button class="btn primary" id="fi-retry-btn">Reload page</button></div>'
+      : '<div class="panel"><h2>Loading your activity data…</h2><div class="sub">' +
+          'This fills in automatically in a moment — no need to do anything.' +
+        '</div></div>';
+    var retryBtn = $("#fi-retry-btn");
+    if(retryBtn) retryBtn.addEventListener("click", function(){ location.reload(); });
+    if(!dataReady){
+      // try again shortly in case this view was opened before the first sync arrived
+      setTimeout(function(){ if(state.view === "fi") renderFIView(); }, 900);
+    }
+    return;
+  }
+  var sections = buildFISections();
+  var html = sections.map(function(section){
+    var subsHtml = section.subs.map(function(sub){
+      var out = sub.gen();
+      var count = out.lines ? out.lines.length : 0;
+      var bodyText = out.note ? out.note : out.lines.join(out.blockSep ? "\n\n" : "\n\n");
+      var isEmptyNote = !!out.note;
+      return '<div class="fi-sub">' +
+        '<div class="fi-sub-head">' +
+          '<h3>' + esc(sub.label) + '</h3>' +
+          (isEmptyNote ? '' : '<span class="fi-sub-count">' + count + ' item' + (count===1?'':'s') + '</span>') +
+          '<button class="btn subtle" style="font-size:12px;padding:4px 9px;" data-fi-copy data-section="' + section.key + '" data-sub="' + sub.key + '">Copy</button>' +
+        '</div>' +
+        (sub.warn ? '<div class="fi-flag" style="font-size:12px;margin-bottom:6px;">⚠ ' + esc(sub.warn) + '</div>' : '') +
+        '<div class="fi-pre' + (isEmptyNote ? ' empty' : '') + '">' + esc(bodyText) + '</div>' +
+      '</div>';
+    }).join("");
+    return '<div class="panel fi-section-panel">' +
+      '<div class="fi-section-head"><h2>' + esc(section.label) + '</h2>' +
+        '<button class="btn" data-fi-copy-section="' + section.key + '">Copy this whole section</button>' +
+      '</div>' +
+      subsHtml +
+    '</div>';
+  }).join("");
+  $("#fi-sections").innerHTML = html;
+
+  $all("[data-fi-copy]", $("#fi-sections")).forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var section = sections.find(function(s){ return s.key === btn.dataset.section; });
+      var sub = section.subs.find(function(s){ return s.key === btn.dataset.sub; });
+      copyText(fiSubsectionText(sub));
+    });
+  });
+  $all("[data-fi-copy-section]", $("#fi-sections")).forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var section = sections.find(function(s){ return s.key === btn.dataset.fiCopySection; });
+      copyText(fiSectionText(section));
+    });
+  });
+}
+
+function copyText(text){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){ showToast("Copied — paste into Faculty Insight"); }).catch(function(){ legacyCopy(text); });
+  } else legacyCopy(text);
+}
+function legacyCopy(text){
+  var ta = document.createElement("textarea"); ta.value = text; ta.style.position="fixed"; ta.style.opacity="0";
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand("copy"); showToast("Copied — paste into Faculty Insight"); }catch(e){ showToast("Couldn't copy — select manually"); }
+  document.body.removeChild(ta);
+}
+
+/* ============== CV Builder ============== */
+function buildCVMarkdown(){
+  var p = state.profile || DEFAULT_PROFILE;
+  var lines = [];
+  lines.push("# " + p.name);
+  lines.push("*" + p.role + " — " + p.org + "*");
+  lines.push(p.contact);
+  lines.push("");
+  CATEGORIES.forEach(function(c){
+    var rows = state.entries.filter(function(e){ return e.category === c.key; })
+      .slice().sort(function(a,b){ return (b.year||0)-(a.year||0); });
+    if(!rows.length) return;
+    lines.push("## " + c.cv);
+    var lastGroup = null;
+    rows.forEach(function(e){
+      if(e.group && e.group !== lastGroup){ lines.push("_" + e.group + "_"); lastGroup = e.group; }
+      if(!e.group) lastGroup = null;
+      lines.push("- **" + (e.year||"") + "** " + e.title + (e.status ? " (" + e.status + ")" : ""));
+    });
+    lines.push("");
+  });
+  return lines.join("\n");
+}
+
+function renderCVView(){
+  var p = state.profile || DEFAULT_PROFILE;
+  var html = "<h1>"+esc(p.name)+"</h1>" +
+    "<div class='cv-role'>"+esc(p.role)+" — "+esc(p.org)+"</div>" +
+    "<div class='cv-contact'>"+esc(p.contact)+"</div>";
+
+  CATEGORIES.forEach(function(c){
+    var rows = state.entries.filter(function(e){ return e.category === c.key; })
+      .slice().sort(function(a,b){ return (b.year||0)-(a.year||0); });
+    if(!rows.length) return;
+    html += "<div class='cv-section'><h2>"+esc(c.cv)+"</h2>";
+    var lastGroup = null;
+    rows.forEach(function(e){
+      if(e.group && e.group !== lastGroup){ html += "<div class='cv-group'>"+esc(e.group)+"</div>"; lastGroup = e.group; }
+      if(!e.group) lastGroup = null;
+      html += "<div class='cv-item'><span class='yr tabular'>"+(e.year||"")+"</span>"+esc(e.title)+(e.status?" <i>("+esc(e.status)+")</i>":"")+"</div>";
+    });
+    html += "</div>";
+  });
+  $("#cv-render").innerHTML = html;
+}
+
+/* ============== Entry modal ============== */
+function openEntryModal(existing){
+  var isEdit = !!existing;
+  var veil = document.createElement("div");
+  veil.className = "modal-veil";
+  veil.innerHTML =
+    '<div class="modal">' +
+      '<h3>'+(isEdit ? "Edit activity" : "Add activity")+'</h3>' +
+      '<div class="field-row">' +
+        '<div class="field"><label>Category</label><select id="m-category">'+CATEGORIES.map(function(c){return '<option value="'+c.key+'">'+esc(c.label)+'</option>';}).join("")+'</select></div>' +
+        '<div class="field" style="max-width:110px;"><label>Year</label><input type="number" id="m-year" placeholder="2026"></div>' +
+      '</div>' +
+      '<div class="field"><label>Description (as it should read on your CV)</label><textarea id="m-title" placeholder="e.g. Mosher, M. (2026, March). Title of presentation [Presentation]. Conference name, City, State."></textarea></div>' +
+      '<div class="field"><label>Group / subsection (optional)</label><input type="text" id="m-group" placeholder="e.g. Peer Reviewed Publications"></div>' +
+      '<div class="field-row">' +
+        '<div class="field"><label>Status (optional — mainly for grants)</label><select id="m-status"><option value="">—</option><option>Funded</option><option>Not Funded</option><option>Under Review</option><option>In Progress</option><option>Completed</option></select></div>' +
+      '</div>' +
+      '<div class="field"><label>Private notes (not shown on generated CV)</label><input type="text" id="m-notes" placeholder="optional"></div>' +
+      '<div class="field checkbox-field"><input type="checkbox" id="m-fi"><label style="margin:0;" for="m-fi">Already entered in KU Faculty Insight</label></div>' +
+      '<div class="modal-actions">' +
+        (isEdit ? '<button class="btn danger" id="m-delete">Delete</button>' : '<span></span>') +
+        '<div class="right">' +
+          '<button class="btn subtle" id="m-cancel">Cancel</button>' +
+          '<button class="btn primary" id="m-save">'+(isEdit?"Save":"Add")+'</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(veil);
+
+  if(isEdit){
+    $("#m-category", veil).value = existing.category;
+    $("#m-year", veil).value = existing.year || "";
+    $("#m-title", veil).value = existing.title || "";
+    $("#m-group", veil).value = existing.group || "";
+    $("#m-status", veil).value = existing.status || "";
+    $("#m-notes", veil).value = existing.notes || "";
+    $("#m-fi", veil).checked = !!existing.enteredFI;
+  } else {
+    $("#m-year", veil).value = new Date().getFullYear();
+    if(state.filter.category) $("#m-category", veil).value = state.filter.category;
+  }
+
+  function close(){ document.body.removeChild(veil); }
+  veil.addEventListener("click", function(ev){ if(ev.target === veil) close(); });
+  $("#m-cancel", veil).addEventListener("click", close);
+  if(isEdit){
+    $("#m-delete", veil).addEventListener("click", function(){
+      if(confirm("Delete this activity?")){ deleteEntry(existing.id); close(); }
+    });
+  }
+  $("#m-save", veil).addEventListener("click", function(){
+    var title = $("#m-title", veil).value.trim();
+    if(!title){ $("#m-title", veil).focus(); return; }
+    var data = {
+      category: $("#m-category", veil).value,
+      year: $("#m-year", veil).value || new Date().getFullYear(),
+      title: title,
+      group: $("#m-group", veil).value.trim(),
+      status: $("#m-status", veil).value,
+      notes: $("#m-notes", veil).value.trim(),
+      enteredFI: $("#m-fi", veil).checked
+    };
+    upsertEntry(data, isEdit ? existing.id : null);
+    close();
+  });
+}
+
+function openProfileModal(){
+  var p = state.profile || DEFAULT_PROFILE;
+  var veil = document.createElement("div");
+  veil.className = "modal-veil";
+  veil.innerHTML =
+    '<div class="modal">' +
+      '<h3>Header details for your generated CV</h3>' +
+      '<div class="field"><label>Full name</label><input type="text" id="p-name"></div>' +
+      '<div class="field"><label>Title / role</label><input type="text" id="p-role"></div>' +
+      '<div class="field"><label>Institution / unit</label><input type="text" id="p-org"></div>' +
+      '<div class="field"><label>Contact line</label><input type="text" id="p-contact"></div>' +
+      '<div class="modal-actions"><span></span><div class="right"><button class="btn subtle" id="p-cancel">Cancel</button><button class="btn primary" id="p-save">Save</button></div></div>' +
+    '</div>';
+  document.body.appendChild(veil);
+  $("#p-name", veil).value = p.name; $("#p-role", veil).value = p.role;
+  $("#p-org", veil).value = p.org; $("#p-contact", veil).value = p.contact;
+  function close(){ document.body.removeChild(veil); }
+  veil.addEventListener("click", function(ev){ if(ev.target===veil) close(); });
+  $("#p-cancel", veil).addEventListener("click", close);
+  $("#p-save", veil).addEventListener("click", function(){
+    saveProfile({
+      name: $("#p-name", veil).value.trim() || DEFAULT_PROFILE.name,
+      role: $("#p-role", veil).value.trim(),
+      org: $("#p-org", veil).value.trim(),
+      contact: $("#p-contact", veil).value.trim()
+    });
+    close();
+  });
+}
+
+/* ============== Wire up static controls ============== */
+document.addEventListener("DOMContentLoaded", function(){
+  $all("nav.views button").forEach(function(b){
+    b.addEventListener("click", function(){ switchView(b.dataset.view); });
+  });
+  $all("[data-goto]").forEach(function(b){
+    b.addEventListener("click", function(){ switchView(b.dataset.goto); });
+  });
+  $("#add-entry-btn").addEventListener("click", function(){ openEntryModal(null); });
+  $("#edit-profile-btn").addEventListener("click", openProfileModal);
+
+  $("#search-input").addEventListener("input", function(){
+    state.filter.query = this.value; renderActivityView();
+    if(state.view !== "activity") switchView("activity");
+  });
+  $("#filter-category").addEventListener("change", function(){ state.filter.category = this.value; renderActivityView(); });
+  $("#filter-year-min").addEventListener("input", function(){ state.filter.yearMin = this.value; renderActivityView(); });
+  $("#filter-year-max").addEventListener("input", function(){ state.filter.yearMax = this.value; renderActivityView(); });
+  $("#filter-window-toggle").addEventListener("click", function(){
+    state.filter.windowOnly = !state.filter.windowOnly;
+    this.classList.toggle("on", state.filter.windowOnly);
+    renderActivityView();
+  });
+  $("#prep-hide-done").addEventListener("click", function(){
+    state.prepHideDone = !state.prepHideDone;
+    this.classList.toggle("on", state.prepHideDone);
+    renderPrepView();
+  });
+
+  $("#fi-copy-all-btn").addEventListener("click", function(){ copyText(fiFullText()); });
+  $("#fi-download-btn").addEventListener("click", function(){
+    var txt = fiFullText();
+    window.claude && window.claude.use && window.claude.use("downloads").then(function(dl){
+      if(!dl){ downloadTextFallback(txt, "faculty-insight-import.txt"); return; }
+      dl.save({filename:"faculty-insight-import.txt", data: txt}).catch(function(err){
+        if(err && err.code !== "declined") showToast("Couldn't save the file here");
+      });
+    }).catch(function(){ downloadTextFallback(txt, "faculty-insight-import.txt"); });
+  });
+
+  $("#cv-copy-btn").addEventListener("click", function(){ copyText(buildCVMarkdown()); });
+  $("#cv-print-btn").addEventListener("click", function(){ window.print(); });
+  $("#cv-download-btn").addEventListener("click", function(){
+    var md = buildCVMarkdown();
+    window.claude && window.claude.use && window.claude.use("downloads").then(function(dl){
+      if(!dl){ downloadViaAnchorFallback(md); return; }
+      dl.save({filename:"mosher-cv.md", data: md}).catch(function(err){
+        if(err && err.code !== "declined") showToast("Couldn't save the file here");
+      });
+    }).catch(function(){ downloadViaAnchorFallback(md); });
+  });
+
+  setInterval(renderDeadlineChip, 60000);
+  initPersistence();
+});
+
+function downloadViaAnchorFallback(text){ downloadTextFallback(text, "mosher-cv.md"); }
+function downloadTextFallback(text, filename){
+  try{
+    var blob = new Blob([text], {type:"text/plain"});
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  }catch(e){ showToast("Couldn't generate a file here — try Copy instead."); }
+}
+
+})();
+</script>
+
+</body></html>
