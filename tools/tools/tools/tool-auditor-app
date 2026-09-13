@@ -1,0 +1,850 @@
+<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex, nofollow"><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>The Tool Auditor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+
+<style>
+:root{
+  --paper:#EFF0F4; --surface:#FFFFFF; --surface-2:#F7F7FA;
+  --ink:#1A1D2E; --ink-2:#4A4E63; --ink-3:#7A7E92;
+  --line:#DBDCE4; --line-2:#C7C8D4;
+  --accent:#3B3F72; --accent-2:#5A5F9B; --accent-wash:#E7E8F2; --on-accent:#FFFFFF;
+  --good:#256B4E; --good-wash:#DFEDE6;
+  --warn:#9C6407; --warn-wash:#F5E9D5;
+  --bad:#A6302A; --bad-wash:#F5E0DE;
+  --na:#75798C; --na-wash:#E6E7EC;
+  --shadow:0 1px 2px rgba(26,29,46,.05), 0 8px 24px -12px rgba(26,29,46,.18);
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#14151C; --surface:#1C1E28; --surface-2:#22242F;
+    --ink:#E7E8EF; --ink-2:#A9ACBC; --ink-3:#7E8294;
+    --line:#2E3040; --line-2:#3C3F52;
+    --accent:#A2A8E4; --accent-2:#8A90D0; --accent-wash:#262941; --on-accent:#14151C;
+    --good:#6FC49B; --good-wash:#1B3830;
+    --warn:#D9A34E; --warn-wash:#3A2E19;
+    --bad:#E4837C; --bad-wash:#3B2222;
+    --na:#8E92A6; --na-wash:#292B37;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#14151C; --surface:#1C1E28; --surface-2:#22242F;
+  --ink:#E7E8EF; --ink-2:#A9ACBC; --ink-3:#7E8294;
+  --line:#2E3040; --line-2:#3C3F52;
+  --accent:#A2A8E4; --accent-2:#8A90D0; --accent-wash:#262941; --on-accent:#14151C;
+  --good:#6FC49B; --good-wash:#1B3830;
+  --warn:#D9A34E; --warn-wash:#3A2E19;
+  --bad:#E4837C; --bad-wash:#3B2222;
+  --na:#8E92A6; --na-wash:#292B37;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+a{color:var(--accent-2)}
+
+.masthead{border-bottom:1px solid var(--line);background:var(--surface);position:sticky;top:0;z-index:60}
+.masthead-in{max-width:1320px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.wordmark{display:flex;align-items:baseline;gap:10px;margin-right:auto}
+.wordmark h1{font-family:var(--serif);font-weight:500;font-size:23px;letter-spacing:-.01em;line-height:1}
+.wordmark .sub{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.tabs{display:flex;background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:2px;gap:2px}
+.tabs button{border:0;background:transparent;padding:5px 14px;border-radius:4px;font-size:13px;font-weight:500;color:var(--ink-2)}
+.tabs button[aria-selected="true"]{background:var(--accent);color:var(--on-accent)}
+.btn{border:1px solid var(--line-2);background:var(--surface);border-radius:6px;padding:6px 12px;font-size:13px;font-weight:500;color:var(--ink-2);transition:border-color .12s,color .12s}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+
+.shell{max-width:1320px;margin:0 auto;padding:22px 24px 60px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow)}
+.hidden{display:none !important}
+
+/* standing finding */
+.standing{padding:18px 22px;margin-bottom:20px;border-left:3px solid var(--bad)}
+.standing .lab{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--bad);font-weight:600}
+.standing h2{font-family:var(--serif);font-size:22px;font-weight:500;margin-top:8px;letter-spacing:-.01em;line-height:1.25}
+.standing p{margin:10px 0 0;font-size:13.5px;line-height:1.6;color:var(--ink-2);max-width:88ch}
+.standing p b{color:var(--ink);font-weight:600}
+
+/* picker */
+.pickwrap{margin-bottom:20px;padding:18px 20px}
+.pickwrap h3,.secttl{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);font-weight:500;margin-bottom:12px}
+.pickrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+#tool-input{flex:1;min-width:240px;border:1px solid var(--line-2);background:var(--surface-2);border-radius:6px;padding:9px 11px;font-size:14px}
+.suggest{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+.pill{border:1px solid var(--line-2);background:var(--surface-2);border-radius:20px;padding:4px 12px;font-size:12.5px;color:var(--ink-2)}
+.pill:hover{border-color:var(--accent);color:var(--accent)}
+.pill.cur{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.catlab{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);width:100%;margin:8px 0 2px}
+
+/* profile */
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
+@media (max-width:1040px){.grid2{grid-template-columns:minmax(0,1fr)}}
+.phead{padding:22px 24px;border-bottom:1px solid var(--line)}
+.pname{font-family:var(--serif);font-size:29px;font-weight:500;letter-spacing:-.018em;line-height:1.15}
+.pmeta{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-3);margin-top:7px}
+.pmeta a{color:var(--ink-3)}
+.role{display:inline-block;margin-top:12px;font-family:var(--serif);font-size:19px;padding:4px 13px;border-radius:5px;border:1px solid}
+.r-good{background:var(--good-wash);border-color:var(--good);color:var(--good)}
+.r-warn{background:var(--warn-wash);border-color:var(--warn);color:var(--warn)}
+.r-bad{background:var(--bad-wash);border-color:var(--bad);color:var(--bad)}
+.pverdict{margin-top:14px;font-size:14.5px;line-height:1.6;max-width:72ch;color:var(--ink)}
+
+/* stage matrix */
+.stages{padding:20px 24px;border-bottom:1px solid var(--line)}
+.stagerow{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;margin-top:12px}
+.stage{border:1px solid var(--line);border-radius:6px;padding:9px 8px 10px;text-align:center;background:var(--surface-2)}
+.stage .sn{font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);display:block;line-height:1.3;min-height:24px}
+.stage .sv{font-size:11.5px;font-weight:700;margin-top:7px;letter-spacing:.01em}
+.s-primary{background:var(--good-wash);border-color:var(--good)} .s-primary .sv{color:var(--good)}
+.s-assistive{background:var(--warn-wash);border-color:var(--warn)} .s-assistive .sv{color:var(--warn)}
+.s-unfit{background:var(--bad-wash);border-color:var(--bad)} .s-unfit .sv{color:var(--bad)}
+.s-na{background:var(--na-wash);border-color:var(--line-2)} .s-na .sv{color:var(--na)}
+.stagenote{font-size:12px;color:var(--ink-3);margin-top:11px;line-height:1.5;max-width:80ch}
+@media (max-width:720px){.stagerow{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* gates */
+.gates{padding:18px 24px;border-bottom:1px solid var(--line)}
+.gatelist{display:flex;flex-direction:column;gap:9px;margin-top:10px}
+.gate{display:flex;gap:11px;align-items:flex-start;font-size:13px;line-height:1.45}
+.gmark{font-family:var(--mono);font-size:11px;font-weight:700;flex:none;width:20px;text-align:center;padding-top:1px}
+.g-pass{color:var(--good)} .g-part{color:var(--warn)} .g-fail{color:var(--bad)} .g-unk{color:var(--na)}
+.gate .gl{color:var(--ink-2)} .gate .gl b{color:var(--ink);font-weight:600}
+
+/* facts + evidence */
+.fact{padding:16px 24px;border-bottom:1px solid var(--line)}
+.fact h4,.railsec h4{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);font-weight:500;margin-bottom:8px}
+.fact p{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink-2);max-width:80ch}
+.evlist{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:11px}
+.evlist li{font-size:13px;line-height:1.55;color:var(--ink-2);padding-left:15px;position:relative;max-width:82ch}
+.evlist li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:1px;background:var(--accent-2)}
+
+/* criteria */
+.dim{border-bottom:1px solid var(--line)}
+.dim:last-child{border-bottom:0}
+.dhead{display:flex;align-items:center;gap:12px;padding:12px 24px;background:var(--surface-2);cursor:pointer;user-select:none;border-bottom:1px solid var(--line)}
+.dhead .di{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--accent);width:24px;flex:none}
+.dhead h4{font-family:var(--serif);font-size:17px;font-weight:500;flex:1;letter-spacing:-.005em}
+.dhead .dsc{font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.chev{color:var(--ink-3);font-size:11px;transition:transform .18s;flex:none}
+.dim.collapsed .chev{transform:rotate(-90deg)}
+.dim.collapsed .dbody{display:none}
+.crit{padding:13px 24px;border-bottom:1px solid var(--line);display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.crit:last-child{border-bottom:0}
+.crit .cq{flex:1;min-width:250px}
+.crit .cl{font-size:13.5px;font-weight:500;line-height:1.45}
+.crit .ch{font-size:12px;color:var(--ink-3);margin-top:4px;line-height:1.45;max-width:70ch}
+.ctag{font-family:var(--mono);font-size:9px;letter-spacing:.05em;color:var(--ink-3);border:1px solid var(--line);background:var(--surface-2);padding:1px 5px;border-radius:3px;margin-right:5px}
+.ctag.gate{color:var(--bad);border-color:var(--bad);background:var(--bad-wash);font-weight:600}
+.pick4{display:flex;gap:3px;flex:none}
+.pick4 button{border:1px solid var(--line-2);background:var(--surface);border-radius:5px;padding:4px 8px;font-size:11px;font-weight:600;color:var(--ink-3);min-width:38px}
+.pick4 button[data-on="1"][data-v="2"]{background:var(--good-wash);border-color:var(--good);color:var(--good)}
+.pick4 button[data-on="1"][data-v="1"]{background:var(--warn-wash);border-color:var(--warn);color:var(--warn)}
+.pick4 button[data-on="1"][data-v="0"]{background:var(--bad-wash);border-color:var(--bad);color:var(--bad)}
+.pick4 button[data-on="1"][data-v="-1"]{background:var(--na-wash);border-color:var(--na);color:var(--na)}
+.pick4 button[data-on="1"][data-v="-2"]{background:var(--surface-2);border-color:var(--line-2);color:var(--ink-3)}
+
+/* rail */
+.rail{position:sticky;top:80px;display:flex;flex-direction:column;gap:16px}
+@media (max-width:1040px){.rail{position:static}}
+.railsec{padding:16px 20px;border-bottom:1px solid var(--line)}
+.railsec:last-child{border-bottom:0}
+.bigscore{font-family:var(--serif);font-size:44px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums}
+.bigsub{font-size:12px;color:var(--ink-3);margin-top:6px;line-height:1.45}
+.track{height:6px;background:var(--surface-2);border:1px solid var(--line);border-radius:3px;overflow:hidden;margin-top:10px}
+.fill{height:100%;transition:width .3s ease}
+.f-good{background:var(--good)}.f-warn{background:var(--warn)}.f-bad{background:var(--bad)}
+.dimbar{display:flex;flex-direction:column;gap:9px}
+.dbrow{display:grid;grid-template-columns:1fr 46px;gap:8px;align-items:center;font-size:12.5px}
+.dbrow .dbn{color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dbrow .dbv{font-family:var(--mono);font-size:11.5px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.dbtrack{grid-column:1/-1;height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-top:-4px}
+.unk{font-size:12px;color:var(--warn);line-height:1.45}
+
+/* compare */
+.cmpwrap{overflow-x:auto}
+.cmp{width:100%;border-collapse:collapse;font-size:13px;min-width:900px}
+.cmp th{text-align:left;font-family:var(--mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:500;padding:0 8px 9px 0;border-bottom:1px solid var(--line);vertical-align:bottom}
+.cmp td{padding:10px 8px 10px 0;border-bottom:1px solid var(--line);vertical-align:middle}
+.cmp td.nm{font-weight:600;min-width:180px}
+.cmp td.nm small{display:block;font-weight:400;color:var(--ink-3);font-size:11.5px;margin-top:2px}
+.cmp td.sc{font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip{display:inline-block;width:100%;text-align:center;font-family:var(--mono);font-size:9.5px;font-weight:700;padding:4px 2px;border-radius:4px;border:1px solid;letter-spacing:.03em}
+.c-primary{background:var(--good-wash);border-color:var(--good);color:var(--good)}
+.c-assistive{background:var(--warn-wash);border-color:var(--warn);color:var(--warn)}
+.c-unfit{background:var(--bad-wash);border-color:var(--bad);color:var(--bad)}
+.c-na{background:var(--na-wash);border-color:var(--line-2);color:var(--na)}
+.cmp td.st{width:74px;padding-right:5px}
+.rmv{border:0;background:transparent;color:var(--ink-3);font-size:15px;padding:2px 6px;line-height:1}
+.rmv:hover{color:var(--bad)}
+.empty{padding:40px 24px;text-align:center;color:var(--ink-3);font-size:14px}
+.bestrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:12px}
+.bestbox{border:1px solid var(--line);border-radius:6px;padding:12px 14px;background:var(--surface-2)}
+.bestbox .bl{font-family:var(--mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.bestbox .bv{font-family:var(--serif);font-size:17px;font-weight:500;margin-top:5px;line-height:1.25}
+.bestbox .bn{font-size:11.5px;color:var(--ink-3);margin-top:4px;line-height:1.4}
+
+/* disclosure */
+.disc{max-width:860px;margin:0 auto;padding:32px 36px}
+.disc h2{font-family:var(--serif);font-size:27px;font-weight:500;letter-spacing:-.018em}
+.disc p{font-size:14px;line-height:1.65;color:var(--ink-2);max-width:70ch}
+.disc label{display:block;font-size:11.5px;font-weight:600;color:var(--ink-2);margin:16px 0 5px}
+.disc input,.disc textarea{width:100%;border:1px solid var(--line-2);background:var(--surface-2);border-radius:5px;padding:8px 10px;font-size:13.5px}
+.out{margin-top:18px;border:1px solid var(--line-2);border-radius:6px;background:var(--surface-2);padding:16px 18px;font-size:13.5px;line-height:1.7;white-space:pre-wrap}
+.rule{height:1px;background:var(--line);margin:24px 0}
+.footnote{max-width:1320px;margin:0 auto;padding:6px 24px 48px;font-size:11.5px;color:var(--ink-3);line-height:1.65}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--ink);color:var(--paper);padding:9px 18px;border-radius:6px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:200}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.stds{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.std{border:1px solid var(--line-2);background:var(--surface-2);border-radius:20px;padding:4px 13px;font-size:12.5px;font-weight:500;color:var(--ink-2)}
+.std:hover{border-color:var(--accent);color:var(--accent)}
+.ref{padding:16px 0;border-bottom:1px solid var(--line);scroll-margin-top:88px}
+.ref:last-child{border-bottom:0}
+.ref h4{font-family:var(--serif);font-size:19px;font-weight:500;letter-spacing:-.005em}
+.ref .rk{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
+.ref p{margin:8px 0 0;font-size:13.5px;line-height:1.65;color:var(--ink-2);max-width:84ch}
+.ref p b{color:var(--ink);font-weight:600}
+.ref.flash{background:var(--accent-wash);border-radius:6px;padding-left:14px;padding-right:14px;transition:background .5s}
+@media (prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+
+<div class="masthead">
+  <div class="masthead-in">
+    <div class="wordmark">
+      <h1>The Tool Auditor</h1>
+      <span class="sub">AI fitness for evidence synthesis</span>
+    </div>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-assess" aria-selected="true">Assess</button>
+      <button role="tab" id="tab-compare" aria-selected="false">Compare</button>
+      <button role="tab" id="tab-disclose" aria-selected="false">Disclosure</button>
+    </div>
+    <a class="btn" id="lnk-prov" href="where-does-it-come-from-app.html" target="_blank" rel="noopener">Where does it come from →</a>
+  </div>
+</div>
+
+<div class="shell" id="v-assess">
+  <section class="card standing">
+    <div class="lab">Standing finding · verified September 2026</div>
+    <h2>No AI tool currently qualifies as the sole search method for a publishable systematic review.</h2>
+    <p>Not because the models are weak, but for three structural reasons: <b>the search is not reproducible</b>, <b>retrieval is capped</b>, and <b>the corpus has known gaps</b>. So this page does not score whether a tool can run your review. It scores <b>which stage each tool is fit for, and in what role</b>.</p>
+    <div class="stds" id="stds"></div>
+  </section>
+
+  <section class="card pickwrap">
+    <h3>Assess a tool</h3>
+    <div class="pickrow">
+      <input id="tool-input" placeholder="Type a tool name or paste a URL — Consensus, Elicit, scite.ai, Covidence, Gemini…" autocomplete="off">
+      <button class="btn on" id="btn-assess">Assess</button>
+    </div>
+    <div class="suggest" id="suggest"></div>
+  </section>
+
+  <div class="grid2">
+    <main>
+      <section class="card" id="profile"></section>
+    </main>
+    <aside class="rail">
+      <section class="card" id="rail"></section>
+    </aside>
+  </div>
+</div>
+
+<div class="shell hidden" id="v-compare">
+  <section class="card" style="padding:20px 24px">
+    <h3 class="secttl">Best fit by stage</h3>
+    <div class="bestrow" id="bestrow"></div>
+  </section>
+  <section class="card" style="margin-top:18px;padding:20px 24px">
+    <h3 class="secttl">The bench</h3>
+    <div class="cmpwrap"><table class="cmp" id="cmp"></table></div>
+    <div class="empty hidden" id="cmp-empty">Nothing on the bench yet. Assess a tool, then press <b>Add to comparison</b>.</div>
+  </section>
+</div>
+
+<div class="shell hidden" id="v-disclose">
+  <section class="card disc">
+    <h2>AI use disclosure</h2>
+    <p>The joint position statement requires that any use of AI or automation which makes or suggests judgements be fully and transparently reported: system names, versions and dates; the purposes and stages affected; justification of methodological soundness; validation evidence; limitations and biases; and financial interests. <b>PRISMA-trAIce</b> (<i>JMIR AI</i> 2025;1:e80247) is the reporting extension for exactly this. Fill in the two fields and this builds the paragraph from the tools on your bench.</p>
+    <label for="d-review">Review title or short description</label>
+    <input id="d-review" placeholder="e.g. a systematic review of digital distraction in higher education">
+    <label for="d-dates">Dates of AI use</label>
+    <input id="d-dates" placeholder="e.g. March–June 2026">
+    <div class="rule"></div>
+    <h3 class="secttl">Generated disclosure</h3>
+    <div class="out" id="d-out"></div>
+    <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn on" id="btn-copy-disc">Copy disclosure</button>
+      <button class="btn" id="btn-goto-cmp">Edit the bench</button>
+    </div>
+  </section>
+</div>
+
+<div class="shell" id="v-refs-wrap" style="padding-top:0">
+  <section class="card" style="padding:22px 24px" id="refsec">
+    <h3 class="secttl">The standards these criteria come from</h3>
+    <div id="refs"></div>
+  </section>
+</div>
+
+<div class="footnote" id="foot"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+var TOOLS = {"consensus":{"name":"Consensus","cat":"A","url":"https://consensus.app","corpus":"220M+ papers via Semantic Scholar, OpenAlex, own crawl and publisher deals; full PubMed. Updated weekly. No Embase, CINAHL, PsycINFO, CENTRAL or ERIC.","cap":"Narrows to ~1,500 then re-ranks the top 20. Pro analyses ≤20 papers; Deep Search ≤50.","verdict":"A fast, citation-grounded scoping tool. The result cap and absent search string make it structurally incapable of a PRISMA-reportable search.","ev":["Independent librarian testing found repeated Deep Search runs minutes apart returned different rankings (Tay, 2025).","No peer-reviewed recall evaluation exists. The one 2025 study covering Consensus, Elicit and SciSpace (CJILS) has been retracted — do not cite it.","Flags retracted papers and excludes them from analyses — rare among these tools."],"v":[2,2,1,2,0,1,0,0,0,1,0,2,2,2,0,0,0,0,1,0,0,0,0,0,-1,1],"verified":"2026-09-01"},"elicit":{"name":"Elicit","cat":"A","url":"https://elicit.com","corpus":"~138M papers de-duplicated from Semantic Scholar, PubMed and OpenAlex, plus 545k ClinicalTrials.gov records. Excludes books and dissertations.","cap":"Returns the 500 most relevant studies per query. Reports synthesise ≤200 papers.","verdict":"The best-evidenced AI search tool — and the evidence is what disqualifies it as a primary search. Defensible as a supplementary search and as a second extractor.","ev":["Lau et al. (2025), Cochrane Evid Synth Methods, doi:10.1002/cesm.70050 — sensitivity 27.6 / 25.5 / 69.2 / 29.3% across four case studies, mean 37.9%, precision 39.6%. Conclusion: “not sensitive enough to replace traditional searching.”","The same study found Elicit surfaced 2–4 relevant papers per case that the original searches missed — its real value is as a supplement.","Cochrane's evaluators note non-reproducibility explicitly: ask before and after an index update and you may get two different answers.","Hilkenmeier et al. (2025), Social Science Computer Review, doi:10.1177/08944393251404052 — proof-of-concept as a semi-automated second extractor."],"v":[2,2,1,2,0,0,0,0,0,2,2,2,2,0,1,1,-1,2,2,0,0,2,0,1,-1,1],"verified":"2026-09-01"},"scite":{"name":"Scite / Scite Assistant","cat":"A","url":"https://scite.ai","corpus":"1.6B+ Smart Citations over 300M+ articles, built on Crossref DOI infrastructure plus 30+ publisher full-text partnerships.","cap":"Collections cap at 1,000 papers (Basic) / 10,000 (Pro).","verdict":"The strongest citation-integrity instrument here, and the only one that tells you whether a finding has been contradicted. It is a verification layer, not a search method.","ev":["Every record is DOI-anchored with citation-statement context; uniquely surfaces whether a paper has been disputed or cites retracted work.","The index is described in Nicholson et al. (2021), Quantitative Science Studies 2(3):882 — a platform description, not a recall evaluation.","The deterministic citation index and the LLM Assistant layer have different reliability profiles. Cite the former, verify the latter."],"v":[2,2,1,-1,1,-1,0,1,1,1,0,2,2,2,0,0,0,0,0,0,0,1,-1,0,-1,1],"verified":"2026-09-01"},"undermind":{"name":"Undermind","cat":"A","url":"https://www.undermind.ai","corpus":"Semantic Scholar corpus (~200M records), titles and abstracts only. Databases not listed on the public site.","cap":"Examines roughly 150 papers per search (~50 on the free tier).","verdict":"An agentic search with no independent validation and a hard ceiling far below systematic review requirements. Useful for orientation, not for evidence.","ev":["No peer-reviewed evaluation exists. The only benchmark is the vendor's own whitepaper.","Independent commentary is explicit: “there has been no official benchmarking of Undermind against other tools.” Treat all recall claims as unvalidated.","Cochrane's CESAR criteria direct you to reject tools whose performance claims rest only on developer studies."],"v":[2,1,1,-1,0,0,0,0,0,2,0,2,2,0,0,0,0,0,1,0,0,0,0,0,-1,1],"verified":"2026-09-01"},"scispace":{"name":"SciSpace","cat":"A","url":"https://scispace.com","corpus":"“Over 200 million papers” from OpenAlex, Semantic Scholar, Google Scholar and other repositories; titles and abstracts. Marketing elsewhere cites 285M — the discrepancy is unresolved.","cap":"Result caps and export formats are not documented.","verdict":"Marketed for literature review, documented for almost nothing. The absence of published specifications is itself a finding.","ev":["No valid peer-reviewed evaluation. The one study covering SciSpace is retracted.","Export formats, result caps and screening mechanics are undocumented on the official help pages.","Cochrane CESAR: reject tools with opaque or unresponsive developers."],"v":[2,1,1,-1,0,-1,0,-1,0,-1,0,2,1,0,0,0,0,0,1,0,0,0,0,0,-1,0],"verified":"2026-09-01"},"semanticscholar":{"name":"Semantic Scholar","cat":"A","url":"https://www.semanticscholar.org","corpus":"200M+ papers from publisher partnerships, data providers and web crawls. Run by the Allen Institute for AI. Free, including the API.","cap":"UI results are relevance-ranked; the S2AG API and monthly corpus snapshots have no practical cap.","verdict":"Not a search interface a systematic review can use — but its versioned API snapshots are the one reproducible route through this corpus.","ev":["From the official FAQ, verbatim: “Semantic Scholar search does not support boolean operators or wildcards.” It is structurally incapable of executing a search strategy through its UI.","This limitation cascades: Consensus, Elicit, SciSpace, Undermind, Connected Papers and Research Rabbit all sit on this corpus.","The S2AG API and dated monthly snapshots are versioned and reproducible — the defensible path if you use this corpus at all."],"v":[2,2,1,2,1,0,1,1,1,2,0,2,1,0,0,0,0,0,0,0,0,1,0,0,2,2],"verified":"2026-09-01"},"researchrabbit":{"name":"Research Rabbit","cat":"A","url":"https://www.researchrabbit.ai","corpus":"Semantic Scholar and PubMed open citation-graph data. Coverage gaps by discipline, language and publication age relative to Web of Science and Scopus.","cap":"50 seed papers per search on the free tier, 300 on ResearchRabbit+.","verdict":"Seed-driven citation chaining with no query at all. Legitimate for snowballing alongside a real search; never as one.","ev":["Independent guidance states it fails PRISMA 2020 requirements for a documented, reproducible, multi-database search strategy.","Running the same seed paper on two different days is not guaranteed to return an identical result set.","Its proper home in PRISMA terms is item 6 supplementary sources — reference-list and citation chasing."],"v":[2,2,1,-1,0,0,0,0,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,-1,0],"verified":"2026-09-01"},"connectedpapers":{"name":"Connected Papers","cat":"A","url":"https://www.connectedpapers.com","corpus":"Semantic Scholar corpus. Analyses ~50,000 candidate papers around each origin paper and displays a small graph.","cap":"Graphs are inherently top-N, typically ~40 nodes. There is no full result set to export.","verdict":"A similarity map, not a search. Excellent for finding your bearings in an unfamiliar literature and for nothing downstream of that.","ev":["Similarity is computed from co-citation and bibliographic coupling; the weighting formula is unpublished.","Independent guidance: it “does not meet the documented, reproducible, multi-database search-strategy requirements of a PRISMA 2020-reported systematic review.”","No peer-reviewed evaluation found."],"v":[2,1,1,-1,0,0,0,0,0,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0,-1,0],"verified":"2026-09-01"},"litmaps":{"name":"Litmaps","cat":"A","url":"https://www.litmaps.com","corpus":"270M+ articles from Crossref, Semantic Scholar and OpenAlex. Articles lacking open-access metadata cannot be indexed; recent articles lack citation data.","cap":"Free tier caps at 2 concurrent maps and 100 articles per map.","verdict":"Citation mapping with a candid account of its own biases. A monitoring and snowballing aid.","ev":["Litmaps' own documentation warns that citation-based searches can be biased by citation hacking, predatory journals and unreliable research.","No peer-reviewed evaluation found.","Acknowledged metadata gaps mean coverage is neither complete nor characterisable."],"v":[2,2,1,-1,1,0,0,0,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,-1,0],"verified":"2026-09-01"},"scopusai":{"name":"Scopus AI (Elsevier)","cat":"A","url":"https://www.elsevier.com/products/scopus/scopus-ai","corpus":"The curated Scopus corpus, 7,000+ publishers — but AI summaries are restricted to documents from 2003 onward, a hard recency bias.","cap":"The Copilot feature expands to 30 documents. Full export lives in classic Scopus, not the AI layer.","verdict":"Use the AI Query Builder to draft the strategy, then run and report it in classic Scopus. The AI layer is a drafting aid; the database is the search.","ev":["The AI Query Builder (August 2026) generates a Scopus query you can edit manually — the closest thing here to an editable, executable, AI-drafted strategy.","Elsevier claims emerging-theme calculations are reproducible but makes no reproducibility claim for RAG-generated summaries.","The 2003 cutoff on summaries disqualifies the AI layer for any review needing older literature."],"v":[2,2,2,1,1,2,1,1,0,1,0,2,2,1,0,0,0,0,0,0,0,1,0,0,-1,1],"verified":"2026-09-01"},"wosra":{"name":"Web of Science Research Assistant","cat":"A","url":"https://clarivate.com/academia-government/scientific-and-academic-research/research-discovery-and-referencing/web-of-science/web-of-science-research-assistant/","corpus":"Web of Science Core Collection, editorially curated, spanning over 120 years.","cap":"Export capability for the Research Assistant layer is undocumented.","verdict":"Same structure as Scopus AI: a curated index worth searching, wrapped in a layer that cannot be reported. Search in classic WoS advanced search.","ev":["Uses commercially provided pre-trained LLMs in a RAG architecture — non-deterministic by construction.","Outputs are reviewed by academic subject matter experts, which is a quality process, not reproducibility.","No peer-reviewed evaluation found."],"v":[2,2,2,1,0,2,1,0,0,1,0,2,2,0,0,0,0,0,0,0,0,0,0,0,-1,-1],"verified":"2026-09-01"},"dimensions":{"name":"Dimensions (Digital Science)","cat":"A","url":"https://www.dimensions.ai","corpus":"140M+ publications and 29M datasets, plus linked grants, patents, clinical trials and policy documents.","cap":"Free version supports export; large-scale export via Analytics or the API.","verdict":"Not an AI tool pretending to be a database — a database with an AI layer bolted on. The DSL API gives a fully explicit, exportable, reproducible query.","ev":["The Dimensions Search Language via the API produces an explicit, executable, exportable query against a dated snapshot — the best reproducibility story of any tool in this group.","The AI summarisation layer is not reproducible; the DSL query is. Report the DSL, not the summary.","A free version exists for personal, non-commercial use with full-text search, filters and export."],"v":[2,2,1,2,2,2,2,2,2,2,1,2,1,0,0,0,0,0,0,0,0,1,0,1,-1,2],"verified":"2026-09-01"},"covidence":{"name":"Covidence","cat":"B","url":"https://www.covidence.org","corpus":"None — imports records only (RIS, EndNote XML, PubMed, CSV). Search elsewhere, manage here.","cap":"No practical cap; the free trial is limited to 500 records.","verdict":"The default choice for dual screening in health and education reviews. Its risk-of-bias default is the one thing to check before you start.","ev":["Moens et al. (2025), iScience 28(10):113559 — Covidence achieved 100% recall at full-text screening (precision 44–51%).","Exports the PRISMA 2020 flow diagram as an editable DOCX including per-reason full-text exclusion counts.","The default risk-of-bias template is Cochrane RoB version 1, not RoB 2. Templates are customisable, but there is no native RoB 2 instrument.","Inter-rater agreement (kappa) reporting is not documented — compute it yourself from the exported decisions."],"v":[-2,-2,-2,-2,-2,-2,-2,-2,-2,2,2,-2,-2,0,2,2,-1,2,2,-1,1,2,2,2,-1,2],"verified":"2026-09-01"},"rayyan":{"name":"Rayyan","cat":"B","url":"https://www.rayyan.ai","corpus":"None — imports only.","cap":"No documented cap on export.","verdict":"Blind screening free for everyone, which is why it is the most widely used screening tool in the world. The PRISMA flow sits behind a paywall.","ev":["Blind Mode is available on all plans including free, and is on by default for new reviews.","PRISMA flow diagrams require the Essential tier or above — not the free tier.","Blind Mode must be switched off before export or other reviewers' decisions are omitted from the file.","Ouzzani et al. (2016), Systematic Reviews 5:210 — the original description. No definitive recent recall study identified."],"v":[-2,-2,-2,-2,-2,-2,-2,-2,-2,2,1,-2,-2,0,2,2,-1,1,1,-1,0,1,-1,2,-1,2],"verified":"2026-09-01"},"distillersr":{"name":"DistillerSR","cat":"B","url":"https://www.distillersr.com","corpus":"None — imports only, with automatic full-text retrieval from PMC and database integrations.","cap":"No documented cap.","verdict":"Built for regulatory submissions, and it shows. The strongest audit trail of any tool here, at the highest price.","ev":["Integrated audit trail and version control give traceability down to the individual reviewer and the time a decision was made.","Offers specialised risk-of-bias templates for diverse study designs, including the Cochrane Risk of Bias tool.","Gates et al. (2019), AHRQ NBK550168 — comparative evaluation of DistillerAI, Abstrackr and RobotAnalyst by retrospective simulation.","AI Re-Rank is a prioritisation aid with a vendor-claimed 70% time reduction — not an independently validated recall figure."],"v":[-2,-2,-2,-2,-2,-2,-2,-2,-2,2,2,-2,-2,0,2,2,-1,2,2,-1,2,1,-1,2,-1,2],"verified":"2026-09-01"},"eppireviewer":{"name":"EPPI-Reviewer","cat":"B","url":"https://eppi.ioe.ac.uk/cms/Default.aspx?tabid=2914","corpus":"Uniquely among review platforms, it embeds a searchable local copy of OpenAlex — 260M+ records — and supports direct PubMed searching.","cap":"Export formats and caps are not documented.","verdict":"The only tool here that searches, screens, codes and meta-analyses in one place. Built by the EPPI-Centre at UCL, and the closest thing to a complete review environment.","ev":["Users can run complex Boolean searches directly against the embedded OpenAlex index, though the syntax differs from conventional database syntax.","The OpenAlex snapshot updates roughly monthly, enabling living reviews with auto-generated pre-classified new references.","Concurrent multi-user independent classification with discrepancy reporting, a consensus interface and automatic PRISMA flow generation.","Gates et al. (2020), Systematic Reviews 9, doi:10.1186/s13643-020-01324-7 — screening prioritisation performance versus Abstrackr."],"v":[2,2,1,2,1,1,-1,1,1,-1,2,2,1,0,2,2,1,2,2,-1,1,2,1,2,-1,2],"verified":"2026-09-01"},"asreview":{"name":"ASReview","cat":"B","url":"https://asreview.ai","corpus":"None — it does not search any database. It screens records you have already retrieved. This is frequently misunderstood.","cap":"No caps. Free and open source, self-hostable.","verdict":"The best-evidenced screening prioritiser in existence, and the only tool here with no vendor holding your data. Its stopping rule is the methodological risk you must own.","ev":["van de Schoot et al. (2021), Nature Machine Intelligence 3:125–133 — the foundational validation of active-learning screening.","Moens et al. (2025), iScience 28(10):113559 — ASReview title/abstract recall 96.48%, precision 12.72%. The same study concludes AI “is not capable of complete substitution” and recommends AI as reviewer two only.","The .asreview project file bundles dataset, model and every label — genuinely reproducible and independently auditable. Open source, so the algorithm is inspectable.","It prioritises rather than classifies: recall is only guaranteed if you screen to exhaustion, so the stopping criterion must be pre-specified and reported."],"v":[-2,-2,-2,-2,-2,-2,-2,-2,-2,2,1,-2,-2,0,1,0,0,0,0,0,0,2,2,2,2,2],"verified":"2026-09-01"},"abstrackr":{"name":"Abstrackr","cat":"B","url":"http://abstrackr.cebm.brown.edu/","corpus":"None — imports citation files only.","cap":"Caps undocumented. Free, AHRQ-funded, Brown University CEBM.","verdict":"Well studied, freely available, and the published record on its recall is uneven. Verify its current maintenance status before committing a review to it.","ev":["Wallace et al. (2012) is the original description; Gates et al. (2019, 2020) provide independent comparative evaluations.","Independent replications show variable and sometimes poor recall — this is one of the few tools where the published evidence is mixed rather than absent.","Two distinct sites are in circulation; current maintenance status is unclear."],"v":[-2,-2,-2,-2,-2,-2,-2,-2,-2,1,0,-2,-2,0,1,0,0,0,0,0,0,2,0,1,-1,1],"verified":"2026-09-01"},"tera":{"name":"TERA (formerly SR Accelerator)","cat":"B","url":"https://tera-tools.com/","corpus":"None directly — but Polyglot Search Translator converts an explicit strategy between database syntaxes, and SpiderCite performs citation chasing.","cap":"Free single-review version; roughly AU$100/year for unlimited projects.","verdict":"The one tool built around your search string rather than around hiding it. Bond University's IEBH replaced SR Accelerator with TERA — instruments naming SRA are out of date.","ev":["Polyglot operates on your explicit Boolean string, translating between database syntaxes. The query is the object of manipulation, so it is visible and exportable by construction.","Screenatron and Disputatron provide dual screening with disagreement resolution; Deduplicator handles de-duplication.","The risk-of-bias module is in beta — not production-ready.","Independent, non-developer recall evaluations are sparse; most published evaluations come from the Bond IEBH group itself."],"v":[1,1,1,-1,2,2,2,2,-2,2,1,-2,-2,0,2,2,-1,1,1,-1,1,1,-1,1,-1,1],"verified":"2026-09-01"},"nestedknowledge":{"name":"Nested Knowledge (AutoLit)","cat":"B","url":"https://about.nested-knowledge.com/","corpus":"A Smart Search LLM feature exists, but the vendor documentation does not specify which databases it queries — a serious transparency gap for a search function.","cap":"Export capability undocumented.","verdict":"Selected by Cochrane for its platform study, with its principal validation paper retracted and the independent evaluation markedly less favourable than the vendor's figures. Handle with care.","ev":["RETRACTED: Kallmes et al., doi:10.1002/cesm.70059, withdrawn 1 June 2026 for breach of Cochrane's conflict-of-interest policy. The principal published validation of AutoLit no longer stands.","Wang-Silvanto et al. (2026), JHEOR 13(2):46–54 — independent evaluation: title/abstract recall 82–87% but precision only 40%; full-text screening identified just 27.7% (17/61) of studies the traditional review included; extraction accuracy 72.93%.","Cochrane's data-extraction threshold is 92% sensitivity. The independent figure is 72.93%.","Selected with Laser AI for Cochrane's AI platform study — selection is explicitly not endorsement. Results due late 2026."],"v":[1,0,-1,-1,0,-1,-1,0,0,-1,-1,2,1,0,2,2,-1,2,2,0,-1,2,1,-1,-1,1],"verified":"2026-09-01"},"laserai":{"name":"Laser AI","cat":"B","url":"https://www.laser.ai/","corpus":"None — bulk PDF upload with automatic reference matching and duplicate detection.","cap":"Export capability undocumented.","verdict":"Audit trails and reusable workflow templates, on an evidence base of conference posters. Cochrane's platform study will be the first independent read.","ev":["All three cited validation studies appear to be conference posters or abstracts (ISPOR 2023, ISPOR 2024), not peer-reviewed journal articles.","Vendor claims 53% extraction time reduction and 45% screening time reduction — unverified independently.","Selected with Nested Knowledge for Cochrane's AI platform study; results due late 2026."],"v":[-2,-2,-2,-2,-2,-2,-2,-2,-2,-1,-1,-2,-2,0,1,-1,-1,-1,2,-1,-1,0,0,2,-1,1],"verified":"2026-09-01"},"silvi":{"name":"Silvi.ai","cat":"B","url":"https://silvi.ai/","corpus":"None — explicitly limited to literature the user imports. It does not search PubMed, Embase or any database.","cap":"Caps undocumented.","verdict":"Blinded collaborative screening with no published validation of any kind. Institutional licences exist; independent evidence does not.","ev":["No peer-reviewed evaluation identified. A 2023 Cochrane Colloquium abstract exists but is not a journal evaluation.","Risk-of-bias support and meta-analysis are not documented despite the marketing positioning.","Cochrane CESAR directs you to reject tools with no published validation in a relevant context."],"v":[-2,-2,-2,-2,-2,-2,-2,-2,-2,-1,-1,-2,-2,0,2,-1,-1,-1,2,-1,0,0,0,-1,-1,0],"verified":"2026-09-01"},"chatgpt":{"name":"ChatGPT (incl. Deep Research)","cat":"C","url":"https://chatgpt.com","corpus":"The open web plus files you upload. Not a bibliographic index. No paywalled database access. Without browsing, the model's training data only.","cap":"There is no defined result set, so there is nothing to cap or export.","verdict":"Useful for drafting search vocabulary and for translating Boolean syntax. Categorically unsuitable as a search method, and the measured hallucination rate is not zero.","ev":["Wang et al. (2025), SIGIR '25, doi:10.1145/3726302.3730329 — LLM-generated Boolean queries on CLEF TAR reached recall .65 (best model) against a manual baseline of .84.","Reference hallucination: OpenAI Deep Research 3.5% hallucinated URLs, 10.1% non-resolving (arXiv:2604.03173). Reference Hallucination Score 1.81 ± 3.40 — the best of the three chatbots measured.","OpenAI's own stated limitations include hallucinating facts, weak confidence calibration, and difficulty distinguishing authoritative sources from rumour.","arXiv now bans authors for one year where there is incontrovertible evidence of unchecked AI-generated content including fabricated references."],"v":[0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,2,0,0,-1,1],"verified":"2026-09-01"},"gemini":{"name":"Google Gemini (incl. Deep Research)","cat":"C","url":"https://gemini.google.com","corpus":"The open web via a browsing agent. Not a bibliographic index.","cap":"No defined result set.","verdict":"The worst-measured deep-research citation integrity of the tools tested. Use it to think, never to cite.","ev":["Gemini 2.5 Pro Deep Research: 13.3% hallucinated URLs, 18.5% non-resolving overall (arXiv:2604.03173) — the worst deep-research performer measured.","Reference Hallucination Score 4.01 ± 4.89, versus ChatGPT's 1.81 (Indian Journal of Orthopaedics, 2026, doi:10.1007/s43465-026-01807-0).","Gemini 2.5 Pro with plain search performs far better (4.8% hallucinated) than the Deep Research agent — the agentic layer is where the errors accumulate."],"v":[0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,-1,1],"verified":"2026-09-01"},"claude":{"name":"Claude","cat":"C","url":"https://claude.ai","corpus":"No built-in scholarly index; web search over the open web. A publisher-built Scholar Gateway connector grounds responses in peer-reviewed sources, but its coverage is undisclosed.","cap":"No defined result set.","verdict":"Among the lowest measured hallucination rates, which is not the same as being fit for a systematic search. No scholarly index means no search.","ev":["Claude 3.5 Sonnet with search: 3.0% hallucinated URLs; Claude 3.7 Sonnet 3.2% (arXiv:2604.03173) — among the lowest measured, but non-zero.","The Wiley Scholar Gateway connector provides verifiable citations with DOI links, but which indexes it covers is not disclosed — a publisher-controlled corpus is presumptively partial.","No systematic review search evaluation found."],"v":[0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,-1,1],"verified":"2026-09-01"},"perplexity":{"name":"Perplexity (incl. Deep Research)","cat":"C","url":"https://www.perplexity.ai","corpus":"Open-web retrieval and ranking. Not a bibliographic index.","cap":"No defined result set.","verdict":"The worst reference-integrity score in the published head-to-head. Every citation it produces must be independently verified before use.","ev":["Reference Hallucination Score 6.51 ± 4.89 — worst of the three chatbots tested across 3,150 references and 30 subtopics (Indian Journal of Orthopaedics, 2026).","Consistently worst across both output formats tested (6.43 letter, 6.31 article).","No systematic review search evaluation found."],"v":[0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,-1,1],"verified":"2026-09-01"},"copilot":{"name":"Microsoft Copilot","cat":"C","url":"https://copilot.microsoft.com","corpus":"The Bing web index, plus tenant data in Microsoft 365 Copilot. Not a bibliographic index.","cap":"No defined result set.","verdict":"No published citation-integrity measurement and no scholarly index. Nothing here belongs in a review's methods section.","ev":["No peer-reviewed hallucinated-citation rate specific to Copilot was found.","Independent library guidance describes general-purpose assistants of this kind as falling short in academic search.","An EPPI-Reviewer plus Copilot 365 automation study exists as a published protocol only — no results yet."],"v":[0,0,0,0,0,0,0,0,0,0,0,-1,1,0,0,0,0,0,0,0,0,0,0,0,-1,1],"verified":"2026-09-01"},"notebooklm":{"name":"NotebookLM","cat":"C","url":"https://notebooklm.google.com","corpus":"Only the sources you upload. It does not search any literature index — this is a categorical difference, not a limitation.","cap":"Source counts are plan-capped; there is no result set because there is no search.","verdict":"The safest tool here for citation integrity and the least useful for finding anything. A post-retrieval synthesis aid, never a search method.","ev":["Because it is strictly grounded in uploaded documents, fabricated references are structurally near-impossible.","The residual risk is misattribution or misrepresentation within your own corpus — which is exactly the risk the joint position statement requires you to report.","No peer-reviewed evaluation found."],"v":[0,2,-2,-2,-2,-2,-2,-2,-2,-2,-2,2,2,0,0,0,0,0,0,0,0,0,0,0,-1,1],"verified":"2026-09-01"}};
+
+var DIMS = [
+  {id:"1", name:"Corpus and coverage", from:[0,4]},
+  {id:"2", name:"Query transparency and reproducibility", from:[4,8]},
+  {id:"3", name:"Result completeness", from:[8,11]},
+  {id:"4", name:"Citation integrity", from:[11,14]},
+  {id:"5", name:"Screening and selection", from:[14,18]},
+  {id:"6", name:"Extraction and appraisal", from:[18,21]},
+  {id:"7", name:"Validation and governance", from:[21,26]}
+];
+
+var CRIT = [
+  {i:0, w:3, gate:0, tags:["PRISMA 6"], l:"Searches a named bibliographic index, not the open web or model memory",
+   h:"The single dividing line. A tool with no index cannot perform a search, however good its prose."},
+  {i:1, w:2, gate:0, tags:["AMSTAR Q4"], l:"The databases and sources searched are publicly documented",
+   h:"You cannot report what you cannot name, and an undocumented corpus cannot be assessed for gaps."},
+  {i:2, w:2, gate:0, tags:["AMSTAR Q4"], l:"Covers the subscription databases the field requires",
+   h:"Embase, CINAHL, PsycINFO, CENTRAL, ERIC. Most AI tools sit on Semantic Scholar or OpenAlex and reach none of them."},
+  {i:3, w:1, gate:0, tags:["PRISMA 6"], l:"Index update frequency and coverage dates are stated",
+   h:"Needed to date-stamp the search and to know what the tool could have found."},
+
+  {i:4, w:3, gate:1, tags:["PRISMA 7"], l:"The executable search string is visible and editable",
+   h:"Not the natural-language prompt — the string that actually ran against the index."},
+  {i:5, w:2, gate:0, tags:["PRISMA 7"], l:"Supports Boolean operators, field tags, truncation and proximity",
+   h:"Semantic Scholar supports none of these, which cascades to every tool built on it."},
+  {i:6, w:3, gate:1, tags:["PRISMA 7","AMSTAR Q4"], l:"The full strategy can be exported verbatim for reporting",
+   h:"PRISMA 2020 item 7 requires the complete strategy for every database, including filters and limits. This is the item AI search tools fail most often."},
+  {i:7, w:3, gate:1, tags:["PRISMA 7"], l:"The same query returns the same set, with a date stamp or version",
+   h:"Determinism. Agentic and LLM re-ranking layers are non-deterministic by construction; re-running weeks later gives a different set with no record of the difference."},
+
+  {i:8, w:3, gate:1, tags:["AMSTAR Q4"], l:"Returns all matching records rather than a relevance-ranked top-N",
+   h:"A systematic search is exhaustive within its stated scope. A capped, re-ranked shortlist is a different kind of object."},
+  {i:9, w:2, gate:0, tags:["PRISMA 27"], l:"The full result set exports as RIS, BibTeX or CSV",
+   h:"So screening happens in a tool that records decisions, not inside the black box."},
+  {i:10, w:2, gate:0, tags:["PRISMA 16a"], l:"Reports record counts at each step for the PRISMA flow",
+   h:"Identified, deduplicated, screened, sought, assessed, included — with reasons."},
+
+  {i:11, w:3, gate:1, tags:["Integrity"], l:"Every returned citation is a real, resolvable record",
+   h:"Fabricated references now appear in roughly 1% of published papers, up 81% in 2025, and arXiv bans authors for one year where unchecked AI-generated references are proven."},
+  {i:12, w:2, gate:0, tags:["Integrity"], l:"Claims are traceable to a quoted passage in the source",
+   h:"Retrieval tools rarely invent references; the live risk is source unfaithfulness — misrepresenting a real paper. A quote makes that checkable."},
+  {i:13, w:1, gate:0, tags:["AMSTAR Q9"], l:"Flags retracted or contradicted work",
+   h:"Retracted studies continue to be cited for years. Very few tools check."},
+
+  {i:14, w:3, gate:0, tags:["AMSTAR Q5","PRISMA 8"], l:"Supports blinded independent screening by two or more reviewers",
+   h:"Single-reviewer abstract screening carries an estimated 13% risk of falsely excluding a relevant study. AI may serve as the second reviewer, never as the only one."},
+  {i:15, w:2, gate:0, tags:["PRISMA 8"], l:"Detects and resolves screening conflicts",
+   h:"Disagreement is the signal; a tool that hides it destroys the signal."},
+  {i:16, w:2, gate:0, tags:["ROBIS 2.5"], l:"Reports an inter-rater agreement statistic",
+   h:"Kappa or percentage agreement. Almost no platform documents this — you will usually compute it from exported decisions."},
+  {i:17, w:2, gate:0, tags:["PRISMA 16a"], l:"Generates PRISMA 2020 flow counts or diagram",
+   h:"Including per-reason full-text exclusion counts."},
+
+  {i:18, w:2, gate:0, tags:["PRISMA 9"], l:"User-defined extraction form, exportable",
+   h:"Not fixed summary columns — the fields your protocol specified."},
+  {i:19, w:2, gate:0, tags:["Cochrane CESAR"], l:"Published extraction accuracy at or above 92%",
+   h:"Cochrane's operational threshold. Below it, do not proceed without full human verification. The best independently measured AI extraction accuracy here is 72.93%."},
+  {i:20, w:2, gate:0, tags:["AMSTAR Q9","PRISMA 11"], l:"Provides named risk-of-bias instruments",
+   h:"RoB 2, ROBINS-I, AMSTAR, CASP, MMAT. Custom templates you build yourself are partial credit."},
+
+  {i:21, w:3, gate:1, tags:["Cochrane CESAR"], l:"An independent peer-reviewed evaluation of its accuracy exists",
+   h:"Cochrane directs you to reject tools whose performance claims rest only on developer studies. Vendor whitepapers and conference posters do not count."},
+  {i:22, w:3, gate:0, tags:["Cochrane CESAR"], l:"Published screening sensitivity at or above 80%",
+   h:"Cochrane's operational floor. Elicit's measured mean is 37.9%; ASReview's is 96.48%. The spread is the whole story."},
+  {i:23, w:2, gate:0, tags:["PRISMA 27","RAISE"], l:"Complete, attributable, time-stamped decision audit trail",
+   h:"Who decided what, when, and on what basis — recoverable months later by someone else."},
+  {i:24, w:2, gate:0, tags:["RAISE 3"], l:"Terms do not permit reuse of your content for model training without opt-out",
+   h:"A CESAR rejection criterion, and a live issue for unpublished data and confidential protocols."},
+  {i:25, w:1, gate:0, tags:["PRISMA-trAIce"], l:"Model and version are identifiable and reportable",
+   h:"The joint position statement requires AI system names, versions and dates in the methods section."}
+];
+
+var STAGES = [
+  {k:"scope",   n:"Scope &amp; question", cap:"assistive"},
+  {k:"search",  n:"Search",               cap:"primary"},
+  {k:"screen",  n:"Screen &amp; select",  cap:"primary"},
+  {k:"extract", n:"Extract &amp; code",   cap:"primary"},
+  {k:"appraise",n:"Appraise bias",        cap:"primary"},
+  {k:"synth",   n:"Synthesise",           cap:"assistive"},
+  {k:"report",  n:"Report",               cap:"primary"}
+];
+
+var VALS = [[2,"Full"],[1,"Part"],[0,"None"],[-1,"?"],[-2,"N/A"]];
+
+/* ---------- state ---------- */
+var state = {cur:null, custom:{}, bench:[], collapsed:{}, disc:{review:"",dates:""}};
+var KEY = "tool-auditor-v1";
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+function load(){
+  try{
+    var o = JSON.parse(localStorage.getItem(KEY)||"null");
+    if(o && typeof o==="object"){
+      state.cur=o.cur||null; state.custom=o.custom||{}; state.bench=o.bench||[];
+      state.collapsed=o.collapsed||{}; state.disc=o.disc||{review:"",dates:""};
+    }
+  }catch(e){}
+}
+function all(){ var m={}; for(var k in TOOLS) m[k]=TOOLS[k]; for(var c in state.custom) m[c]=state.custom[c]; return m; }
+function get(k){ return all()[k]; }
+function vals(k){
+  var t = get(k); if(!t) return null;
+  var base = t.v.slice();
+  var ov = (state.custom[k] && state.custom[k].ov) || (TOOLS[k] && state.custom["ov:"+k]) || null;
+  if(state.custom["ov:"+k]) ov = state.custom["ov:"+k];
+  if(ov) for(var i in ov) base[+i] = ov[i];
+  return base;
+}
+function setVal(k,i,v){
+  var key = "ov:"+k;
+  if(!state.custom[key]) state.custom[key] = {};
+  state.custom[key][i] = v;
+  save();
+}
+
+/* ---------- scoring ---------- */
+function score(v){
+  var e=0,p=0,unk=0,na=0;
+  CRIT.forEach(function(c){
+    var x = v[c.i];
+    if(x===-2){ na++; return; }
+    p += c.w*2;
+    if(x===-1){ unk++; return; }
+    e += c.w*x;
+  });
+  return {pct: p>0?Math.round(100*e/p):0, unk:unk, na:na};
+}
+function dimScore(v, d){
+  var e=0,p=0;
+  CRIT.forEach(function(c){
+    if(c.i < d.from[0] || c.i >= d.from[1]) return;
+    var x=v[c.i]; if(x===-2) return;
+    p += c.w*2; if(x===-1) return; e += c.w*x;
+  });
+  return p>0?Math.round(100*e/p):null;
+}
+function stageFit(v){
+  var c = function(n){ return v[n-1]; };
+  var r = {};
+  /* a stage whose driving criterion is Not Applicable is not a failure — the tool
+     simply does not operate at that stage. Grey, not red. */
+  r.search   = c(1)===-2 ? "na"
+             : (c(1)<1 || c(12)<1) ? "unfit"
+             : (c(5)>=1 && c(7)>=2 && c(8)>=1 && c(9)>=1 && c(22)>=1) ? "primary" : "assistive";
+  r.screen   = c(15)===-2 ? "na"
+             : (c(15)<1 && c(16)<1 && c(18)<1 && c(23)<1) ? "unfit"
+             : (c(15)>=2 && c(16)>=2 && c(24)>=1) ? "primary" : "assistive";
+  r.extract  = c(19)===-2 ? "na"
+             : (c(19)<1) ? "unfit"
+             : (c(19)>=2 && c(20)>=2 && c(24)>=1) ? "primary" : "assistive";
+  r.appraise = c(21)===-2 ? "na" : (c(21)<1) ? "unfit" : (c(21)>=2 && c(24)>=1) ? "primary" : "assistive";
+  r.scope    = c(12)===-2 ? "na" : (c(12)<1) ? "unfit" : "assistive";
+  r.synth    = c(13)===-2 ? "na" : (c(13)<1) ? "unfit" : "assistive";
+  r.report   = c(18)===-2 ? "na"
+             : (c(18)<1 && c(26)<1) ? "unfit"
+             : (c(18)>=2 && c(24)>=2 && c(26)>=1) ? "primary" : "assistive";
+  return r;
+}
+function role(fit, v){
+  if(v && v.every(function(x){ return x===-1; })) return {t:"Not yet assessed", c:"r-warn"};
+  if(fit.search==="primary") return {t:"Reproducible search platform", c:"r-good"};
+  if(fit.screen==="primary" && fit.report==="primary") return {t:"Review management platform", c:"r-good"};
+  if(fit.screen==="primary") return {t:"Screening platform", c:"r-good"};
+  if(fit.extract==="primary" || fit.appraise==="primary") return {t:"Extraction and appraisal platform", c:"r-good"};
+  if(fit.screen==="assistive" && (fit.extract==="assistive" || fit.appraise==="assistive")) return {t:"Assistive review workspace", c:"r-warn"};
+  if(fit.screen==="assistive") return {t:"Screening prioritisation aid", c:"r-warn"};
+  if(fit.search==="assistive") return {t:"Discovery and scoping adjunct", c:"r-warn"};
+  if(fit.synth==="assistive") return {t:"Post-retrieval synthesis aid", c:"r-warn"};
+  return {t:"Not fit for systematic review work", c:"r-bad"};
+}
+function fitLabel(f){ return f==="primary"?"Primary":f==="assistive"?"Assistive":f==="na"?"n/a":"Unfit"; }
+function col(p){ return p>=75?"var(--good)":p>=50?"var(--warn)":"var(--bad)"; }
+function fillC(p){ return p>=75?"f-good":p>=50?"f-warn":"f-bad"; }
+
+/* ---------- helpers ---------- */
+function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+var tt;
+function toast(m){ var t=document.getElementById("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(tt); tt=setTimeout(function(){t.classList.remove("show");},2200); }
+
+/* ---------- picker ---------- */
+var CATN = {A:"AI research and search tools", B:"Systematic review platforms", C:"General assistants", X:"Your own entries"};
+function renderSuggest(){
+  var wrap = document.getElementById("suggest");
+  var m = all(), cats = {A:[],B:[],C:[],X:[]};
+  Object.keys(m).forEach(function(k){
+    if(k.indexOf("ov:")===0) return;
+    cats[m[k].cat||"X"].push(k);
+  });
+  var h = "";
+  ["A","B","C","X"].forEach(function(c){
+    if(!cats[c].length) return;
+    h += '<div class="catlab">'+CATN[c]+'</div>';
+    cats[c].forEach(function(k){
+      h += '<button class="pill'+(state.cur===k?" cur":"")+'" data-k="'+k+'">'+esc(m[k].name)+'</button>';
+    });
+  });
+  wrap.innerHTML = h;
+  wrap.querySelectorAll(".pill").forEach(function(b){
+    b.addEventListener("click", function(){ state.cur = b.dataset.k; save(); render(); });
+  });
+}
+
+function resolve(q){
+  q = q.trim().toLowerCase();
+  if(!q) return null;
+  var m = all(), keys = Object.keys(m).filter(function(k){return k.indexOf("ov:")!==0;});
+  var host = q.replace(/^https?:\/\//,"").replace(/^www\./,"").split(/[\/?#]/)[0];
+  for(var i=0;i<keys.length;i++){
+    var t = m[keys[i]];
+    var th = (t.url||"").replace(/^https?:\/\//,"").replace(/^www\./,"").split(/[\/?#]/)[0];
+    if(host && th && (host===th || th.indexOf(host)===0 || host.indexOf(th)===0)) return keys[i];
+  }
+  for(var j=0;j<keys.length;j++){
+    var n = m[keys[j]].name.toLowerCase();
+    if(n===q || keys[j]===q.replace(/[^a-z0-9]/g,"")) return keys[j];
+  }
+  for(var p=0;p<keys.length;p++){
+    if(m[keys[p]].name.toLowerCase().indexOf(q)>=0) return keys[p];
+  }
+  return null;
+}
+
+function createCustom(raw){
+  var isUrl = /^https?:\/\//i.test(raw) || /\.[a-z]{2,}($|\/)/i.test(raw);
+  var name = isUrl ? raw.replace(/^https?:\/\//i,"").replace(/^www\./i,"").split(/[\/?#]/)[0] : raw;
+  var key = "x_" + name.toLowerCase().replace(/[^a-z0-9]+/g,"") + "_" + Date.now().toString(36);
+  state.custom[key] = {
+    name: name, cat:"X", url: isUrl ? (/^https?:/i.test(raw)?raw:"https://"+raw) : "",
+    corpus:"Not yet recorded. Note what this tool actually searches — a named bibliographic index, the open web, or only your own uploads.",
+    cap:"Not yet recorded. Note any cap on the number of results returned or exportable.",
+    verdict:"Unassessed. Work down the criteria below; every unanswered item scores as zero, which is the conservative reading Cochrane's CESAR criteria call for.",
+    ev:["No evidence recorded yet. Look for an independent peer-reviewed evaluation — a vendor whitepaper or conference poster does not count."],
+    v: CRIT.map(function(){return -1;}),
+    verified: new Date().toISOString().slice(0,10)
+  };
+  state.cur = key; save(); return key;
+}
+
+/* ---------- render profile ---------- */
+function render(){
+  renderSuggest();
+  var p = document.getElementById("profile"), r = document.getElementById("rail");
+  if(!state.cur || !get(state.cur)){
+    p.innerHTML = '<div class="empty">Choose a tool above, or type any name or URL and press Assess to score one that is not listed.</div>';
+    r.innerHTML = '<div class="railsec"><h4>Fitness score</h4><div class="bigsub">Nothing assessed yet.</div></div>';
+    renderCompare(); renderDisclosure();
+    return;
+  }
+  var t = get(state.cur), v = vals(state.cur), s = score(v), fit = stageFit(v), ro = role(fit, v);
+
+  var h = '<div class="phead">';
+  h += '<div class="pname">'+esc(t.name)+'</div>';
+  h += '<div class="pmeta">'+ (CATN[t.cat]||"Custom entry") +
+       (t.url ? ' · <a href="'+esc(t.url)+'" target="_blank" rel="noopener">'+esc(t.url.replace(/^https?:\/\//,""))+'</a>' : "") +
+       ' · verified '+esc(t.verified)+'</div>';
+  h += '<div class="role '+ro.c+'">'+ro.t+'</div>';
+  h += '<div class="pverdict">'+esc(t.verdict)+'</div>';
+  h += '</div>';
+
+  h += '<div class="stages"><h4 class="secttl" style="margin:0">Stage fitness</h4><div class="stagerow">';
+  STAGES.forEach(function(st){
+    var f = fit[st.k];
+    h += '<div class="stage s-'+f+'"><span class="sn">'+st.n+'</span><span class="sv">'+fitLabel(f)+'</span></div>';
+  });
+  h += '</div><div class="stagenote"><b>Primary</b> means the tool can carry that stage on its own record. <b>Assistive</b> means it may support the stage under human verification — as a second reviewer, a supplement, or a drafting aid — and must be reported as such. <b>Unfit</b> means it should not be used for that stage at all, and <b>n/a</b> means the tool does not operate at that stage — a screening platform does not search, and that is not a failing. Two stages are capped at Assistive by design: <b>scope</b> and <b>synthesis</b> are where the joint position statement makes the synthesist “ultimately responsible”, and no tool can hold that responsibility for you.</div></div>';
+
+  h += '<div class="gates"><h4 class="secttl" style="margin:0">Hard gates</h4><div class="gatelist">';
+  CRIT.filter(function(c){return c.gate;}).forEach(function(c){
+    var x = v[c.i];
+    var cls = x===2?"g-pass":x===1?"g-part":x===-1?"g-unk":x===-2?"g-unk":"g-fail";
+    var mk  = x===2?"✓":x===1?"~":x===-1?"?":x===-2?"—":"✗";
+    h += '<div class="gate"><span class="gmark '+cls+'">'+mk+'</span><span class="gl"><b>'+esc(c.l)+'</b> — '+esc(c.h)+'</span></div>';
+  });
+  h += '</div></div>';
+
+  h += '<div class="fact"><h4>What it actually searches</h4><p>'+esc(t.corpus)+'</p></div>';
+  h += '<div class="fact"><h4>Result ceiling</h4><p>'+esc(t.cap)+'</p></div>';
+  h += '<div class="fact"><h4>Published evidence</h4><ul class="evlist">';
+  t.ev.forEach(function(e){ h += '<li>'+esc(e)+'</li>'; });
+  h += '</ul></div>';
+
+  DIMS.forEach(function(d){
+    var ds = dimScore(v,d);
+    var open = !state.collapsed[d.id];
+    h += '<div class="dim'+(open?"":" collapsed")+'" data-d="'+d.id+'">';
+    h += '<div class="dhead" tabindex="0" role="button"><span class="di">'+d.id+'</span><h4>'+d.name+'</h4>';
+    h += '<span class="dsc" style="color:'+(ds===null?"var(--ink-3)":col(ds))+'">'+(ds===null?"n/a":ds+"%")+'</span><span class="chev">▼</span></div>';
+    h += '<div class="dbody">';
+    CRIT.forEach(function(c){
+      if(c.i < d.from[0] || c.i >= d.from[1]) return;
+      h += '<div class="crit"><div class="cq"><div>';
+      c.tags.forEach(function(tg){ h += '<span class="ctag">'+esc(tg)+'</span>'; });
+      if(c.gate) h += '<span class="ctag gate">HARD GATE</span>';
+      h += '</div><div class="cl">'+esc(c.l)+'</div><div class="ch">'+esc(c.h)+'</div></div>';
+      h += '<div class="pick4" data-i="'+c.i+'">';
+      VALS.forEach(function(pair){
+        h += '<button type="button" data-v="'+pair[0]+'"'+(v[c.i]===pair[0]?' data-on="1"':'')+'>'+pair[1]+'</button>';
+      });
+      h += '</div></div>';
+    });
+    h += '</div></div>';
+  });
+  p.innerHTML = h;
+
+  p.querySelectorAll(".dhead").forEach(function(dh){
+    var fn = function(){
+      var id = dh.parentNode.dataset.d;
+      state.collapsed[id] = !state.collapsed[id];
+      dh.parentNode.classList.toggle("collapsed"); save();
+    };
+    dh.addEventListener("click", fn);
+    dh.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); fn(); } });
+  });
+  p.querySelectorAll(".pick4").forEach(function(g){
+    g.querySelectorAll("button").forEach(function(b){
+      b.addEventListener("click", function(){
+        setVal(state.cur, +g.dataset.i, +b.dataset.v);
+        render();
+      });
+    });
+  });
+
+  var rh = '<div class="railsec"><h4>Fitness score</h4>';
+  rh += '<div class="bigscore" style="color:'+col(s.pct)+'">'+s.pct+'<span style="font-size:20px;color:var(--ink-3)"> / 100</span></div>';
+  rh += '<div class="track"><div class="fill '+fillC(s.pct)+'" style="width:'+s.pct+'%"></div></div>';
+  rh += '<div class="bigsub">Weighted across '+(CRIT.length - s.na)+' applicable criteria. '+s.na+' are not applicable to this kind of tool and are excluded.</div>';
+  if(s.unk) rh += '<div class="unk" style="margin-top:9px"><b>'+s.unk+(s.unk===1?' criterion is':' criteria are')+' undocumented</b> and score'+(s.unk===1?'s':'')+' as zero. Cochrane’s CESAR criteria direct you to reject tools whose capabilities cannot be verified, so this is the conservative reading, not a penalty.</div>';
+  var onBench0 = state.bench.indexOf(state.cur)>=0;
+  rh += '<button class="btn'+(onBench0?"":" on")+'" id="rail-bench" style="width:100%;margin-top:14px">'+(onBench0?"On the bench — remove":"Add to comparison")+'</button>';
+  rh += '</div>';
+
+  rh += '<div class="railsec"><h4>By dimension</h4><div class="dimbar">';
+  DIMS.forEach(function(d){
+    var ds = dimScore(v,d);
+    rh += '<div class="dbrow"><span class="dbn">'+d.name+'</span><span class="dbv" style="color:'+(ds===null?"var(--ink-3)":col(ds))+'">'+(ds===null?"n/a":ds+"%")+'</span>';
+    rh += '<span class="dbtrack"><span class="fill '+(ds===null?"":fillC(ds))+'" style="display:block;height:100%;width:'+(ds===null?0:ds)+'%"></span></span></div>';
+  });
+  rh += '</div></div>';
+
+  rh += '<div class="railsec"><h4>Defensible uses</h4><div style="font-size:12.5px;line-height:1.55;color:var(--ink-2)">';
+  var prim = STAGES.filter(function(x){return fit[x.k]==="primary";}).map(function(x){return x.n.replace("&amp;","and");});
+  var assi = STAGES.filter(function(x){return fit[x.k]==="assistive";}).map(function(x){return x.n.replace("&amp;","and");});
+  rh += prim.length ? '<b style="color:var(--good)">Can carry:</b> '+prim.join(", ")+'.<br>' : '<b style="color:var(--bad)">Carries no stage on its own.</b><br>';
+  rh += assi.length ? '<span style="display:inline-block;margin-top:6px"><b style="color:var(--warn)">With human verification:</b> '+assi.join(", ")+'.</span>' : '';
+  rh += '</div></div>';
+
+  r.innerHTML = rh;
+  document.getElementById("rail-bench").addEventListener("click", toggleBench);
+
+  renderCompare(); renderDisclosure();
+}
+
+/* ---------- compare ---------- */
+function toggleBench(){
+  if(!state.cur) return;
+  var i = state.bench.indexOf(state.cur);
+  if(i>=0){ state.bench.splice(i,1); toast("Removed from the bench"); }
+  else { state.bench.push(state.cur); toast("Added to the bench"); }
+  save(); render();
+}
+function renderCompare(){
+  var tbl = document.getElementById("cmp"), emp = document.getElementById("cmp-empty"), best = document.getElementById("bestrow");
+  var rows = state.bench.filter(function(k){return !!get(k);});
+  emp.classList.toggle("hidden", rows.length>0);
+  if(!rows.length){ tbl.innerHTML=""; best.innerHTML='<div class="bestbox"><div class="bl">Nothing on the bench</div><div class="bv">—</div><div class="bn">Assess tools and add them to compare stage fitness side by side.</div></div>'; return; }
+
+  var data = rows.map(function(k){
+    var v = vals(k);
+    return {k:k, t:get(k), v:v, s:score(v), fit:stageFit(v)};
+  }).sort(function(a,b){ return b.s.pct - a.s.pct; });
+
+  var h = '<thead><tr><th>Tool</th><th style="text-align:right;padding-right:14px">Score</th>';
+  STAGES.forEach(function(st){ h += '<th class="st">'+st.n+'</th>'; });
+  h += '<th></th></tr></thead><tbody>';
+  data.forEach(function(d){
+    h += '<tr><td class="nm">'+esc(d.t.name)+'<small>'+esc(role(d.fit,d.v).t)+'</small></td>';
+    h += '<td class="sc" style="text-align:right;padding-right:14px;color:'+col(d.s.pct)+'">'+d.s.pct+'</td>';
+    STAGES.forEach(function(st){
+      var f = d.fit[st.k];
+      h += '<td class="st"><span class="chip c-'+f+'">'+fitLabel(f).toUpperCase()+'</span></td>';
+    });
+    h += '<td><button class="rmv" data-k="'+d.k+'" title="Remove">×</button></td></tr>';
+  });
+  h += '</tbody>';
+  tbl.innerHTML = h;
+  tbl.querySelectorAll(".rmv").forEach(function(b){
+    b.addEventListener("click", function(){
+      var i = state.bench.indexOf(b.dataset.k);
+      if(i>=0) state.bench.splice(i,1);
+      save(); render();
+    });
+  });
+
+  var bh = "";
+  STAGES.forEach(function(st){
+    var prim = data.filter(function(d){return d.fit[st.k]==="primary";});
+    var assi = data.filter(function(d){return d.fit[st.k]==="assistive";});
+    var pick, note;
+    if(prim.length){ pick = prim[0].t.name; note = "Can carry this stage" + (prim.length>1 ? "; "+(prim.length-1)+" other"+(prim.length>2?"s":"")+" also qualify." : "."); }
+    else if(assi.length){ pick = assi[0].t.name; note = "Assistive only — human verification required, and it must be reported as AI-assisted."; }
+    else if(data.every(function(d){return d.fit[st.k]==="na";})){ pick = "Not applicable"; note = "No tool on the bench operates at this stage."; }
+    else { pick = "None on the bench"; note = "Nothing here is fit for this stage."; }
+    bh += '<div class="bestbox"><div class="bl">'+st.n+'</div><div class="bv">'+esc(pick)+'</div><div class="bn">'+esc(note)+'</div></div>';
+  });
+  best.innerHTML = bh;
+}
+
+/* ---------- disclosure ---------- */
+function renderDisclosure(){
+  var out = document.getElementById("d-out");
+  var rows = state.bench.filter(function(k){return !!get(k);});
+  var rv = state.disc.review || "this systematic review";
+  var dt = state.disc.dates || "[dates of use]";
+  if(!rows.length){
+    out.textContent = "Add tools to the bench on the Compare tab and this paragraph builds itself from their assessed roles.";
+    return;
+  }
+  var lines = [];
+  lines.push("Use of artificial intelligence and automation");
+  lines.push("");
+  lines.push("In conducting " + rv + " we used the following tools between " + dt + ". The authors remain solely responsible for every methodological judgement made in this review; no tool made a final inclusion, exclusion, extraction, or appraisal decision without human verification.");
+  lines.push("");
+  rows.forEach(function(k){
+    var t = get(k), v = vals(k), fit = stageFit(v), s = score(v);
+    var prim = STAGES.filter(function(x){return fit[x.k]==="primary";}).map(function(x){return x.n.replace("&amp;","and").toLowerCase();});
+    var assi = STAGES.filter(function(x){return fit[x.k]==="assistive";}).map(function(x){return x.n.replace("&amp;","and").toLowerCase();});
+    var l = "• " + t.name + (t.url ? " (" + t.url + ")" : "") + ", version and access date to be recorded at point of use. ";
+    if(prim.length) l += "Used as a primary tool for " + prim.join(", ") + ". ";
+    if(assi.length) l += "Used in an assistive capacity only for " + assi.join(", ") + ", with all outputs verified by a human reviewer. ";
+    if(!prim.length && !assi.length) l += "Assessed and not used. ";
+    if(v[21] < 1) l += "No independent peer-reviewed evaluation of this tool's accuracy was available at the time of use; its outputs were therefore treated as provisional and verified in full. ";
+    if(v[7] < 1) l += "Its results are not reproducible on re-running, so the retrieved set was exported and archived on the date of the search. ";
+    lines.push(l.trim());
+  });
+  lines.push("");
+  lines.push("Reported in accordance with PRISMA-trAIce (JMIR AI 2025;1:e80247) and the 2025 joint position statement of Cochrane, the Campbell Collaboration, JBI and the Collaboration for Environmental Evidence on the responsible use of AI in evidence synthesis. The authors declare no financial interest in any tool named above.");
+  out.textContent = lines.join("\n");
+}
+
+/* ---------- wiring ---------- */
+function setTab(w){
+  ["assess","compare","disclose"].forEach(function(x){
+    document.getElementById("tab-"+x).setAttribute("aria-selected", x===w ? "true":"false");
+    document.getElementById("v-"+x).classList.toggle("hidden", x!==w);
+  });
+  var rw = document.getElementById("v-refs-wrap");
+  if(rw) rw.classList.toggle("hidden", w!=="assess");
+  window.scrollTo({top:0,behavior:"instant"});
+}
+document.getElementById("tab-assess").addEventListener("click",function(){setTab("assess");});
+document.getElementById("tab-compare").addEventListener("click",function(){setTab("compare");});
+document.getElementById("tab-disclose").addEventListener("click",function(){setTab("disclose");});
+document.getElementById("btn-goto-cmp").addEventListener("click", function(){ setTab("compare"); });
+
+function doAssess(){
+  var q = document.getElementById("tool-input").value;
+  if(!q.trim()) return;
+  var k = resolve(q);
+  if(k){ state.cur = k; save(); render(); toast("Loaded the reference profile for "+get(k).name); }
+  else { createCustom(q.trim()); render(); toast("New entry created — score it against the criteria below"); }
+  document.getElementById("tool-input").value = "";
+  setTab("assess");
+}
+document.getElementById("btn-assess").addEventListener("click", doAssess);
+document.getElementById("tool-input").addEventListener("keydown", function(e){ if(e.key==="Enter") doAssess(); });
+
+["review","dates"].forEach(function(f){
+  var el = document.getElementById("d-"+f);
+  el.value = state.disc[f]||"";
+  el.addEventListener("input", function(){ state.disc[f]=el.value; save(); renderDisclosure(); });
+});
+document.getElementById("btn-copy-disc").addEventListener("click", function(){
+  var txt = document.getElementById("d-out").textContent;
+  navigator.clipboard.writeText(txt).then(function(){ toast("Disclosure copied"); }, function(){ toast("Select the text and copy it manually"); });
+});
+
+document.getElementById("foot").innerHTML =
+  'Criteria derive from <b>PRISMA 2020</b> (Page et al., <i>BMJ</i> 2021;372:n71), <b>AMSTAR 2</b> (Shea et al., <i>BMJ</i> 2017;358:j4008), <b>ROBIS</b> (Whiting et al., 2016), the 2025 joint position statement of Cochrane, Campbell, JBI and the Collaboration for Environmental Evidence (<i>Cochrane Database Syst Rev</i> ED000178; doi:10.1002/cl2.70074), the <b>RAISE</b> recommendations (2025), Cochrane’s <b>CESAR</b> operational thresholds, and <b>PRISMA-trAIce</b> (<i>JMIR AI</i> 2025;1:e80247). Process framing follows the <b>DISCAR</b> model (West &amp; Martin, 2023) as applied by Fromm, Martin, Gezer &amp; Ifenthaler (<i>Technol Knowl Learn</i> 2025;30:1–28), whose interviewees put current AI adoption in educational evidence synthesis at just <b>3.7–12.1%</b> and insisted the review process cannot be fully automated. Open-science base rates from Färnqvist et al. (<i>Cochrane Evid Synth Methods</i> 2026): of 300 systematic reviews, <b>70%</b> reported a registered protocol, <b>24%</b> shared data, <b>1%</b> shared code.<br><br>' +
+  '<b>These are reference profiles, not certifications.</b> Every one is dated, and these tools change monthly — Cochrane’s own platform study reports late 2026 and will move the ground. Verify anything you intend to cite, edit any criterion you can evidence differently, and treat the score as a structured argument rather than a verdict. Companion to <i>The Review Auditor</i>.';
+
+
+/* ---------- standards reference ---------- */
+var STANDARDS = [
+ {id:"prisma", short:"PRISMA 2020", kind:"Reporting checklist · 27 items",
+  title:"PRISMA 2020 — Preferred Reporting Items for Systematic Reviews and Meta-Analyses",
+  body:"Page MJ, McKenzie JE, Bossuyt PM, et al. <i>BMJ</i> 2021;372:n71. The reporting standard almost every journal now expects. It governs what a review must <b>state</b>, not how well it was done — but several of its items are the only place a methodological failure becomes visible. <b>Item 7</b> is the one that decides most of this page: it requires the full search strategy for every database, verbatim, including filters and limits. An AI search that cannot produce that string cannot be reported, whatever its recall. <b>Item 6</b> requires every source named and date-stamped; <b>item 8</b> requires the number of screeners and whether they worked independently; <b>item 16b</b> requires the full-text exclusions with a reason for each; <b>item 27</b> requires you to say what data, code and forms are publicly available."},
+ {id:"amstar", short:"AMSTAR 2", kind:"Appraisal instrument · 7 critical domains",
+  title:"AMSTAR 2 — A MeaSurement Tool to Assess systematic Reviews",
+  body:"Shea BJ, Reeves BC, Wells G, et al. <i>BMJ</i> 2017;358:j4008. Sixteen items, of which <b>seven are critical domains</b>: protocol registration, search adequacy, justified exclusions, risk-of-bias assessment, meta-analytic methods, bias carried into interpretation, and publication bias. Its rating algorithm is unusual and worth understanding — <b>one critical flaw caps confidence at “low”; two caps it at “critically low”</b>, no matter how well the review performs elsewhere. That non-compensatory logic is why this suite reports hard gates separately from the score. AMSTAR 2 was built for reviews of health interventions, and education and social-science reviews fail it at very high rates on registration and formal appraisal tooling."},
+ {id:"robis", short:"ROBIS", kind:"Bias assessment · 4 domains",
+  title:"ROBIS — Risk of Bias in Systematic Reviews",
+  body:"Whiting P, Savović J, Higgins JPT, et al. <i>J Clin Epidemiol</i> 2016;69:225–34. Where AMSTAR asks whether the review was <i>done well</i>, ROBIS asks whether its findings are likely to be <i>biased</i> — a different question with a different answer. Four domains carry signalling questions: eligibility criteria, identification and selection of studies, data collection and study appraisal, and synthesis and findings. A third phase then asks whether the review's own conclusions addressed the concerns those domains raised. It is deliberately reverse-scored relative to AMSTAR, and it supplies the criteria on this page about minimising error in screening and extraction."},
+ {id:"joint", short:"Cochrane joint position statement", kind:"Governing policy · 2025 · six principles",
+  title:"Cochrane, Campbell, JBI and the Collaboration for Environmental Evidence — joint position statement on AI in evidence synthesis",
+  body:"Flemyng E, Noel-Storr A, Macura B, et al. (2025), published simultaneously in <i>Cochrane Database Syst Rev</i> ED000178, <i>Campbell Systematic Reviews</i> (doi:10.1002/cl2.70074) and <i>Environmental Evidence</i> 14:20. The single most authoritative statement on this question, and the source of two rules this page enforces. First: <b>“Evidence synthesists are ultimately responsible for their evidence synthesis, including the decision to use AI”</b> — which is why the scope and synthesis stages here are capped at Assistive and can never read Primary. Second: <b>“Any use of AI or automation that makes or suggests judgements should be fully and transparently reported”</b>, with system names, versions, dates, stages affected, validation evidence, limitations and financial interests. On screening it is specific: single-reviewer abstract screening carries an estimated <b>13% risk of falsely excluding a relevant study</b>, and AI may reduce that as a <i>second</i> reviewer — supplementary, never substitutive."},
+ {id:"raise", short:"RAISE", kind:"Practice recommendations · 2025 · three parts",
+  title:"RAISE — Responsible use of AI in evidence SynthEsis",
+  body:"Released June 2025 in three parts on OSF: recommendations for practice; guidance for building and evaluating AI evidence-synthesis tools; and guidance for selecting and using them. Endorsed by the joint position statement. RAISE 3 is the part that maps most directly onto this page — it is a framework for choosing a tool rather than for using one, and it is where the questions about audit trails, data-use terms, and reportable model versions in dimension 7 originate."},
+ {id:"cesar", short:"Cochrane CESAR thresholds", kind:"Operational numbers · the only ones published",
+  title:"Cochrane CESAR — deciding when not to use an AI tool",
+  body:"The most concrete figures any evidence-synthesis body has put in writing, and the basis for two criteria here. <b>Do not proceed if screening sensitivity is below 80%.</b> <b>Do not proceed if data-extraction sensitivity is below 92%.</b> All large language model and generative AI tools currently require human verification or internal validation — none is “acceptable for use” without additional safeguards. CESAR also gives four grounds for rejecting a tool outright: no published validation in a relevant context; performance claims resting only on developer studies; terms permitting content reuse for model training without opt-out; and unresponsive or opaque developers. That last ground is why undocumented criteria score as zero on this page rather than being set aside."},
+ {id:"traice", short:"PRISMA-trAIce", kind:"Reporting extension · 2025",
+  title:"PRISMA-trAIce — transparent reporting of AI use in conducting systematic reviews",
+  body:"<i>JMIR AI</i> 2025;1:e80247. The reporting extension for AI use in the conduct of a review, and the template behind the Disclosure tab. Note the distinction, which is widely confused: <b>PRISMA-AI</b> (Cacciamani et al., <i>Nature Medicine</i> 2023) is for reporting systematic reviews <i>about</i> AI in healthcare. PRISMA-trAIce is for reporting your use of AI <i>to conduct</i> a review. They are not interchangeable, and citing the wrong one signals you have not read either."},
+ {id:"discar", short:"DISCAR", kind:"Process model · the stage matrix",
+  title:"DISCAR — the process model behind the stage matrix",
+  body:"West RE &amp; Martin F (2023), as applied by Fromm YM, Martin F, Gezer T &amp; Ifenthaler D, <i>Technology, Knowledge and Learning</i> 2025;30:1–28. Designing, including/excluding, screening, coding, analysing and reporting — the phases this page scores separately, because fitness is not a property of a tool but of a tool at a stage. Fromm et al.'s twelve experienced review researchers put current AI adoption in educational evidence synthesis at just <b>3.7–12.1%</b>, discussed only manual screening, and were direct about the limit: “It's not completely automated and I don't think that's going to happen in the near future… it's really important that there is that aspect of human synthesis.”"},
+ {id:"openscience", short:"Open science base rates", kind:"Cohort study · 300 reviews",
+  title:"What systematic reviews actually do — the base rates",
+  body:"Färnqvist K, Karlsson P, Wachtmeister V, Vallance P &amp; Sinervo E, <i>Cochrane Evidence Synthesis and Methods</i> 2026. A cohort of 300 interventional systematic reviews indexed in 2024. Of those, <b>70%</b> reported a registered protocol, <b>61%</b> included a data availability statement, <b>24%</b> actually shared underlying data, <b>1%</b> shared analytic code, and <b>2%</b> were preprinted. Protocol registration has doubled since 2014 (RR 2.03). Code sharing has not moved. These are the numbers to hold in mind when a tool's score looks harsh: the published literature it is being measured against is not clearing these bars either."}
+];
+
+function renderRefs(){
+  var el = document.getElementById("refs");
+  if(!el) return;
+  var h = "";
+  STANDARDS.forEach(function(r){
+    h += '<div class="ref" id="ref-'+r.id+'"><div class="rk">'+r.kind+'</div><h4>'+r.title+'</h4><p>'+r.body+'</p></div>';
+  });
+  el.innerHTML = h;
+  var chips = document.getElementById("stds");
+  if(!chips) return;
+  chips.innerHTML = STANDARDS.map(function(r){
+    return '<button class="std" data-r="'+r.id+'">'+r.short+'</button>';
+  }).join("");
+  chips.querySelectorAll(".std").forEach(function(b){
+    b.addEventListener("click", function(){
+      setTab("assess");
+      var target = document.getElementById("ref-"+b.dataset.r);
+      if(!target) return;
+      target.scrollIntoView({behavior:"smooth", block:"start"});
+      target.classList.add("flash");
+      setTimeout(function(){ target.classList.remove("flash"); }, 1400);
+    });
+  });
+}
+renderRefs();
+
+load();
+render();
+})();
+</script>
+
+</body></html>
