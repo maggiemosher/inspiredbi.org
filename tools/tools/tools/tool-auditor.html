@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Tool Auditor — Login</title>
+<style>
+  :root{
+    --ink:#1c2430; --sub:#5b6674; --line:#dfe4ea; --bg:#f4f6f8; --card:#ffffff;
+    --accent:#2b4c7e; --accent-ink:#ffffff; --err:#b3261e; --err-soft:#fdecea;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    padding:24px;
+  }
+  .card{
+    width:100%; max-width:420px; background:var(--card); border:1px solid var(--line);
+    border-radius:14px; padding:32px 28px; box-shadow:0 1px 3px rgba(0,0,0,.06);
+  }
+  h1{font-size:19px; margin:0 0 6px;}
+  p.blurb{font-size:14px; color:var(--sub); margin:0 0 22px; line-height:1.5;}
+  label{display:block; font-size:13px; font-weight:600; margin-bottom:6px;}
+  input[type=password]{
+    width:100%; padding:11px 12px; font-size:15px; border:1px solid var(--line);
+    border-radius:8px; margin-bottom:12px; background:#fff; color:var(--ink);
+  }
+  input[type=password]:focus{outline:2px solid var(--accent); outline-offset:1px;}
+  button{
+    width:100%; padding:11px 12px; font-size:15px; font-weight:600; border:none;
+    border-radius:8px; background:var(--accent); color:var(--accent-ink); cursor:pointer;
+  }
+  button:hover{opacity:.92;}
+  .err{
+    display:none; background:var(--err-soft); color:var(--err); font-size:13px;
+    padding:8px 10px; border-radius:8px; margin-bottom:12px;
+  }
+  .err.show{display:block;}
+  .foot{font-size:12px; color:var(--sub); margin-top:18px; text-align:center;}
+  .shake{animation:shake .3s;}
+  @keyframes shake{
+    10%,90%{transform:translateX(-1px);} 20%,80%{transform:translateX(2px);}
+    30%,50%,70%{transform:translateX(-4px);} 40%,60%{transform:translateX(4px);}
+  }
+</style>
+</head>
+<body>
+  <div class="card" id="card">
+    <h1>The Tool Auditor — Login</h1>
+    <p class="blurb">Scores any AI research tool and shows which stage of a literature review it's actually fit for, from searching through to reporting.</p>
+    <div class="err" id="err">That password didn't match — try again.</div>
+    <form id="gateForm" autocomplete="off">
+      <label for="pw">Password</label>
+      <input type="password" id="pw" name="pw" autofocus>
+      <button type="submit">Enter</button>
+    </form>
+    <div class="foot">You'll go straight to the live tool once you're in.</div>
+  </div>
+<script>
+(function(){
+  // Change PASSWORD below to whatever you'd like this page's password to be — plain text is fine,
+  // just edit this one line and push. (Anyone who views this page's source can also see it and the
+  // destination link, so treat this as a friendly gate for people you've given the password to,
+  // not a lock on anything sensitive.)
+  var PASSWORD = 'inspiredbi2026';
+  var DEST = 'https://claude.ai/code/artifact/a3c1fb3f-9082-4a62-ba4f-ae5cc2f291ee';
+  var SESSION_KEY = 'gate_tool_auditor';
+
+  if(sessionStorage.getItem(SESSION_KEY) === "1"){
+    window.location.replace(DEST);
+    return;
+  }
+
+  var form = document.getElementById("gateForm");
+  var pw = document.getElementById("pw");
+  var err = document.getElementById("err");
+  var card = document.getElementById("card");
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    if(pw.value === PASSWORD){
+      sessionStorage.setItem(SESSION_KEY, "1");
+      window.location.href = DEST;
+    } else {
+      err.classList.add("show");
+      card.classList.remove("shake"); void card.offsetWidth; card.classList.add("shake");
+      pw.value = ""; pw.focus();
+    }
+  });
+})();
+</script>
+</body>
+</html>
