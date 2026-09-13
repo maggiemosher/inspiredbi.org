@@ -40,6 +40,8 @@
   }
   .err.show{display:block;}
   .foot{font-size:12px; color:var(--sub); margin-top:18px; text-align:center;}
+  .legal{font-size:11px; color:var(--sub); margin-top:10px; text-align:center; line-height:1.5;}
+  .legal a{color:var(--sub); text-decoration:underline;}
   .shake{animation:shake .3s;}
   @keyframes shake{
     10%,90%{transform:translateX(-1px);} 20%,80%{transform:translateX(2px);}
@@ -58,6 +60,7 @@
       <button type="submit">Enter</button>
     </form>
     <div class="foot">You'll go straight to the live tool once you're in.</div>
+    <div class="legal">&copy; 2026 Margaret A. Mosher. All rights reserved. Licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a> &mdash; free to share with credit; not for commercial use.</div>
   </div>
 <script>
 (function(){
@@ -66,7 +69,7 @@
   // destination link, so treat this as a friendly gate for people you've given the password to,
   // not a lock on anything sensitive.)
   var PASSWORD = 'inspiredbi2026';
-  var DEST = 'https://claude.ai/code/artifact/a3c1fb3f-9082-4a62-ba4f-ae5cc2f291ee';
+  var DEST = 'tool-auditor-app.html';
   var SESSION_KEY = 'gate_tool_auditor';
 
   if(sessionStorage.getItem(SESSION_KEY) === "1"){
