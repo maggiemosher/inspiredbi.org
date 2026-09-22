@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What is AI — The Wolfpack's Guide to AI | InspiredBI × Cheyney University</title>
+<meta name="description" content="The Wolfpack's Guide to AI: a jargon-free walkthrough of the inner workings of AI for Cheyney University staff and students — GenAI, LLMs, LMMs, RAG, and Agentic AI.">
+<!--
+  ============================================================================
+  WHAT IS AI  —  "The Wolfpack's Guide to AI"
+  For: inspiredbi.org   |   Audience: Cheyney University staff & students
+  Branding: Cheyney Blue / White / Gold, Wolves mascot
+  Self-contained single file. Inline CSS + JS. No external dependencies
+  except YouTube video iframes (privacy-enhanced youtube-nocookie domain).
+
+  EDIT ME:
+   • Access code that unlocks resource attachments is set in the <script>
+     at the bottom: const ACCESS_CODE = "WOLVES1837".
+   • Navigation hrefs point to your real inspiredbi.org pages. Adjust if a
+     page is renamed.
+  ============================================================================
+-->
+<style>
+  :root{
+    --navy:#0c123b;      /* Cheyney Blue  (primary ~70%) */
+    --blue:#205a91;      /* Cheyney Medium Blue (~20%)   */
+    --athletic:#006ba6;  /* Wolves athletic blue         */
+    --lightblue:#cae7fc; /* Cheyney Light Blue (accent)  */
+    --gold:#ffcf01;      /* Cheyney Gold (accent ~10%)   */
+    --ink:#12203a;
+    --paper:#ffffff;
+    --mist:#f4f8fc;
+    --line:#dbe6f2;
+    --radius:16px;
+    --shadow:0 10px 30px rgba(12,18,59,.10);
+    --shadow-lg:0 20px 50px rgba(12,18,59,.16);
+    --maxw:1120px;
+    --font:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;font-family:var(--font);color:var(--ink);background:var(--paper);
+    line-height:1.65;-webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--blue)}
+  img{max-width:100%}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  h1,h2,h3,h4{line-height:1.2;color:var(--navy);margin:.2em 0 .5em}
+  h2{font-size:clamp(1.5rem,3.2vw,2.2rem)}
+  h3{font-size:clamp(1.15rem,2.2vw,1.45rem)}
+  .eyebrow{
+    display:inline-block;text-transform:uppercase;letter-spacing:.14em;
+    font-size:.72rem;font-weight:800;color:var(--athletic);
+    background:var(--lightblue);padding:.4em .8em;border-radius:999px;margin-bottom:.6rem;
+  }
+
+  /* ---------- Security / password banner ---------- */
+  .secure-banner{
+    background:var(--navy);color:#fff;font-size:.92rem;text-align:center;
+    padding:.7rem 1rem;display:flex;gap:.6rem;justify-content:center;align-items:center;flex-wrap:wrap;
+    border-bottom:3px solid var(--gold);
+  }
+  .secure-banner strong{color:var(--gold)}
+  .secure-banner .lock{font-size:1.05rem}
+  .secure-banner button{
+    background:var(--gold);color:var(--navy);border:0;font-weight:800;cursor:pointer;
+    padding:.35em .9em;border-radius:999px;font-size:.85rem;
+  }
+  .secure-banner button:hover{filter:brightness(.94)}
+
+  /* ---------- Sticky nav ---------- */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line);box-shadow:0 2px 14px rgba(12,18,59,.06)}
+  .nav-inner{display:flex;align-items:center;gap:1rem;justify-content:space-between;
+    max-width:var(--maxw);margin:0 auto;padding:.6rem 20px}
+  .brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;flex-shrink:0}
+  .brand .mark{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--navy),var(--athletic));
+    display:grid;place-items:center;color:#fff;font-size:1.3rem;box-shadow:var(--shadow)}
+  .brand b{color:var(--navy);font-size:1.02rem;line-height:1.05;display:block}
+  .brand span{color:var(--blue);font-size:.72rem;font-weight:600}
+  nav.links{display:flex;gap:.2rem;flex-wrap:wrap;align-items:center}
+  nav.links a{
+    text-decoration:none;color:var(--navy);font-weight:600;font-size:.86rem;
+    padding:.45em .7em;border-radius:9px;white-space:nowrap;
+  }
+  nav.links a:hover,nav.links a:focus{background:var(--lightblue);color:var(--navy);outline:none}
+  nav.links a.cta{background:var(--gold);color:var(--navy);font-weight:800}
+  nav.links a.cta:hover{filter:brightness(.95)}
+  .menu-btn{display:none;background:var(--navy);color:#fff;border:0;border-radius:9px;
+    padding:.5em .7em;font-size:1.1rem;cursor:pointer}
+  @media (max-width:920px){
+    .menu-btn{display:block}
+    nav.links{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;
+      flex-direction:column;align-items:stretch;padding:.6rem 20px 1rem;border-bottom:1px solid var(--line);
+      box-shadow:var(--shadow)}
+    nav.links.open{display:flex}
+    nav.links a{font-size:1rem;padding:.7em .8em}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{background:
+      radial-gradient(1200px 400px at 80% -10%,rgba(0,107,166,.35),transparent),
+      linear-gradient(160deg,var(--navy),#152a63 60%,var(--athletic));
+    color:#fff;padding:3.4rem 0 3rem;position:relative;overflow:hidden}
+  .hero .wrap{position:relative;z-index:2}
+  .hero .eyebrow{background:rgba(255,255,255,.14);color:var(--gold)}
+  .hero h1{color:#fff;font-size:clamp(2rem,5vw,3.2rem);margin-top:.3rem}
+  .hero p.lead{font-size:clamp(1.05rem,2vw,1.25rem);max-width:60ch;color:#e8f1fb}
+  .paw{position:absolute;font-size:16rem;opacity:.06;right:-1rem;bottom:-3rem;transform:rotate(12deg);z-index:1}
+  .hero-cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.4rem}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;font-weight:800;
+    padding:.8em 1.3em;border-radius:11px;font-size:.98rem;border:2px solid transparent;transition:.15s}
+  .btn-gold{background:var(--gold);color:var(--navy)}
+  .btn-gold:hover{filter:brightness(.95);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+  .btn-ghost:hover{background:rgba(255,255,255,.12)}
+
+  /* ---------- Section shells ---------- */
+  section{padding:3rem 0}
+  section.alt{background:var(--mist)}
+  .lede{max-width:70ch;color:#2a3c5c;font-size:1.05rem}
+
+  /* jump-to-concept chips */
+  .chips{display:flex;gap:.5rem;flex-wrap:wrap;margin:1.2rem 0 0}
+  .chips a{text-decoration:none;font-weight:700;font-size:.82rem;color:var(--navy);
+    background:#fff;border:1.5px solid var(--line);padding:.45em .9em;border-radius:999px}
+  .chips a:hover{border-color:var(--athletic);background:var(--lightblue)}
+
+  /* ---------- Concept card ---------- */
+  .concept{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);margin:1.6rem 0;overflow:hidden;scroll-margin-top:90px}
+  .concept-head{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.4rem;
+    background:linear-gradient(90deg,var(--navy),var(--blue));color:#fff}
+  .concept-head .num{width:44px;height:44px;flex:0 0 44px;border-radius:12px;background:var(--gold);
+    color:var(--navy);display:grid;place-items:center;font-weight:900;font-size:1.25rem}
+  .concept-head h3{color:#fff;margin:0}
+  .concept-head .abbr{font-size:.78rem;color:var(--lightblue);font-weight:700;letter-spacing:.05em}
+  .concept-body{display:grid;grid-template-columns:1.05fr .95fr;gap:1.6rem;padding:1.5rem 1.4rem}
+  @media (max-width:800px){.concept-body{grid-template-columns:1fr}}
+  .concept-body p{margin:.2rem 0 .8rem}
+  .tag{display:inline-block;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;
+    color:var(--athletic);margin:.4rem 0 .2rem}
+  .plain{background:var(--mist);border-left:4px solid var(--gold);padding:.8rem 1rem;border-radius:0 10px 10px 0;
+    font-size:.98rem}
+
+  /* video */
+  .video{position:relative;width:100%;padding-top:56.25%;border-radius:12px;overflow:hidden;
+    box-shadow:var(--shadow);background:#000;border:1px solid var(--line)}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .video-cap{font-size:.8rem;color:#5a6b86;margin-top:.5rem}
+
+  /* ---------- CSS infographics ---------- */
+  .figure{background:var(--mist);border:1px dashed var(--line);border-radius:12px;padding:1.1rem;margin-top:.3rem}
+  .figure figcaption{font-size:.78rem;color:#5a6b86;margin-top:.7rem;text-align:center}
+  .flow{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap}
+  .node{background:#fff;border:2px solid var(--blue);color:var(--navy);border-radius:11px;
+    padding:.6em .8em;font-weight:700;font-size:.82rem;text-align:center;min-width:74px;box-shadow:var(--shadow)}
+  .node.dark{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .node.gold{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+  .node.round{border-radius:999px}
+  .arrow{color:var(--athletic);font-weight:900;font-size:1.2rem}
+  .col{display:flex;flex-direction:column;gap:.45rem;align-items:center}
+  .stack{display:flex;flex-direction:column;gap:.5rem}
+  .layer{border-radius:11px;padding:.7em .9em;font-weight:700;color:#fff;text-align:center;font-size:.85rem;box-shadow:var(--shadow)}
+  .l-top{background:var(--athletic)}
+  .l-mid{background:var(--blue)}
+  .l-bot{background:var(--navy)}
+  .layer small{display:block;font-weight:500;opacity:.85;font-size:.72rem}
+  .tokens{display:flex;gap:.35rem;flex-wrap:wrap;justify-content:center}
+  .tok{background:#fff;border:1.5px solid var(--athletic);border-radius:7px;padding:.25em .5em;
+    font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.78rem;color:var(--navy)}
+  .predict{display:flex;flex-direction:column;gap:.3rem;margin-top:.6rem}
+  .predict .row{display:flex;align-items:center;gap:.5rem;justify-content:center;font-size:.8rem}
+  .bar{height:12px;border-radius:6px;background:var(--athletic)}
+  .senses{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+  .sense{font-size:1.8rem;background:#fff;border:2px solid var(--blue);border-radius:12px;
+    width:56px;height:56px;display:grid;place-items:center;box-shadow:var(--shadow)}
+
+  /* ---------- Locked resources ---------- */
+  .resource-lock{margin-top:1rem;background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:1rem 1.2rem;display:flex;gap:.9rem;align-items:center;flex-wrap:wrap}
+  .resource-lock .ic{font-size:1.5rem}
+  .resource-lock.unlocked{border-color:var(--athletic);background:#f0f9ff}
+  .resource-list{margin:.4rem 0 0;padding-left:1.1rem}
+  .hidden{display:none !important}
+
+  /* ---------- Application columns ---------- */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+  @media (max-width:800px){.two-col{grid-template-columns:1fr}}
+  .app-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);overflow:hidden;scroll-margin-top:90px}
+  .app-card .top{padding:1.1rem 1.3rem;color:#fff;display:flex;align-items:center;gap:.7rem}
+  .app-card.staff .top{background:linear-gradient(90deg,var(--navy),var(--blue))}
+  .app-card.students .top{background:linear-gradient(90deg,var(--athletic),#0a86c9)}
+  .app-card .top .ic{font-size:1.6rem}
+  .app-card .top h3{color:#fff;margin:0}
+  .app-card ul{margin:0;padding:1.1rem 1.3rem 1.3rem 2.4rem}
+  .app-card li{margin:.55rem 0}
+  .app-card li b{color:var(--navy)}
+  .qbox{background:var(--lightblue);border-radius:10px;padding:.7rem .9rem;margin:.2rem 1.3rem 1.1rem;
+    font-size:.9rem;color:var(--navy);font-weight:600}
+
+  /* ---------- Dynamic resources form ---------- */
+  .form-wrap{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-lg);
+    padding:1.6rem;max-width:760px;margin:1.2rem auto 0}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media (max-width:640px){.form-grid{grid-template-columns:1fr}}
+  label{font-weight:700;font-size:.85rem;color:var(--navy);display:block;margin-bottom:.3rem}
+  input,select,textarea{width:100%;padding:.7em .8em;border:1.5px solid var(--line);border-radius:10px;
+    font-family:inherit;font-size:.95rem;color:var(--ink);background:#fff}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--athletic);box-shadow:0 0 0 3px rgba(0,107,166,.15)}
+  .full{grid-column:1/-1}
+  textarea{min-height:120px;resize:vertical}
+  .submit{background:var(--gold);color:var(--navy);font-weight:800;border:0;border-radius:11px;
+    padding:.85em 1.4em;font-size:1rem;cursor:pointer;margin-top:.4rem}
+  .submit:hover{filter:brightness(.95)}
+  .note{font-size:.8rem;color:#5a6b86;margin-top:.7rem}
+
+  /* ---------- Footer ---------- */
+  footer.site{background:var(--navy);color:#cdd8ec;padding:2.4rem 0 1.6rem;margin-top:1rem}
+  footer.site a{color:var(--lightblue);text-decoration:none}
+  footer.site a:hover{text-decoration:underline}
+  .foot-grid{display:flex;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+  .foot-links{display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.9rem}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.14);margin-top:1.4rem;padding-top:1rem;
+    font-size:.8rem;color:#8ea3c7;text-align:center}
+
+  /* modal */
+  .modal{position:fixed;inset:0;background:rgba(12,18,59,.6);display:none;place-items:center;z-index:100;padding:20px}
+  .modal.show{display:grid}
+  .modal-card{background:#fff;border-radius:16px;max-width:420px;width:100%;padding:1.6rem;box-shadow:var(--shadow-lg);
+    border-top:5px solid var(--gold)}
+  .modal-card h3{margin-top:0}
+  .modal-card .err{color:#b3261e;font-size:.85rem;min-height:1.1em}
+  .skip-link{position:absolute;left:-999px}
+  .skip-link:focus{left:12px;top:8px;background:var(--gold);color:var(--navy);padding:.5em 1em;border-radius:8px;z-index:200}
+</style>
+</head>
+<body>
+<a href="#ai-basics" class="skip-link">Skip to content</a>
+
+<!-- ===== SECURITY / PASSWORD BANNER (top of sub-page) ===== -->
+<div class="secure-banner" role="note">
+  <span class="lock">🔒</span>
+  <span>This is a <strong>Cheyney University</strong> sub-page. Final resource attachments are <strong>password-protected</strong>.</span>
+  <button type="button" onclick="openGate()">Enter access code</button>
+</div>
+
+<!-- ===== STICKY NAV ===== -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html" aria-label="InspiredBI home">
+      <span class="mark" aria-hidden="true">🐺</span>
+      <span><b>The Wolfpack's Guide to AI</b><span>InspiredBI × Cheyney University</span></span>
+    </a>
+    <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMenu(this)">☰</button>
+    <nav class="links" id="menu" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="#ai-basics">AI Basics</a>
+      <a href="#staff">Staff Guidelines</a>
+      <a href="#students">Student Interactions</a>
+      <a href="tutorials.html">Workshop Resources</a>
+      <a href="free-resources.html">Free Continued Learning</a>
+      <a href="chatbots.html">Create a Chatbot</a>
+      <a href="agentic.html">Design your Agent</a>
+      <a href="frameworks.html">ETHICS Framework</a>
+      <a href="safe-secure.html">Safe &amp; Secure AI</a>
+      <a class="cta" href="#dynamic-resources">Ask a Question</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <span class="paw" aria-hidden="true">🐾</span>
+  <div class="wrap">
+    <span class="eyebrow">Cheyney University · The Wolfpack's Guide to AI</span>
+    <h1>What is AI?</h1>
+    <p class="lead"><strong>The inner workings of AI</strong> — explained in plain language for the Cheyney
+      Wolfpack. No computer-science degree required. In five short stops, you'll go from "I've heard of ChatGPT"
+      to understanding exactly how these tools think, where they get their answers, and how to use them wisely
+      in higher education.</p>
+    <div class="hero-cta">
+      <a class="btn btn-gold" href="#ai-basics">Start with the basics ↓</a>
+      <a class="btn btn-ghost" href="#staff">Jump to staff &amp; student guidance</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== INTRO / AI BASICS ===== -->
+<section id="ai-basics">
+  <div class="wrap">
+    <span class="eyebrow">AI Basics</span>
+    <h2>The inner workings of AI, one concept at a time</h2>
+    <p class="lede">Artificial intelligence can feel like a black box. It isn't. Underneath every chatbot and
+      AI assistant are five ideas that build on each other. Read them in order and the whole field clicks into
+      place. Each stop has a plain-English explanation, a simple visual, and a short, pre-vetted video from a
+      trusted source (IBM, Google Cloud, and Andrew Ng).</p>
+    <div class="chips" aria-label="Jump to a concept">
+      <a href="#genai">1 · Generative AI</a>
+      <a href="#llm">2 · Large Language Models</a>
+      <a href="#lmm">3 · Multimodal Models</a>
+      <a href="#rag">4 · RAG</a>
+      <a href="#agentic">5 · Agentic AI</a>
+    </div>
+
+    <!-- 1. GENERATIVE AI -->
+    <article class="concept" id="genai">
+      <div class="concept-head">
+        <div class="num" aria-hidden="true">1</div>
+        <div><h3>Generative AI (GenAI)</h3><div class="abbr">The AI that creates net-new content</div></div>
+      </div>
+      <div class="concept-body">
+        <div>
+          <span class="tag">What it is</span>
+          <p>Most software <em>retrieves</em> things that already exist — it looks up a record and shows it to you.
+            <strong>Generative AI is different: it produces brand-new content that never existed before.</strong>
+            You give it a prompt ("write a welcome email," "draft a rubric," "make an image of a wolf mascot"),
+            and it generates original text, code, images, audio, or video on demand.</p>
+          <div class="plain"><strong>Plain version:</strong> It learned patterns from an enormous amount of
+            human-made examples, and now it can mix those patterns into something new — the way a jazz musician
+            who has heard thousands of songs can improvise a fresh one.</div>
+        </div>
+        <div>
+          <figure class="figure" aria-label="Diagram: a prompt and data transform into new outputs">
+            <div class="flow">
+              <div class="col"><div class="node round">📝 Prompt</div><div class="node round">📚 Training patterns</div></div>
+              <span class="arrow" aria-hidden="true">→</span>
+              <div class="node dark">Generative<br>AI model</div>
+              <span class="arrow" aria-hidden="true">→</span>
+              <div class="col">
+                <div class="node gold">📄 Document</div>
+                <div class="node gold">🖼️ Image</div>
+                <div class="node gold">💻 Code</div>
+              </div>
+            </div>
+            <figcaption>Input (a prompt + learned patterns) is transformed into varied, net-new outputs.</figcaption>
+          </figure>
+          <div class="video">
+            <iframe src="https://www.youtube-nocookie.com/embed/2ik3WAKou1M" title="IBM Technology: What is Generative AI?" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <p class="video-cap">▶ IBM Technology — "What is Generative AI?"</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 2. LLMs -->
+    <article class="concept" id="llm">
+      <div class="concept-head">
+        <div class="num" aria-hidden="true">2</div>
+        <div><h3>Large Language Models (LLMs)</h3><div class="abbr">The engine behind text-based AI</div></div>
+      </div>
+      <div class="concept-body">
+        <div>
+          <span class="tag">How it works</span>
+          <p>An LLM is the "brain" that powers text tools like ChatGPT, Claude, and Gemini. At its core it does one
+            surprisingly simple thing extremely well: <strong>it predicts the next word</strong> (technically, the
+            next "token") in a sequence, over and over, until a full response is built.</p>
+          <p>To do that, it first breaks your text into <em>tokens</em> (words or word-pieces), then uses patterns
+            learned from billions of sentences to estimate which token should come next — and how likely each option is.</p>
+          <div class="plain"><strong>Plain version:</strong> It's the world's most sophisticated autocomplete.
+            Because it has read so much human writing, its "best next word" guesses string together into fluent,
+            useful answers.</div>
+        </div>
+        <div>
+          <figure class="figure" aria-label="Diagram: text is split into tokens, then the model predicts the next word">
+            <div class="tag" style="text-align:center;display:block">Step 1 — Tokenize</div>
+            <div class="tokens">
+              <span class="tok">The</span><span class="tok">Wolf</span><span class="tok">pack</span>
+              <span class="tok">loves</span><span class="tok">to</span><span class="tok">___</span>
+            </div>
+            <div class="tag" style="text-align:center;display:block;margin-top:.7rem">Step 2 — Predict next word</div>
+            <div class="predict">
+              <div class="row"><span style="width:64px">learn</span><span class="bar" style="width:120px"></span><b>72%</b></div>
+              <div class="row"><span style="width:64px">win</span><span class="bar" style="width:52px;background:var(--blue)"></span><b>19%</b></div>
+              <div class="row"><span style="width:64px">howl</span><span class="bar" style="width:22px;background:var(--lightblue)"></span><b>9%</b></div>
+            </div>
+            <figcaption>Text → tokens → a branching set of probable next words. The model picks, then repeats.</figcaption>
+          </figure>
+          <div class="video">
+            <iframe src="https://www.youtube-nocookie.com/embed/5sLYAQS9sWQ" title="IBM Technology: What are Large Language Models (LLMs)?" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <p class="video-cap">▶ IBM Technology — "What are Large Language Models (LLMs)?"</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3. LMMs -->
+    <article class="concept" id="lmm">
+      <div class="concept-head">
+        <div class="num" aria-hidden="true">3</div>
+        <div><h3>Large Multimodal Models (LMMs)</h3><div class="abbr">AI that sees, hears, and reads at once</div></div>
+      </div>
+      <div class="concept-body">
+        <div>
+          <span class="tag">The evolution</span>
+          <p>Early AI worked in one "language" at a time — text only, or images only. <strong>Multimodal models
+            understand and create across many formats simultaneously:</strong> text, images, audio, and video,
+            all in a single conversation.</p>
+          <p>You can hand an LMM a photo of a syllabus, ask a spoken question about it, and get back a written
+            summary plus a chart — because it processes every format in one shared "mind."</p>
+          <div class="plain"><strong>Plain version:</strong> If an LLM reads, an LMM reads <em>and</em> looks
+            <em>and</em> listens — then answers in whatever format is most useful.</div>
+        </div>
+        <div>
+          <figure class="figure" aria-label="Diagram: eye, ear, and text feed a central AI that outputs a multimedia presentation">
+            <div class="flow">
+              <div class="col senses-col">
+                <div class="senses" style="flex-direction:column">
+                  <div class="sense" title="Vision">👁️</div>
+                  <div class="sense" title="Audio">👂</div>
+                  <div class="sense" title="Text">📄</div>
+                </div>
+              </div>
+              <span class="arrow" aria-hidden="true">→</span>
+              <div class="node dark">🧠<br>Multimodal<br>AI</div>
+              <span class="arrow" aria-hidden="true">→</span>
+              <div class="node gold">🎬 Multimedia<br>response</div>
+            </div>
+            <figcaption>Vision + audio + text feed one central model, which outputs a combined, multimedia answer.</figcaption>
+          </figure>
+          <div class="video">
+            <iframe src="https://www.youtube-nocookie.com/embed/1b-3R9Y6G18" title="Google Cloud Tech: Multimodal Generative AI explained" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <p class="video-cap">▶ Google Cloud Tech — "Multimodal Generative AI explained"</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 4. RAG -->
+    <article class="concept" id="rag">
+      <div class="concept-head">
+        <div class="num" aria-hidden="true">4</div>
+        <div><h3>Retrieval-Augmented Generation (RAG)</h3><div class="abbr">Grounding AI in YOUR trusted knowledge</div></div>
+      </div>
+      <div class="concept-body">
+        <div>
+          <span class="tag">Why it matters</span>
+          <p>An LLM only knows what it learned during training — so it can "hallucinate," confidently inventing
+            facts. <strong>RAG fixes this by looking up real, approved information first, then handing that to the
+            model as context</strong> before it writes an answer.</p>
+          <p>For a university, this is the key to safety: connect the AI to <em>your</em> policies, catalog, and
+            handbook, and it answers from those documents instead of guessing. Sensitive data stays inside your
+            secure source.</p>
+          <div class="plain"><strong>Plain version:</strong> Open-book instead of from-memory. The AI checks your
+            official documents first, then explains the answer in its own words — with far fewer mistakes.</div>
+        </div>
+        <div>
+          <figure class="figure" aria-label="Flowchart: prompt goes to a secure database, retrieved facts plus prompt go to the LLM, which returns a grounded answer">
+            <div class="flow" style="flex-direction:column;gap:.5rem">
+              <div class="node round">🧑‍🏫 User prompt</div>
+              <span class="arrow" aria-hidden="true">↓</span>
+              <div class="node dark">🔐 Secure knowledge base<br><small style="font-weight:500">university policies &amp; docs</small></div>
+              <span class="arrow" aria-hidden="true">↓</span>
+              <div class="node round">📎 Retrieved facts + prompt</div>
+              <span class="arrow" aria-hidden="true">↓</span>
+              <div class="node" style="border-color:var(--athletic)">🤖 LLM generates answer</div>
+              <span class="arrow" aria-hidden="true">↓</span>
+              <div class="node gold">✅ Grounded, sourced answer</div>
+            </div>
+            <figcaption>The prompt hits your secure data first; only verified context reaches the model.</figcaption>
+          </figure>
+          <div class="video">
+            <iframe src="https://www.youtube-nocookie.com/embed/T-D1OfcDW1M" title="IBM Technology: What is Retrieval-Augmented Generation (RAG)?" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <p class="video-cap">▶ IBM Technology — "What is Retrieval-Augmented Generation (RAG)?"</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 5. AGENTIC -->
+    <article class="concept" id="agentic">
+      <div class="concept-head">
+        <div class="num" aria-hidden="true">5</div>
+        <div><h3>Agentic AI (AI Agents)</h3><div class="abbr">From answering questions to getting things done</div></div>
+      </div>
+      <div class="concept-body">
+        <div>
+          <span class="tag">The frontier</span>
+          <p>A chatbot is passive — it waits for you and replies. <strong>An AI agent is active: give it a goal and
+            it plans the steps, uses tools, and works through a multi-step task</strong> toward checkpoints, only
+            pausing when it needs you.</p>
+          <p>Ask an agent to "build a study schedule from this syllabus and add it to my calendar," and it will read
+            the file, draft the plan, and take the actions — coordinating several tools to reach the goal.</p>
+          <div class="plain"><strong>Plain version:</strong> A chatbot is a knowledgeable advisor; an agent is a
+            capable assistant who actually carries out the plan, step by step.</div>
+        </div>
+        <div>
+          <figure class="figure" aria-label="Stack diagram: foundation model at the bottom, orchestration in the middle, tools and APIs at the top">
+            <div class="stack">
+              <div class="layer l-top">🔧 Tools &amp; API access<small>calendar, search, files, email</small></div>
+              <div class="layer l-mid">🧭 Control plane / orchestration<small>plans steps, checks progress, decides next action</small></div>
+              <div class="layer l-bot">🧠 Foundation model (LLM/LMM)<small>the reasoning engine</small></div>
+            </div>
+            <figcaption>An agent stacks tool access and an orchestration layer on top of a foundation model.</figcaption>
+          </figure>
+          <div class="video">
+            <iframe src="https://www.youtube-nocookie.com/embed/sal78qLsZAM" title="Andrew Ng: AI Agents overview" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <p class="video-cap">▶ Andrew Ng — Overview of AI Agents</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Locked resources -->
+    <div class="resource-lock" id="resourceLock">
+      <span class="ic" aria-hidden="true">🔒</span>
+      <div style="flex:1;min-width:220px">
+        <strong>Downloadable resource pack (Cheyney staff)</strong>
+        <div id="lockMsg" style="font-size:.9rem;color:#5a6b86">Slide decks, a one-page cheat sheet, and a
+          classroom-ready lesson plan are attached below. Enter your Cheyney access code to unlock.</div>
+        <ul class="resource-list hidden" id="resourceList">
+          <li><a href="#">🐺 Wolfpack AI Basics — slide deck (PDF)</a></li>
+          <li><a href="#">📄 The 5 Concepts — one-page cheat sheet (PDF)</a></li>
+          <li><a href="#">🧩 "What is AI?" — 50-minute lesson plan (PDF)</a></li>
+        </ul>
+      </div>
+      <button class="submit" style="margin:0" type="button" onclick="openGate()" id="unlockBtn">Unlock</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HIGHER-ED APPLICATION ===== -->
+<section class="alt" id="application">
+  <div class="wrap">
+    <span class="eyebrow">Higher Education Application</span>
+    <h2>Putting it to work at Cheyney</h2>
+    <p class="lede">Understanding the concepts is step one. Here's what they mean in practice — separated into
+      guidance for staff and guidance for working with students.</p>
+    <div class="two-col">
+      <div class="app-card staff" id="staff">
+        <div class="top"><span class="ic" aria-hidden="true">🎓</span><h3>For University Staff</h3></div>
+        <div class="qbox">Bias check before you rely on any output: <em>Who is missing? Whose perspective dominates?</em></div>
+        <ul>
+          <li><b>Data privacy first.</b> Never paste student records, grades, or identifiable data into consumer
+            AI tools. Use institution-approved, FERPA-aligned platforms and prefer RAG systems that keep data
+            inside Cheyney's secure sources.</li>
+          <li><b>Redesign the syllabus for AI.</b> State clearly where AI is encouraged, permitted with citation,
+            or off-limits — assignment by assignment. Design tasks that reward process, reflection, and voice.</li>
+          <li><b>Evaluate AI bias.</b> Interrogate every output: whose perspective dominates the answer, whose is
+            absent, and what stereotypes might be baked in? Model this scrutiny for your students.</li>
+          <li><b>Treat AI as a co-creator, not an oracle.</b> Use it to draft, brainstorm, and get unstuck — then
+            apply your expertise to verify, revise, and own the final work.</li>
+        </ul>
+      </div>
+      <div class="app-card students" id="students">
+        <div class="top"><span class="ic" aria-hidden="true">🐺</span><h3>Working with Students</h3></div>
+        <div class="qbox">Goal: students who <em>direct</em> AI with judgment — not students who outsource thinking to it.</div>
+        <ul>
+          <li><b>Cultivate a growth mindset.</b> Frame AI as a tool for iteration and feedback, not a shortcut.
+            Reward the revision, the questions asked, and the reasoning — not just a polished result.</li>
+          <li><b>Teach verification.</b> Show students how to fact-check AI output against primary sources, spot
+            hallucinations, and demand citations before trusting an answer.</li>
+          <li><b>Executive-function coaching.</b> Use AI to break big projects into steps, build study schedules,
+            and scaffold time management — supporting focus and follow-through.</li>
+          <li><b>Self-regulated learning.</b> Encourage students to use AI as a patient tutor for practice
+            questions, explanations, and reflection, building independence and metacognition over time.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DYNAMIC RESOURCES / CONTACT ===== -->
+<section id="dynamic-resources">
+  <div class="wrap">
+    <span class="eyebrow">Dynamic Resources</span>
+    <h2>Ask a question — get resources built for you</h2>
+    <p class="lede" style="text-align:center;margin:0 auto">Following a training or workshop, tell us what you're
+      working on. Customized resources, examples, and follow-up materials will be attached here based on your
+      specific needs.</p>
+    <form class="form-wrap" id="dynForm" onsubmit="return sendQuestion(event)">
+      <div class="form-grid">
+        <div><label for="fname">Name</label><input id="fname" name="name" required autocomplete="name"></div>
+        <div><label for="femail">Email</label><input id="femail" name="email" type="email" required autocomplete="email"></div>
+        <div><label for="frole">Your role</label>
+          <select id="frole" name="role">
+            <option>Faculty</option><option>Staff / Administrator</option><option>Student</option>
+            <option>IT / Instructional Design</option><option>Other</option>
+          </select></div>
+        <div><label for="ftopic">Topic</label>
+          <select id="ftopic" name="topic">
+            <option>Generative AI</option><option>Large Language Models</option><option>Multimodal AI</option>
+            <option>RAG / grounding AI in our data</option><option>AI Agents</option>
+            <option>Syllabus &amp; assignment design</option><option>Student support</option><option>Other</option>
+          </select></div>
+        <div class="full"><label for="fmsg">What can we help you build or understand?</label>
+          <textarea id="fmsg" name="message" placeholder="e.g., I want a RAG chatbot trained on our advising handbook, or a rubric that accounts for AI use…" required></textarea></div>
+      </div>
+      <button class="submit" type="submit">Send my question →</button>
+      <p class="note">Submitting opens your email app addressed to the InspiredBI team. Prefer a form that lands
+        straight in an inbox? See the guide for a one-line swap to Formspree.
+        <!-- TO USE FORMSPREE: set method="POST" action="https://formspree.io/f/XXXXXXXX" on the <form>,
+             delete onsubmit="return sendQuestion(event)", and remove this note. -->
+      </p>
+    </form>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div style="max-width:34ch">
+        <strong style="color:#fff;font-size:1.05rem">🐺 The Wolfpack's Guide to AI</strong>
+        <p style="font-size:.9rem;margin:.5rem 0">A Cheyney University × InspiredBI collaboration — free,
+          accessible AI literacy for educators and students.</p>
+      </div>
+      <nav class="foot-links" aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="#ai-basics">AI Basics</a>
+        <a href="#staff">Staff Guidelines</a>
+        <a href="#students">Student Interactions</a>
+        <a href="tutorials.html">Workshop Resources</a>
+        <a href="free-resources.html">Free Continued Learning</a>
+        <a href="chatbots.html">Create a Chatbot</a>
+        <a href="agentic.html">Design your Agent</a>
+        <a href="professional-development.html">Professional Development</a>
+      </nav>
+    </div>
+    <div class="foot-bottom">
+      © <span id="yr"></span> InspiredBI · Prepared for Cheyney University of Pennsylvania — America's first HBCU (est. 1837).
+      Cheyney colors and Wolves identity used to serve the Cheyney community.
+    </div>
+  </div>
+</footer>
+
+<!-- ===== ACCESS-CODE MODAL ===== -->
+<div class="modal" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+  <div class="modal-card">
+    <h3 id="gateTitle">🔒 Cheyney Wolfpack access</h3>
+    <p style="font-size:.9rem;color:#5a6b86;margin-top:0">Enter the access code shared in your training to unlock
+      the downloadable resource attachments.</p>
+    <label for="codeInput">Access code</label>
+    <input id="codeInput" type="password" autocomplete="off" placeholder="Wolfpack code" onkeydown="if(event.key==='Enter')checkCode()">
+    <div class="err" id="gateErr" role="alert"></div>
+    <div style="display:flex;gap:.6rem;margin-top:.6rem">
+      <button class="submit" style="flex:1;margin:0" type="button" onclick="checkCode()">Unlock</button>
+      <button type="button" onclick="closeGate()" style="background:#eef3f9;border:0;border-radius:11px;padding:.85em 1.1em;font-weight:700;cursor:pointer;color:var(--navy)">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ====== EDIT THIS: the memorable Cheyney access code ======================
+     "WOLVES1837" = the Wolves mascot + 1837, the year Cheyney was founded as
+     America's first HBCU. Short, significant, easy to remember.
+     NOTE: this is a light front-end gate to keep casual visitors out of the
+     resource pack — it is NOT bank-grade security. Anyone determined can view
+     page source. For true protection, host the attachment PDFs behind a real
+     login (see the guide). Do not gate anything truly sensitive this way.
+     ======================================================================== */
+  const ACCESS_CODE = "WOLVES1837";
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  function toggleMenu(btn){
+    const m=document.getElementById('menu');
+    const open=m.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);
+  }
+  // close mobile menu after clicking a link
+  document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>{
+    document.getElementById('menu').classList.remove('open');
+    document.querySelector('.menu-btn').setAttribute('aria-expanded','false');
+  }));
+
+  function openGate(){document.getElementById('gate').classList.add('show');
+    document.getElementById('codeInput').focus();}
+  function closeGate(){document.getElementById('gate').classList.remove('show');
+    document.getElementById('gateErr').textContent='';}
+  function unlockResources(){
+    document.getElementById('resourceList').classList.remove('hidden');
+    document.getElementById('lockMsg').textContent='✅ Unlocked — your Cheyney resource attachments:';
+    const box=document.getElementById('resourceLock');box.classList.add('unlocked');
+    box.querySelector('.ic').textContent='🔓';
+    document.getElementById('unlockBtn').textContent='Unlocked';
+    document.getElementById('unlockBtn').disabled=true;
+    try{sessionStorage.setItem('cheyneyUnlocked','1');}catch(e){}
+  }
+  function checkCode(){
+    const v=document.getElementById('codeInput').value.trim();
+    if(v.toUpperCase()===ACCESS_CODE.toUpperCase()){closeGate();unlockResources();}
+    else{document.getElementById('gateErr').textContent='That code isn’t right — check your training handout.';}
+  }
+  // remember unlock within the visit
+  try{if(sessionStorage.getItem('cheyneyUnlocked')==='1')unlockResources();}catch(e){}
+
+  // Dynamic Resources form -> compose an email (works with zero backend setup)
+  function sendQuestion(e){
+    e.preventDefault();
+    const f=e.target;
+    const name=f.name.value, email=f.email.value, role=f.role.value, topic=f.topic.value, msg=f.message.value;
+    const subject=encodeURIComponent('Wolfpack AI question — '+topic+' ('+role+')');
+    const body=encodeURIComponent(
+      'Name: '+name+'\nEmail: '+email+'\nRole: '+role+'\nTopic: '+topic+'\n\nQuestion / request:\n'+msg+
+      '\n\n— Sent from The Wolfpack’s Guide to AI');
+    window.location.href='mailto:contactinspiredbi@gmail.com?subject='+subject+'&body='+body;
+    return false;
+  }
+</script>
+</body>
+</html>
