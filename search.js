@@ -35,7 +35,7 @@
     },
     {
       title: 'Free AI Tools',
-      url: 'free-tools.html',
+      url: 'free-resources.html',
       desc: 'Free AI tools tables, podcast, tool comparison, and resource hub for educators.',
       keys: 'free tools podcast diffit mizou playlab brisk schoolai socrait voiss canva flexclip suno adobe firefly google slides nanobanana capcut invideo clipchamp elevenlabs blockade labs luma dream machine leonardo photoroom gemini inworld comparison ferpa coppa privacy agentic magicschool chatgpt claude perplexity'
     },
