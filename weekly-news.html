@@ -388,6 +388,18 @@
     body.filter-edtech    .audience-section.edtech,
     body.filter-community .audience-section.community { display: block; }
     body.filtering .week-entry { margin-bottom: 0; }
+
+    /* -- Free AI Tools Worth Trying (added Issue #21) -- */
+    .freetools-header { background: linear-gradient(90deg, #8a6100, #e8ac00); }
+    .freetools .tools-intro { font-size: 0.95rem; color: #555; margin-bottom: 18px; }
+    .freetools .tools-intro a { color: #1f5493; font-weight: 600; text-decoration: underline; }
+    .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+    .tool-review { background: #fffaf0; border: 1px solid #f3dca0; border-left: 4px solid #e8ac00; border-radius: 10px; padding: 16px 18px; }
+    .tool-review h3 { font-size: 1.02rem; font-weight: 800; color: #1f5493; margin-bottom: 8px; line-height: 1.35; }
+    .tool-review h3 a, .tool-review p a { color: #1f5493; text-decoration: underline; }
+    .tool-review p { font-size: 0.9rem; line-height: 1.55; margin-top: 6px; color: #333; }
+    .whats-new p + p { margin-top: 12px; }
+    .whats-new a { color: #1f5493; font-weight: 600; text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -401,7 +413,7 @@
     <li><a href="https://inspiredbi.org/#about">About</a></li>
     <li><a href="https://inspiredbi.org/#services">Learn</a></li>
     <li><a href="https://inspiredbi.org/#impact">Impact</a></li>
-    <li><a href="https://inspiredbi.org/free-tools.html">Free Tools</a></li>
+    <li><a href="https://inspiredbi.org/free-resources.html">Free Tools</a></li>
     <li><a href="weekly-news.html" class="active">AI Weekly</a></li>
     <li><a href="https://inspiredbi.org/#contact">Get In Touch</a></li>
   </ul>
@@ -425,8 +437,8 @@
 <!-- ════════════════════════ WEEK BANNER ════════════════════════ -->
 <div class="week-banner">
   <span class="week-label">Latest Issue</span>
-  <span class="week-date">📅 Week of November 7, 2026</span>
-  <span class="week-num">Issue #20 </span>
+  <span class="week-date">📅 Week of November 9, 2026</span>
+  <span class="week-num">Issue #21</span>
 </div>
 
 
@@ -435,7 +447,334 @@
 
 
 <div class="weeks-container">
-# InspiredBI AI Weekly
+<div class="filter-bar">
+  <span id="filter-label">Showing all posts</span>
+  <button id="filter-reset" type="button">Show all audiences</button>
+</div>
+  <!-- ══════════ WEEK #21 - November 9, 2026 ══════════ -->
+  <article class="week-entry" id="week-2026-11-09">
+
+    <!-- ── PODCAST PICKS ─────────────────────────────────────── -->
+    <div class="podcast-picks">
+      <div class="podcast-picks-title">🎧 Podcast Picks - Which Episode Is Best for Your Role?</div>
+      <ol class="podcast-picks-list">
+        <li>
+          <strong>Teachers:</strong> <a href="https://directory.libsyn.com/episode/index/show/aiineducationpodcast/id/43649344" target="_blank" rel="noopener">Are AI Tutors Making Students Learn Less? - AI in Education Podcast (Nov 5)</a>
+          <span class="pick-desc">→ Two hosts review randomised trials in which AI tutoring matched expert human tutoring yet did not raise final test scores.</span>
+        </li>
+        <li>
+          <strong>Principals / Superintendents:</strong> <a href="https://directory.libsyn.com/episode/index/show/aiineducationpodcast/id/43269583" target="_blank" rel="noopener">Building Superhumans: Reinventing Schools for the AI Age - AI in Education Podcast (Oct 15)</a>
+          <span class="pick-desc">→ A school leader describes using AI to free teacher time and rethink assessment - useful before your next planning cycle.</span>
+        </li>
+        <li>
+          <strong>University administrators / faculty:</strong> <a href="https://teachinginhighered.com/podcast/the-questions-about-ai-worth-pressing-on-with-remi-kalir/" target="_blank" rel="noopener">The Questions About AI Worth Pressing On, with Remi Kalir - Teaching in Higher Ed (Ep. 647, Nov 5)</a>
+          <span class="pick-desc">→ Kalir explains Pressing Prompts, a free set of classroom activities on AI ethics that grew out of Duke student research.</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- ── K-12 EDUCATORS ────────────────────────────────────── -->
+    <section class="audience-section k12" id="k12-2026-11-09">
+      <div class="audience-header k12-header">
+        <div class="audience-icon">🎓</div>
+        <div class="audience-header-text">
+          <h2>K-12 Educators</h2>
+          <p class="subtitle">Google Turns Student AI Off by Default</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · November 2026</span>
+          <p>On <strong>November 3</strong>, Google announced that Gemini, Gemini in Classroom, Gemini Notebook and Google Search will be <strong>off by default for K-12 student accounts</strong> until school administrators turn them on, per <a href="https://www.nbcwashington.com/news/national-international/google-shut-search-schools-opt-ai/4176184/?noamp=mobile" target="_blank" rel="noopener">NBC</a>. Google's stated reason, reported by <a href="https://www.k12dive.com/news/google-will-turn-off-its-search-engine-for-schools-by-default-is-it-an-ai/873922/" target="_blank" rel="noopener">K-12 Dive</a>, is that schools asked for "more control over student use of AI services." K-12 Dive also reports that no effective date was given and it is unclear whether settings can be applied by grade or school.</p>
+          <p>For teachers, the practical effect is that a Gemini activity you built last month may stop working for students without notice, depending on your district's choice. Some advocates call the change an "ultimatum" because declining AI can also mean losing student Search. Meanwhile, New York City is enforcing a one-year pause on student-facing AI in elementary and middle schools, and Los Angeles Unified has paused student AI tools, per K-12 Dive.</p>
+          <p><strong>Your move:</strong> ask your technology director this week which Google AI settings will apply to your students, and keep a no-AI version of every lesson that depends on Gemini.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">🎬 Gemini in Google Classroom: Google AI tools for educators</p>
+            <p class="video-caption">Vendor walkthrough of the Gemini features that this change affects. (Google for Education)</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/UaDPlh2yw8A" title="Gemini in Google Classroom: Google AI tools for educators" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+          </div>
+          <div class="video-card">
+            <p class="video-label">🎬 Navigating AI Literacy in K-12: Insights for Educators and Leaders</p>
+            <p class="video-caption">Discussion of building student AI literacy whether or not chatbots are switched on. (Digital Promise)</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/VMjedO5Lzto" title="Navigating AI Literacy in K-12: Insights for Educators and Leaders" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.nbcwashington.com/news/national-international/google-shut-search-schools-opt-ai/4176184/?noamp=mobile" target="_blank" rel="noopener">📰 NBC: Google to shut off Search for schools that opt out of AI (Nov 3)</a>
+          <a href="https://www.k12dive.com/news/google-will-turn-off-its-search-engine-for-schools-by-default-is-it-an-ai/873922/" target="_blank" rel="noopener">📰 K-12 Dive: Google will turn off its search engine for schools by default (Nov 5)</a>
+          <a href="https://directory.libsyn.com/episode/index/show/aiineducationpodcast/id/43521939" target="_blank" rel="noopener">🎧 AI in Education Podcast: When AI Outsmarts Mathematicians (Oct 29)</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SCHOOL LEADERS ────────────────────────────────────── -->
+    <section class="audience-section leaders" id="leaders-2026-11-09">
+      <div class="audience-header leaders-header">
+        <div class="audience-icon">🏫</div>
+        <div class="audience-header-text">
+          <h2>School Leaders</h2>
+          <p class="subtitle">Pauses and Defaults Reset District AI Governance</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · November 2026</span>
+          <p>Three signals this week point the same way: <strong>district-level control over student AI is becoming the norm</strong>. Google's default-off change leaves the decision to administrators (<a href="https://www.k12dive.com/news/google-will-turn-off-its-search-engine-for-schools-by-default-is-it-an-ai/873922/" target="_blank" rel="noopener">K-12 Dive</a>). K-12 Dive also reports that InnovateEDU released a model policy calling for generative AI features to be <strong>disabled by default in pre-K through grade 5</strong>, that New York City is enforcing a <strong>one-year pause</strong> in elementary and middle schools, and that Los Angeles Unified paused student AI tools districtwide.</p>
+          <p>One contrast matters for planning. A New York ed-tech director quoted by K-12 Dive says Gemini is the only major model her district found compliant with state privacy law for students under 13, so turning it off may leave no student-facing alternative. That is one district's view, not a legal finding. Leaders now need a written decision for each grade band, not a default inherited from a vendor. Document who approved each choice and when it will be reviewed, so staff and families can see the reasoning.</p>
+          <p><strong>Your move:</strong> put a one-page grade-band AI decision (on, off, teacher-only) on your next cabinet agenda and name who can change each setting.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">🎬 Strategies for Evaluating AI Tools in K12</p>
+            <p class="video-caption">A framework for judging tools before a district enables them. (AI for Education)</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/YOwti6QjTGo" title="Strategies for Evaluating AI Tools in K12" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+          </div>
+          <div class="video-card">
+            <p class="video-label">🎬 How to configure Google's AI Policies (IT Admin Guide)</p>
+            <p class="video-caption">Admin-console walkthrough of Google's AI settings; check it against your current console, as menus change. (Google Admin Bootcamp)</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/8XiKKbHMIQs" title="How to configure Google&#x27;s AI Policies (IT Admin Guide)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://k12dive.com/news/week-in-review-november-9-2026/874038" target="_blank" rel="noopener">📰 K-12 Dive: Week in Review, Nov 9</a>
+          <a href="https://www.k12dive.com/news/google-will-turn-off-its-search-engine-for-schools-by-default-is-it-an-ai/873922/" target="_blank" rel="noopener">📰 K-12 Dive: Google will turn off its search engine for schools by default (Nov 5)</a>
+          <a href="https://aieducator.podbean.com/e/moving-beyond-engagement/" target="_blank" rel="noopener">🎧 AI Educator Podcast: Collaborative Path to Proactive Policy (Sep 8, carried over)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HIGHER ED FACULTY ─────────────────────────────────── -->
+    <section class="audience-section highered" id="highered-2026-11-09">
+      <div class="audience-header highered-header">
+        <div class="audience-icon">🏛️</div>
+        <div class="audience-header-text">
+          <h2>Higher Ed Faculty</h2>
+          <p class="subtitle">Chicago Makes First-Year Writing AI-Free</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · November 2026</span>
+          <p>The University of Chicago launched the <strong>Chicago Center for Writing</strong> in late October. Beginning next fall, <strong>all first-year students will take an AI-free writing course</strong> run through the center, according to <a href="https://www.insidehighered.com/news/tech-innovation/artificial-intelligence/2026/11/09/new-ai-chicago-rethinks-writing-eiu" target="_blank" rel="noopener">Inside Higher Ed</a>. The center also plans writing labs and campus partnerships that let students and faculty experiment with old and new writing technologies.</p>
+          <p>The same report describes a student-side push at Eastern Illinois University: a September Change.org petition against AI in the classroom had <strong>529 signatures</strong> at publication, and the Student Senate passed a resolution in early October asking administrators to regulate faculty use of AI. The petition says students face AI-use rules while nothing limits faculty use. Together, the stories show assessment and course design being redesigned around AI, with expectations running in both directions. Neither report offers outcome data yet, so treat both as policy signals, not evidence that AI-free or AI-regulated courses improve learning. Faculty who teach writing-intensive courses should expect questions from students and colleagues about where their own course sits.</p>
+          <p><strong>Your move:</strong> state in each syllabus what AI use is allowed for students and for you, and name one assessment you will redesign for in-class or oral evidence.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">🎬 Webinar: Assessment in the Age of AI - Rethink, Redesign, Restore</p>
+            <p class="video-caption">Vendor-hosted webinar on redesigning assessment; treat product claims accordingly. (Cloud Assess)</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/mPNN_KWQhj8" title="Webinar: Assessment in the Age of AI - Rethink, Redesign, Restore" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+          </div>
+          <div class="video-card">
+            <p class="video-label">🎬 AI and Assessment: A New Reality for Faculty With Dr. Phillip Dawson</p>
+            <p class="video-caption">Deakin University researcher on what AI changes for assessment; hosted by a vendor. (D2L)</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/cCP9Hw8QYEI" title="AI and Assessment: A New Reality for Faculty With Dr. Phillip Dawson" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.insidehighered.com/news/tech-innovation/artificial-intelligence/2026/11/09/new-ai-chicago-rethinks-writing-eiu" target="_blank" rel="noopener">📰 Inside Higher Ed: New in AI - Chicago Rethinks Writing, EIU Students Want Rules (Nov 9)</a>
+          <a href="https://teachinginhighered.com/podcast/using-the-faculty-critical-engagement-framework-with-tazin-daniels/" target="_blank" rel="noopener">🎧 Teaching in Higher Ed: Using the Faculty Critical Engagement Framework, with Tazin Daniels (Ep. 646, Oct 29)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── OPERATIONS & FINANCE ──────────────────────────────── -->
+    <section class="audience-section operations" id="operations-2026-11-09">
+      <div class="audience-header operations-header">
+        <div class="audience-icon">💼</div>
+        <div class="audience-header-text">
+          <h2>Operations &amp; Finance</h2>
+          <p class="subtitle">Vendor Promotions Arrive; Proof of Value Lags</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · November 2026</span>
+          <p>A <strong>Horace Mann and MagicSchool</strong> sweepstakes, announced October 29 and running through <strong>December 4, 2026</strong>, offers one K-12 district up to <strong>$25,000 in credit</strong> toward a one-year MagicSchool subscription, and five runners-up a 90-day pilot (<a href="https://www.k12dive.com/press-release/20261104-horace-mann-and-magicschool-partner-to-help-educators-save-time-with-respo/" target="_blank" rel="noopener">press release via K-12 Dive</a>; vendor claims). The release does not state subscription prices.</p>
+          <p>Promotions like this raise a budgeting question the earlier coverage already framed. A late-August <a href="https://www.marketscale.com/industries/education-technology/schools-are-buying-ai-fast-but-their-contracts-still-cant-show-it-helps" target="_blank" rel="noopener">MarketScale</a> summary of Education Week and THE Journal reporting (carried over, older than 14 days) says contracts rarely define success up front, and recommends exportable usage reports by school, grade and course, SSO and rostering, and clear data-sharing terms. Credits can lower year-one cost while leaving renewal costs and evidence gaps unchanged. The release also cites a Pew Research Center figure that <strong>84%</strong> of public K-12 teachers lack enough time for tasks such as grading and planning; that figure is the vendors' framing, which we did not independently check.</p>
+          <p><strong>Your move:</strong> before accepting any AI credit, require a one-sentence success measure and a renewal price in writing.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">🎬 Evaluating AI Vendors: The Red Flags, Questions, and Evidence You Need</p>
+            <p class="video-caption">Checklist of questions to ask vendors before signing. (Human | AI)</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/Arzm-YfJV_0" title="Evaluating AI Vendors: The Red Flags, Questions, and Evidence You Need" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+          </div>
+          <div class="video-card">
+            <p class="video-label">🎬 AI, Student Data &amp; Law: Protecting Student Privacy in the Age of AI</p>
+            <p class="video-caption">Overview of student-data obligations for AI tools; not legal advice. (AI Powered Education)</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/Yw7wDIeYiDU" title="AI, Student Data &amp; Law: Protecting Student Privacy in the Age of AI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.k12dive.com/press-release/20261104-horace-mann-and-magicschool-partner-to-help-educators-save-time-with-respo/" target="_blank" rel="noopener">🏢 Horace Mann and MagicSchool Partner (vendor press release, Oct 29)</a>
+          <a href="https://www.marketscale.com/industries/education-technology/schools-are-buying-ai-fast-but-their-contracts-still-cant-show-it-helps" target="_blank" rel="noopener">📰 MarketScale: Schools Are Buying AI Fast, but Contracts Can't Show It Helps (Aug 29, carried over)</a>
+          <a href="https://aieducator.podbean.com/e/the-server-room-revolution-with-michael-klein/" target="_blank" rel="noopener">🎧 AI Educator Podcast: The Server Room Revolution with Michael Klein (Oct 6)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ED TECH ENGINEERS ─────────────────────────────────── -->
+    <section class="audience-section edtech" id="edtech-2026-11-09">
+      <div class="audience-header edtech-header">
+        <div class="audience-icon">💻</div>
+        <div class="audience-header-text">
+          <h2>Ed Tech Engineers</h2>
+          <p class="subtitle">Default-Off Student AI Changes Your Integration Assumptions</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · November 2026</span>
+          <p>Google's November 3 change means student-facing Gemini, Gemini in Classroom, Gemini Notebook and Search are <strong>off until an administrator enables them</strong> (<a href="https://www.nbcwashington.com/news/national-international/google-shut-search-schools-opt-ai/4176184/?noamp=mobile" target="_blank" rel="noopener">NBC</a>). Google has not published an effective date, and K-12 Dive reports it is unclear whether controls apply per student, grade or school (<a href="https://www.k12dive.com/news/google-will-turn-off-its-search-engine-for-schools-by-default-is-it-an-ai/873922/" target="_blank" rel="noopener">K-12 Dive</a>).</p>
+          <p>Our inference, not a Google statement: any product that layers AI on Google accounts or Classroom should expect feature flags that vary by district and grade band, and should degrade gracefully when AI is disabled. Separately, the AI in Education Podcast's <a href="https://directory.libsyn.com/episode/index/show/aiineducationpodcast/id/43415779" target="_blank" rel="noopener">October 25 episode</a> examines five studies, including one finding Socratic AI tutors can leave students more frustrated and performing worse, a reminder to test learning outcomes and not only engagement. We could not verify the studies directly; the summary comes from the podcast description, so read the underlying papers before changing a product design.</p>
+          <p><strong>Your move:</strong> audit your product for hard dependencies on student-side AI, add an admin-visible "AI disabled" state, and log which setting blocked a request.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">🎬 The Future of AI Tutoring: Building What Actually Works</p>
+            <p class="video-caption">Builders discuss what makes AI tutoring effective in practice. (Edtech Insiders)</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/cxozGuNOVv8" title="The Future of AI Tutoring: Building What Actually Works" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+          </div>
+          <div class="video-card">
+            <p class="video-label">🎬 Don't Let AI Compromise Student Privacy: Essential Compliance Steps</p>
+            <p class="video-caption">Compliance checklist for AI tools that touch student data; not legal advice. (Dr. Daniel Downs | Digital Futures Education)</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/0viuZbVvFCo" title="Don&#x27;t Let AI Compromise Student Privacy: Essential Compliance Steps" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.nbcwashington.com/news/national-international/google-shut-search-schools-opt-ai/4176184/?noamp=mobile" target="_blank" rel="noopener">📰 NBC: Google to shut off Search for schools that opt out of AI (Nov 3)</a>
+          <a href="https://www.k12dive.com/news/google-will-turn-off-its-search-engine-for-schools-by-default-is-it-an-ai/873922/" target="_blank" rel="noopener">📰 K-12 Dive: Google will turn off its search engine for schools by default (Nov 5)</a>
+          <a href="https://directory.libsyn.com/episode/index/show/aiineducationpodcast/id/43415779" target="_blank" rel="noopener">🎧 AI in Education Podcast: When AI Helps Students Learn Less (Oct 25)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── COMMUNITY ─────────────────────────────────────────── -->
+    <section class="audience-section community" id="community-2026-11-09">
+      <div class="audience-header community-header">
+        <div class="audience-icon">🌍</div>
+        <div class="audience-header-text">
+          <h2>Community</h2>
+          <p class="subtitle">Parents and Students Press for Say Over School AI</p>
+        </div>
+      </div>
+      <div class="audience-body">
+
+        <div class="whats-new">
+          <span class="badge">What's New · November 2026</span>
+          <p>Public pressure is shaping school AI decisions. NBC reports that thirteen parent advocacy groups sent an open letter in early October urging districts to disable Gemini and YouTube, and that AFT president Randi Weingarten and Fairplay's Josh Golin criticized Google's approach (<a href="https://www.nbcwashington.com/news/national-international/google-shut-search-schools-opt-ai/4176184/?noamp=mobile" target="_blank" rel="noopener">NBC</a>). On campus, a student petition at Eastern Illinois University against AI in the classroom reached <strong>529 signatures</strong> (<a href="https://www.insidehighered.com/news/tech-innovation/artificial-intelligence/2026/11/09/new-ai-chicago-rethinks-writing-eiu" target="_blank" rel="noopener">Inside Higher Ed</a>).</p>
+          <p>Google's change now makes the school's choice the deciding one, which gives parents and community members a clear place to engage: the district's technology and board meetings. Views differ; some advocates welcome the control, while others say the move pressures schools. Ask what is switched on, for which ages, and who reviews the data.</p>
+          <p><strong>Your move:</strong> email your school's technology office this week and ask which AI tools students under 13 can use, and where the policy is posted.</p>
+        </div>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <p class="video-label">🎬 AI for Parents: How to Guide Your Children and Prepare Your Family for the AI Age</p>
+            <p class="video-caption">Practical conversation starters for families. (YouTube)</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/uVOJE6fhG38" title="AI for Parents: How to Guide Your Children and Prepare Your Family for the AI Age" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+          </div>
+          <div class="video-card">
+            <p class="video-label">🎬 Talking to Kids About AI: Privacy, Fairness, and Responsibility</p>
+            <p class="video-caption">Short guide to discussing AI with children. (Common Sense Education)</p>
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/_uDxfVBMrxM" title="Talking to Kids About AI: Privacy, Fairness, and Responsibility" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="extra-links">
+          <a href="https://www.nbcwashington.com/news/national-international/google-shut-search-schools-opt-ai/4176184/?noamp=mobile" target="_blank" rel="noopener">📰 NBC: Google to shut off Search for schools that opt out of AI (Nov 3)</a>
+          <a href="https://www.insidehighered.com/news/tech-innovation/artificial-intelligence/2026/11/09/new-ai-chicago-rethinks-writing-eiu" target="_blank" rel="noopener">📰 Inside Higher Ed: New in AI (Nov 9)</a>
+          <a href="https://aieducator.podbean.com/e/centering-all-learners-with-aurora-dreger/" target="_blank" rel="noopener">🎧 AI Educator Podcast: Centering All Learners with Aurora Dreger (Oct 20)</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FREE AI TOOLS WORTH TRYING ────────────────────────── -->
+    <section class="audience-section freetools" id="freetools-2026-11-09">
+      <div class="audience-header freetools-header">
+        <div class="audience-icon">🆓</div>
+        <div class="audience-header-text">
+          <h2>Free AI Tools Worth Trying</h2>
+          <p class="subtitle">Honest reviews of free tools for teaching and learning</p>
+        </div>
+      </div>
+      <div class="audience-body">
+        <p class="tools-intro">More options on the <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">Free Tools page</a>. Limits checked November 9, 2026 and are vendor claims.</p>
+        <div class="tool-grid">
+          <div class="tool-review">
+            <h3><strong>Kova</strong> - <a href="https://www.kovaedu.com/" target="_blank" rel="noopener">kovaedu.com</a></h3>
+            <p><strong>Best for:</strong> university instructors building simulations and AI conversations.</p>
+            <p><strong>What it does:</strong> Builds interactive coursework, live class activities and group work from a short description or uploaded material. Work is auto-graded.</p>
+            <p><strong>Free tier:</strong> Vendor claim: educator accounts always free; one-course Pilot up to 200 students, 10 agent chats per student per day. Full access costs students $19 per class per semester. Check before building a course around it.</p>
+            <p><strong>Worth trying?</strong> Maybe - the pilot is free, but the student fee applies afterward.</p>
+            <p><strong>Watch or read:</strong> No independent video or article found this week. Privacy policy published: <a href="https://www.kovaedu.com/privacy" target="_blank" rel="noopener">kovaedu.com/privacy</a>.</p>
+          </div>
+          <div class="tool-review">
+            <h3><strong>Tiny - AI for Education</strong> - <a href="https://www.tiny.school/en/" target="_blank" rel="noopener">tiny.school</a></h3>
+            <p><strong>Best for:</strong> teachers of students 13+ wanting guided AI chat.</p>
+            <p><strong>What it does:</strong> Students chat one-on-one with topic-focused bots that ask guiding questions. Teachers see live conversations and lesson summaries.</p>
+            <p><strong>Free tier:</strong> Vendor claim: "Free for teachers and students"; no quotas stated. School-wide activation required; ages 11-12 need parental consent, under 11 not advised.</p>
+            <p><strong>Worth trying?</strong> Yes - free, with teacher monitoring built in, though limits beyond those stated are unverified.</p>
+            <p><strong>Watch or read:</strong> No independent video or article found this week. Privacy notice published: <a href="https://www.tiny.school/osobni-udaje" target="_blank" rel="noopener">tiny.school/osobni-udaje</a>.</p>
+          </div>
+          <div class="tool-review">
+            <h3><strong>SpatialChat</strong> (alternative: <strong>WorkAdventure</strong>) - <a href="https://spatial.chat/" target="_blank" rel="noopener">spatial.chat</a>, <a href="https://workadventu.re/" target="_blank" rel="noopener">workadventu.re</a></h3>
+            <p><strong>Best for:</strong> online classes and office hours with proximity-based talk.</p>
+            <p><strong>What it does:</strong> Users move through a virtual room and hear nearby people. WorkAdventure is a 2D map with proximity video and is open source.</p>
+            <p><strong>Free tier:</strong> Vendor claim: SpatialChat free plan allows 2 hours daily, up to 12 participants, 4 rooms. WorkAdventure free plan: up to 10 concurrent users, unlimited duration.</p>
+            <p><strong>Worth trying?</strong> Maybe - fine for small groups; class sizes above 12 need paid plans.</p>
+            <p><strong>Watch or read:</strong> Vendor-made: <a href="https://how.spatial.chat/usecases/building-virtual-classes-with-spatialchat/" target="_blank" rel="noopener">Building Virtual Classes with SpatialChat</a>; <a href="https://workadventu.re/faq/what-is-workadventures-e-learning-virtual-classroom-in-2d/" target="_blank" rel="noopener">WorkAdventure e-learning classroom</a>. Both publish privacy policies: <a href="https://spatial.chat/legal/privacy-policy-2024" target="_blank" rel="noopener">SpatialChat</a>, <a href="https://workadventu.re/privacy-policy/" target="_blank" rel="noopener">WorkAdventure</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </article>
+  <!-- ══════════ END WEEK #21 ══════════ -->
+
   <!-- ══════════ WEEK #20 - November 2, 2026 ══════════ -->
   <article class="week-entry" id="week-2026-11-02">
 
@@ -496,7 +835,7 @@
           <a href="https://www.edweek.org/technology/opinion-students-need-data-and-ai-literacy/2026/10" target="_blank" rel="noopener">📰 Education Week Letter: Students Need Data and AI Literacy (Oct 30)</a>
           <a href="https://edweb.buzzsprout.com/1181414/episodes/19922538-ai-literacy-for-k-12-teaching-and-learning-ask-us-anything" target="_blank" rel="noopener">🎧 edWeb: AI Literacy for K-12 Teaching and Learning - Ask Us Anything (Oct 6)</a>
           <a href="https://www.govtech.com/education/k-12/anthropic-releases-teacher-focused-version-of-claude" target="_blank" rel="noopener">🏢 GovTech: Claude for Teachers and Its K-12 Privacy Terms (vendor claims, Jul 16)</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
         </div>
       </div>
     </section>
@@ -709,7 +1048,7 @@
           <a href="https://www.brookings.edu/articles/ais-future-for-students-is-in-our-hands/" target="_blank" rel="noopener">📊 Brookings: Prosper, Prepare, Protect - AI's Future for Students</a>
           <a href="https://www.salesforce.com/customer-stories/rare/agentic-farmer-coaching/" target="_blank" rel="noopener">🌱 AI Beyond the Classroom: Rare's WhatsApp Farming Coach (vendor case study)</a>
           <a href="https://edweb.buzzsprout.com/1181414/episodes/19788531-nyc-la-just-banned-ai-in-schools-what-does-it-mean-for-your-school" target="_blank" rel="noopener">🎧 edWeb: NYC &amp; LA Just Banned AI in Schools - What It Means for Yours (Sept 10)</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -1062,7 +1401,7 @@
           <a href="https://www.youtube.com/watch?v=WwbtUEwpalY" target="_blank" rel="noopener">🎬 AI For All: Enhancing Lessons with UDL Principles</a>
           <a href="https://podcasts.apple.com/us/podcast/udl-in-15-minutes/id1438517430" target="_blank" rel="noopener">🎧 UDL in 15 Minutes</a>
           <a href="https://aiadvocates.buzzsprout.com/" target="_blank" rel="noopener">🎙️ AI Advocates Podcast</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
         </div>
       </div>
     </section>
@@ -1147,7 +1486,7 @@
           <a href="https://boodlebox.ai/education" target="_blank" rel="noopener">🎓 BoodleBox for Education</a>
           <a href="https://trust.boodlebox.ai/" target="_blank" rel="noopener">🔐 BoodleBox Trust Center (request audit docs here)</a>
           <a href="https://podcasts.apple.com/nz/podcast/think-udl/id1445933224" target="_blank" rel="noopener">🎧 Think UDL</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -1189,7 +1528,7 @@
           <a href="https://boodlebox.ai/pricing" target="_blank" rel="noopener">💵 BoodleBox Pricing Tiers</a>
           <a href="https://itbrief.news/story/boodlebox-brings-nvidia-nemotron-ai-to-1-300-campuses" target="_blank" rel="noopener">📰 BoodleBox Reports Adoption at 1,300+ Institutions</a>
           <a href="https://boodlebox.ai/integrations" target="_blank" rel="noopener">🔌 LMS &amp; SSO Integrations</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -1231,7 +1570,7 @@
           <a href="https://boodlebox.ai/features" target="_blank" rel="noopener">📋 Architecture &amp; Feature Detail</a>
           <a href="https://trust.boodlebox.ai/" target="_blank" rel="noopener">🔐 Trust Center &amp; Subprocessor List</a>
           <a href="https://www.youtube.com/watch?v=wMZENuRzMc0" target="_blank" rel="noopener">🎬 Developing an AI-Assisted Feedback &amp; Grading Tool</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -1273,7 +1612,7 @@
           <a href="https://www.macrumors.com/2026/10/15/meta-muse-spark-open-mac-studio/" target="_blank" rel="noopener">📰 MacRumors: Muse Spark Open Comes to Mac Studio</a>
           <a href="https://9to5mac.com/?p=1074420" target="_blank" rel="noopener">📰 9to5Mac: Optimized for M5 Ultra via MLX</a>
           <a href="https://forklog.com/en/meta-transforms-two-mac-studios-into-ai-supercomputer/" target="_blank" rel="noopener">⚙️ Benchmarks: Two Mac Studios as One Machine</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -1341,7 +1680,7 @@
           <a href="https://civiciq.com/research/ai-in-k12-school-boards-2026" target="_blank" rel="noopener">📊 Civic IQ: 755 AI Mentions in 46 States (Oct 2026)</a>
           <a href="https://udlguidelines.cast.org/" target="_blank" rel="noopener">⚙️ CAST UDL Guidelines</a>
           <a href="https://aiadvocates.buzzsprout.com/" target="_blank" rel="noopener">🎙️ AI Advocates Podcast</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
         </div>
       </div>
     </section>
@@ -1425,7 +1764,7 @@
           <a href="https://www.d2l.com/blog/five-findings-from-the-2026-time-for-class-report-that-surprised-us/" target="_blank" rel="noopener">📊 Five Findings From the 2026 Time for Class Report</a>
           <a href="https://udlguidelines.cast.org/" target="_blank" rel="noopener">⚙️ CAST UDL Guidelines</a>
           <a href="https://podcasts.apple.com/nz/podcast/think-udl/id1445933224" target="_blank" rel="noopener">🎧 Think UDL</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -1467,7 +1806,7 @@
           <a href="https://www.axios.com/2026/09/30/ftc-openai-anthropic-ai-safety-investigation" target="_blank" rel="noopener">📰 Axios: FTC Probes OpenAI and Anthropic Over AI Safety</a>
           <a href="https://engadget.com/2288104/ftc-subpoenas-open-ai-and-anthropic-following-safety-failures" target="_blank" rel="noopener">📰 Engadget: FTC Subpoenas Both Labs</a>
           <a href="https://civiciq.com/research/ai-in-k12-school-boards-2026" target="_blank" rel="noopener">📊 Civic IQ: The Three-Part Vendor Checklist</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -1551,7 +1890,7 @@
           <a href="https://techcrunch.com/2026/10/12/meta-releases-its-first-frontier-model-muse-wonder" target="_blank" rel="noopener">📰 TechCrunch: Meta Releases Muse Wonder</a>
           <a href="https://www.freepressjournal.in/tech/meta-launches-muse-wonder-muse-wonder-full-advanced-ai-models-key-features-pricing" target="_blank" rel="noopener">💵 Muse Wonder: Features &amp; Pricing</a>
           <a href="https://www.fox9.com/news/anthropic-claude-ai-model-sends-fake-homicide-tip-philadelphia-police" target="_blank" rel="noopener">🚨 When an AI Agent Filed a False Police Report</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -1619,7 +1958,7 @@
           <a href="https://etcjournal.com/" target="_blank" rel="noopener">📰 ETC Journal: Daily AI-in-Education Briefings</a>
           <a href="https://udlguidelines.cast.org/" target="_blank" rel="noopener">⚙️ CAST UDL Guidelines</a>
           <a href="https://podcasts.apple.com/sa/podcast/two-students-on-ai-cheating-and-the-future-of-work/id1847420474?i=1000776069761" target="_blank" rel="noopener">🎧 Two Students on AI and Cheating</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
         </div>
       </div>
     </section>
@@ -1703,7 +2042,7 @@
           <a href="https://etcjournal.com/" target="_blank" rel="noopener">📰 ETC Journal: English Teachers Most Concerned About AI Cheating</a>
           <a href="https://podcasts.apple.com/lc/podcast/ai-is-not-cheating-your-professors-are-using-it-too/id1860067596?i=1000749236717" target="_blank" rel="noopener">🎧 AI Is Not Cheating - Your Professors Are Using It Too</a>
           <a href="https://udlguidelines.cast.org/" target="_blank" rel="noopener">⚙️ CAST UDL Guidelines</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -1744,7 +2083,7 @@
         <div class="extra-links">
           <a href="https://www.axios.com/2026/09/30/ftc-openai-anthropic-ai-safety-investigation" target="_blank" rel="noopener">📰 FTC Opens Probes Into Both Major Labs</a>
           <a href="https://civiciq.com/research/ai-in-k12-school-boards-2026" target="_blank" rel="noopener">📊 The Three-Part Vendor Checklist</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -1786,7 +2125,7 @@
           <a href="https://www.edtechinnovationhub.com/news/tag/AI+tutoring" target="_blank" rel="noopener">🔬 EdTech Innovation Hub: AI Tutoring Research</a>
           <a href="https://open.spotify.com/episode/0tIifTF5x5ZnHMzwv9mYah" target="_blank" rel="noopener">🎧 UDL + AI = LUDIA - The MCIULearns Podcast</a>
           <a href="https://udlguidelines.cast.org/" target="_blank" rel="noopener">⚙️ CAST UDL Guidelines</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -1827,7 +2166,7 @@
         <div class="extra-links">
           <a href="https://www.fox9.com/news/anthropic-claude-ai-model-sends-fake-homicide-tip-philadelphia-police" target="_blank" rel="noopener">🚨 An AI Model Filed a Fabricated Police Report</a>
           <a href="https://podcasts.apple.com/us/podcast/anthropic-confidentially-files-for-ipo-nvidias-new/id1035041995?i=1000770658514" target="_blank" rel="noopener">🎧 Anthropic Confidentially Files for IPO</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -1895,7 +2234,7 @@
           <a href="https://www.edtechinnovationhub.com/news/tag/AI+Policy" target="_blank" rel="noopener">📰 California Names AI Oversight Panel</a>
           <a href="https://udlguidelines.cast.org/" target="_blank" rel="noopener">⚙️ CAST UDL Guidelines</a>
           <a href="https://podcasts.apple.com/us/podcast/udl-guidelines/id1858696110" target="_blank" rel="noopener">🎧 UDL Guidelines Podcast</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
         </div>
       </div>
     </section>
@@ -1978,7 +2317,7 @@
           <a href="https://www.edtechinnovationhub.com/news/tag/AI+tutoring" target="_blank" rel="noopener">📰 Handshake Expands AI Push With StudentBench</a>
           <a href="https://podcasts.apple.com/us/podcast/ai-goes-to-college/id1563001073" target="_blank" rel="noopener">🎧 AI Goes to College</a>
           <a href="https://udlguidelines.cast.org/" target="_blank" rel="noopener">⚙️ CAST UDL Guidelines</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -2019,7 +2358,7 @@
         <div class="extra-links">
           <a href="https://www.axios.com/2026/09/30/ftc-openai-anthropic-ai-safety-investigation" target="_blank" rel="noopener">📰 FTC Opens Probes Into OpenAI and Anthropic</a>
           <a href="https://civiciq.com/research/ai-in-k12-school-boards-2026" target="_blank" rel="noopener">📊 Civic IQ: Vendor Risk Review Requirements</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -2060,7 +2399,7 @@
         <div class="extra-links">
           <a href="https://www.edtechinnovationhub.com/news/tag/AI+Policy" target="_blank" rel="noopener">📰 California's AI Oversight Panel and Kill-Switch Debate</a>
           <a href="https://www.fox9.com/news/anthropic-claude-ai-model-sends-fake-homicide-tip-philadelphia-police" target="_blank" rel="noopener">🚨 Why Agents Need Human Approval Gates</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -2101,7 +2440,7 @@
         <div class="extra-links">
           <a href="https://www.youtube.com/watch?v=4xsRLfOSNi4" target="_blank" rel="noopener">📺 Google and Anthropic's Cloud Agreement</a>
           <a href="https://podcasts.apple.com/us/podcast/anthropic-confidentially-files-for-ipo-nvidias-new/id1035041995?i=1000770658514" target="_blank" rel="noopener">🎧 Anthropic Confidentially Files for IPO</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -2168,7 +2507,7 @@
           <a href="https://blog.google/products-and-platforms/products/education/new-ai-educator-trainings-september-2026/" target="_blank" rel="noopener">🏅 Google AI Educator Series Badge-a-thon</a>
           <a href="https://www.eschoolnews.com/innovative-teaching/2026/09/21/back-to-school-in-2026-the-trends-shaping-k-12-education-this-year/" target="_blank" rel="noopener">📰 eSchool News: Back to School 2026 Trends</a>
           <a href="https://www.efinstitute.org/2026/09/researchers-observe-real-ai-tool-use-in-k-12-classrooms/" target="_blank" rel="noopener">🔬 Real AI Tool Use Research in K-12 Classrooms</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
         </div>
       </div>
     </section>
@@ -2254,7 +2593,7 @@
           <a href="https://www.edtechinnovationhub.com/news/q6zw9wco2mttajdbd1jyeonjnpiovu" target="_blank" rel="noopener">📊 AI in Higher Ed Survey 2026: 88% Student Use</a>
           <a href="https://www.digitaleducationcouncil.com/resource-library-items/ai-in-higher-education-global-survey-2026" target="_blank" rel="noopener">🌐 Digital Education Council 2026 Global Survey</a>
           <a href="https://news.gallup.com/poll/704090/routine-college-students-despite-campus-limits.aspx" target="_blank" rel="noopener">📈 Gallup: AI Is Routine for College Students, Despite Limits</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -2297,7 +2636,7 @@
           <a href="https://releasebot.io/updates/anthropic/claude-code/" target="_blank" rel="noopener">💻 Claude Code September 2026 Release Notes</a>
           <a href="https://releasebot.io/updates/anthropic/claude-developer-platform/" target="_blank" rel="noopener">📋 Claude Developer Platform Updates</a>
           <a href="https://support.claude.com/en/articles/12138966-release-notes" target="_blank" rel="noopener">🔔 Claude Platform Release Notes</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -2364,7 +2703,7 @@
           <a href="https://www.gov.ca.gov/2026/09/09/governor-newsom-signs-first-in-the-nation-ai-safeguards-to-protect-californians-calls-on-the-federal-government-to-do-its-part/" target="_blank" rel="noopener">⚖️ California Signs First-in-the-Nation AI Auditor Law</a>
           <a href="https://blog.google/products-and-platforms/products/education/utah-state-education-partnership/" target="_blank" rel="noopener">🔷 Google &amp; Utah Partner on Gemini for Education</a>
           <a href="https://www.ksl.com/article/news/utah/science-and-tech/utah-introduces-ai-tools-in-classrooms-statewide/51506597" target="_blank" rel="noopener">📰 Utah Introduces AI Tools in Classrooms Statewide</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
         </div>
       </div>
     </section>
@@ -2438,7 +2777,7 @@
           <a href="https://www.edtechinnovationhub.com/news/q6zw9wco2mttajdbd1jyeonjnpiovu" target="_blank" rel="noopener">📊 AI in Higher Ed Survey 2026: Student Use Hits 88%</a>
           <a href="https://library.educause.edu/resources/2026/6/2026-educause-the-impact-of-ai-on-learning-assessment-report" target="_blank" rel="noopener">📝 EDUCAUSE: The Impact of AI on Learning Assessment</a>
           <a href="https://www.digitaleducationcouncil.com/resource-library-items/ai-in-higher-education-global-survey-2026" target="_blank" rel="noopener">🌐 Digital Education Council 2026 Global Survey</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -2475,7 +2814,7 @@
           <a href="https://stateline.org/2026/08/12/schools-spend-billions-on-ai-but-struggle-to-figure-out-whats-worth-it/" target="_blank" rel="noopener">📰 Schools Spend Billions on AI, Struggle to Know What Works</a>
           <a href="https://thejournal.com/articles/2026/02/25/shadow-ai-is-quietly-becoming-k12s-biggest-cybersecurity-risk.aspx" target="_blank" rel="noopener">🔐 Shadow AI: K-12's Biggest Cybersecurity Risk</a>
           <a href="https://deepstrike.io/blog/education-cybersecurity-statistics" target="_blank" rel="noopener">📈 Education Cybersecurity Statistics 2026</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -2558,7 +2897,7 @@
           <a href="https://techcrunch.com/2026/09/01/who-is-john-ternus-the-incoming-apple-ceo/" target="_blank" rel="noopener">📰 TechCrunch: Who Is John Ternus?</a>
           <a href="https://www.cnbc.com/2026/09/03/open-ai-astra-gpt-6-cyber.html" target="_blank" rel="noopener">📰 CNBC: OpenAI Announces Rollout of GPT-6 Astra</a>
           <a href="https://openai.com/index/gpt-6-astra/" target="_blank" rel="noopener">🤖 OpenAI: Introducing GPT-6 Astra</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -2625,7 +2964,7 @@
           <a href="https://www.commonsensemedia.org/research/teens-in-the-ai-era-schoolwork-and-skills-that-matter" target="_blank" rel="noopener">📊 Teens in the AI Era: Schoolwork &amp; Skills That Matter</a>
           <a href="https://blog.google/products-and-platforms/products/education/new-ai-educator-trainings-september-2026/" target="_blank" rel="noopener">🏅 Google AI Educator Series Badge-a-thon (Sept 19)</a>
           <a href="https://scale.stanford.edu/research-in-action/understanding-evidence-base-ai-k12-education" target="_blank" rel="noopener">🔬 Stanford SCALE: The Evidence Base on AI in K-12</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
         </div>
       </div>
     </section>
@@ -2745,7 +3084,7 @@
           <a href="https://www.pursuit.us/news/ai-in-education-news-policies-innovations" target="_blank" rel="noopener">🏛️ Leicester's 25,000-Seat Copilot Rollout (Pursuit roundup)</a>
           <a href="https://www.highereddive.com/news/gen-z-ai-gallup-poll-negative-sentiment/817133/" target="_blank" rel="noopener">📊 Gallup: Gen Z Sentiment on AI Turns Negative</a>
           <a href="https://www.blackfog.com/the-state-of-ransomware-august-2026/" target="_blank" rel="noopener">🔐 BlackFog: State of Ransomware, August 2026</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -2825,7 +3164,7 @@
           <a href="https://9to5mac.com/2026/09/01/anthropic-upgrades-claude-with-new-fable-5-1-model-details-here/" target="_blank" rel="noopener">📰 9to5Mac: What's New in Fable 5.1</a>
           <a href="https://venturebeat.com/technology/anthropics-claude-fable-5-1-and-mythos-5-1-arrive-with-a-75-cost-reduction-for-fable-cache-reads" target="_blank" rel="noopener">💵 VentureBeat: The 75% Cache-Read Price Cut Explained</a>
           <a href="https://blog.google/innovation-and-ai/products/gemini-app/student-offer-google-ai/" target="_blank" rel="noopener">🎓 Google: One Free Year of Gemini for Students</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -2894,7 +3233,7 @@
           <a href="https://www.usnews.com/education/k12/articles/what-parents-need-to-know-about-ai-in-classrooms" target="_blank" rel="noopener">👪 What Parents Need to Know About AI in Classrooms</a>
           <a href="https://edtechmagazine.com/k12/article/2026/03/ai-tools-support-personalized-learning-k-12-education" target="_blank" rel="noopener">🧩 AI Tools Support Personalized Learning</a>
           <a href="https://ies.ed.gov/learn/blog/ai-k-12-education-good-bad-and-guardrails-consider" target="_blank" rel="noopener">⚖️ The Good, the Bad, and the Guardrails</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
         </div>
       </div>
     </section>
@@ -3017,7 +3356,7 @@
           <a href="https://www.insidehighered.com/news/business/cost-cutting/2026/09/01/august-cuts-start-academic-year" target="_blank" rel="noopener">📰 Inside Higher Ed: August Cuts Start the Academic Year</a>
           <a href="https://www.hendryadrian.com/ransom-westfield-public-school-district-sep-2026/" target="_blank" rel="noopener">🔐 Ransomware Claim: Westfield Public Schools</a>
           <a href="https://www.marketscale.com/industries/business-services/the-early-scale-2026-08-30" target="_blank" rel="noopener">💵 Schools Spend Billions on AI Without Measurable Impact</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -3100,7 +3439,7 @@
           <a href="https://technologychecker.io/blog/chatgpt-statistics" target="_blank" rel="noopener">📈 ChatGPT Statistics 2026: 1B Weekly Users</a>
           <a href="https://tech-insider.org/chatgpt-vs-gemini-vs-claude-pro-2026/" target="_blank" rel="noopener">🔍 ChatGPT vs Gemini vs Claude Pro: Feature Gap</a>
           <a href="https://felloai.com/best-ai-models/" target="_blank" rel="noopener">🏆 Best AI Models in August 2026: Rankings</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -3170,7 +3509,7 @@
           <a href="https://www.forbes.com/sites/danfitzpatrick/2026/08/23/10-ai-updates-that-put-teenagers-in-charge-of-their-own-learning/" target="_blank" rel="noopener">🧑‍🎓 10 Updates That Put Teens in Charge of Learning</a>
           <a href="https://edcircuit.com/top-ai-tools-for-back-to-school-in-2026/" target="_blank" rel="noopener">🛠️ Top AI Tools for Back to School 2026</a>
           <a href="https://www.efinstitute.org/2026/08/teachers-advance-ai-integration-in-k-12-classrooms/" target="_blank" rel="noopener">📈 Teachers Advance AI Integration in K-12</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 50+ Free AI Tools for Educators</a>
         </div>
       </div>
     </section>
@@ -3376,7 +3715,7 @@
           <a href="https://www.pymnts.com/news/artificial-intelligence/2026/anthropic-launches-mobile-access-for-claude-cowork/" target="_blank" rel="noopener">📱 Claude Cowork Comes to Mobile &amp; Web</a>
           <a href="https://techcrunch.com/2026/07/07/the-coding-agent-wars-are-spilling-into-the-rest-of-the-office-claude-cowork/" target="_blank" rel="noopener">💼 TechCrunch: Cowork Expands Beyond Coding</a>
           <a href="https://iapp.org/news/a/chatbots-ai-and-the-future-of-privacy" target="_blank" rel="noopener">🧭 Chatbots, AI, and the Future of Privacy</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🆓 Free AI Tools to Try This Week</a>
         </div>
       </div>
     </section>
@@ -3445,7 +3784,7 @@
           <a href="https://schoolai.com/blog/teaching-media-literacy-age-deepfakes-generative-ai" target="_blank" rel="noopener">🕵️ Help Students Spot Deepfakes</a>
           <a href="https://www.future-ed.org/legislative-tracker-2026-state-ai-in-education-bills/" target="_blank" rel="noopener">🏛️ Tracker: 77 State AI Education Bills</a>
           <a href="https://www.govtech.com/education/k-12/webinar-the-ai-classroom-is-about-more-than-tools" target="_blank" rel="noopener">🎥 The AI Classroom Is About More Than Tools</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools for Educators</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools for Educators</a>
           <a href="https://podcasts.apple.com/us/podcast/chatedu-the-ai-education-podcast/id1728870840" target="_blank" rel="noopener">🎧 ChatEDU - The AI &amp; Education Podcast</a>
         </div>
       </div>
@@ -3567,7 +3906,7 @@
           <a href="https://scdailygazette.com/2026/08/20/usc-among-top-college-users-of-chatgpt-renews-openai-contract-for-2-5m/" target="_blank" rel="noopener">📊 South Carolina Renews ChatGPT Contract at $2.5M After Burning 30M Credits</a>
           <a href="https://creati.ai/ai-news/2026-02-12/university-colorado-chatgpt-edu-systemwide-access/" target="_blank" rel="noopener">🏛️ CU System: Systemwide ChatGPT Edu Access</a>
           <a href="https://schoolfindergroup.com/2026/08/19/whats-happening-in-edtech-and-ai-august-2026/" target="_blank" rel="noopener">🧭 What's Happening in EdTech &amp; AI: August 2026</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -3716,7 +4055,7 @@
           <a href="https://moreland.edu/resources/blog-insights/ai-prompts-to-help-first-week-of-school" target="_blank" rel="noopener">✏️ Back-to-School AI Prompts Every Teacher Needs</a>
           <a href="https://www.efinstitute.org/2026/08/teachers-advance-ai-integration-in-k-12-classrooms/" target="_blank" rel="noopener">🎯 Teachers Advance AI Integration in K-12</a>
           <a href="https://www.anthropic.com/news/claude-for-teachers" target="_blank" rel="noopener">🍎 Claude for Teachers - Free for Educators</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools for Educators</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools for Educators</a>
           <a href="https://podcasts.apple.com/us/podcast/chatedu-the-ai-education-podcast/id1728870840" target="_blank" rel="noopener">🎧 ChatEDU - The AI &amp; Education Podcast</a>
         </div>
       </div>
@@ -3967,7 +4306,7 @@
           <a href="https://www.govtech.com/education/k-12/nyc-schools-prohibit-ai-for-grading-discipline-ieps" target="_blank" rel="noopener">🚫 GovTech: What AI Can't Be Used For</a>
           <a href="https://edtechmagazine.com/k12/article/2026/03/ai-tools-support-personalized-learning-k-12-education" target="_blank" rel="noopener">🎯 AI Tools for Personalized Learning</a>
           <a href="https://www.future-ed.org/legislative-tracker-2026-state-ai-in-education-bills/" target="_blank" rel="noopener">📋 FutureEd: 2026 State AI Legislation Tracker</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools for Educators</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools for Educators</a>
           <a href="https://podcasts.apple.com/us/podcast/chatedu-the-ai-education-podcast/id1728870840" target="_blank" rel="noopener">🎧 ChatEDU - The AI &amp; Education Podcast</a>
         </div>
       </div>
@@ -4083,7 +4422,7 @@
           <a href="https://casrai.org/news/university-layoffs-budget-cuts-summer-2026" target="_blank" rel="noopener">📊 University Layoffs &amp; Budget Cuts: Summer 2026 Tally</a>
           <a href="https://fortune.com/2026/08/03/vibe-coding-college-ai-minors-computer-science-decline/" target="_blank" rel="noopener">🎓 Universities Launch AI Minors as CS Majors Decline</a>
           <a href="https://thelansingjournal.org/2026/08/07/superintendent-search-tentative-budget-sunnybrook-school-district-171-agenda-for-aug-10-2026/" target="_blank" rel="noopener">🏫 Sunnybrook SD 171: Tentative Budget Agenda</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -4221,7 +4560,7 @@
           <a href="https://www.chalkbeat.org/2026/07/14/anthropic-launches-claude-for-teachers-as-ai-companies-battle-for-classrooms/" target="_blank" rel="noopener">🏫 Chalkbeat: The Battle for America's Classrooms</a>
           <a href="https://www.edweek.org/technology/anthropic-launches-claude-for-teachers-why-some-critics-are-concerned/2026/07" target="_blank" rel="noopener">⚖️ EdWeek: Why Some Critics Are Concerned</a>
           <a href="https://www.future-ed.org/legislative-tracker-2026-state-ai-in-education-bills/" target="_blank" rel="noopener">📋 FutureEd: 2026 State AI Legislation Tracker</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
           <a href="https://podcasts.apple.com/us/podcast/chatedu-the-ai-education-podcast/id1728870840" target="_blank" rel="noopener">🎧 ChatEDU - The AI &amp; Education Podcast</a>
         </div>
       </div>
@@ -4473,7 +4812,7 @@
           <a href="https://www.anthropic.com/news/claude-for-teachers" target="_blank" rel="noopener">✅ Claude for Teachers - Verify &amp; Sign Up Free</a>
           <a href="https://www.khanmigo.ai/" target="_blank" rel="noopener">📘 Khanmigo for Teachers - Free</a>
           <a href="https://edu.google.com/workspace-for-education/" target="_blank" rel="noopener">🔷 Google Gemini for Education - Free</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools for Educators</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools for Educators</a>
           <a href="https://podcasts.apple.com/us/podcast/chatedu-the-ai-education-podcast/id1728870840" target="_blank" rel="noopener">🎧 ChatEDU - The AI &amp; Education Podcast</a>
         </div>
       </div>
@@ -4587,7 +4926,7 @@
           <a href="https://regulations.ai/news/us-agencies-presidential-ai-challenge-2026-deadline" target="_blank" rel="noopener">📅 Agencies Race to Implement Presidential AI Challenge</a>
           <a href="https://www.edtechinnovationhub.com/news/q6zw9wco2mttajdbd1jyeonjnpiovu" target="_blank" rel="noopener">📊 DEC Survey: 88% of Students, 77% of Faculty Use AI</a>
           <a href="https://ncpipeline.substack.com/p/cyberattack-targets-oceanside-unified" target="_blank" rel="noopener">🔐 Oceanside Unified Cyberattack</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -4666,7 +5005,7 @@
           <a href="https://claude.ai" target="_blank" rel="noopener">🚀 Try Claude Free</a>
           <a href="https://www.canva.com/" target="_blank" rel="noopener">🎨 Canva - Free AI Design</a>
           <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">📰 Anthropic Newsroom</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -4842,7 +5181,7 @@
           <a href="https://www.insidehighered.com/news/quick-takes/2026/07/16/survey-whats-keeping-cbos-night" target="_blank" rel="noopener">📊 What's Keeping CBOs Up at Night</a>
           <a href="https://www.kyriba.com/blog/ai-spend-roi-cfos-2026/" target="_blank" rel="noopener">💵 84% of CFOs Report No AI ROI Yet</a>
           <a href="https://www.insidehighered.com/news/tech-innovation/artificial-intelligence/2026/05/12/half-campus-tech-leaders-question-ais-roi" target="_blank" rel="noopener">💻 Half of Campus Tech Leaders Question AI's ROI</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -4919,7 +5258,7 @@
           <a href="https://notebooklm.google.com/" target="_blank" rel="noopener">📓 Google NotebookLM - Free</a>
           <a href="https://www.canva.com/" target="_blank" rel="noopener">🎨 Canva - Free AI Design</a>
           <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">📰 Anthropic Newsroom</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -4979,7 +5318,7 @@
         <div class="extra-links">
           <a href="https://destinationknowledge.com/6-google-for-education-ai-updates-from-iste-2026-worth-knowing-about/" target="_blank" rel="noopener">📰 6 Google for Education Updates from ISTE 2026</a>
           <a href="https://edtechmagazine.com/k12/article/2026/01/ai-tools-teachers-drive-efficiencies-perfcon" target="_blank" rel="noopener">⚙️ AI Tools That Save Teacher Time</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
           <a href="https://inspiredbi.org/frameworks.html" target="_blank" rel="noopener">⚖️ InspiredBI ETHICS Framework</a>
           <a href="https://colaberry.ai/podcast" target="_blank" rel="noopener">🎙️ Colaberry AI Podcast</a>
           <a href="https://podcasts.apple.com/us/podcast/gemini-in-the-classroom-ai-comes-to-everyday-teaching/id1799175021?i=1000746360524" target="_blank" rel="noopener">🎧 Gemini in the Classroom: AI Comes to Everyday Teaching</a>
@@ -5219,7 +5558,7 @@
           <a href="https://www.npr.org/2026/06/05/nx-s1-5779757/school-ai-education-students-teachers-poll-critical-thinking" target="_blank" rel="noopener">📰 NPR: Teachers Say AI Will Eclipse the Internet</a>
           <a href="https://www.schools.nyc.gov/about-us/vision-and-mission/artificial-intelligence/guidance-on-artificial-intelligence" target="_blank" rel="noopener">📋 NYC Public Schools AI Guidance</a>
           <a href="https://edtechmagazine.com/k12/article/2026/01/ai-tools-teachers-drive-efficiencies-perfcon" target="_blank" rel="noopener">⚙️ EdTech: AI Tools That Save Teacher Time</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -5582,7 +5921,7 @@
           <a href="https://www.winssolutions.org/nyc-schools-ai-policy-software-freeze/" target="_blank" rel="noopener">⏸️ NYC Software Purchasing Freeze Explained</a>
           <a href="https://campustechnology.com/articles/2026/06/01/ai-budgets-in-education-show-no-sign-of-decline.aspx" target="_blank" rel="noopener">📊 AI Budgets in Education Show No Sign of Decline</a>
           <a href="https://edsource.org/2026/newsom-budget-education-funding/761141" target="_blank" rel="noopener">💰 EdSource: Newsom's Final Education Budget</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ InspiredBI Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -5667,7 +6006,7 @@
           <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">📰 Anthropic Newsroom</a>
           <a href="https://claude.ai" target="_blank" rel="noopener">🚀 Try Claude Free</a>
           <a href="https://aiadvocates.buzzsprout.com/" target="_blank" rel="noopener">🎙️ AI Advocates Podcast</a>
-          <a href="https://inspiredbi.org/free-tools.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
+          <a href="https://inspiredbi.org/free-resources.html" target="_blank" rel="noopener">🛠️ 50+ Free AI Tools</a>
         </div>
       </div>
     </section>
@@ -5681,6 +6020,8 @@
 <section class="archive-section">
   <h2>📂 Past Issues</h2>
   <ul class="archive-list" id="archive-list">
+    <li><a href="#week-2026-11-02">📅 Issue #20 - Week of November 2, 2026 <span style="margin-left:auto;font-size:.8rem;color:#aaa;">Learning AI Outside Class</span></a></li>
+    <li><a href="#week-2026-10-26">📅 Issue #19 - Week of October 26, 2026 <span style="margin-left:auto;font-size:.8rem;color:#aaa;">Policies, Opt-Outs &amp; Parent Rights</span></a></li>
     <li><a href="#week-2026-10-19">📅 Issue #18 - Week of October 19, 2026 <span style="margin-left:auto;font-size:.8rem;color:#aaa;">Feedback That Moves</span></a></li>
     <li><a href="#week-2026-10-12">📅 Issue #17 - Week of October 12, 2026 <span style="margin-left:auto;font-size:.8rem;color:#aaa;">Boards Write the Rules</span></a></li>
     <li><a href="#week-2026-10-05">📅 Issue #16 - Week of October 5, 2026 <span style="margin-left:auto;font-size:.8rem;color:#aaa;">Design Beats Detection</span></a></li>
@@ -5731,7 +6072,7 @@
       if (!label) return;
       var tag = document.createElement('div');
       tag.className = 'week-tag';
-      tag.textContent = '\U0001F4C5 ' + label;
+      tag.textContent = '📅 ' + label;
       var body = sec.querySelector('.audience-body') || sec;
       body.insertBefore(tag, body.firstChild);
     });
