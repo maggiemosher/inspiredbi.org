@@ -100,6 +100,12 @@
       keys: 'compare comparison versus features pricing which tool best tool chatgpt claude gemini copilot perplexity schoolai magicschool mizou'
     },
     {
+      title: 'Projects & Research',
+      url: 'projects.html',
+      desc: 'Projects and research: grade-level ELA standards visualization, systematic review tools, AI guides, and the E2A grant prototype.',
+      keys: 'projects research prototypes grade level indicators standards ksde ela vertical alignment change how we assess systematic review review auditor tool auditor prisma amstar robis where does it come from e2a evidence to action ci3t grant reviewer ies multi-agent wolfpack what is ai compare sample code leadership faculty tracker'
+    },
+    {
       title: 'References',
       url: 'references.html',
       desc: 'Research references, citations, and peer-reviewed publications on AI in education.',

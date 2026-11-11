@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<!--
+  Projects & Research · InspiredBI
+  GitHub: save this file as  projects.html  in the main folder of the inspiredbi.org repository
+          (same folder as index.html). Live URL: https://inspiredbi.org/projects
+  Linked from: index.html footer → Connect column → "Projects & Research"
+  To add a project later: copy one <article class="project-card"> block and change the text and link.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Projects and research from InspiredBI and Dr. Maggie Mosher: grade-level standards visualizations, systematic review tools, AI guides, and grant prototypes." />
+  <title>Projects &amp; Research — InspiredBI</title>
+  <link rel="icon" href="images/logo-banner.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    /* ── Design Tokens (same as index.html) ── */
+    :root {
+      --clr-navy:       #0f2444;
+      --clr-blue:       #1a4b8c;
+      --clr-teal:       #0891b2;
+      --clr-teal-dark:  #0e7490;
+      --clr-teal-light: #e0f2fe;
+      --clr-gold:       #f59e0b;
+      --clr-gold-light: #fffbeb;
+      --clr-white:      #ffffff;
+      --clr-off-white:  #f8fafc;
+      --clr-gray-100:   #f1f5f9;
+      --clr-gray-300:   #cbd5e1;
+      --clr-gray-500:   #64748b;
+      --clr-gray-700:   #334155;
+      --shadow-sm:  0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+      --shadow-xl:  0 20px 40px rgba(0,0,0,.12);
+      --radius-md:  12px;
+      --radius-lg:  20px;
+      --radius-full: 9999px;
+      --transition: 0.25s ease;
+      --max-w: 1160px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--clr-gray-700);
+      background: var(--clr-off-white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a   { color: inherit; text-decoration: none; }
+    a:focus-visible, button:focus-visible, input:focus-visible {
+      outline: 3px solid var(--clr-gold);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+    .skip-link {
+      position: absolute; left: 12px; top: -60px; z-index: 300;
+      background: var(--clr-gold); color: var(--clr-navy);
+      padding: 10px 18px; border-radius: var(--radius-full); font-weight: 700;
+    }
+    .skip-link:focus { top: 12px; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+    }
+
+    /* ── NAV (solid, matches index.html when scrolled) ── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0 24px;
+      background: rgba(15,36,68,.97);
+      box-shadow: 0 2px 20px rgba(0,0,0,.2);
+    }
+    .nav__inner {
+      max-width: var(--max-w);
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      height: 72px;
+    }
+    .nav__logo-img { height: 52px; width: auto; object-fit: contain; }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+    }
+    .nav__links a {
+      font-size: .9375rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.8);
+      white-space: nowrap;
+      transition: color var(--transition);
+    }
+    .nav__links a:hover { color: var(--clr-white); }
+    .nav__cta {
+      font-size: .875rem !important;
+      font-weight: 600 !important;
+      padding: 10px 22px;
+      border: 1.5px solid rgba(255,255,255,.4);
+      border-radius: var(--radius-full);
+      color: var(--clr-white) !important;
+    }
+    .nav__cta:hover { background: var(--clr-teal); border-color: var(--clr-teal); }
+
+    /* ── NAV SEARCH (uses search.js, same as index.html) ── */
+    .nav__search-wrap { position: relative; display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    #site-search-input {
+      width: 148px; padding: 7px 16px;
+      border: 1.5px solid rgba(255,255,255,0.25); border-radius: 9999px;
+      background: rgba(255,255,255,0.1); color: #fff;
+      font-size: 0.8125rem; font-family: 'Inter', sans-serif; outline: none;
+      transition: width 0.25s, border-color 0.25s, background 0.25s;
+    }
+    #site-search-input::placeholder { color: rgba(255,255,255,0.6); }
+    #site-search-input:focus { width: 192px; border-color: rgba(245,158,11,0.65); background: rgba(255,255,255,0.15); }
+    .nav__search-btn {
+      padding: 7px 14px; background: var(--clr-gold); color: var(--clr-navy);
+      border: none; border-radius: 9999px; font-size: 0.8125rem; font-weight: 700;
+      cursor: pointer; font-family: 'Inter', sans-serif;
+    }
+    .nav__search-btn:hover { background: #d97706; }
+    #search-dropdown {
+      display: none; position: absolute; top: calc(100% + 10px); right: 0; width: 320px;
+      background: #fff; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      border: 1px solid #e2e8f0; z-index: 300; max-height: 400px; overflow-y: auto;
+    }
+
+    /* ── Mobile menu ── */
+    .nav__hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+    .nav__hamburger span { display: block; width: 24px; height: 2px; background: var(--clr-white); border-radius: 2px; }
+    .nav__mobile {
+      display: none; flex-direction: column;
+      background: var(--clr-navy); position: absolute; top: 72px; left: 0; right: 0;
+      padding: 12px 24px 24px; border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .nav__mobile.open { display: flex; }
+    .nav__mobile a { padding: 14px 0; font-size: 1rem; font-weight: 500; color: rgba(255,255,255,.85); border-bottom: 1px solid rgba(255,255,255,.08); }
+    .nav__mobile a:last-child { border: none; }
+
+    /* ── HERO ── */
+    .page-hero {
+      position: relative;
+      overflow: hidden;
+      color: var(--clr-white);
+      padding: 72px 24px 64px;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(8,145,178,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 10% 80%, rgba(245,158,11,.1) 0%, transparent 60%),
+        linear-gradient(135deg, #0f2444 0%, #1a3a6b 50%, #0c2d55 100%);
+    }
+    .page-hero__inner { max-width: var(--max-w); margin-inline: auto; position: relative; }
+    .page-hero__badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(8,145,178,.15); border: 1px solid rgba(8,145,178,.3);
+      color: #67e8f9; font-size: .8125rem; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; padding: 7px 16px; border-radius: var(--radius-full); margin-bottom: 20px;
+    }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 800; line-height: 1.12; margin-bottom: 18px;
+    }
+    .page-hero h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--clr-teal), var(--clr-gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .page-hero p { font-size: 1.125rem; color: rgba(255,255,255,.75); max-width: 680px; line-height: 1.75; }
+    .jump-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .jump-links a {
+      padding: 9px 18px; border-radius: var(--radius-full);
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2);
+      font-size: .875rem; font-weight: 600; color: var(--clr-white);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .jump-links a:hover { background: rgba(8,145,178,.3); border-color: var(--clr-teal); }
+
+    /* ── Sections ── */
+    .projects { max-width: var(--max-w); margin-inline: auto; padding: 64px 24px 24px; }
+    .project-group { margin-bottom: 64px; scroll-margin-top: 90px; }
+    .section-label {
+      display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--clr-teal-dark); background: var(--clr-teal-light);
+      padding: 4px 14px; border-radius: var(--radius-full); margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      font-weight: 800; color: var(--clr-navy); line-height: 1.2; margin-bottom: 10px;
+    }
+    .section-intro { font-size: 1rem; color: var(--clr-gray-500); max-width: 720px; margin-bottom: 28px; line-height: 1.7; }
+
+    /* ── Project cards ── */
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+    .project-card {
+      background: var(--clr-white);
+      border-radius: var(--radius-lg);
+      padding: 30px 28px;
+      box-shadow: var(--shadow-sm);
+      border: 1.5px solid transparent;
+      display: flex; flex-direction: column;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+    .project-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); border-color: var(--clr-teal); }
+    .project-card--featured { background: linear-gradient(135deg, var(--clr-navy), var(--clr-blue)); color: var(--clr-white); }
+    .project-card--featured:hover { border-color: var(--clr-gold); }
+    .project-card__top { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .project-card__icon {
+      width: 52px; height: 52px; border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; background: var(--clr-teal-light); flex-shrink: 0;
+    }
+    .project-card--featured .project-card__icon { background: rgba(255,255,255,.12); }
+    .tag {
+      display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: var(--radius-full); background: var(--clr-gray-100); color: var(--clr-gray-700);
+    }
+    .tag--lock { background: var(--clr-gold-light); color: #8a5a00; }
+    .project-card--featured .tag { background: rgba(255,255,255,.14); color: #fff; }
+    .project-card--featured .tag--lock { background: var(--clr-gold); color: var(--clr-navy); }
+    .project-card h3 { font-size: 1.1875rem; font-weight: 700; color: var(--clr-navy); margin-bottom: 10px; line-height: 1.3; }
+    .project-card--featured h3 { color: var(--clr-white); }
+    .project-card p { font-size: .9375rem; color: var(--clr-gray-500); line-height: 1.7; margin-bottom: 16px; }
+    .project-card--featured p { color: rgba(255,255,255,.78); }
+    .project-card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-bottom: 22px; }
+    .project-card li { display: flex; gap: 8px; font-size: .875rem; color: var(--clr-gray-700); }
+    .project-card li::before { content: '✓'; color: var(--clr-teal); font-weight: 700; flex-shrink: 0; }
+    .project-card--featured li { color: rgba(255,255,255,.85); }
+    .project-card--featured li::before { color: var(--clr-gold); }
+    .project-card__actions { margin-top: auto; display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 22px; border-radius: var(--radius-full);
+      font-size: .875rem; font-weight: 700; border: 2px solid transparent;
+      transition: all var(--transition);
+    }
+    .btn-primary { background: var(--clr-teal-dark); color: var(--clr-white); }
+    .btn-primary:hover { background: var(--clr-navy); transform: translateY(-2px); }
+    .btn-gold { background: var(--clr-gold); color: var(--clr-navy); }
+    .btn-gold:hover { background: #d97706; transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--clr-navy); border-color: var(--clr-gray-300); }
+    .btn-outline:hover { border-color: var(--clr-teal); color: var(--clr-teal-dark); }
+
+    .note {
+      background: var(--clr-gold-light); border-left: 4px solid var(--clr-gold);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 16px 20px; font-size: .9rem; color: var(--clr-gray-700); margin-top: 8px;
+    }
+
+    /* ── FOOTER (same as index.html) ── */
+    .footer { background: var(--clr-navy); color: rgba(255,255,255,.7); padding: 60px 24px 36px; margin-top: 40px; }
+    .footer__inner { max-width: var(--max-w); margin-inline: auto; }
+    .footer__top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+      padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer__brand .nav__logo-img { margin-bottom: 16px; }
+    .footer__tagline { font-size: .9375rem; line-height: 1.7; color: rgba(255,255,255,.6); max-width: 280px; }
+    .footer__col-title { font-size: .8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--clr-white); margin-bottom: 18px; }
+    .footer__links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer__links a { font-size: .9375rem; color: rgba(255,255,255,.6); transition: color var(--transition); }
+    .footer__links a:hover { color: var(--clr-teal); }
+    .footer__links a[aria-current="page"] { color: var(--clr-gold); font-weight: 600; }
+    .footer__bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 28px; flex-wrap: wrap; gap: 12px; }
+    .footer__copy { font-size: .875rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1180px) {
+      .nav__search-wrap { display: none; }
+    }
+    @media (max-width: 1024px) {
+      .footer__top { grid-template-columns: 1fr 1fr; }
+      .nav__links { gap: 16px; }
+    }
+    @media (max-width: 860px) {
+      .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
+      .nav__search-wrap { display: none; }
+    }
+    @media (max-width: 480px) {
+      .project-grid { grid-template-columns: 1fr; }
+      .footer__top { grid-template-columns: 1fr; }
+      .footer__bottom { flex-direction: column; text-align: center; }
+      .page-hero { padding: 56px 20px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav" aria-label="Main">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="images/logo-banner.png" alt="InspiredBI home" class="nav__logo-img" />
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#AI101">AI 101</a></li>
+        <li><a href="index.html#impact">Impact</a></li>
+        <li><a href="free-resources.html">Free Tools</a></li>
+        <li><a href="safe-secure.html">Safe &amp; Secure AI</a></li>
+        <li><a href="weekly-news.html">AI Weekly</a></li>
+        <li><a href="index.html#contact" class="nav__cta">Get In Touch</a></li>
+      </ul>
+      <div class="nav__search-wrap" id="search-wrap">
+        <input type="text" id="site-search-input" placeholder="Search site…" autocomplete="off" aria-label="Search InspiredBI" />
+        <button class="nav__search-btn" id="search-btn" aria-label="Search">Search</button>
+        <div id="search-dropdown"></div>
+      </div>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="mobileMenu">
+      <a href="index.html#about">About</a>
+      <a href="index.html#AI101">AI 101</a>
+      <a href="index.html#impact">Impact</a>
+      <a href="free-resources.html">Free Tools</a>
+      <a href="safe-secure.html">Safe &amp; Secure AI</a>
+      <a href="weekly-news.html">AI Weekly</a>
+      <a href="index.html#contact">Get In Touch</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="page-hero">
+    <div class="page-hero__inner">
+      <div class="page-hero__badge">Projects &amp; Research</div>
+      <h1>Ideas We Are <em>Building</em> &amp; Testing</h1>
+      <p>Interactive tools, research prototypes, and guides from Dr. Maggie Mosher and InspiredBI. Items marked 🔒 open a sign-in screen and need an access code. Contact us if you need one.</p>
+      <nav class="jump-links" aria-label="Jump to a section">
+        <a href="#grade-level">📈 Grade-Level Standards</a>
+        <a href="#systematic-review">🔎 Systematic Review Tools</a>
+        <a href="#more-projects">🧰 More Projects &amp; Guides</a>
+        <a href="#e2a">🧭 E2A Grant Prototype</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="projects" tabindex="-1">
+
+    <!-- ══════════ 1. GRADE-LEVEL STANDARDS ══════════ -->
+    <section class="project-group" id="grade-level" aria-labelledby="h-grade">
+      <div class="section-label">Curriculum &amp; Assessment</div>
+      <h2 class="section-title" id="h-grade">Grade-Level Standards &amp; Indicators</h2>
+      <p class="section-intro">See how Kansas ELA standards connect across domains and build from one grade level to the next. This project shows how AI can help transform curriculum and assessment.</p>
+      <div class="project-grid">
+        <article class="project-card project-card--featured">
+          <div class="project-card__top">
+            <div class="project-card__icon" aria-hidden="true">📈</div>
+            <span class="tag">Interactive</span>
+          </div>
+          <h3>KSDE ELA Standards: Grade-Level Connection Visualization</h3>
+          <p>Interactive maps of the Kansas ELA standards: how the domains connect, how one standard grows across grade levels, and how standards link to careers and assessment.</p>
+          <ul>
+            <li>Standards network across domains</li>
+            <li>Vertical alignment across grade levels</li>
+            <li>Standard → career connections</li>
+            <li>Assessment system, real-world &amp; PBL views</li>
+          </ul>
+          <div class="project-card__actions">
+            <a class="btn btn-gold" href="standards-visualization.html">Open the visualization →</a>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-card__top">
+            <div class="project-card__icon" aria-hidden="true">📝</div>
+            <span class="tag">Project overview</span>
+          </div>
+          <h3>Change How We Assess, Please</h3>
+          <p>The project home for the standards work: two interactive tools built from balanced assessment research, with an explanation of how they fit a data-driven instructional cycle.</p>
+          <ul>
+            <li>Balanced assessments with KAP</li>
+            <li>K–12 progression &amp; career links</li>
+            <li>Full source citations</li>
+          </ul>
+          <div class="project-card__actions">
+            <a class="btn btn-primary" href="change-assessment.html">Open project →</a>
+            <a class="btn btn-outline" href="standards-citations.html">Source citations</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════ 2. SYSTEMATIC REVIEW TOOLS ══════════ -->
+    <section class="project-group" id="systematic-review" aria-labelledby="h-review">
+      <div class="section-label">Research Tools</div>
+      <h2 class="section-title" id="h-review">Systematic Review &amp; Research Tools</h2>
+      <p class="section-intro">Tools for appraising systematic reviews and the AI tools researchers use to produce them. Each opens a sign-in screen first.</p>
+      <div class="project-grid">
+        <article class="project-card project-card--featured">
+          <div class="project-card__top">
+            <div class="project-card__icon" aria-hidden="true">🔎</div>
+            <span class="tag tag--lock">🔒 Access code</span>
+          </div>
+          <h3>The Review Auditor</h3>
+          <p>Scores a published systematic review against PRISMA 2020, AMSTAR 2, and ROBIS, then tells you whether its conclusions are safe to rely on.</p>
+          <ul>
+            <li>PRISMA 2020 reporting check</li>
+            <li>AMSTAR 2 quality appraisal</li>
+            <li>ROBIS risk of bias</li>
+          </ul>
+          <div class="project-card__actions">
+            <a class="btn btn-gold" href="tools/review-auditor.html">Open the Review Auditor →</a>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-card__top">
+            <div class="project-card__icon" aria-hidden="true">🛠️</div>
+            <span class="tag tag--lock">🔒 Access code</span>
+          </div>
+          <h3>The Tool Auditor</h3>
+          <p>Scores any AI research tool and shows which stage of a literature review it is actually fit for, from searching through to reporting.</p>
+          <ul>
+            <li>Stage-by-stage fitness ratings</li>
+            <li>AI use disclosure guidance</li>
+          </ul>
+          <div class="project-card__actions">
+            <a class="btn btn-primary" href="tools/tool-auditor.html">Open the Tool Auditor →</a>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-card__top">
+            <div class="project-card__icon" aria-hidden="true">🌐</div>
+            <span class="tag tag--lock">🔒 Access code</span>
+          </div>
+          <h3>Where Does It Come From?</h3>
+          <p>Who built an AI tool, why, where your input goes, and whether it trains on you. Each tool is carded from its own published policies.</p>
+          <ul>
+            <li>Ownership &amp; business model</li>
+            <li>Where your data goes</li>
+            <li>Training on your input</li>
+          </ul>
+          <div class="project-card__actions">
+            <a class="btn btn-primary" href="tools/where-does-it-come-from.html">Open the tool →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════ 3. MORE PROJECTS & GUIDES ══════════ -->
+    <section class="project-group" id="more-projects" aria-labelledby="h-more">
+      <div class="section-label">More From InspiredBI</div>
+      <h2 class="section-title" id="h-more">More Projects &amp; Guides</h2>
+      <p class="section-intro">Guides, comparisons, and tools built for partner institutions, school leaders, and educators.</p>
+      <div class="project-grid">
+        <article class="project-card">
+          <div class="project-card__top">
+            <div class="project-card__icon" aria-hidden="true">🐺</div>
+            <span class="tag">Guide</span>
+          </div>
+          <h3>What Is AI? The Wolfpack's Guide</h3>
+          <p>A jargon-free walkthrough of how AI works, built for Cheyney University staff and students: GenAI, LLMs, multimodal models, RAG, and agents.</p>
+          <div class="project-card__actions">
+            <a class="btn btn-primary" href="what-is-ai.html">Open guide →</a>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-card__top">
+            <div class="project-card__icon" aria-hidden="true">⚖️</div>
+            <span class="tag">Comparison</span>
+          </div>
+          <h3>Compare AI Platforms</h3>
+          <p>Generative vs. agentic AI from Google, Anthropic, Microsoft, and Apple, laid out as a full ecosystem matrix for educators.</p>
+          <div class="project-card__actions">
+            <a class="btn btn-primary" href="compare.html">Open comparison →</a>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-card__top">
+            <div class="project-card__icon" aria-hidden="true">🔑</div>
+            <span class="tag">How-to</span>
+          </div>
+          <h3>How to Access Free AI</h3>
+          <p>Step-by-step access to Gemini for Education, NotebookLM, and Google Workspace AI features.</p>
+          <div class="project-card__actions">
+            <a class="btn btn-primary" href="how-to-access.html">Open how-to →</a>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-card__top">
+            <div class="project-card__icon" aria-hidden="true">🏛️</div>
+            <span class="tag">Video path</span>
+          </div>
+          <h3>Leading Through the Age of AI</h3>
+          <p>A sequenced learning path of recent videos for leaders driving process automation and operational change.</p>
+          <div class="project-card__actions">
+            <a class="btn btn-primary" href="leadership.html">Open learning path →</a>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-card__top">
+            <div class="project-card__icon" aria-hidden="true">💻</div>
+            <span class="tag">Code</span>
+          </div>
+          <h3>Sample Code for Educators</h3>
+          <p>Ready-to-use CLAUDE.md files for building AI websites, syllabus chatbots, feedback pipelines, and course Q&amp;A agents with Claude Code.</p>
+          <div class="project-card__actions">
+            <a class="btn btn-primary" href="sample-code.html">Open sample code →</a>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-card__top">
+            <div class="project-card__icon" aria-hidden="true">🗂️</div>
+            <span class="tag tag--lock">🔒 Access code</span>
+          </div>
+          <h3>Faculty Activity Tracker</h3>
+          <p>Tracks CV activities and reformats them for KU Faculty Insight import.</p>
+          <div class="project-card__actions">
+            <a class="btn btn-primary" href="tools/faculty-activity-tracker.html">Open tracker →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════ 4. E2A GRANT PROTOTYPE ══════════ -->
+    <section class="project-group" id="e2a" aria-labelledby="h-e2a">
+      <div class="section-label">Grant Prototype</div>
+      <h2 class="section-title" id="h-e2a">E2A: Evidence-to-Action</h2>
+      <p class="section-intro">A concept prototype for grant reviewers: an AI-enabled decision-support platform for integrated tiered systems (Ci3T).</p>
+      <div class="project-grid">
+        <article class="project-card project-card--featured">
+          <div class="project-card__top">
+            <div class="project-card__icon" aria-hidden="true">🧭</div>
+            <span class="tag tag--lock">🔒 Reviewer access code</span>
+          </div>
+          <h3>E2A: Evidence-to-Action AI Enhanced Learning Solutions</h3>
+          <p>A unified, multi-agent system that connects school data, Ci3T research evidence, and implementation planning. Four specialized agents work under a governance layer, the Grounded Plane, that keeps every output grounded, private, and human-approved.</p>
+          <ul>
+            <li>Diagnostic Agent: overnight data review</li>
+            <li>Synthesis Agent: evidence + local curriculum</li>
+            <li>Planning Agent: implementation blueprints</li>
+            <li>Evaluation Agent: fidelity, outcomes, attendance</li>
+          </ul>
+          <div class="project-card__actions">
+            <a class="btn btn-gold" href="e2a.html">Open the E2A prototype →</a>
+          </div>
+        </article>
+      </div>
+      <p class="note">Need an access code for any 🔒 item? Email <a href="mailto:contactinspiredbi@gmail.com" style="color:var(--clr-teal-dark);font-weight:600;text-decoration:underline;">contactinspiredbi@gmail.com</a>.</p>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="index.html"><img src="images/logo-banner.png" alt="InspiredBI home" class="nav__logo-img" /></a>
+          <p class="footer__tagline">
+            Empowering students to eagerly learn, authentically communicate,
+            boldly collaborate, and ignite a ripple effect of inspiration in others.
+          </p>
+        </div>
+        <div>
+          <div class="footer__col-title">Navigate</div>
+          <ul class="footer__links">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#about">About Us</a></li>
+            <li><a href="index.html#AI101">AI 101</a></li>
+            <li><a href="index.html#impact">Our Impact</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="references.html">References</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__col-title">AI 101</div>
+          <ul class="footer__links">
+            <li><a href="index.html#AI101">Free How To Use AI</a></li>
+            <li><a href="index.html#curriculum">Curriculum and Teaching</a></li>
+            <li><a href="tutorials.html">Tutorials</a></li>
+            <li><a href="chatbots.html">Create a Chatbot</a></li>
+            <li><a href="agentic.html">Build an Agent</a></li>
+            <li><a href="curriculum.html">Curriculum Page</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__col-title">Connect</div>
+          <ul class="footer__links">
+            <li><a href="projects.html" aria-current="page">Projects &amp; Research</a></li>
+            <li><a href="index.html#contact">Book a Consultation</a></li>
+            <li><a href="index.html#contact">Partner With Us</a></li>
+            <li><a href="professional-development.html">Partner Institutions Password Pages</a></li>
+            <li><a href="index.html#free-tools-tips">Recent Presentations</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <div class="footer__copy">
+          &copy; 2026 InspiredBI.org &nbsp;&mdash;&nbsp; Education Meets Innovation
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', open);
+    });
+
+    // Smooth scroll for the jump links (offset for the sticky nav)
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 84, behavior: 'smooth' });
+        if (target.id === 'main') target.focus();
+      });
+    });
+  </script>
+  <script src="search.js"></script>
+</body>
+</html>
